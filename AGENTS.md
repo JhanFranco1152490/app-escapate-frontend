@@ -58,3 +58,38 @@ vive en `AGENTS.md` del workspace, si lo tienes al lado)
   tiene las features especificadas — leer antes de construir una pantalla nueva. El
   "Portal de Asesores" (login + módulos por rol: Administrador, Asesor comercial,
   Encargado de proveedores y alianzas, Operativo) es la base de toda la interfaz.
+
+### Reglas de diseño del código
+
+- **Una responsabilidad por archivo**, un componente por archivo (kebab-case), ~150 líneas
+  como referencia: si crece, se parte.
+- **No duplicar.** La segunda vez que aparece algo se extrae: a `components/` si es
+  visual y no depende de un dominio, a `lib/` si es lógica.
+- **Páginas delgadas.** Un `page.tsx` monta una pantalla de `features/`; no lleva lógica.
+- **Capas en una sola dirección**: `app` → `features` → `components` → `lib`. Un dominio
+  nunca importa de la carpeta de otro; si dos lo necesitan, sube a `components/` o `lib/`.
+- **Elegir la mejor opción, no la librería por defecto.** Ante una necesidad técnica se
+  comparan las alternativas reales (lo que trae Next.js, una librería, código propio) y se
+  deja escrito en el PR lo elegido y lo descartado.
+
+### Antes de proponer un PR
+
+El agente corre y deja en verde, y si algo falla lo corrige o lo dice en el PR:
+
+1. `pnpm exec prettier --check .`
+2. `pnpm lint`
+3. `pnpm exec tsc --noEmit`
+4. `pnpm build`
+5. Revisar el diff completo buscando bugs: casos borde, código duplicado, datos personales
+   en logs o pruebas, tests que no afirman nada.
+
+(`pnpm test` se suma cuando se instale el runner de pruebas del frontend.)
+
+### Trampas conocidas
+
+- No leer el texto del error de la API para decidir lógica (cambia con el idioma y la
+  redacción): usar el código del error o el status.
+- No duplicar el estado del servidor en `useState`: se lee de la consulta. Los únicos
+  borradores locales aceptables son lo que la persona está escribiendo y la ficha con la que
+  se abre un formulario de edición (fijada al montar, para no pisar con valores viejos lo que
+  otra persona guardó).
