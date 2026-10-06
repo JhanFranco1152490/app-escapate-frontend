@@ -48,16 +48,74 @@ vive en `AGENTS.md` del workspace, si lo tienes al lado)
 
 ## Específico de este repo
 
-- Stack instalado hoy: Next.js + React + TypeScript + Tailwind v4 + ESLint + Prettier
-  (Husky + lint-staged en pre-commit), pnpm. Aún **sin** librería de estado de
-  servidor/formularios/validación — se añaden cuando la primera feature real las necesite,
-  no antes.
-- Estructura: App Router en `src/app/`.
 - Si tienes el repo workspace (`app escapate/`) al lado: `docs/CONTEXTO.md` tiene el
   dominio (CRM + cotizaciones + pagos de una agencia de viajes, 36 RF/51 HU) y `specs/`
   tiene las features especificadas — leer antes de construir una pantalla nueva. El
   "Portal de Asesores" (login + módulos por rol: Administrador, Asesor comercial,
   Encargado de proveedores y alianzas, Operativo) es la base de toda la interfaz.
+
+### Stack y estructura
+
+Next.js 16 (App Router) + React 19 + TypeScript + Tailwind v4, pnpm. TanStack Query (datos
+del servidor), `nuqs` (filtros y paginación en la URL), react-hook-form + zod (formularios),
+date-fns + `@date-fns/tz` (fechas), shadcn/ui sobre Base UI (componentes). Vitest + Testing
+Library + MSW (pruebas). ESLint + Prettier con el plugin de Tailwind, en pre-commit con
+Husky + lint-staged.
+
+```
+src/
+├── app/                  rutas; layout.tsx monta providers.tsx (QueryClient + NuqsAdapter)
+├── features/<dominio>/   api.ts, schemas.ts, components/, hooks use-*.ts
+├── components/
+│   ├── ui/               solo shadcn/ui
+│   └── …                 compartidos por más de un dominio
+├── lib/
+│   ├── api/              client.ts, errors.ts, form-errors.ts, query-keys.ts, schema.d.ts
+│   ├── format/           dates.ts, money.ts
+│   ├── query-client.ts   reintentos e invalidación de la sesión ante un 401
+│   └── env.ts            NEXT_PUBLIC_API_URL (el build falla si falta en producción)
+└── test/                 render.tsx, server.ts, handlers.ts
+```
+
+Rutas visibles en español (`/clientes`, `/cotizaciones/[id]`); código en inglés.
+
+### Capa de API
+
+- `lib/api/client.ts` (`apiFetch`) es el **único** lugar que llama a `fetch`: prefija la
+  URL, envía las cookies, agrega `X-CSRF-Token` en mutaciones (lo pide a
+  `GET /api/auth/csrf` una vez) y, ante un `401` de un endpoint que usa el token de acceso,
+  renueva la sesión una sola vez y reintenta. El cierre de sesión espera a una renovación en
+  vuelo.
+- Todo error sale como `ApiError { status, code, fields, message }`; un 2xx que no es JSON
+  da `unexpected_response`, y sin red llega un `TypeError` (`isNetworkFailure`).
+- Tipos de la API: solo de `lib/api/schema.d.ts`, generado con `pnpm gen:api` (backend local
+  con `DEBUG=true`). Nunca se escriben a mano; se regenera en el mismo PR que cambia la API.
+- Por dominio, `features/<dominio>/api.ts`: alias de tipos de `schema.d.ts`, fetchers como
+  constantes **fuera** de los hooks (`const fetchClients = () => apiFetch<...>('/api/clients')`),
+  hooks `useX` con TanStack Query y claves de `lib/api/query-keys.ts`.
+- Un `401` en cualquier consulta o mutación invalida `queryKeys.session()` desde
+  `lib/query-client.ts`; la consulta de la sesión no se invalida a sí misma.
+
+### Datos y formularios
+
+- Formularios con react-hook-form + zod (schemas en `features/<dominio>/schemas.ts`); los
+  errores por campo del servidor se aplican con `applyApiFieldErrors`.
+- Filtros y paginación en la URL con `nuqs`.
+- Fechas solo desde `lib/format/dates.ts` y montos solo desde `lib/format/money.ts`: los
+  componentes no llaman a `Intl` ni a `new Date()`. Los montos llegan en pesos enteros y el
+  frontend no calcula precios (lo hace el backend).
+
+### Pruebas
+
+- `pnpm test` (una vez), `pnpm test:watch`, `pnpm test:coverage`. Cada test vive junto al
+  archivo que prueba (`x.test.ts(x)`) e importa `describe`/`it`/`expect` de `vitest`.
+- Vitest corre en **UTC** a propósito: un test de fechas que pasa en Bogotá y falla en UTC
+  está usando la zona de la máquina.
+- MSW simula la API (`src/test/server.ts`); una petición sin handler hace fallar el test.
+  Los handlers propios se declaran con `server.use(...)`; `apiUrl(path)` arma la URL.
+- `renderWithProviders` (`src/test/render.tsx`) monta QueryClient de pruebas + adaptador de
+  `nuqs`.
+- Datos inventados (`@example.com`): nunca datos personales reales.
 
 ### Reglas de diseño del código
 
@@ -78,14 +136,23 @@ El agente corre y deja en verde, y si algo falla lo corrige o lo dice en el PR:
 
 1. `pnpm exec prettier --check .`
 2. `pnpm lint`
-3. `pnpm exec tsc --noEmit`
-4. `pnpm build`
-5. Revisar el diff completo buscando bugs: casos borde, código duplicado, datos personales
+3. `pnpm typecheck` (`next typegen && tsc --noEmit`)
+4. `pnpm test`
+5. `NEXT_PUBLIC_API_URL=http://localhost:8000 pnpm build` (no hace falta `.env`)
+6. Si cambió la API, `pnpm gen:api` con el backend en marcha y `DEBUG=true`.
+7. Revisar el diff completo buscando bugs: casos borde, código duplicado, datos personales
    en logs o pruebas, tests que no afirman nada.
 
-(`pnpm test` se suma cuando se instale el runner de pruebas del frontend.)
-
 ### Trampas conocidas
+
+- **No excluir `/api/auth/me` de la renovación de sesión:** es el endpoint que descubre que
+  el token de acceso venció; sin renovación la persona saldría cada vez que vence.
+- **`cn` viene del paquete `cn`** (`import { cn } from 'cn'`); no existe `src/lib/utils.ts`.
+  La versión actual de shadcn ya escribe ese import, pero si algún componente generado trae
+  `@/lib/utils`, se corrige el import en vez de recrear el archivo.
+- **`pnpm-workspace.yaml` → `allowBuilds`:** pnpm 11 falla el `install` (también en el build
+  de despliegue) si una dependencia con script de instalación queda sin decidir. Al agregar
+  una así, marcarla `true` o `false` ahí.
 
 - No leer el texto del error de la API para decidir lógica (cambia con el idioma y la
   redacción): usar el código del error o el status.
