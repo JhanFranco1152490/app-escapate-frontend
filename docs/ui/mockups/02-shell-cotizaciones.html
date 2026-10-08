@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>02 · Cotizaciones · Escápate panel interno</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&amp;display=swap">
+<link rel="stylesheet" href="../design-system/tokens.css">
+<link rel="stylesheet" href="_mockup.css">
+</head>
+<body>
+<div class="mockup-frame" style="width: 1440px; height: 900px; box-sizing: border-box; display: flex; background: rgb(var(--panel-canvas)); color: rgb(var(--panel-ink)); overflow: hidden;">
+
+  <aside style="width: 252px; height: 900px; flex-shrink: 0; box-sizing: border-box; background: rgb(var(--panel-chrome)); color: rgb(var(--panel-chrome-ink)); border-right: 1px solid rgb(var(--panel-chrome-line) / 0.16); display: flex; flex-direction: column; padding: 26px 0 20px;">
+
+    <div style="padding: 0 24px 26px;">
+      <img class="brand-logo" src="../assets/escapate-logo-mono-white.png" alt="Escápate — Agencia de viajes" style="width: 148px; height: 90px; object-fit: contain; object-position: left center;">
+    </div>
+
+    <nav aria-label="Navegación principal" style="display: flex; flex-direction: column; gap: 26px; flex-grow: 1;">
+
+      <div style="display: flex; flex-direction: column; gap: 3px;">
+        <div style="padding: 0 24px 9px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(var(--panel-chrome-line) / 0.72);">Operación</div>
+
+        <a href="#panel" style="display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 24px; color: rgb(var(--panel-chrome-line) / 0.72);">
+          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.1em; width: 16px; flex-shrink: 0;">01</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+          <span style="font-size: 14px;">Resumen</span>
+        </a>
+
+        <a href="#clientes" style="display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 24px; color: rgb(var(--panel-chrome-line) / 0.72);">
+          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.1em; width: 16px; flex-shrink: 0;">02</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span style="font-size: 14px;">Clientes</span>
+        </a>
+
+        <a href="#cotizaciones" aria-current="page" style="display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 24px; background: rgb(var(--panel-chrome-active)); color: rgb(var(--panel-chrome-ink)); box-shadow: inset 3px 0 0 0 #E8732A;">
+          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.1em; width: 16px; flex-shrink: 0; color: #E8732A;">03</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+          <span style="font-size: 14px; font-weight: 500;">Cotizaciones</span>
+          <span style="margin-left: auto; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10.5px; color: rgb(var(--panel-chrome-line) / 0.72);">38</span>
+        </a>
+
+        <a href="#reservas" style="display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 24px; color: rgb(var(--panel-chrome-line) / 0.72);">
+          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.1em; width: 16px; flex-shrink: 0;">04</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 22h20"/><path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z"/></svg>
+          <span style="font-size: 14px;">Reservas</span>
+        </a>
+
+        <a href="#proveedores" style="display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 24px; color: rgb(var(--panel-chrome-line) / 0.72);">
+          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.1em; width: 16px; flex-shrink: 0;">05</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/></svg>
+          <span style="font-size: 14px;">Proveedores</span>
+        </a>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 3px;">
+        <div style="display: flex; align-items: center; gap: 8px; padding: 0 24px 9px;">
+          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(var(--panel-chrome-line) / 0.72);">Administración</span>
+          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 8.5px; letter-spacing: 0.14em; text-transform: uppercase; padding: 2px 6px; border: 1px solid rgb(var(--panel-chrome-line) / 0.16); border-radius: 3px; color: rgb(var(--panel-chrome-line) / 0.72);">Solo admin</span>
+        </div>
+
+        <a href="#usuarios" style="display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 24px; color: rgb(var(--panel-chrome-line) / 0.72);">
+          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.1em; width: 16px; flex-shrink: 0;">06</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 21a8 8 0 0 0-16 0"/><circle cx="10" cy="8" r="5"/><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/></svg>
+          <span style="font-size: 14px;">Usuarios y roles</span>
+        </a>
+
+        <a href="#reportes" style="display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 24px; color: rgb(var(--panel-chrome-line) / 0.72);">
+          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.1em; width: 16px; flex-shrink: 0;">07</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M7 16h2"/><path d="M12 16v-5"/><path d="M17 16V8"/></svg>
+          <span style="font-size: 14px;">Reportes</span>
+        </a>
+      </div>
+    </nav>
+
+    <div style="padding: 16px 24px 0; border-top: 1px solid rgb(var(--panel-chrome-line) / 0.16); display: flex; flex-direction: column; gap: 2px;">
+      <a href="#ayuda" style="display: flex; align-items: center; gap: 11px; height: 40px; color: rgb(var(--panel-chrome-line) / 0.72); font-size: 13px;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+        Ayuda y soporte
+      </a>
+      <a href="#salir" style="display: flex; align-items: center; gap: 11px; height: 40px; color: rgb(var(--panel-chrome-line) / 0.72); font-size: 13px;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+        Cerrar sesión
+      </a>
+    </div>
+  </aside>
+
+  <div style="width: 1188px; height: 900px; display: flex; flex-direction: column; flex-shrink: 0;">
+
+    <header style="height: 72px; flex-shrink: 0; box-sizing: border-box; padding: 0 36px; display: flex; align-items: center; gap: 24px; border-bottom: 1px solid rgb(var(--panel-line) / 0.16);">
+      <div style="position: relative; display: flex; align-items: center; width: 340px;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgb(var(--panel-line) / 0.70)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: absolute; left: 13px;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <label for="topbar-search" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%);">Buscar</label>
+        <input id="topbar-search" type="search" placeholder="Buscar cliente, código o destino" style="width: 100%; height: 40px; box-sizing: border-box; padding: 0 14px 0 40px; background: rgb(var(--panel-field)); border: 1px solid rgb(var(--panel-line) / 0.16); border-radius: 4px; color: rgb(var(--panel-ink)); font-family: 'Inter', sans-serif; font-size: 13.5px;">
+      </div>
+
+      <div style="margin-left: auto; display: flex; align-items: center; gap: 18px;">
+
+        <div role="group" aria-label="Tema de la interfaz" class="theme-switch">
+          <button type="button" data-theme-set="default" aria-pressed="true">Marca</button>
+          <button type="button" data-theme-set="light" aria-pressed="false">Claro</button>
+          <button type="button" data-theme-set="dark" aria-pressed="false">Oscuro</button>
+        </div>
+
+        <button type="button" aria-label="Notificaciones: 3 sin leer" style="position: relative; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; border-radius: 4px; color: rgb(var(--panel-ink));">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg>
+          <span style="position: absolute; top: 9px; right: 10px; width: 7px; height: 7px; border-radius: 50%; background: #E8732A;"></span>
+        </button>
+
+        <div style="width: 1px; height: 28px; background: rgb(var(--panel-line) / 0.16);"></div>
+
+        <button type="button" style="display: flex; align-items: center; gap: 11px; height: 44px; padding: 0 6px 0 0; background: transparent; border: 0; border-radius: 4px; color: rgb(var(--panel-ink));">
+          <span aria-hidden="true" style="width: 34px; height: 34px; border-radius: 50%; background: #E8732A; color: #0C1B2F; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 500;">LP</span>
+          <span style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px;">
+            <span style="font-size: 13.5px; font-weight: 500; line-height: 1;">Laura Pabón</span>
+            <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; line-height: 1; padding: 3px 6px; border-radius: 3px; background: #E8732A; color: #0C1B2F;">Admin</span>
+          </span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgb(var(--panel-line) / 0.70)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main style="flex-grow: 1; box-sizing: border-box; padding: 28px 36px 0; display: flex; flex-direction: column; gap: 24px; overflow: hidden;">
+
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 32px;">
+        <div style="display: flex; flex-direction: column; gap: 9px;">
+          <div style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(var(--panel-line) / 0.70);">Operación / 03</div>
+          <h1 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 40px; line-height: 1; letter-spacing: -0.03em;">Cotizaciones</h1>
+          <p style="margin: 0; font-size: 13.5px; color: rgb(var(--panel-line) / 0.70);">38 abiertas · actualizado hace 4 minutos por M. Villamizar</p>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <button type="button" style="display: flex; align-items: center; gap: 9px; height: 44px; padding: 0 17px; background: transparent; border: 1px solid rgb(var(--panel-line) / 0.16); border-radius: 4px; color: rgb(var(--panel-ink)); font-family: 'Inter', sans-serif; font-size: 13.5px; font-weight: 500;">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+            Exportar
+          </button>
+          <button type="button" style="display: flex; align-items: center; gap: 9px; height: 44px; padding: 0 19px; background: #E8732A; border: 0; border-radius: 4px; color: #0C1B2F; font-family: 'Inter', sans-serif; font-size: 13.5px; font-weight: 600;">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0C1B2F" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+            Nueva cotización
+          </button>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: stretch; border-top: 1px solid rgb(var(--panel-line) / 0.16); border-bottom: 1px solid rgb(var(--panel-line) / 0.16);">
+        <div style="display: flex; flex-direction: column; gap: 5px; padding: 15px 34px 15px 0;">
+          <span style="font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 29px; line-height: 1;">38</span>
+          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(var(--panel-line) / 0.70);">Cotizaciones abiertas</span>
+        </div>
+        <div style="width: 1px; background: rgb(var(--panel-line) / 0.16);"></div>
+        <div style="display: flex; flex-direction: column; gap: 5px; padding: 15px 34px;">
+          <span style="font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 29px; line-height: 1; color: rgb(var(--danger));">6</span>
+          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(var(--panel-line) / 0.70);">Vencen esta semana</span>
+        </div>
+        <div style="width: 1px; background: rgb(var(--panel-line) / 0.16);"></div>
+        <div style="display: flex; flex-direction: column; gap: 5px; padding: 15px 34px;">
+          <span style="font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 29px; line-height: 1;">$ 412.900.000</span>
+          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(var(--panel-line) / 0.70);">Valor en curso · COP</span>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+        <div role="tablist" aria-label="Filtrar por estado" style="display: flex; align-items: center; gap: 26px;">
+          <button type="button" role="tab" aria-selected="true" style="height: 40px; padding: 0; background: transparent; border: 0; border-bottom: 2px solid #E8732A; color: rgb(var(--panel-ink)); font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500;">Todas <span style="color: rgb(var(--panel-line) / 0.70);">38</span></button>
+          <button type="button" role="tab" aria-selected="false" style="height: 40px; padding: 0; background: transparent; border: 0; border-bottom: 2px solid transparent; color: rgb(var(--panel-line) / 0.70); font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase;">Borrador <span>7</span></button>
+          <button type="button" role="tab" aria-selected="false" style="height: 40px; padding: 0; background: transparent; border: 0; border-bottom: 2px solid transparent; color: rgb(var(--panel-line) / 0.70); font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase;">Enviadas <span>14</span></button>
+          <button type="button" role="tab" aria-selected="false" style="height: 40px; padding: 0; background: transparent; border: 0; border-bottom: 2px solid transparent; color: rgb(var(--panel-line) / 0.70); font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase;">Aprobadas <span>11</span></button>
+          <button type="button" role="tab" aria-selected="false" style="height: 40px; padding: 0; background: transparent; border: 0; border-bottom: 2px solid transparent; color: rgb(var(--panel-line) / 0.70); font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase;">Vencidas <span>6</span></button>
+        </div>
+        <button type="button" style="display: flex; align-items: center; gap: 9px; height: 40px; padding: 0 15px; background: transparent; border: 1px solid rgb(var(--panel-line) / 0.16); border-radius: 4px; color: rgb(var(--panel-ink)); font-family: 'Inter', sans-serif; font-size: 13px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></svg>
+          Filtros
+          <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px; padding: 2px 6px; border-radius: 3px; background: rgb(var(--panel-line) / 0.08);">2</span>
+        </button>
+      </div>
+
+      <div style="background: rgb(var(--panel-surface)); border: 1px solid rgb(var(--panel-line) / 0.16); border-radius: 6px; overflow: hidden;">
+        <table style="width: 100%; table-layout: fixed;">
+          <caption style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%);">Cotizaciones abiertas, ordenadas por fecha de salida</caption>
+          <colgroup>
+            <col style="width: 44px;"><col style="width: 100px;"><col style="width: 214px;"><col style="width: 170px;"><col style="width: 150px;"><col style="width: 116px;"><col style="width: 130px;"><col style="width: 120px;"><col style="width: 72px;">
+          </colgroup>
+          <thead>
+            <tr style="background: rgb(var(--panel-head));">
+              <th scope="col" style="height: 42px; padding: 0 0 0 14px; text-align: left;"><input type="checkbox" aria-label="Seleccionar todas" style="width: 15px; height: 15px; accent-color: #E8732A; margin: 0;"></th>
+              <th scope="col" style="height: 42px; padding: 0 10px; text-align: left; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(var(--panel-line) / 0.70);">Código</th>
+              <th scope="col" style="height: 42px; padding: 0 10px; text-align: left; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(var(--panel-line) / 0.70);">Cliente</th>
+              <th scope="col" style="height: 42px; padding: 0 10px; text-align: left; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(var(--panel-line) / 0.70);">Destino</th>
+              <th scope="col" style="height: 42px; padding: 0 10px; text-align: left; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(var(--panel-line) / 0.70);">Asesor</th>
+              <th scope="col" aria-sort="ascending" style="height: 42px; padding: 0 10px; text-align: left; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(var(--panel-ink));">Salida ↑</th>
+              <th scope="col" style="height: 42px; padding: 0 10px; text-align: right; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(var(--panel-line) / 0.70);">Valor</th>
+              <th scope="col" style="height: 42px; padding: 0 10px; text-align: left; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(var(--panel-line) / 0.70);">Estado</th>
+              <th scope="col" style="height: 42px; padding: 0 14px 0 10px; text-align: right; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(var(--panel-line) / 0.70);">Acc.</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr style="border-top: 1px solid rgb(var(--panel-line) / 0.10);">
+                <td style="height: 54px; padding: 0 0 0 14px;"><input type="checkbox" aria-label="Seleccionar ESC-2608" style="width: 15px; height: 15px; accent-color: #E8732A; margin: 0;"></td>
+                <td style="height: 54px; padding: 0 10px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11.5px; letter-spacing: 0.04em;">ESC-2608</td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <div style="display: flex; flex-direction: column; gap: 3px;">
+                    <span style="font-size: 13.5px; font-weight: 500; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Mario Esteban Duarte</span>
+                    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.08em; color: rgb(var(--panel-line) / 0.70);">C.C. 88.24•••</span>
+                  </div>
+                </td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <div style="display: flex; flex-direction: column; gap: 3px;">
+                    <span style="font-size: 13.5px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Cancún</span>
+                    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.1em; color: rgb(var(--panel-line) / 0.70);">México</span>
+                  </div>
+                </td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <div style="display: flex; align-items: center; gap: 9px;">
+                    <span aria-hidden="true" style="width: 26px; height: 26px; flex-shrink: 0; border-radius: 50%; background: rgb(var(--panel-line) / 0.08); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px;">MV</span>
+                    <span style="font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">M. Villamizar</span>
+                  </div>
+                </td>
+                <td style="height: 54px; padding: 0 10px; font-size: 13px; white-space: nowrap; color: rgb(var(--panel-line) / 0.70);">11 sep 2026</td>
+                <td style="height: 54px; padding: 0 10px; text-align: right; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12.5px; font-weight: 500;">$ 5.100.000</td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <span style="display: inline-flex; align-items: center; gap: 7px;">
+                    <span aria-hidden="true" style="width: 7px; height: 7px; flex-shrink: 0; border-radius: 50%; background: rgb(var(--danger)); border: 1px solid rgb(var(--danger));"></span>
+                    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(var(--danger));">Vencida</span>
+                  </span>
+                </td>
+                <td style="height: 54px; padding: 0 8px 0 10px;">
+                  <div style="display: flex; align-items: center; justify-content: flex-end; gap: 2px;">
+                    <button type="button" aria-label="Ver ESC-2608" style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; border-radius: 4px; color: rgb(var(--panel-line) / 0.70);">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0"/><circle cx="12" cy="12" r="3"/></svg>
+                    </button>
+                    <button type="button" aria-label="Más acciones para ESC-2608" style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; border-radius: 4px; color: rgb(var(--panel-line) / 0.70);">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr style="border-top: 1px solid rgb(var(--panel-line) / 0.10);">
+                <td style="height: 54px; padding: 0 0 0 14px;"><input type="checkbox" aria-label="Seleccionar ESC-2612" style="width: 15px; height: 15px; accent-color: #E8732A; margin: 0;"></td>
+                <td style="height: 54px; padding: 0 10px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11.5px; letter-spacing: 0.04em;">ESC-2612</td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <div style="display: flex; flex-direction: column; gap: 3px;">
+                    <span style="font-size: 13.5px; font-weight: 500; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Andrés Felipe Rangel</span>
+                    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.08em; color: rgb(var(--panel-line) / 0.70);">C.C. 13.55•••</span>
+                  </div>
+                </td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <div style="display: flex; flex-direction: column; gap: 3px;">
+                    <span style="font-size: 13.5px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">San Andrés</span>
+                    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.1em; color: rgb(var(--panel-line) / 0.70);">Colombia</span>
+                  </div>
+                </td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <div style="display: flex; align-items: center; gap: 9px;">
+                    <span aria-hidden="true" style="width: 26px; height: 26px; flex-shrink: 0; border-radius: 50%; background: rgb(var(--panel-line) / 0.08); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px;">MV</span>
+                    <span style="font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">M. Villamizar</span>
+                  </div>
+                </td>
+                <td style="height: 54px; padding: 0 10px; font-size: 13px; white-space: nowrap; color: rgb(var(--panel-line) / 0.70);">28 sep 2026</td>
+                <td style="height: 54px; padding: 0 10px; text-align: right; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12.5px; font-weight: 500;">$ 3.980.000</td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <span style="display: inline-flex; align-items: center; gap: 7px;">
+                    <span aria-hidden="true" style="width: 7px; height: 7px; flex-shrink: 0; border-radius: 50%; background: #E8732A; border: 1px solid #E8732A;"></span>
+                    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(var(--panel-ink));">Enviada</span>
+                  </span>
+                </td>
+                <td style="height: 54px; padding: 0 8px 0 10px;">
+                  <div style="display: flex; align-items: center; justify-content: flex-end; gap: 2px;">
+                    <button type="button" aria-label="Ver ESC-2612" style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; border-radius: 4px; color: rgb(var(--panel-line) / 0.70);">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0"/><circle cx="12" cy="12" r="3"/></svg>
+                    </button>
+                    <button type="button" aria-label="Más acciones para ESC-2612" style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; border-radius: 4px; color: rgb(var(--panel-line) / 0.70);">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr style="border-top: 1px solid rgb(var(--panel-line) / 0.10);">
+                <td style="height: 54px; padding: 0 0 0 14px;"><input type="checkbox" aria-label="Seleccionar ESC-2610" style="width: 15px; height: 15px; accent-color: #E8732A; margin: 0;"></td>
+                <td style="height: 54px; padding: 0 10px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11.5px; letter-spacing: 0.04em;">ESC-2610</td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <div style="display: flex; flex-direction: column; gap: 3px;">
+                    <span style="font-size: 13.5px; font-weight: 500; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Familia Suárez Peña · 4 pax</span>
+                    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.08em; color: rgb(var(--panel-line) / 0.70);">C.C. 60.19•••</span>
+                  </div>
+                </td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <div style="display: flex; flex-direction: column; gap: 3px;">
+                    <span style="font-size: 13.5px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Cartagena</span>
+                    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.1em; color: rgb(var(--panel-line) / 0.70);">Colombia</span>
+                  </div>
+                </td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <div style="display: flex; align-items: center; gap: 9px;">
+                    <span aria-hidden="true" style="width: 26px; height: 26px; flex-shrink: 0; border-radius: 50%; background: rgb(var(--panel-line) / 0.08); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px;">JC</span>
+                    <span style="font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">J. Contreras</span>
+                  </div>
+                </td>
+                <td style="height: 54px; padding: 0 10px; font-size: 13px; white-space: nowrap; color: rgb(var(--panel-line) / 0.70);">05 oct 2026</td>
+                <td style="height: 54px; padding: 0 10px; text-align: right; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12.5px; font-weight: 500;">$ 6.250.000</td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <span style="display: inline-flex; align-items: center; gap: 7px;">
+                    <span aria-hidden="true" style="width: 7px; height: 7px; flex-shrink: 0; border-radius: 50%; background: rgb(var(--ok)); border: 1px solid rgb(var(--ok));"></span>
+                    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(var(--ok));">Aprobada</span>
+                  </span>
+                </td>
+                <td style="height: 54px; padding: 0 8px 0 10px;">
+                  <div style="display: flex; align-items: center; justify-content: flex-end; gap: 2px;">
+                    <button type="button" aria-label="Ver ESC-2610" style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; border-radius: 4px; color: rgb(var(--panel-line) / 0.70);">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0"/><circle cx="12" cy="12" r="3"/></svg>
+                    </button>
+                    <button type="button" aria-label="Más acciones para ESC-2610" style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; border-radius: 4px; color: rgb(var(--panel-line) / 0.70);">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr style="border-top: 1px solid rgb(var(--panel-line) / 0.10);">
+                <td style="height: 54px; padding: 0 0 0 14px;"><input type="checkbox" aria-label="Seleccionar ESC-2614" style="width: 15px; height: 15px; accent-color: #E8732A; margin: 0;"></td>
+                <td style="height: 54px; padding: 0 10px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11.5px; letter-spacing: 0.04em;">ESC-2614</td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <div style="display: flex; flex-direction: column; gap: 3px;">
+                    <span style="font-size: 13.5px; font-weight: 500; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Laura Pabón Mejía</span>
+                    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.08em; color: rgb(var(--panel-line) / 0.70);">C.C. 10.90•••</span>
+                  </div>
+                </td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <div style="display: flex; flex-direction: column; gap: 3px;">
+                    <span style="font-size: 13.5px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Punta Cana</span>
+                    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.1em; color: rgb(var(--panel-line) / 0.70);">Rep. Dominicana</span>
+                  </div>
+                </td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <div style="display: flex; align-items: center; gap: 9px;">
+                    <span aria-hidden="true" style="width: 26px; height: 26px; flex-shrink: 0; border-radius: 50%; background: rgb(var(--panel-line) / 0.08); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px;">MV</span>
+                    <span style="font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">M. Villamizar</span>
+                  </div>
+                </td>
+                <td style="height: 54px; padding: 0 10px; font-size: 13px; white-space: nowrap; color: rgb(var(--panel-line) / 0.70);">14 oct 2026</td>
+                <td style="height: 54px; padding: 0 10px; text-align: right; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12.5px; font-weight: 500;">$ 8.420.000</td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <span style="display: inline-flex; align-items: center; gap: 7px;">
+                    <span aria-hidden="true" style="width: 7px; height: 7px; flex-shrink: 0; border-radius: 50%; background: rgb(var(--ok)); border: 1px solid rgb(var(--ok));"></span>
+                    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(var(--ok));">Aprobada</span>
+                  </span>
+                </td>
+                <td style="height: 54px; padding: 0 8px 0 10px;">
+                  <div style="display: flex; align-items: center; justify-content: flex-end; gap: 2px;">
+                    <button type="button" aria-label="Ver ESC-2614" style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; border-radius: 4px; color: rgb(var(--panel-line) / 0.70);">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0"/><circle cx="12" cy="12" r="3"/></svg>
+                    </button>
+                    <button type="button" aria-label="Más acciones para ESC-2614" style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; border-radius: 4px; color: rgb(var(--panel-line) / 0.70);">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr style="border-top: 1px solid rgb(var(--panel-line) / 0.10);">
+                <td style="height: 54px; padding: 0 0 0 14px;"><input type="checkbox" aria-label="Seleccionar ESC-2613" style="width: 15px; height: 15px; accent-color: #E8732A; margin: 0;"></td>
+                <td style="height: 54px; padding: 0 10px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11.5px; letter-spacing: 0.04em;">ESC-2613</td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <div style="display: flex; flex-direction: column; gap: 3px;">
+                    <span style="font-size: 13.5px; font-weight: 500; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Grupo Ferretero del Norte</span>
+                    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.08em; color: rgb(var(--panel-line) / 0.70);">NIT 900.44•••</span>
+                  </div>
+                </td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <div style="display: flex; flex-direction: column; gap: 3px;">
+                    <span style="font-size: 13.5px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Ciudad de México</span>
+                    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.1em; color: rgb(var(--panel-line) / 0.70);">México</span>
+                  </div>
+                </td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <div style="display: flex; align-items: center; gap: 9px;">
+                    <span aria-hidden="true" style="width: 26px; height: 26px; flex-shrink: 0; border-radius: 50%; background: rgb(var(--panel-line) / 0.08); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px;">JC</span>
+                    <span style="font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">J. Contreras</span>
+                  </div>
+                </td>
+                <td style="height: 54px; padding: 0 10px; font-size: 13px; white-space: nowrap; color: rgb(var(--panel-line) / 0.70);">02 nov 2026</td>
+                <td style="height: 54px; padding: 0 10px; text-align: right; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12.5px; font-weight: 500;">$ 23.150.000</td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <span style="display: inline-flex; align-items: center; gap: 7px;">
+                    <span aria-hidden="true" style="width: 7px; height: 7px; flex-shrink: 0; border-radius: 50%; background: #E8732A; border: 1px solid #E8732A;"></span>
+                    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(var(--panel-ink));">Enviada</span>
+                  </span>
+                </td>
+                <td style="height: 54px; padding: 0 8px 0 10px;">
+                  <div style="display: flex; align-items: center; justify-content: flex-end; gap: 2px;">
+                    <button type="button" aria-label="Ver ESC-2613" style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; border-radius: 4px; color: rgb(var(--panel-line) / 0.70);">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0"/><circle cx="12" cy="12" r="3"/></svg>
+                    </button>
+                    <button type="button" aria-label="Más acciones para ESC-2613" style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; border-radius: 4px; color: rgb(var(--panel-line) / 0.70);">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr style="border-top: 1px solid rgb(var(--panel-line) / 0.10);">
+                <td style="height: 54px; padding: 0 0 0 14px;"><input type="checkbox" aria-label="Seleccionar ESC-2611" style="width: 15px; height: 15px; accent-color: #E8732A; margin: 0;"></td>
+                <td style="height: 54px; padding: 0 10px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11.5px; letter-spacing: 0.04em;">ESC-2611</td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <div style="display: flex; flex-direction: column; gap: 3px;">
+                    <span style="font-size: 13.5px; font-weight: 500; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Claudia Ortega Sanmiguel</span>
+                    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.08em; color: rgb(var(--panel-line) / 0.70);">C.C. 27.81•••</span>
+                  </div>
+                </td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <div style="display: flex; flex-direction: column; gap: 3px;">
+                    <span style="font-size: 13.5px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Madrid</span>
+                    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.1em; color: rgb(var(--panel-line) / 0.70);">España</span>
+                  </div>
+                </td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <div style="display: flex; align-items: center; gap: 9px;">
+                    <span aria-hidden="true" style="width: 26px; height: 26px; flex-shrink: 0; border-radius: 50%; background: rgb(var(--panel-line) / 0.08); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px;">DQ</span>
+                    <span style="font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">D. Quintero</span>
+                  </div>
+                </td>
+                <td style="height: 54px; padding: 0 10px; font-size: 13px; white-space: nowrap; color: rgb(var(--panel-line) / 0.70);">19 dic 2026</td>
+                <td style="height: 54px; padding: 0 10px; text-align: right; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12.5px; font-weight: 500;">$ 14.700.000</td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <span style="display: inline-flex; align-items: center; gap: 7px;">
+                    <span aria-hidden="true" style="width: 7px; height: 7px; flex-shrink: 0; border-radius: 50%; background: transparent; border: 1px solid rgb(var(--panel-line) / 0.70);"></span>
+                    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(var(--panel-line) / 0.70);">Borrador</span>
+                  </span>
+                </td>
+                <td style="height: 54px; padding: 0 8px 0 10px;">
+                  <div style="display: flex; align-items: center; justify-content: flex-end; gap: 2px;">
+                    <button type="button" aria-label="Ver ESC-2611" style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; border-radius: 4px; color: rgb(var(--panel-line) / 0.70);">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0"/><circle cx="12" cy="12" r="3"/></svg>
+                    </button>
+                    <button type="button" aria-label="Más acciones para ESC-2611" style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; border-radius: 4px; color: rgb(var(--panel-line) / 0.70);">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr style="border-top: 1px solid rgb(var(--panel-line) / 0.10);">
+                <td style="height: 54px; padding: 0 0 0 14px;"><input type="checkbox" aria-label="Seleccionar ESC-2609" style="width: 15px; height: 15px; accent-color: #E8732A; margin: 0;"></td>
+                <td style="height: 54px; padding: 0 10px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11.5px; letter-spacing: 0.04em;">ESC-2609</td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <div style="display: flex; flex-direction: column; gap: 3px;">
+                    <span style="font-size: 13.5px; font-weight: 500; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Colegio San Bartolomé · 32 pax</span>
+                    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.08em; color: rgb(var(--panel-line) / 0.70);">NIT 890.12•••</span>
+                  </div>
+                </td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <div style="display: flex; flex-direction: column; gap: 3px;">
+                    <span style="font-size: 13.5px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Buenos Aires</span>
+                    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.1em; color: rgb(var(--panel-line) / 0.70);">Argentina</span>
+                  </div>
+                </td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <div style="display: flex; align-items: center; gap: 9px;">
+                    <span aria-hidden="true" style="width: 26px; height: 26px; flex-shrink: 0; border-radius: 50%; background: rgb(var(--panel-line) / 0.08); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px;">DQ</span>
+                    <span style="font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">D. Quintero</span>
+                  </div>
+                </td>
+                <td style="height: 54px; padding: 0 10px; font-size: 13px; white-space: nowrap; color: rgb(var(--panel-line) / 0.70);">22 ene 2027</td>
+                <td style="height: 54px; padding: 0 10px; text-align: right; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12.5px; font-weight: 500;">$ 41.300.000</td>
+                <td style="height: 54px; padding: 0 10px;">
+                  <span style="display: inline-flex; align-items: center; gap: 7px;">
+                    <span aria-hidden="true" style="width: 7px; height: 7px; flex-shrink: 0; border-radius: 50%; background: #E8732A; border: 1px solid #E8732A;"></span>
+                    <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(var(--panel-ink));">Enviada</span>
+                  </span>
+                </td>
+                <td style="height: 54px; padding: 0 8px 0 10px;">
+                  <div style="display: flex; align-items: center; justify-content: flex-end; gap: 2px;">
+                    <button type="button" aria-label="Ver ESC-2609" style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; border-radius: 4px; color: rgb(var(--panel-line) / 0.70);">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0"/><circle cx="12" cy="12" r="3"/></svg>
+                    </button>
+                    <button type="button" aria-label="Más acciones para ESC-2609" style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; border-radius: 4px; color: rgb(var(--panel-line) / 0.70);">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-bottom: 24px;">
+        <span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(var(--panel-line) / 0.70);">Mostrando 1–7 de 38</span>
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <button type="button" aria-label="Página anterior" disabled style="width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; background: transparent; border: 1px solid rgb(var(--panel-line) / 0.16); border-radius: 4px; color: rgb(var(--panel-line) / 0.70); opacity: 0.45;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <button type="button" aria-current="page" style="min-width: 34px; height: 34px; padding: 0 8px; background: #E8732A; border: 1px solid #E8732A; border-radius: 4px; color: #0C1B2F; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11.5px; font-weight: 500;">1</button>
+          <button type="button" style="min-width: 34px; height: 34px; padding: 0 8px; background: transparent; border: 1px solid rgb(var(--panel-line) / 0.16); border-radius: 4px; color: rgb(var(--panel-ink)); font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11.5px;">2</button>
+          <button type="button" style="min-width: 34px; height: 34px; padding: 0 8px; background: transparent; border: 1px solid rgb(var(--panel-line) / 0.16); border-radius: 4px; color: rgb(var(--panel-ink)); font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11.5px;">3</button>
+          <button type="button" aria-label="Página siguiente" style="width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; background: transparent; border: 1px solid rgb(var(--panel-line) / 0.16); border-radius: 4px; color: rgb(var(--panel-ink));">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+<script src="_mockup.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+/* ───────────────────────────────────────────────────────────────────────────
+   Escápate · Panel interno — tokens
+   Sistema de 3 temas de la marca.
+   No introduce paleta nueva salvo el par semántico documentado abajo.
+
+   Convención: los colores se guardan como tripletas
+   RGB separadas por espacio, para poder aplicarles alfa con
+   rgb(var(--token) / 0.16) y para que Tailwind las use con <alpha-value>.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* ── Paleta de marca (idéntica a tailwind.config.ts) ───────────────────── */
+  --navy-950: 12 27 47; /* #0C1B2F */
+  --navy-900: 17 35 62; /* #11233E */
+  --navy-800: 22 37 63; /* #16253F */
+  --navy-700: 30 51 87; /* #1E3357 */
+  --navy-600: 40 66 104; /* #284268 */
+  --orange-500: 232 115 42; /* #E8732A */
+  --orange-400: 240 160 75; /* #F0A04B */
+  --orange-600: 199 92 24; /* #C75C18 */
+  --cream-100: 237 231 219; /* #EDE7DB */
+  --cream-50: 245 241 233; /* #F5F1E9 */
+  --espresso: 38 34 32; /* #262220 */
+  --wa: 37 211 102; /* #25D366 */
+
+  /* ── Alias ───────────────────────────────────────── */
+  --orange: var(--orange-500);
+
+  /* ── Slots de sección, tema "default" (marca) ──────────────────────────── */
+  --section-a: var(--cream-50);
+  --ink-a: var(--navy-900);
+  --section-b: var(--navy-950);
+  --ink-b: var(--cream-50);
+
+  /* ── Panel: el chrome toma el slot B; el área de trabajo el slot A ─────── */
+  --panel-chrome: var(--section-b);
+  --panel-chrome-ink: var(--ink-b);
+  --panel-chrome-line: var(
+    --ink-b
+  ); /* para bordes y texto secundario del chrome */
+  --panel-chrome-active: var(--navy-700);
+
+  --panel-canvas: var(--section-a);
+  --panel-ink: var(--ink-a);
+  --panel-line: var(--ink-a); /* para bordes, reglas y texto secundario */
+  --panel-surface: 255 255 255; /* tarjetas, tablas, contenedores elevados */
+  --panel-head: var(--cream-100); /* encabezado de tabla */
+  --panel-field: 255 255 255; /* fondo de inputs */
+
+  /* ── Par semántico (única adición a la paleta) ─────────────────────────── */
+  --ok: 5 119 59; /* #05773B */
+  --danger: 169 34 39; /* #A92227 */
+
+  color-scheme: light;
+}
+
+html.theme-light {
+  --section-a: var(--cream-50);
+  --ink-a: var(--navy-900);
+  --section-b: var(--cream-100);
+  --ink-b: var(--navy-900);
+
+  --panel-chrome: var(--section-b);
+  --panel-chrome-ink: var(--ink-b);
+  --panel-chrome-line: var(--ink-b);
+  --panel-chrome-active: var(--cream-50);
+
+  --panel-canvas: var(--section-a);
+  --panel-ink: var(--ink-a);
+  --panel-line: var(--ink-a);
+  --panel-surface: 255 255 255;
+  --panel-head: var(--cream-100);
+  --panel-field: 255 255 255;
+
+  --ok: 5 119 59;
+  --danger: 169 34 39;
+
+  color-scheme: light;
+}
+
+html.theme-dark {
+  --section-a: var(--navy-800);
+  --ink-a: var(--cream-50);
+  --section-b: var(--navy-950);
+  --ink-b: var(--cream-50);
+
+  --panel-chrome: var(--section-b);
+  --panel-chrome-ink: var(--ink-b);
+  --panel-chrome-line: var(--ink-b);
+  --panel-chrome-active: var(--navy-700);
+
+  --panel-canvas: var(--section-a);
+  --panel-ink: var(--ink-a);
+  --panel-line: var(--ink-a);
+  --panel-surface: var(--navy-700);
+  --panel-head: var(--navy-900);
+  --panel-field: var(--navy-900);
+
+  --ok: 94 188 123; /* #5EBC7B */
+  --danger: 235 141 134; /* #EB8D86 */
+
+  color-scheme: dark;
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+   Alfas fijos — no inventar otros, están calculados para cumplir 4.5:1
+   ───────────────────────────────────────────────────────────────────────────
+   texto secundario   rgb(var(--panel-line) / 0.70)
+   borde              rgb(var(--panel-line) / 0.16)
+   regla de tabla     rgb(var(--panel-line) / 0.10)
+   relleno de chip    rgb(var(--panel-line) / 0.08)
+   (en el chrome, lo mismo con --panel-chrome-line; secundario a 0.72)
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* ── Foco ──────────────────────────────────────  */
+a:focus-visible,
+button:focus-visible,
+select:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid rgb(var(--orange));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+button:not(:disabled) {
+  cursor: pointer;
+}
+::selection {
+  background: rgb(var(--orange));
+  color: #fff;
+}
