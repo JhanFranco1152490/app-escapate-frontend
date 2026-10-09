@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Viajeros</title>
+<link rel="stylesheet" href="panel.css">
+</head>
+<body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap">
+<style>body{margin:0}</style>
+<div class="app">
+  <aside class="side">
+    <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
+    <nav class="nav" aria-label="Navegación principal">
+      <div class="nav-g"><div class="nav-h">Operación</div>
+        <a href="#"><i>01</i>Resumen</a>
+        <a href="10-clientes.html"><i>02</i>Clientes</a>
+        <a href="13-viajeros.html" aria-current="page"><i>03</i>Viajeros</a>
+        <a href="16-solicitudes.html"><i>04</i>Solicitudes</a>
+        <a href="19-pendientes-cotizacion.html"><i>05</i>Por cotizar<b>7</b></a></div>
+    </nav>
+    <div class="me"><span class="av">LR</span><div><p>Laura Rojas</p><small>Asesor comercial</small></div></div>
+  </aside>
+  <div class="main">
+    <header class="top"><span class="crumb">Operación / <b>Viajeros</b></span><div class="who">Laura Rojas<small>Asesor comercial</small></div></header>
+    <main class="content">
+      <div class="head">
+        <div><p class="eyebrow">Operación / 03</p><h1 class="h1">Viajeros</h1><p class="ctx">Quienes realmente viajan. Pueden ser distintos del cliente que compra y sus datos se mantienen por separado.</p></div>
+        <div class="acts"><button class="btn pri" type="button">Nuevo viajero</button></div>
+      </div>
+      <div class="split" style="grid-template-columns:minmax(0,1fr) 400px">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div class="search" style="max-width:none"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><label class="sr" for="q">Buscar viajero</label><input class="in" id="q" type="search" placeholder="Buscar por nombre o documento"></div>
+          <div class="box tbl-wrap">
+            <table class="tbl">
+              <colgroup><col style="width:34%"><col style="width:24%"><col style="width:22%"><col style="width:20%"></colgroup>
+              <thead><tr><th scope="col">Viajero</th><th scope="col">Documento</th><th scope="col">Nacimiento</th><th scope="col">Nacionalidad</th></tr></thead>
+              <tbody>
+                <tr class="sel-row"><td><b>Camila Gómez Ortiz</b><small>Cliente: Marcela Gómez</small></td><td class="m">TI 1.098.221.334</td><td class="m">03/02/2012</td><td>Colombiana</td></tr>
+                <tr><td><b>Julián Gómez Prieto</b><small>Cliente: Marcela Gómez</small></td><td class="m">CC 80.112.233</td><td class="m">21/11/1985</td><td>Colombiana</td></tr>
+                <tr><td><b>Helena Rincón Soto</b><small>Cliente: Familia Gómez Rincón</small></td><td class="m">PA AT882190</td><td class="m">09/07/1960</td><td>Colombiana</td></tr>
+                <tr><td><b>Tomás Pineda Vega</b><small>Es también cliente</small></td><td class="m">CC 1.090.552.118</td><td class="m">30/04/1992</td><td>Colombiana</td></tr>
+                <tr><td><b>Sara Pineda Vega</b><small>Cliente: Tomás Pineda</small></td><td class="m">CC 1.090.552.119</td><td class="m">12/10/1994</td><td>Colombiana</td></tr>
+              </tbody>
+            </table>
+            <div class="pager"><span>1–5 de 18</span><span>Página 1 de 4</span></div>
+          </div>
+        </div>
+        <form class="box" novalidate>
+          <div class="box-h"><h2>Editar viajero</h2><span class="eyebrow">* Obligatorio</span></div>
+          <div class="box-b">
+            <div class="g2">
+              <div class="fld"><label class="lbl" for="vn">Nombres<s>*</s></label><input class="in" id="vn" value="Camila"></div>
+              <div class="fld"><label class="lbl" for="va">Apellidos<s>*</s></label><input class="in" id="va" value="Gómez Ortiz"></div>
+            </div>
+            <div class="g2">
+              <div class="fld"><label class="lbl" for="vt">Tipo de doc.<s>*</s></label><input class="in" id="vt" value="Tarjeta de identidad"></div>
+              <div class="fld"><label class="lbl" for="vd">Número<s>*</s></label><input class="in" id="vd" value="1.098.221.334"></div>
+            </div>
+            <div class="g2">
+              <div class="fld"><label class="lbl" for="vf">Nacimiento<s>*</s></label><input class="in" id="vf" value="03/02/2012"></div>
+              <div class="fld"><label class="lbl" for="vp">Nacionalidad</label><input class="in" id="vp" value="Colombiana"></div>
+            </div>
+            <div class="fld"><label class="lbl" for="vo">Observaciones</label><textarea class="in" id="vo" placeholder="Alergias, asistencia especial, preferencias de asiento…"></textarea></div>
+          </div>
+          <div class="box-f"><button class="btn" type="button">Cancelar</button><button class="btn pri" type="submit">Guardar cambios</button></div>
+        </form>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

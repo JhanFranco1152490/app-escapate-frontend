@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Borrador de alternativas</title>
+<link rel="stylesheet" href="panel.css">
+</head>
+<body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap">
+<style>body{margin:0}</style>
+<div class="app" style="min-height:1100px">
+  <aside class="side">
+    <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
+    <nav class="nav" aria-label="Navegación principal">
+      <div class="nav-g"><div class="nav-h">Operación</div>
+        <a href="#"><i>01</i>Resumen</a>
+        <a href="10-clientes.html"><i>02</i>Clientes</a>
+        <a href="13-viajeros.html"><i>03</i>Viajeros</a>
+        <a href="16-solicitudes.html" aria-current="page"><i>04</i>Solicitudes</a>
+        <a href="19-pendientes-cotizacion.html"><i>05</i>Por cotizar<b>7</b></a></div>
+    </nav>
+    <div class="me"><span class="av">LR</span><div><p>Laura Rojas</p><small>Asesor comercial</small></div></div>
+  </aside>
+  <div class="main">
+    <header class="top"><span class="crumb">Operación / Solicitudes / SOL-0231 / <b>Borrador</b></span><div class="who">Laura Rojas<small>Asesor comercial</small></div></header>
+    <main class="content">
+      <div class="head">
+        <div><p class="eyebrow">Solicitud SOL-0231 · San Andrés · 3 viajeros</p><h1 class="h1">Borrador de alternativas</h1><p class="ctx">Compara las opciones de cada servicio y marca las que irán a la cotización del cliente.</p></div>
+        <div class="acts"><a class="btn" href="17-solicitud-detalle.html">Volver a la solicitud</a><button class="btn pri" type="button">Pasar a cotización</button></div>
+      </div>
+      <div class="rail">
+        <div><strong>2</strong><span>Servicios en el borrador</span></div>
+        <div><strong>5</strong><span>Opciones registradas</span></div>
+        <div><strong>2</strong><span>Seleccionadas para cotizar</span></div>
+        <div><strong class="mono" style="font-size:22px;padding-top:4px">$ 5.940.000</strong><span>Subtotal de lo seleccionado</span></div>
+      </div>
+
+      <section class="box">
+        <div class="box-h"><h2>Alojamiento · 6 noches</h2><button class="btn sm" type="button">+ Agregar opción</button></div>
+        <div class="box-b">
+          <div class="g3">
+            <article class="opt">
+              <div class="opt-h"><span class="chip">Estándar</span><span class="st off">No seleccionada</span></div>
+              <div class="opt-b"><b style="font-weight:500">Hotel Isleño Playa</b><span class="muted">Hoteles Caribe del Sur</span><span class="price">$ 3.180.000</span>
+                <ul><li>Habitación doble, desayuno</li><li>A 300 m de la playa</li><li>Cancelación hasta 15 días antes</li></ul>
+                <label class="chk"><input type="checkbox">Usar en la cotización</label></div>
+            </article>
+            <article class="opt pick">
+              <div class="opt-h"><span class="chip">Superior</span><span class="st ok">Seleccionada</span></div>
+              <div class="opt-b"><b style="font-weight:500">Decameron Aquarium</b><span class="muted">Decameron</span><span class="price">$ 4.260.000</span>
+                <ul><li>Habitación familiar conectada</li><li>Todo incluido</li><li>Cancelación hasta 30 días antes</li></ul>
+                <label class="chk"><input type="checkbox" checked>Usar en la cotización</label></div>
+            </article>
+            <article class="opt">
+              <div class="opt-h"><span class="chip">Premium</span><span class="st off">No seleccionada</span></div>
+              <div class="opt-b"><b style="font-weight:500">Sunrise Beach Resort</b><span class="muted">Sunrise Hotels</span><span class="price">$ 6.900.000</span>
+                <ul><li>Suite frente al mar</li><li>Todo incluido, spa</li><li>No reembolsable</li></ul>
+                <label class="chk"><input type="checkbox">Usar en la cotización</label></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="box">
+        <div class="box-h"><h2>Vuelos · Cúcuta – San Andrés</h2><button class="btn sm" type="button">+ Agregar opción</button></div>
+        <div class="box-b">
+          <div class="g3">
+            <article class="opt pick">
+              <div class="opt-h"><span class="chip">Económica</span><span class="st ok">Seleccionada</span></div>
+              <div class="opt-b"><b style="font-weight:500">Directo vía Bogotá</b><span class="muted">Aerolínea Andina</span><span class="price">$ 1.680.000</span>
+                <ul><li>Equipaje de mano incluido</li><li>1 escala, 2 h 10 min</li></ul>
+                <label class="chk"><input type="checkbox" checked>Usar en la cotización</label></div>
+            </article>
+            <article class="opt">
+              <div class="opt-h"><span class="chip">Flexible</span><span class="st off">No seleccionada</span></div>
+              <div class="opt-b"><b style="font-weight:500">Tarifa flexible vía Medellín</b><span class="muted">Aerolínea Andina</span><span class="price">$ 2.350.000</span>
+                <ul><li>Equipaje de bodega 23 kg</li><li>Cambios sin penalidad</li></ul>
+                <label class="chk"><input type="checkbox">Usar en la cotización</label></div>
+            </article>
+            <button class="btn dash" type="button" style="height:auto;min-height:150px;align-self:stretch">+ Agregar otro servicio al borrador</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+</body>
+</html>

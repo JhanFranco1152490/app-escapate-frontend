@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Nuevo usuario</title>
+<link rel="stylesheet" href="panel.css">
+</head>
+<body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap">
+<style>body{margin:0}</style>
+<div class="app">
+  <aside class="side">
+    <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
+    <nav class="nav" aria-label="Navegación principal">
+      <div class="nav-g"><div class="nav-h">Operación</div><a href="#"><i>01</i>Resumen</a></div>
+      <div class="nav-g"><div class="nav-h">Administración <em>Solo admin</em></div>
+        <a href="06-usuarios.html" aria-current="page"><i>02</i>Usuarios</a>
+        <a href="08-roles-permisos.html"><i>03</i>Roles y permisos</a></div>
+    </nav>
+    <div class="me"><span class="av">CM</span><div><p>Carolina Mejía</p><small>Administrador</small></div></div>
+  </aside>
+  <div class="main">
+    <header class="top"><span class="crumb">Administración / Usuarios / <b>Nuevo</b></span><div class="who">Carolina Mejía<small>Administrador</small></div></header>
+    <main class="content">
+      <div class="head">
+        <div><p class="eyebrow">Administración / 02</p><h1 class="h1">Nuevo usuario</h1><p class="ctx">Crea la cuenta y asígnale un rol. Recibirá un correo para definir su contraseña.</p></div>
+      </div>
+      <div class="alert" role="alert"><div><b>Faltan 2 campos obligatorios.</b><br>Completa los campos marcados para guardar el usuario.</div></div>
+      <form class="split" novalidate>
+        <div class="box">
+          <div class="box-h"><h2>Datos de la persona</h2><span class="eyebrow">* Obligatorio</span></div>
+          <div class="box-b">
+            <div class="g2">
+              <div class="fld"><label class="lbl" for="n">Nombres<s>*</s></label><input class="in" id="n" value="Juliana"></div>
+              <div class="fld"><label class="lbl" for="a">Apellidos<s>*</s></label><input class="in" id="a" aria-invalid="true" aria-describedby="a-e"><p class="err" id="a-e">Ingresa los apellidos.</p></div>
+              <div class="fld"><label class="lbl" for="c">Correo electrónico<s>*</s></label><input class="in" id="c" type="email" value="juliana@escapate.example"><p class="help">Es el usuario con el que iniciará sesión.</p></div>
+              <div class="fld"><label class="lbl" for="t">Teléfono</label><input class="in" id="t" placeholder="300 000 0000"></div>
+            </div>
+            <div class="fld"><label class="lbl" for="r">Rol<s>*</s></label><input class="in" id="r" aria-invalid="true" aria-describedby="r-e" placeholder="Selecciona un rol"><p class="err" id="r-e">Selecciona un rol.</p></div>
+          </div>
+          <div class="box-f"><a class="btn" href="06-usuarios.html">Cancelar</a><button class="btn pri" type="submit">Crear usuario</button></div>
+        </div>
+        <div class="box">
+          <div class="box-h"><h2>Estado de la cuenta</h2></div>
+          <div class="box-b">
+            <div style="display:flex;align-items:center;gap:12px"><span class="sw" aria-hidden="true"></span><div><b style="font-weight:500">Activo</b><p class="help">Puede iniciar sesión.</p></div></div>
+            <p class="help" style="line-height:1.5">Desactivar una cuenta impide nuevos accesos, pero conserva el historial de lo que hizo. Se puede reactivar cuando haga falta.</p>
+          </div>
+        </div>
+      </form>
+    </main>
+  </div>
+</div>
+</body>
+</html>

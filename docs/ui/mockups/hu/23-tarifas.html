@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Tarifas del servicio</title>
+<link rel="stylesheet" href="panel.css">
+</head>
+<body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap">
+<style>body{margin:0}</style>
+<div class="app">
+  <aside class="side">
+    <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
+    <nav class="nav" aria-label="Navegación principal">
+      <div class="nav-g"><div class="nav-h">Oferta turística</div>
+        <a href="#"><i>01</i>Resumen</a>
+        <a href="20-proveedores.html"><i>02</i>Proveedores</a>
+        <a href="22-servicio-form.html"><i>03</i>Servicios</a>
+        <a href="23-tarifas.html" aria-current="page"><i>04</i>Tarifas</a></div>
+    </nav>
+    <div class="me"><span class="av">SB</span><div><p>Sofía Barrios</p><small>Encargado de proveedores</small></div></div>
+  </aside>
+  <div class="main">
+    <header class="top"><span class="crumb">Oferta turística / Servicios / Habitación familiar / <b>Tarifas</b></span><div class="who">Sofía Barrios<small>Encargado de proveedores</small></div></header>
+    <main class="content">
+      <div class="head">
+        <div><p class="eyebrow">Decameron · Alojamiento</p><h1 class="h1">Habitación familiar conectada</h1><p class="ctx">Tarifas de referencia para preparar propuestas. Cada una guarda su valor y las condiciones en las que aplica.</p></div>
+      </div>
+      <div class="split" style="grid-template-columns:minmax(0,1fr) 400px">
+        <div class="box tbl-wrap">
+          <div class="box-h"><h2>Tarifas del servicio</h2><span class="eyebrow">4 registradas</span></div>
+          <table class="tbl">
+            <colgroup><col style="width:30%"><col style="width:24%"><col style="width:26%"><col style="width:20%"></colgroup>
+            <thead><tr><th scope="col">Tarifa</th><th scope="col">Vigencia</th><th scope="col">Condiciones</th><th scope="col" class="r">Valor por noche</th></tr></thead>
+            <tbody>
+              <tr class="sel-row"><td><b>Temporada alta</b><small>Hasta 4 personas</small></td><td class="m">15 dic – 15 ene</td><td>Mín. 5 noches</td><td class="r m">$ 710.000</td></tr>
+              <tr><td><b>Temporada media</b><small>Hasta 4 personas</small></td><td class="m">16 ene – 30 jun</td><td>Mín. 2 noches</td><td class="r m">$ 560.000</td></tr>
+              <tr><td><b>Temporada baja</b><small>Hasta 4 personas</small></td><td class="m">01 jul – 14 dic</td><td>Sin mínimo</td><td class="r m">$ 480.000</td></tr>
+              <tr><td><b>Persona adicional</b><small>Todas las temporadas</small></td><td class="m">Todo el año</td><td>Máx. 1 adicional</td><td class="r m">$ 120.000</td></tr>
+            </tbody>
+          </table>
+          <div class="pager"><span>Valores en pesos colombianos, impuestos incluidos.</span></div>
+        </div>
+        <form class="box" novalidate>
+          <div class="box-h"><h2>Editar tarifa</h2><span class="eyebrow">* Obligatorio</span></div>
+          <div class="box-b">
+            <div class="fld"><label class="lbl" for="tn">Nombre de la tarifa<s>*</s></label><input class="in" id="tn" value="Temporada alta"></div>
+            <div class="g2">
+              <div class="fld"><label class="lbl" for="td">Vigente desde<s>*</s></label><input class="in" id="td" value="15/12/2026"></div>
+              <div class="fld"><label class="lbl" for="th">Hasta</label><input class="in" id="th" value="15/01/2027"></div>
+            </div>
+            <div class="fld"><label class="lbl" for="tv">Valor por noche (COP)<s>*</s></label><input class="in" id="tv" aria-invalid="true" aria-describedby="tv-e" value=""><p class="err" id="tv-e">Ingresa el valor de la tarifa.</p></div>
+            <div class="fld"><label class="lbl" for="tc">Condiciones aplicables</label><textarea class="in" id="tc">Hasta 4 personas por habitación. Mínimo 5 noches.</textarea></div>
+          </div>
+          <div class="box-f"><button class="btn" type="button">Cancelar</button><button class="btn pri" type="submit">Guardar tarifa</button></div>
+        </form>
+      </div>
+      <button class="btn dash" type="button">+ Agregar tarifa</button>
+    </main>
+  </div>
+</div>
+</body>
+</html>
