@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Restablecer contraseña</title>
+<link rel="stylesheet" href="panel.css">
+</head>
+<body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap">
+<style>body{margin:0}</style>
+<div class="auth">
+  <section class="auth-l">
+    <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
+    <div>
+      <h2>Define tu nueva contraseña.</h2>
+      <p>Elige una contraseña que no uses en otros servicios. Al guardarla podrás iniciar sesión de inmediato.</p>
+    </div>
+    <span class="mono" style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;opacity:.6">Acceso solo para personal autorizado</span>
+  </section>
+  <section class="auth-r">
+    <form class="auth-card" novalidate>
+      <div>
+        <p class="eyebrow" style="color:rgb(240 160 75)">Paso 2 de 2</p>
+        <h1 style="margin-top:8px">Restablecer contraseña</h1>
+      </div>
+      <div class="fld">
+        <label class="lbl" for="p1">Nueva contraseña<s>*</s></label>
+        <input class="in" id="p1" type="password" value="NuevaClave2026!" aria-describedby="p1-help" autocomplete="new-password">
+        <p class="help" id="p1-help">Mínimo 10 caracteres, con letras y números.</p>
+      </div>
+      <div class="fld">
+        <label class="lbl" for="p2">Confirmar contraseña<s>*</s></label>
+        <input class="in" id="p2" type="password" value="NuevaClave2025!" aria-invalid="true" aria-describedby="p2-err" autocomplete="new-password">
+        <p class="err" id="p2-err">Las contraseñas no coinciden.</p>
+      </div>
+      <button class="btn pri" type="submit">Guardar contraseña</button>
+      <a class="lnk" href="01-login.html">Volver a iniciar sesión</a>
+    </form>
+  </section>
+</div>
+</body>
+</html>

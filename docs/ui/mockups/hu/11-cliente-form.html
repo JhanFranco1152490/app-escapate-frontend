@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Nuevo cliente</title>
+<link rel="stylesheet" href="panel.css">
+</head>
+<body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap">
+<style>body{margin:0}</style>
+<div class="app">
+  <aside class="side">
+    <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
+    <nav class="nav" aria-label="Navegación principal">
+      <div class="nav-g"><div class="nav-h">Operación</div>
+        <a href="#"><i>01</i>Resumen</a>
+        <a href="10-clientes.html" aria-current="page"><i>02</i>Clientes</a>
+        <a href="13-viajeros.html"><i>03</i>Viajeros</a>
+        <a href="16-solicitudes.html"><i>04</i>Solicitudes</a>
+        <a href="19-pendientes-cotizacion.html"><i>05</i>Por cotizar<b>7</b></a></div>
+    </nav>
+    <div class="me"><span class="av">LR</span><div><p>Laura Rojas</p><small>Asesor comercial</small></div></div>
+  </aside>
+  <div class="main">
+    <header class="top"><span class="crumb">Operación / Clientes / <b>Nuevo</b></span><div class="who">Laura Rojas<small>Asesor comercial</small></div></header>
+    <main class="content">
+      <div class="head">
+        <div><p class="eyebrow">Operación / 02</p><h1 class="h1">Nuevo cliente</h1><p class="ctx">Registra a quien contrata el viaje. Los viajeros que lo acompañan se registran aparte.</p></div>
+      </div>
+      <div class="alert" role="alert"><div><b>Faltan 2 campos obligatorios.</b><br>Número de documento y teléfono.</div></div>
+      <form class="box" novalidate>
+        <div class="box-h"><h2>Datos del cliente</h2><span class="eyebrow">* Obligatorio</span></div>
+        <div class="box-b">
+          <div class="g4">
+            <div class="fld"><label class="lbl" for="td">Tipo de documento<s>*</s></label><input class="in" id="td" value="Cédula de ciudadanía"></div>
+            <div class="fld span2"><label class="lbl" for="nd">Número de documento<s>*</s></label><input class="in" id="nd" aria-invalid="true" aria-describedby="nd-e"><p class="err" id="nd-e">Ingresa el número de documento.</p></div>
+            <div class="fld"><label class="lbl" for="fn">Fecha de nacimiento</label><input class="in" id="fn" value="14/06/1988"></div>
+          </div>
+          <div class="g2">
+            <div class="fld"><label class="lbl" for="nm">Nombres<s>*</s></label><input class="in" id="nm" value="Marcela"></div>
+            <div class="fld"><label class="lbl" for="ap">Apellidos<s>*</s></label><input class="in" id="ap" value="Gómez Ortiz"></div>
+          </div>
+          <div class="g3">
+            <div class="fld"><label class="lbl" for="em">Correo electrónico</label><input class="in" id="em" type="email" value="marcela.gomez@example.com"></div>
+            <div class="fld"><label class="lbl" for="tl">Teléfono<s>*</s></label><input class="in" id="tl" aria-invalid="true" aria-describedby="tl-e"><p class="err" id="tl-e">Ingresa un teléfono de contacto.</p></div>
+            <div class="fld"><label class="lbl" for="ci">Ciudad</label><input class="in" id="ci" value="Cúcuta"></div>
+          </div>
+          <div class="fld"><label class="lbl" for="nt">Notas</label><textarea class="in" id="nt" placeholder="Preferencias generales, restricciones, cómo llegó a la agencia…"></textarea><p class="help">Visibles para todo el equipo comercial.</p></div>
+        </div>
+        <div class="box-f"><a class="btn" href="10-clientes.html">Cancelar</a><button class="btn pri" type="submit">Guardar cliente</button></div>
+      </form>
+    </main>
+  </div>
+</div>
+</body>
+</html>

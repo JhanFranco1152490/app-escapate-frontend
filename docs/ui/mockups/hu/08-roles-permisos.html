@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Roles y permisos</title>
+<link rel="stylesheet" href="panel.css">
+</head>
+<body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap">
+<style>body{margin:0}</style>
+<div class="app">
+  <aside class="side">
+    <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
+    <nav class="nav" aria-label="Navegación principal">
+      <div class="nav-g"><div class="nav-h">Operación</div><a href="#"><i>01</i>Resumen</a></div>
+      <div class="nav-g"><div class="nav-h">Administración <em>Solo admin</em></div>
+        <a href="06-usuarios.html"><i>02</i>Usuarios</a>
+        <a href="08-roles-permisos.html" aria-current="page"><i>03</i>Roles y permisos</a></div>
+    </nav>
+    <div class="me"><span class="av">CM</span><div><p>Carolina Mejía</p><small>Administrador</small></div></div>
+  </aside>
+  <div class="main">
+    <header class="top"><span class="crumb">Administración / <b>Roles y permisos</b></span><div class="who">Carolina Mejía<small>Administrador</small></div></header>
+    <main class="content">
+      <div class="head">
+        <div><p class="eyebrow">Administración / 03</p><h1 class="h1">Roles y permisos</h1><p class="ctx">Define qué puede hacer cada rol. Los cambios se aplican a todos los usuarios que lo tienen.</p></div>
+        <div class="acts"><button class="btn" type="button">Nuevo rol</button><button class="btn pri" type="button">Guardar cambios</button></div>
+      </div>
+      <div style="display:grid;grid-template-columns:280px minmax(0,1fr);gap:24px;align-items:start">
+        <div class="box" role="list" aria-label="Roles">
+          <div class="box-h"><h2>Roles</h2><span class="eyebrow">4</span></div>
+          <a href="#" role="listitem" aria-current="true" style="display:flex;justify-content:space-between;align-items:center;padding:14px 24px;background:rgb(var(--orange)/.08);box-shadow:inset 3px 0 0 rgb(var(--orange))"><span><b style="font-weight:500">Asesor comercial</b><small class="mono muted" style="display:block;font-size:10px;margin-top:2px">5 usuarios</small></span></a>
+          <a href="#" role="listitem" style="display:flex;justify-content:space-between;align-items:center;padding:14px 24px;border-top:1px solid rgb(var(--panel-line)/.1)"><span><b style="font-weight:500">Administrador</b><small class="mono muted" style="display:block;font-size:10px;margin-top:2px">1 usuario</small></span></a>
+          <a href="#" role="listitem" style="display:flex;justify-content:space-between;align-items:center;padding:14px 24px;border-top:1px solid rgb(var(--panel-line)/.1)"><span><b style="font-weight:500">Encargado de proveedores</b><small class="mono muted" style="display:block;font-size:10px;margin-top:2px">2 usuarios</small></span></a>
+          <a href="#" role="listitem" style="display:flex;justify-content:space-between;align-items:center;padding:14px 24px;border-top:1px solid rgb(var(--panel-line)/.1)"><span><b style="font-weight:500">Operativo</b><small class="mono muted" style="display:block;font-size:10px;margin-top:2px">4 usuarios</small></span></a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div class="alert info"><div><b>5 usuarios tienen este rol.</b> Si retiras un permiso, dejarán de poder usar esa función en su próxima acción.</div></div>
+          <div class="box tbl-wrap">
+            <table class="tbl matrix">
+              <thead><tr><th scope="col">Funcionalidad</th><th scope="col" class="c">Ver</th><th scope="col" class="c">Crear</th><th scope="col" class="c">Editar</th><th scope="col" class="c">Desactivar</th></tr></thead>
+              <tbody>
+                <tr class="grp"><td colspan="5">CRM</td></tr>
+                <tr><td><b>Clientes</b></td><td class="c"><input type="checkbox" checked aria-label="Clientes: ver"></td><td class="c"><input type="checkbox" checked aria-label="Clientes: crear"></td><td class="c"><input type="checkbox" checked aria-label="Clientes: editar"></td><td class="c"><input type="checkbox" aria-label="Clientes: desactivar"></td></tr>
+                <tr><td><b>Viajeros</b></td><td class="c"><input type="checkbox" checked aria-label="Viajeros: ver"></td><td class="c"><input type="checkbox" checked aria-label="Viajeros: crear"></td><td class="c"><input type="checkbox" checked aria-label="Viajeros: editar"></td><td class="c"><input type="checkbox" aria-label="Viajeros: desactivar"></td></tr>
+                <tr><td><b>Solicitudes de viaje</b></td><td class="c"><input type="checkbox" checked aria-label="Solicitudes: ver"></td><td class="c"><input type="checkbox" checked aria-label="Solicitudes: crear"></td><td class="c"><input type="checkbox" checked aria-label="Solicitudes: editar"></td><td class="c"><input type="checkbox" aria-label="Solicitudes: desactivar"></td></tr>
+                <tr><td><b>Borradores de alternativas</b></td><td class="c"><input type="checkbox" checked aria-label="Borradores: ver"></td><td class="c"><input type="checkbox" checked aria-label="Borradores: crear"></td><td class="c"><input type="checkbox" checked aria-label="Borradores: editar"></td><td class="c"><input type="checkbox" aria-label="Borradores: desactivar"></td></tr>
+                <tr class="grp"><td colspan="5">Oferta turística</td></tr>
+                <tr><td><b>Proveedores</b></td><td class="c"><input type="checkbox" checked aria-label="Proveedores: ver"></td><td class="c"><input type="checkbox" aria-label="Proveedores: crear"></td><td class="c"><input type="checkbox" aria-label="Proveedores: editar"></td><td class="c"><input type="checkbox" aria-label="Proveedores: desactivar"></td></tr>
+                <tr><td><b>Servicios y tarifas</b></td><td class="c"><input type="checkbox" checked aria-label="Servicios: ver"></td><td class="c"><input type="checkbox" aria-label="Servicios: crear"></td><td class="c"><input type="checkbox" aria-label="Servicios: editar"></td><td class="c"><input type="checkbox" aria-label="Servicios: desactivar"></td></tr>
+                <tr class="grp"><td colspan="5">Administración</td></tr>
+                <tr><td><b>Usuarios</b></td><td class="c"><input type="checkbox" aria-label="Usuarios: ver"></td><td class="c"><input type="checkbox" aria-label="Usuarios: crear"></td><td class="c"><input type="checkbox" aria-label="Usuarios: editar"></td><td class="c"><input type="checkbox" aria-label="Usuarios: desactivar"></td></tr>
+                <tr><td><b>Roles y permisos</b></td><td class="c"><input type="checkbox" aria-label="Roles: ver"></td><td class="c"><input type="checkbox" aria-label="Roles: crear"></td><td class="c"><input type="checkbox" aria-label="Roles: editar"></td><td class="c"><input type="checkbox" aria-label="Roles: desactivar"></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Proveedores</title>
+<link rel="stylesheet" href="panel.css">
+</head>
+<body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap">
+<style>body{margin:0}</style>
+<div class="app">
+  <aside class="side">
+    <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
+    <nav class="nav" aria-label="Navegación principal">
+      <div class="nav-g"><div class="nav-h">Oferta turística</div>
+        <a href="#"><i>01</i>Resumen</a>
+        <a href="20-proveedores.html" aria-current="page"><i>02</i>Proveedores</a>
+        <a href="22-servicio-form.html"><i>03</i>Servicios</a>
+        <a href="23-tarifas.html"><i>04</i>Tarifas</a></div>
+    </nav>
+    <div class="me"><span class="av">SB</span><div><p>Sofía Barrios</p><small>Encargado de proveedores</small></div></div>
+  </aside>
+  <div class="main">
+    <header class="top"><span class="crumb">Oferta turística / <b>Proveedores</b></span><div class="who">Sofía Barrios<small>Encargado de proveedores</small></div></header>
+    <main class="content">
+      <div class="head">
+        <div><p class="eyebrow">Oferta turística / 02</p><h1 class="h1">Proveedores</h1><p class="ctx">Hoteles, aerolíneas, operadores y transportes con los que trabaja la agencia.</p></div>
+        <div class="acts"><a class="btn pri" href="21-proveedor-form.html">Nuevo proveedor</a></div>
+      </div>
+      <div class="tabs"><a href="#" aria-current="page">Todos<b>41</b></a><a href="#">Alojamiento<b>16</b></a><a href="#">Transporte<b>11</b></a><a href="#">Operadores<b>9</b></a><a href="#">Otros<b>5</b></a></div>
+      <div class="bar">
+        <div class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><label class="sr" for="q">Buscar proveedor</label><input class="in" id="q" type="search" placeholder="Nombre, NIT o contacto"></div>
+        <div class="sel">Todas las ciudades</div>
+      </div>
+      <div class="box tbl-wrap">
+        <table class="tbl">
+          <colgroup><col style="width:28%"><col style="width:16%"><col style="width:22%"><col style="width:12%"><col style="width:10%"><col style="width:12%"></colgroup>
+          <thead><tr><th scope="col">Proveedor</th><th scope="col">Clasificación</th><th scope="col">Contacto</th><th scope="col">Ciudad</th><th scope="col" class="r">Servicios</th><th scope="col">Estado</th></tr></thead>
+          <tbody>
+            <tr class="sel-row"><td><b>Decameron</b><small>NIT 800.111.222-3</small></td><td>Alojamiento · Resort</td><td><b>Mónica Salas</b><small>ventas@decameron.example</small></td><td>Cartagena</td><td class="r m">12</td><td><span class="st ok">Activo</span></td></tr>
+            <tr><td><b>Aerolínea Andina</b><small>NIT 860.333.444-5</small></td><td>Transporte aéreo</td><td><b>Iván Peña</b><small>agencias@andina.example</small></td><td>Bogotá</td><td class="r m">8</td><td><span class="st ok">Activo</span></td></tr>
+            <tr><td><b>Hoteles Caribe del Sur</b><small>NIT 900.555.666-7</small></td><td>Alojamiento · Hotel</td><td><b>Lucía Herrera</b><small>reservas@caribesur.example</small></td><td>San Andrés</td><td class="r m">5</td><td><span class="st ok">Activo</span></td></tr>
+            <tr><td><b>Eje Aventura Tours</b><small>NIT 901.777.888-9</small></td><td>Operador local</td><td><b>Camilo Ortega</b><small>info@ejeaventura.example</small></td><td>Armenia</td><td class="r m">7</td><td><span class="st ok">Activo</span></td></tr>
+            <tr><td><b>Transportes Sol</b><small>NIT 830.999.000-1</small></td><td>Transporte terrestre</td><td><b>Rosa Mendoza</b><small>contacto@transol.example</small></td><td>Cúcuta</td><td class="r m">3</td><td><span class="st off">Inactivo</span></td></tr>
+          </tbody>
+        </table>
+        <div class="pager"><span>1–5 de 41</span><span>Página 1 de 9</span></div>
+      </div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

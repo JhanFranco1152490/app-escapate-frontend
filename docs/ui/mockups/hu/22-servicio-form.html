@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Nuevo servicio turístico</title>
+<link rel="stylesheet" href="panel.css">
+</head>
+<body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap">
+<style>body{margin:0}</style>
+<div class="app" style="min-height:1100px">
+  <aside class="side">
+    <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
+    <nav class="nav" aria-label="Navegación principal">
+      <div class="nav-g"><div class="nav-h">Oferta turística</div>
+        <a href="#"><i>01</i>Resumen</a>
+        <a href="20-proveedores.html"><i>02</i>Proveedores</a>
+        <a href="22-servicio-form.html" aria-current="page"><i>03</i>Servicios</a>
+        <a href="23-tarifas.html"><i>04</i>Tarifas</a></div>
+    </nav>
+    <div class="me"><span class="av">SB</span><div><p>Sofía Barrios</p><small>Encargado de proveedores</small></div></div>
+  </aside>
+  <div class="main">
+    <header class="top"><span class="crumb">Oferta turística / Servicios / <b>Nuevo</b></span><div class="who">Sofía Barrios<small>Encargado de proveedores</small></div></header>
+    <main class="content">
+      <div class="head">
+        <div><p class="eyebrow">Oferta turística / 03</p><h1 class="h1">Nuevo servicio turístico</h1><p class="ctx">Elige el tipo de servicio y el formulario muestra los campos que le corresponden.</p></div>
+      </div>
+      <div class="alert" role="alert"><div><b>Falta 1 campo obligatorio.</b><br>Indica la capacidad máxima de la habitación.</div></div>
+      <form class="split" novalidate>
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <div class="box">
+            <div class="box-h"><h2>Proveedor y tipo</h2><span class="eyebrow">* Obligatorio</span></div>
+            <div class="box-b">
+              <div class="fld"><label class="lbl" for="pv">Proveedor<s>*</s></label><input class="in" id="pv" value="Decameron · NIT 800.111.222-3"></div>
+              <fieldset style="border:0;margin:0;padding:0">
+                <legend class="lbl" style="margin-bottom:10px">Tipo de servicio<s style="text-decoration:none;color:rgb(var(--danger));margin-left:3px">*</s></legend>
+                <div style="display:flex;gap:10px;flex-wrap:wrap">
+                  <label class="btn pri" style="gap:8px"><input class="sr" type="radio" name="tipo" checked>Alojamiento</label>
+                  <label class="btn"><input class="sr" type="radio" name="tipo">Vuelo</label>
+                  <label class="btn"><input class="sr" type="radio" name="tipo">Traslado</label>
+                  <label class="btn"><input class="sr" type="radio" name="tipo">Tour o actividad</label>
+                  <label class="btn"><input class="sr" type="radio" name="tipo">Alimentación</label>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+          <div class="box">
+            <div class="box-h"><h2>Características del alojamiento</h2></div>
+            <div class="box-b">
+              <div class="g2">
+                <div class="fld"><label class="lbl" for="sn">Nombre del servicio<s>*</s></label><input class="in" id="sn" value="Habitación familiar conectada"></div>
+                <div class="fld"><label class="lbl" for="sd">Destino<s>*</s></label><input class="in" id="sd" value="San Andrés"></div>
+              </div>
+              <div class="g4">
+                <div class="fld"><label class="lbl" for="sc">Categoría</label><input class="in" id="sc" value="4 estrellas"></div>
+                <div class="fld"><label class="lbl" for="sr">Régimen</label><input class="in" id="sr" value="Todo incluido"></div>
+                <div class="fld"><label class="lbl" for="sp">Capacidad máx.<s>*</s></label><input class="in" id="sp" aria-invalid="true" aria-describedby="sp-e"><p class="err" id="sp-e">Obligatorio.</p></div>
+                <div class="fld"><label class="lbl" for="sh">Check-in / out</label><input class="in" id="sh" value="15:00 / 12:00"></div>
+              </div>
+              <div class="fld"><label class="lbl" for="cn">Condiciones y política de cancelación</label><textarea class="in" id="cn">Cancelación sin costo hasta 30 días antes. Menores de 5 años no pagan.</textarea></div>
+            </div>
+            <div class="box-f"><a class="btn" href="20-proveedores.html">Cancelar</a><button class="btn pri" type="submit">Guardar servicio</button></div>
+          </div>
+        </div>
+        <div class="box">
+          <div class="box-h"><h2>Incluye</h2></div>
+          <div class="box-b">
+            <label class="chk"><input type="checkbox" checked>Desayuno</label>
+            <label class="chk"><input type="checkbox" checked>Almuerzo y cena</label>
+            <label class="chk"><input type="checkbox" checked>Bebidas</label>
+            <label class="chk"><input type="checkbox">Traslados aeropuerto</label>
+            <label class="chk"><input type="checkbox" checked>Actividades recreativas</label>
+            <p class="help" style="line-height:1.5">Esta lista cambia según el tipo: un vuelo pide equipaje y escalas; un tour, duración y punto de encuentro.</p>
+          </div>
+        </div>
+      </form>
+    </main>
+  </div>
+</div>
+</body>
+</html>
