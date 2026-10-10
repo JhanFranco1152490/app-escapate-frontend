@@ -1,11 +1,30 @@
 import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { http, HttpResponse } from 'msw';
 import type { UrlUpdateEvent } from 'nuqs/adapters/testing';
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { apiUrl } from '@/test/handlers';
 import { renderWithProviders } from '@/test/render';
+import { server } from '@/test/server';
 
 import { googleLoginUrl } from '../google-login-url';
 import { LoginScreen } from './login-screen';
+
+const router = vi.hoisted(() => ({ replace: vi.fn() }));
+vi.mock('next/navigation', () => ({ useRouter: () => router }));
+
+beforeEach(() => router.replace.mockReset());
+
+const respondToLogin = (respond: () => Response) =>
+  server.use(http.post(apiUrl('/api/auth/login'), respond));
+
+async function login() {
+  const user = userEvent.setup();
+  await user.type(screen.getByLabelText(/Número de documento/), '1090123456');
+  await user.type(screen.getByLabelText(/^Contraseña/), 'una-clave-de-prueba');
+  await user.click(screen.getByRole('button', { name: 'Entrar' }));
+}
 
 describe('LoginScreen', () => {
   it('muestra el título y el botón de Google con el next de la URL', () => {
@@ -45,5 +64,65 @@ describe('LoginScreen', () => {
     });
 
     expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+  });
+
+  it('con credenciales no válidas muestra el aviso de la API', async () => {
+    respondToLogin(() =>
+      HttpResponse.json(
+        { detail: 'Mensaje del API', code: 'invalid_credentials', fields: {} },
+        { status: 401 },
+      ),
+    );
+    renderWithProviders(<LoginScreen />);
+
+    await login();
+
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      'El documento o la contraseña no son válidos.',
+    );
+    expect(router.replace).not.toHaveBeenCalled();
+  });
+
+  it('con la cuenta bloqueada muestra el plazo que da la API', async () => {
+    const detail =
+      'Demasiados intentos fallidos. Inténtalo de nuevo en 15 minutos.';
+    respondToLogin(() =>
+      HttpResponse.json(
+        { detail, code: 'account_locked', fields: {} },
+        { status: 429 },
+      ),
+    );
+    renderWithProviders(<LoginScreen />);
+
+    await login();
+
+    expect(await screen.findByRole('alert')).toHaveTextContent(detail);
+  });
+
+  it('sin respuesta de la API muestra el aviso genérico', async () => {
+    respondToLogin(() => HttpResponse.error());
+    renderWithProviders(<LoginScreen />);
+
+    await login();
+
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      'No pudimos iniciar sesión. Inténtalo de nuevo.',
+    );
+  });
+
+  it.each([
+    ['un next interno', '?next=/clientes', '/clientes'],
+    ['un next externo', '?next=//evil.example', '/'],
+    ['un next con barra invertida', '?next=/\\evil.example', '/'],
+    ['sin next', '', '/'],
+  ])('al entrar con %s navega a %s', async (_, searchParams, expected) => {
+    respondToLogin(() => HttpResponse.json({ id: 1 }));
+    renderWithProviders(<LoginScreen />, { searchParams });
+
+    await login();
+
+    await vi.waitFor(() =>
+      expect(router.replace).toHaveBeenCalledWith(expected),
+    );
   });
 });

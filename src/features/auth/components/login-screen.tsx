@@ -1,12 +1,17 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useQueryState } from 'nuqs';
 import { useEffect, useState } from 'react';
 
 import { Alert } from '@/components/alert';
 
+import { useLogin } from '../api';
 import { loginNoticeFromUrl } from '../login-errors';
+import { safeNext } from '../safe-next';
+import type { LoginValues } from '../schemas';
 import { BrandPanel } from './brand-panel';
+import { DocumentLoginForm } from './document-login-form';
 import { GoogleButton } from './google-button';
 
 export function LoginScreen() {
@@ -14,7 +19,14 @@ export function LoginScreen() {
   const [error, setError] = useQueryState('error');
   // Se toma al montar: el parámetro se quita enseguida de la URL para que el aviso no
   // reaparezca al recargar, pero el aviso sigue a la vista.
-  const [notice] = useState(() => loginNoticeFromUrl(error));
+  const [notice, setNotice] = useState(() => loginNoticeFromUrl(error));
+  const router = useRouter();
+  const login = useLogin();
+
+  async function submitLogin(values: LoginValues) {
+    await login.mutateAsync(values);
+    router.replace(safeNext(next));
+  }
 
   useEffect(() => {
     if (error !== null) void setError(null);
@@ -34,6 +46,7 @@ export function LoginScreen() {
             </h1>
           </header>
           {notice && <Alert variant={notice.variant}>{notice.message}</Alert>}
+          <DocumentLoginForm onSubmit={submitLogin} onNotice={setNotice} />
           <div
             role="separator"
             className="flex items-center gap-3 font-mono text-[0.625rem] tracking-[0.2em] text-muted-foreground uppercase"
