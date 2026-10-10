@@ -15,10 +15,13 @@ const CSRF_HEADER = 'X-CSRF-Token';
 
 // Endpoints que no usan el token de acceso: un 401 ahí no significa "acceso vencido"
 // (en login son credenciales incorrectas; en renovación es la renovación misma), así que
-// no se intenta renovar. /api/auth/me sí usa el token de acceso y sí se renueva.
+// no se intenta renovar. /api/auth/me sí usa el token de acceso y sí se renueva. El ingreso
+// con Google es una navegación y no pasa por aquí; se incluye para que nadie le agregue una
+// renovación si algún día se llama con fetch.
 const LOGOUT_PATH = '/api/auth/logout';
 const NO_RENEWAL_PREFIXES = [
   '/api/auth/login',
+  '/api/auth/google',
   '/api/auth/refresh',
   LOGOUT_PATH,
   '/api/auth/csrf',

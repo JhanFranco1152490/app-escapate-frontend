@@ -214,6 +214,21 @@ describe('apiFetch: renovación de la sesión', () => {
     expect(refresh).toHaveLength(0);
   });
 
+  it('no renueva cuando el ingreso con Google responde 401', async () => {
+    const refresh = countRequests(
+      'post',
+      '/api/auth/refresh',
+      () => new HttpResponse(null, { status: 204 }),
+    );
+    countRequests('get', '/api/auth/google/start', () =>
+      HttpResponse.json(errorBody('authentication_failed'), { status: 401 }),
+    );
+
+    await captureError(apiFetch('/api/auth/google/start'));
+
+    expect(refresh).toHaveLength(0);
+  });
+
   it('sí renueva cuando /api/auth/me responde 401', async () => {
     let renewed = false;
     const refresh = countRequests('post', '/api/auth/refresh', () => {

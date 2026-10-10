@@ -1,0 +1,49 @@
+'use client';
+
+import { useQueryState } from 'nuqs';
+import { useEffect, useState } from 'react';
+
+import { Alert } from '@/components/alert';
+
+import { loginNoticeFromUrl } from '../login-errors';
+import { BrandPanel } from './brand-panel';
+import { GoogleButton } from './google-button';
+
+export function LoginScreen() {
+  const [next] = useQueryState('next');
+  const [error, setError] = useQueryState('error');
+  // Se toma al montar: el parámetro se quita enseguida de la URL para que el aviso no
+  // reaparezca al recargar, pero el aviso sigue a la vista.
+  const [notice] = useState(() => loginNoticeFromUrl(error));
+
+  useEffect(() => {
+    if (error !== null) void setError(null);
+  }, [error, setError]);
+
+  return (
+    <main className="dark-surface flex min-h-dvh bg-navy-950 text-foreground">
+      <BrandPanel />
+      <section className="flex flex-1 items-center justify-center px-4 py-10 sm:px-12 md:w-140 md:flex-none">
+        <div className="flex w-full max-w-md flex-col gap-5">
+          <header>
+            <p className="font-mono text-[0.625rem] tracking-[0.2em] text-orange-400 uppercase">
+              Portal de asesores
+            </p>
+            <h1 className="mt-2 font-heading text-[2rem] font-semibold tracking-[-0.03em]">
+              Iniciar sesión
+            </h1>
+          </header>
+          {notice && <Alert variant={notice.variant}>{notice.message}</Alert>}
+          <div
+            role="separator"
+            className="flex items-center gap-3 font-mono text-[0.625rem] tracking-[0.2em] text-muted-foreground uppercase"
+          >
+            <span aria-hidden="true" className="h-px flex-1 bg-border" />o
+            <span aria-hidden="true" className="h-px flex-1 bg-border" />
+          </div>
+          <GoogleButton next={next} />
+        </div>
+      </section>
+    </main>
+  );
+}
