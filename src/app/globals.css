@@ -2,129 +2,191 @@
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is(.theme-dark *, .dark-surface *));
 
 @theme inline {
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-playfair);
+  --font-serif: var(--font-playfair);
+  --font-mono: var(--font-jetbrains-mono);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-field: var(--field);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-navy-950: rgb(var(--navy-950));
+  --color-navy-900: rgb(var(--navy-900));
+  --color-navy-800: rgb(var(--navy-800));
+  --color-navy-700: rgb(var(--navy-700));
+  --color-navy-600: rgb(var(--navy-600));
+  --color-orange-600: rgb(var(--orange-600));
+  --color-orange-500: rgb(var(--orange-500));
+  --color-orange-400: rgb(var(--orange-400));
+  --color-cream-100: rgb(var(--cream-100));
+  --color-cream-50: rgb(var(--cream-50));
+
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  --radius-xl: calc(var(--radius) * 1.5);
+  --radius-2xl: calc(var(--radius) * 2);
+  --radius-3xl: calc(var(--radius) * 3);
+  --radius-4xl: calc(var(--radius) * 4);
 }
 
+/*
+  Paleta de marca como tripletas RGB, para aplicar alfa con rgb(var(--token) / 0.16).
+  Los alfas sobre --panel-line no son arbitrarios: 0.70 (texto secundario), 0.16 (borde),
+  0.10 (regla de tabla) y 0.08 (relleno) están calculados para cumplir 4.5:1 en los tres
+  temas. Usar otros rompe el contraste en alguno.
+*/
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --navy-950: 12 27 47;
+  --navy-900: 17 35 62;
+  --navy-800: 22 37 63;
+  --navy-700: 30 51 87;
+  --navy-600: 40 66 104;
+  --orange-600: 199 92 24;
+  --orange-500: 232 115 42;
+  --orange-400: 240 160 75;
+  --cream-100: 237 231 219;
+  --cream-50: 245 241 233;
+
+  /* Tema de marca: el chrome (sidebar) toma el slot B; el área de trabajo, el A. */
+  --section-a: var(--cream-50);
+  --ink-a: var(--navy-900);
+  --section-b: var(--navy-950);
+  --ink-b: var(--cream-50);
+
+  --panel-chrome: var(--section-b);
+  --panel-chrome-ink: var(--ink-b);
+  --panel-chrome-line: var(--ink-b);
+  --panel-chrome-active: var(--navy-700);
+  --panel-canvas: var(--section-a);
+  --panel-ink: var(--ink-a);
+  --panel-line: var(--ink-a);
+  --panel-surface: 255 255 255;
+  --panel-head: var(--cream-100);
+  --panel-field: 255 255 255;
+
+  /* Par semántico: la marca no define verde ni rojo de sistema. */
+  --ok: 5 119 59;
+  --danger: 169 34 39;
+
+  --radius: 4px;
+
+  color-scheme: light;
 }
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+html.theme-light {
+  --section-b: var(--cream-100);
+  --ink-b: var(--navy-900);
+  --panel-chrome-active: var(--cream-50);
+}
+
+/* .dark-surface fija los valores oscuros en una sola zona (el login se queda oscuro en los
+   tres temas). */
+html.theme-dark,
+.dark-surface {
+  --section-a: var(--navy-800);
+  --ink-a: var(--cream-50);
+  --section-b: var(--navy-950);
+  --ink-b: var(--cream-50);
+
+  --panel-chrome: var(--section-b);
+  --panel-chrome-ink: var(--ink-b);
+  --panel-chrome-line: var(--ink-b);
+  --panel-chrome-active: var(--navy-700);
+  --panel-canvas: var(--section-a);
+  --panel-ink: var(--ink-a);
+  --panel-line: var(--ink-a);
+  --panel-surface: var(--navy-700);
+  --panel-head: var(--navy-900);
+  --panel-field: var(--navy-900);
+
+  --ok: 94 188 123;
+  --danger: 235 141 134;
+
+  color-scheme: dark;
+}
+
+/* Variables de shadcn sobre los tokens del panel. Se repiten en .dark-surface porque una
+   variable que usa var() se resuelve en el elemento donde se declara: sin esto, la zona
+   oscura heredaría los colores ya resueltos del tema de la página. */
+:root,
+.dark-surface {
+  --background: rgb(var(--panel-canvas));
+  --foreground: rgb(var(--panel-ink));
+  --card: rgb(var(--panel-surface));
+  --card-foreground: rgb(var(--panel-ink));
+  --popover: rgb(var(--panel-surface));
+  --popover-foreground: rgb(var(--panel-ink));
+  /* Texto navy sobre naranja: el blanco da 3.0:1 y no pasa AA. */
+  --primary: rgb(var(--orange-500));
+  --primary-foreground: rgb(var(--navy-950));
+  --secondary: rgb(var(--panel-line) / 0.08);
+  --secondary-foreground: rgb(var(--panel-ink));
+  --muted: rgb(var(--panel-line) / 0.08);
+  --muted-foreground: rgb(var(--panel-line) / 0.7);
+  --accent: rgb(var(--panel-line) / 0.08);
+  --accent-foreground: rgb(var(--panel-ink));
+  --destructive: rgb(var(--danger));
+  --border: rgb(var(--panel-line) / 0.16);
+  --input: rgb(var(--panel-line) / 0.16);
+  --field: rgb(var(--panel-field));
+  --ring: rgb(var(--orange-500));
+  --sidebar: rgb(var(--panel-chrome));
+  --sidebar-foreground: rgb(var(--panel-chrome-ink));
+  --sidebar-primary: rgb(var(--orange-500));
+  --sidebar-primary-foreground: rgb(var(--navy-950));
+  --sidebar-accent: rgb(var(--panel-chrome-active));
+  --sidebar-accent-foreground: rgb(var(--panel-chrome-ink));
+  --sidebar-border: rgb(var(--panel-chrome-line) / 0.16);
+  --sidebar-ring: rgb(var(--orange-500));
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring;
+  }
+  html {
+    @apply font-sans;
   }
   body {
     @apply bg-background text-foreground;
   }
-  html {
-    @apply font-sans;
+  :focus-visible {
+    @apply outline-2 outline-offset-2;
+  }
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']) {
+    cursor: pointer;
+  }
+  ::selection {
+    @apply bg-orange-500 text-navy-950;
   }
 }
