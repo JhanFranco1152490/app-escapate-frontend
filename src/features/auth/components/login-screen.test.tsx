@@ -4,9 +4,11 @@ import { http, HttpResponse } from 'msw';
 import type { UrlUpdateEvent } from 'nuqs/adapters/testing';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { apiFetch } from '@/lib/api/client';
 import { RATE_LIMIT_MESSAGE } from '@/lib/api/errors';
+import { queryKeys } from '@/lib/api/query-keys';
 import { apiUrl, noSessionHandlers, sessionHandler } from '@/test/handlers';
-import { renderWithProviders } from '@/test/render';
+import { createTestQueryClient, renderWithProviders } from '@/test/render';
 import { server } from '@/test/server';
 import { buildSession } from '@/test/session';
 
@@ -167,5 +169,28 @@ describe('LoginScreen', () => {
     await vi.waitFor(() => expect(router.replace).toHaveBeenCalled());
     expect(router.replace).toHaveBeenCalledOnce();
     expect(router.replace).toHaveBeenCalledWith('/');
+  });
+
+  it('con una sesión vencida que quedó en caché no redirige', async () => {
+    // Así llega quien estaba en el panel cuando la sesión venció: la caché conserva el
+    // último usuario, pero la consulta terminó en 401.
+    const queryClient = createTestQueryClient();
+    queryClient.setQueryData(queryKeys.session(), buildSession());
+    await queryClient
+      .fetchQuery({
+        queryKey: queryKeys.session(),
+        queryFn: () => apiFetch('/api/auth/me'),
+      })
+      .catch(() => undefined);
+    expect(queryClient.getQueryState(queryKeys.session())?.status).toBe(
+      'error',
+    );
+    renderWithProviders(<LoginScreen />, { queryClient });
+
+    expect(
+      await screen.findByRole('button', { name: 'Entrar' }),
+    ).toBeInTheDocument();
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    expect(router.replace).not.toHaveBeenCalled();
   });
 });

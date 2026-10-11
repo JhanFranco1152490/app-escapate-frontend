@@ -27,7 +27,9 @@ export function LoginScreen() {
   // Mientras haya un login en curso o recién hecho, la redirección es la del envío, hacia
   // next; si no, se descartaría next con una segunda redirección a la página principal.
   const loggingIn = login.isPending || login.isSuccess;
-  const hadSession = session.data !== undefined && !loggingIn;
+  // isSuccess y no data: tras un 401 la caché conserva el último usuario, y tomarlo por
+  // una sesión activa devolvería al panel, que a su vez mandaría aquí, sin fin.
+  const hadSession = session.isSuccess && !loggingIn;
 
   async function submitLogin(values: LoginValues) {
     await login.mutateAsync(values);
