@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { render, type RenderOptions } from '@testing-library/react';
+import { render, renderHook, type RenderOptions } from '@testing-library/react';
 import {
   NuqsTestingAdapter,
   type OnUrlUpdateFunction,
@@ -23,15 +23,16 @@ type Options = Omit<RenderOptions, 'wrapper'> & {
   onUrlUpdate?: OnUrlUpdateFunction;
 };
 
-export function renderWithProviders(
-  ui: ReactElement,
-  {
-    queryClient = createTestQueryClient(),
-    searchParams,
-    onUrlUpdate,
-    ...options
-  }: Options = {},
-) {
+type ProviderOptions = Pick<
+  Options,
+  'queryClient' | 'searchParams' | 'onUrlUpdate'
+>;
+
+function createWrapper({
+  queryClient = createTestQueryClient(),
+  searchParams,
+  onUrlUpdate,
+}: ProviderOptions) {
   function Wrapper({ children }: { children: ReactNode }) {
     return (
       <QueryClientProvider client={queryClient}>
@@ -45,5 +46,24 @@ export function renderWithProviders(
       </QueryClientProvider>
     );
   }
-  return { queryClient, ...render(ui, { wrapper: Wrapper, ...options }) };
+  return { queryClient, Wrapper };
+}
+
+export function renderWithProviders(
+  ui: ReactElement,
+  { queryClient, searchParams, onUrlUpdate, ...options }: Options = {},
+) {
+  const wrapper = createWrapper({ queryClient, searchParams, onUrlUpdate });
+  return {
+    queryClient: wrapper.queryClient,
+    ...render(ui, { wrapper: wrapper.Wrapper, ...options }),
+  };
+}
+
+export function renderHookWithProviders<Result>(
+  hook: () => Result,
+  options: ProviderOptions = {},
+) {
+  const { queryClient, Wrapper } = createWrapper(options);
+  return { queryClient, ...renderHook(hook, { wrapper: Wrapper }) };
 }
