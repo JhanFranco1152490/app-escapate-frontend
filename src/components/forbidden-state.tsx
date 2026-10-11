@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
 
+import { StatePanel } from './state-panel';
+
 type ForbiddenStateProps = {
   title?: string;
   children?: ReactNode;
@@ -14,18 +16,13 @@ export function ForbiddenState({
   action,
 }: ForbiddenStateProps) {
   return (
-    <div className="flex flex-col items-center justify-center gap-4.5 rounded-xl border bg-card px-6 py-8 text-center sm:px-14">
-      <LockIllustration />
-      <div className="flex flex-col items-center gap-2.5">
-        <h2 className="font-heading text-[1.4375rem] leading-tight font-semibold tracking-[-0.02em]">
-          {title}
-        </h2>
-        <p className="max-w-100 text-[0.84375rem] leading-relaxed text-muted-foreground">
-          {children}
-        </p>
-      </div>
-      {action}
-    </div>
+    <StatePanel
+      illustration={<LockIllustration />}
+      title={title}
+      action={action}
+    >
+      {children}
+    </StatePanel>
   );
 }
 
