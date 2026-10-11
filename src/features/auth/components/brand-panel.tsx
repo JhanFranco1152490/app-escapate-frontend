@@ -23,16 +23,30 @@ export function BrandPanel() {
           height={130}
           className="h-auto w-44 lg:w-53.5"
         />
-        <div className="flex max-w-140 flex-col gap-4.5 text-cream-50">
-          <p className="font-heading text-4xl leading-[1.05] font-semibold tracking-[-0.03em] lg:text-[3.375rem]">
-            Cada viaje, de la solicitud a la maleta.
+        <div className="flex max-w-140 flex-col gap-5.5 text-cream-50">
+          <p className="font-mono text-[0.6875rem] tracking-[0.22em] text-cream-50/72 uppercase">
+            Panel interno · Operación
           </p>
-          <p className="max-w-105 text-[0.9375rem] leading-relaxed text-cream-50/72">
-            Panel interno para el equipo de la agencia: clientes, cotizaciones,
-            proveedores y reservas en un solo lugar.
+          <p className="font-heading text-[2.75rem] leading-none font-bold tracking-[-0.03em] lg:text-[3.875rem]">
+            Tu viaje <em className="font-semibold text-orange-400">empieza</em>{' '}
+            aquí.
           </p>
-          <p className="mt-6 font-mono text-[0.625rem] tracking-[0.18em] text-cream-50/60 uppercase">
-            Acceso solo para personal autorizado
+          <p className="max-w-107.5 text-[0.9375rem] leading-relaxed text-cream-50/78">
+            Del otro lado del mostrador, la misma marca que ve el viajero. Aquí
+            se registran los clientes, se arman las cotizaciones y se cierran
+            las reservas.
+          </p>
+          <div aria-hidden="true" className="mt-2.5 h-px bg-cream-50/20" />
+          <p className="flex flex-wrap items-center gap-3.5 font-mono text-[0.6875rem] tracking-[0.18em] text-cream-50/62 uppercase">
+            <span>Cúcuta</span>
+            <span aria-hidden="true" className="text-orange-500">
+              ·
+            </span>
+            <span>Norte de Santander</span>
+            <span aria-hidden="true" className="text-orange-500">
+              ·
+            </span>
+            <span>Colombia</span>
           </p>
         </div>
       </div>

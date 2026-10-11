@@ -79,7 +79,7 @@ export function DocumentLoginForm({
       : {};
 
   return (
-    <form noValidate onSubmit={submit} className="flex flex-col gap-5">
+    <form noValidate onSubmit={submit} className="flex flex-col gap-4">
       <FormField
         id="document_type"
         label="Tipo de documento"
@@ -88,7 +88,7 @@ export function DocumentLoginForm({
       >
         <NativeSelect
           id="document_type"
-          className="w-full [&_select]:h-12.5"
+          className="w-full [&_select]:h-11"
           {...register('document_type')}
           {...invalidProps('document_type')}
         >
@@ -110,7 +110,7 @@ export function DocumentLoginForm({
           autoComplete="username"
           // CE, PPT y pasaporte pueden llevar letras: solo la cédula usa el teclado numérico.
           inputMode={documentType === 'CC' ? 'numeric' : 'text'}
-          className="h-12.5"
+          className="h-11"
           {...register('document_number')}
           {...invalidProps('document_number')}
         />
@@ -124,17 +124,12 @@ export function DocumentLoginForm({
         <PasswordInput
           id="password"
           autoComplete="current-password"
-          className="h-12.5"
+          className="h-11"
           {...register('password')}
           {...invalidProps('password')}
         />
       </FormField>
-      <Button
-        type="submit"
-        size="lg"
-        className="w-full"
-        disabled={isSubmitting}
-      >
+      <Button type="submit" className="w-full" disabled={isSubmitting}>
         {isSubmitting ? 'Entrando…' : 'Entrar'}
       </Button>
     </form>

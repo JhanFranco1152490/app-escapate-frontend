@@ -49,8 +49,8 @@ export function LoginScreen() {
   return (
     <main className="dark-surface flex min-h-dvh bg-navy-950 text-foreground">
       <BrandPanel />
-      <section className="flex flex-1 items-center justify-center px-4 py-10 sm:px-12 md:w-140 md:flex-none">
-        <div className="flex w-full max-w-md flex-col gap-5">
+      <section className="flex flex-1 items-center justify-center px-4 py-6 sm:px-12 md:w-140 md:flex-none">
+        <div className="flex w-full max-w-md flex-col gap-4">
           <header>
             <p className="font-mono text-[0.625rem] tracking-[0.2em] text-orange-400 uppercase">
               Portal de asesores

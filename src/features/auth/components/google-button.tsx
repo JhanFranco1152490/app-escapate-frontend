@@ -9,7 +9,6 @@ export function GoogleButton({ next }: { next: string | null }) {
       href={googleLoginUrl(next)}
       className={buttonVariants({
         variant: 'outline',
-        size: 'lg',
         className: 'w-full gap-3',
       })}
     >
