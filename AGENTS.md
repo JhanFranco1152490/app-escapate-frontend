@@ -65,7 +65,11 @@ Husky + lint-staged.
 ```
 src/
 ├── app/                  rutas; layout.tsx monta providers.tsx (QueryClient + NuqsAdapter)
+│   ├── (auth)/           pantallas sin sesión (/iniciar-sesion)
+│   └── (app)/            panel: layout.tsx = SessionGuard + PanelLayout; toda página con
+│                         sesión va aquí
 ├── features/<dominio>/   api.ts, schemas.ts, components/, hooks use-*.ts
+│   └── auth/             sesión, login, guardia, barra del panel y permisos
 ├── components/
 │   ├── ui/               solo shadcn/ui
 │   └── …                 compartidos por más de un dominio
@@ -74,10 +78,15 @@ src/
 │   ├── format/           dates.ts, money.ts
 │   ├── query-client.ts   reintentos e invalidación de la sesión ante un 401
 │   └── env.ts            NEXT_PUBLIC_API_URL (el build falla si falta en producción)
-└── test/                 render.tsx, server.ts, handlers.ts
+└── test/                 render.tsx, server.ts, handlers.ts, session.ts
 ```
 
 Rutas visibles en español (`/clientes`, `/cotizaciones/[id]`); código en inglés.
+
+Los tokens de marca (colores, tipografías, tres temas) están en `src/app/globals.css`,
+portados de `docs/ui/design-system/tokens.css` y mapeados a las variables de shadcn. La
+clase `.dark-surface` aplica los valores oscuros a una sola zona (el login, oscuro en los
+tres temas). Las maquetas de `docs/ui/` son la guía visual.
 
 ### Capa de API
 
@@ -95,6 +104,23 @@ Rutas visibles en español (`/clientes`, `/cotizaciones/[id]`); código en ingl�
   hooks `useX` con TanStack Query y claves de `lib/api/query-keys.ts`.
 - Un `401` en cualquier consulta o mutación invalida `queryKeys.session()` desde
   `lib/query-client.ts`; la consulta de la sesión no se invalida a sí misma.
+
+### Sesión y permisos (`features/auth`)
+
+- `SessionGuard` protege todo lo que está en `app/(app)/`: mientras carga muestra un
+  esqueleto; un `401` manda a `/iniciar-sesion?next=<ruta actual>`; un 500 o la falta de red
+  muestran "Reintentar" sin sacar a la persona.
+- **Dentro del panel, la sesión solo la consulta la guardia.** Los componentes leen el
+  usuario con `useCurrentUser()` (nunca `undefined`), los permisos con
+  `useHasPermission(code)` y cierran sesión con `useSignOut()`. No usar `useSession()` ahí:
+  el cierre de sesión vacía la caché y cualquier otra consulta de la sesión volvería a
+  pedir `/api/auth/me`, recibiría un 401 y provocaría una segunda redirección.
+- `useHasPermission` solo decide qué se muestra; la API responde 403 de todas formas.
+- La pantalla de login confía en `session.isSuccess`, no en `session.data`: tras un 401 la
+  caché conserva el último usuario.
+- Pantallas usables desde 360 px. El quiebre principal es `md` (768 px): por debajo, el
+  login oculta el panel de marca y la barra del panel pasa nombre y cierre a un menú.
+  Campos con letra de 16 px y áreas táctiles de 44 px como mínimo.
 
 ### Datos y formularios
 
@@ -114,7 +140,11 @@ Rutas visibles en español (`/clientes`, `/cotizaciones/[id]`); código en ingl�
 - MSW simula la API (`src/test/server.ts`); una petición sin handler hace fallar el test.
   Los handlers propios se declaran con `server.use(...)`; `apiUrl(path)` arma la URL.
 - `renderWithProviders` (`src/test/render.tsx`) monta QueryClient de pruebas + adaptador de
-  `nuqs`.
+  `nuqs`; `renderHookWithProviders` hace lo mismo para probar hooks.
+- Sesión de prueba: `buildSession()` (`src/test/session.ts`), y en `handlers.ts`
+  `sessionHandler(session)` (con sesión) y `noSessionHandlers` (`/me` y `refresh` en 401).
+  Un componente que usa `useCurrentUser` se prueba dentro de `<SessionGuard>`, con
+  `next/navigation` simulado (`vi.mock`).
 - Datos inventados (`@example.com`): nunca datos personales reales.
 
 ### Reglas de diseño del código
@@ -153,6 +183,10 @@ El agente corre y deja en verde, y si algo falla lo corrige o lo dice en el PR:
 - **`pnpm-workspace.yaml` → `allowBuilds`:** pnpm 11 falla el `install` (también en el build
   de despliegue) si una dependencia con script de instalación queda sin decidir. Al agregar
   una así, marcarla `true` o `false` ahí.
+- **Windows con `core.autocrlf=true`:** `prettier --check .` marca todos los archivos por
+  los finales de línea CRLF; se verifica con `prettier --check --end-of-line auto .`.
+- **`typecheck` falla por una ruta que ya no existe:** son tipos viejos de `next dev` en
+  `.next/dev/types`; se borra esa carpeta (es generada).
 
 - No leer el texto del error de la API para decidir lógica (cambia con el idioma y la
   redacción): usar el código del error o el status.
