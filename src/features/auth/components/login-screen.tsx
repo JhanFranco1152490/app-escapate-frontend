@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 
 import { Alert } from '@/components/alert';
 
-import { useLogin } from '../api';
+import { useLogin, useSession } from '../api';
 import { loginNoticeFromUrl } from '../login-errors';
 import { safeNext } from '../safe-next';
 import type { LoginValues } from '../schemas';
@@ -22,6 +22,12 @@ export function LoginScreen() {
   const [notice, setNotice] = useState(() => loginNoticeFromUrl(error));
   const router = useRouter();
   const login = useLogin();
+  const session = useSession();
+  // El login exitoso también deja la sesión en la caché (antes de terminar la mutación).
+  // Mientras haya un login en curso o recién hecho, la redirección es la del envío, hacia
+  // next; si no, se descartaría next con una segunda redirección a la página principal.
+  const loggingIn = login.isPending || login.isSuccess;
+  const hadSession = session.data !== undefined && !loggingIn;
 
   async function submitLogin(values: LoginValues) {
     await login.mutateAsync(values);
@@ -29,8 +35,14 @@ export function LoginScreen() {
   }
 
   useEffect(() => {
+    if (hadSession) router.replace('/');
+  }, [hadSession, router]);
+
+  useEffect(() => {
     if (error !== null) void setError(null);
   }, [error, setError]);
+
+  if (hadSession) return null;
 
   return (
     <main className="dark-surface flex min-h-dvh bg-navy-950 text-foreground">

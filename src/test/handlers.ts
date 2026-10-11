@@ -15,4 +15,17 @@ export const csrfHandler = http.get(apiUrl('/api/auth/csrf'), () =>
 export const sessionHandler = (session = buildSession()) =>
   http.get(apiUrl('/api/auth/me'), () => HttpResponse.json(session));
 
+const notAuthenticated = () =>
+  HttpResponse.json(
+    { detail: 'No autenticado.', code: 'not_authenticated', fields: {} },
+    { status: 401 },
+  );
+
+// El cliente intenta renovar ante el 401 de /me, así que sin sesión también falla la
+// renovación.
+export const noSessionHandlers = [
+  http.get(apiUrl('/api/auth/me'), notAuthenticated),
+  http.post(apiUrl('/api/auth/refresh'), notAuthenticated),
+];
+
 export const defaultHandlers = [csrfHandler];

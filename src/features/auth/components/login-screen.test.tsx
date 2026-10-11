@@ -4,9 +4,11 @@ import { http, HttpResponse } from 'msw';
 import type { UrlUpdateEvent } from 'nuqs/adapters/testing';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { apiUrl } from '@/test/handlers';
+import { RATE_LIMIT_MESSAGE } from '@/lib/api/errors';
+import { apiUrl, noSessionHandlers, sessionHandler } from '@/test/handlers';
 import { renderWithProviders } from '@/test/render';
 import { server } from '@/test/server';
+import { buildSession } from '@/test/session';
 
 import { googleLoginUrl } from '../google-login-url';
 import { LoginScreen } from './login-screen';
@@ -14,7 +16,10 @@ import { LoginScreen } from './login-screen';
 const router = vi.hoisted(() => ({ replace: vi.fn() }));
 vi.mock('next/navigation', () => ({ useRouter: () => router }));
 
-beforeEach(() => router.replace.mockReset());
+beforeEach(() => {
+  router.replace.mockReset();
+  server.use(...noSessionHandlers);
+});
 
 const respondToLogin = (respond: () => Response) =>
   server.use(http.post(apiUrl('/api/auth/login'), respond));
@@ -99,6 +104,24 @@ describe('LoginScreen', () => {
     expect(await screen.findByRole('alert')).toHaveTextContent(detail);
   });
 
+  it.each([
+    ['la cuenta inactiva', 403, 'account_inactive', 'Tu cuenta está inactiva.'],
+    ['el límite de solicitudes', 429, 'throttled', RATE_LIMIT_MESSAGE],
+  ])('con %s muestra su aviso', async (_, status, code, expected) => {
+    respondToLogin(() =>
+      HttpResponse.json(
+        { detail: 'Mensaje del API', code, fields: {} },
+        { status },
+      ),
+    );
+    renderWithProviders(<LoginScreen />);
+
+    await login();
+
+    expect(await screen.findByRole('alert')).toHaveTextContent(expected);
+    expect(router.replace).not.toHaveBeenCalled();
+  });
+
   it('sin respuesta de la API muestra el aviso genérico', async () => {
     respondToLogin(() => HttpResponse.error());
     renderWithProviders(<LoginScreen />);
@@ -113,16 +136,36 @@ describe('LoginScreen', () => {
   it.each([
     ['un next interno', '?next=/clientes', '/clientes'],
     ['un next externo', '?next=//evil.example', '/'],
+    ['un next absoluto', '?next=https://evil.example', '/'],
     ['un next con barra invertida', '?next=/\\evil.example', '/'],
     ['sin next', '', '/'],
   ])('al entrar con %s navega a %s', async (_, searchParams, expected) => {
-    respondToLogin(() => HttpResponse.json({ id: 1 }));
+    respondToLogin(() => HttpResponse.json(buildSession()));
     renderWithProviders(<LoginScreen />, { searchParams });
 
     await login();
 
-    await vi.waitFor(() =>
-      expect(router.replace).toHaveBeenCalledWith(expected),
-    );
+    await vi.waitFor(() => expect(router.replace).toHaveBeenCalled());
+    expect(router.replace).toHaveBeenCalledOnce();
+    expect(router.replace).toHaveBeenCalledWith(expected);
+  });
+
+  it('con una sesión activa redirige a la página principal sin mostrar el formulario', async () => {
+    server.use(sessionHandler());
+    renderWithProviders(<LoginScreen />);
+
+    await vi.waitFor(() => expect(router.replace).toHaveBeenCalledWith('/'));
+    expect(
+      screen.queryByRole('button', { name: 'Entrar' }),
+    ).not.toBeInTheDocument();
+  });
+
+  it('con una sesión activa va a la página principal aunque haya next', async () => {
+    server.use(sessionHandler());
+    renderWithProviders(<LoginScreen />, { searchParams: '?next=/clientes' });
+
+    await vi.waitFor(() => expect(router.replace).toHaveBeenCalled());
+    expect(router.replace).toHaveBeenCalledOnce();
+    expect(router.replace).toHaveBeenCalledWith('/');
   });
 });
