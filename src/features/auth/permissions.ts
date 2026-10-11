@@ -1,4 +1,5 @@
-import { useSession, type SessionUser } from './api';
+import type { SessionUser } from './api';
+import { useCurrentUser } from './components/session-guard';
 
 // Solo decide qué se muestra: la API responde 403 de todas formas si falta el permiso.
 export function hasPermission(session: SessionUser | undefined, code: string) {
@@ -6,6 +7,5 @@ export function hasPermission(session: SessionUser | undefined, code: string) {
 }
 
 export function useHasPermission(code: string) {
-  const { data } = useSession();
-  return hasPermission(data, code);
+  return hasPermission(useCurrentUser(), code);
 }

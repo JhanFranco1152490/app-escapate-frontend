@@ -15,8 +15,12 @@ const login = (body: LoginRequest) =>
 
 const logout = () => apiFetch<void>('/api/auth/logout', { method: 'POST' });
 
-export function useSession() {
-  return useQuery({ queryKey: queryKeys.session(), queryFn: fetchSession });
+export function useSession({ enabled = true } = {}) {
+  return useQuery({
+    queryKey: queryKeys.session(),
+    queryFn: fetchSession,
+    enabled,
+  });
 }
 
 export function useLogin() {
