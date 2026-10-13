@@ -65,7 +65,12 @@ Husky + lint-staged.
 ```
 src/
 ├── app/                  rutas; layout.tsx monta providers.tsx (QueryClient + NuqsAdapter)
+│   ├── (auth)/           pantallas sin sesión (/iniciar-sesion)
+│   └── (app)/            panel: layout.tsx = SessionGuard + PanelLayout; toda página con
+│                         sesión va aquí
 ├── features/<dominio>/   api.ts, schemas.ts, components/, hooks use-*.ts
+│   ├── auth/             sesión, login, guardia y permisos
+│   └── panel/            marco del panel: barra superior, menú de cuenta, bienvenida
 ├── components/
 │   ├── ui/               solo shadcn/ui
 │   └── …                 compartidos por más de un dominio
@@ -74,18 +79,26 @@ src/
 │   ├── format/           dates.ts, money.ts
 │   ├── query-client.ts   reintentos e invalidación de la sesión ante un 401
 │   └── env.ts            NEXT_PUBLIC_API_URL (el build falla si falta en producción)
-└── test/                 render.tsx, server.ts, handlers.ts
+└── test/                 render.tsx, server.ts, handlers.ts, session.ts
 ```
 
 Rutas visibles en español (`/clientes`, `/cotizaciones/[id]`); código en inglés.
+
+Los tokens de marca (colores, tipografías, tres temas) están en `src/app/globals.css`,
+portados de `docs/ui/design-system/tokens.css` y mapeados a las variables de shadcn. La
+clase `.dark-surface` aplica los valores oscuros a una sola zona (el login, oscuro en los
+tres temas). Las maquetas de `docs/ui/` son la guía visual.
 
 ### Capa de API
 
 - `lib/api/client.ts` (`apiFetch`) es el **único** lugar que llama a `fetch`: prefija la
   URL, envía las cookies, agrega `X-CSRF-Token` en mutaciones (lo pide a
-  `GET /api/auth/csrf` una vez) y, ante un `401` de un endpoint que usa el token de acceso,
-  renueva la sesión una sola vez y reintenta. El cierre de sesión espera a una renovación en
-  vuelo.
+  `GET /api/auth/csrf` en cada mutación; las simultáneas comparten una sola petición, y no
+  se guarda para después porque otra pestaña puede rotar la cookie) y, ante un `401` de un
+  endpoint que usa el token de acceso, renueva la sesión una sola vez y reintenta. Si la
+  renovación falla con `authentication_failed`, reintenta igual una vez: otra pestaña pudo
+  renovar antes y dejó las cookies nuevas en el navegador. Con `not_authenticated` (sin
+  cookie de renovación) no reintenta. El cierre de sesión espera a una renovación en vuelo.
 - Todo error sale como `ApiError { status, code, fields, message }`; un 2xx que no es JSON
   da `unexpected_response`, y sin red llega un `TypeError` (`isNetworkFailure`).
 - Tipos de la API: solo de `lib/api/schema.d.ts`, generado con `pnpm gen:api` (backend local
@@ -95,6 +108,23 @@ Rutas visibles en español (`/clientes`, `/cotizaciones/[id]`); código en ingl�
   hooks `useX` con TanStack Query y claves de `lib/api/query-keys.ts`.
 - Un `401` en cualquier consulta o mutación invalida `queryKeys.session()` desde
   `lib/query-client.ts`; la consulta de la sesión no se invalida a sí misma.
+
+### Sesión y permisos (`features/auth`)
+
+- `SessionGuard` protege todo lo que está en `app/(app)/`: mientras carga muestra un
+  esqueleto; un `401` manda a `/iniciar-sesion?next=<ruta actual>`; un 500 o la falta de red
+  muestran "Reintentar" sin sacar a la persona.
+- **Dentro del panel, la sesión solo la consulta la guardia.** Los componentes leen el
+  usuario con `useCurrentUser()` (nunca `undefined`), los permisos con
+  `useHasPermission(code)` y cierran sesión con `useSignOut()`. No usar `useSession()` ahí:
+  el cierre de sesión vacía la caché y cualquier otra consulta de la sesión volvería a
+  pedir `/api/auth/me`, recibiría un 401 y provocaría una segunda redirección.
+- `useHasPermission` solo decide qué se muestra; la API responde 403 de todas formas.
+- La pantalla de login confía en `session.isSuccess`, no en `session.data`: tras un 401 la
+  caché conserva el último usuario.
+- Pantallas usables desde 360 px. El quiebre principal es `md` (768 px): por debajo, el
+  login oculta el panel de marca y la barra del panel pasa nombre y cierre a un menú.
+  Campos con letra de 16 px y áreas táctiles de 44 px como mínimo.
 
 ### Datos y formularios
 
@@ -114,7 +144,11 @@ Rutas visibles en español (`/clientes`, `/cotizaciones/[id]`); código en ingl�
 - MSW simula la API (`src/test/server.ts`); una petición sin handler hace fallar el test.
   Los handlers propios se declaran con `server.use(...)`; `apiUrl(path)` arma la URL.
 - `renderWithProviders` (`src/test/render.tsx`) monta QueryClient de pruebas + adaptador de
-  `nuqs`.
+  `nuqs`; `renderHookWithProviders` hace lo mismo para probar hooks.
+- Sesión de prueba: `buildSession()` (`src/test/session.ts`), y en `handlers.ts`
+  `sessionHandler(session)` (con sesión) y `noSessionHandlers` (`/me` y `refresh` en 401).
+  Un componente que usa `useCurrentUser` se prueba dentro de `<SessionGuard>`, con
+  `next/navigation` simulado (`vi.mock`).
 - Datos inventados (`@example.com`): nunca datos personales reales.
 
 ### Reglas de diseño del código
@@ -124,8 +158,19 @@ Rutas visibles en español (`/clientes`, `/cotizaciones/[id]`); código en ingl�
 - **No duplicar.** La segunda vez que aparece algo se extrae: a `components/` si es
   visual y no depende de un dominio, a `lib/` si es lógica.
 - **Páginas delgadas.** Un `page.tsx` monta una pantalla de `features/`; no lleva lógica.
-- **Capas en una sola dirección**: `app` → `features` → `components` → `lib`. Un dominio
-  nunca importa de la carpeta de otro; si dos lo necesitan, sube a `components/` o `lib/`.
+- **Capas en una sola dirección**: `app` → `features` → `components` → `lib`.
+- **Dependencias entre dominios en una sola dirección y declaradas.** Un dominio puede
+  importar de otro solo si está en la tabla de abajo, si el otro no importa de él (sin
+  ciclos) y solo de su capa pública: `api.ts`, `schemas.ts`, hooks y los componentes
+  pensados para otros dominios, nunca sus archivos internos. Lo que dos dominios comparten
+  sin depender uno del otro sube a `components/` o `lib/`. Cada feature que agrega una
+  dependencia agrega su fila en el mismo PR.
+
+  | Dominio | Puede importar de                                      |
+  | ------- | ------------------------------------------------------ |
+  | `auth`  | —                                                      |
+  | `panel` | `auth` (usuario actual, permisos y cierre de sesión)   |
+
 - **Elegir la mejor opción, no la librería por defecto.** Ante una necesidad técnica se
   comparan las alternativas reales (lo que trae Next.js, una librería, código propio) y se
   deja escrito en el PR lo elegido y lo descartado.
@@ -153,6 +198,10 @@ El agente corre y deja en verde, y si algo falla lo corrige o lo dice en el PR:
 - **`pnpm-workspace.yaml` → `allowBuilds`:** pnpm 11 falla el `install` (también en el build
   de despliegue) si una dependencia con script de instalación queda sin decidir. Al agregar
   una así, marcarla `true` o `false` ahí.
+- **Windows con `core.autocrlf=true`:** `prettier --check .` marca todos los archivos por
+  los finales de línea CRLF; se verifica con `prettier --check --end-of-line auto .`.
+- **`typecheck` falla por una ruta que ya no existe:** son tipos viejos de `next dev` en
+  `.next/dev/types`; se borra esa carpeta (es generada).
 
 - No leer el texto del error de la API para decidir lógica (cambia con el idioma y la
   redacción): usar el código del error o el status.
