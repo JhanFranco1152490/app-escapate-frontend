@@ -69,7 +69,8 @@ src/
 │   └── (app)/            panel: layout.tsx = SessionGuard + PanelLayout; toda página con
 │                         sesión va aquí
 ├── features/<dominio>/   api.ts, schemas.ts, components/, hooks use-*.ts
-│   └── auth/             sesión, login, guardia, barra del panel y permisos
+│   ├── auth/             sesión, login, guardia y permisos
+│   └── panel/            marco del panel: barra superior, menú de cuenta, bienvenida
 ├── components/
 │   ├── ui/               solo shadcn/ui
 │   └── …                 compartidos por más de un dominio
@@ -157,8 +158,19 @@ tres temas). Las maquetas de `docs/ui/` son la guía visual.
 - **No duplicar.** La segunda vez que aparece algo se extrae: a `components/` si es
   visual y no depende de un dominio, a `lib/` si es lógica.
 - **Páginas delgadas.** Un `page.tsx` monta una pantalla de `features/`; no lleva lógica.
-- **Capas en una sola dirección**: `app` → `features` → `components` → `lib`. Un dominio
-  nunca importa de la carpeta de otro; si dos lo necesitan, sube a `components/` o `lib/`.
+- **Capas en una sola dirección**: `app` → `features` → `components` → `lib`.
+- **Dependencias entre dominios en una sola dirección y declaradas.** Un dominio puede
+  importar de otro solo si está en la tabla de abajo, si el otro no importa de él (sin
+  ciclos) y solo de su capa pública: `api.ts`, `schemas.ts`, hooks y los componentes
+  pensados para otros dominios, nunca sus archivos internos. Lo que dos dominios comparten
+  sin depender uno del otro sube a `components/` o `lib/`. Cada feature que agrega una
+  dependencia agrega su fila en el mismo PR.
+
+  | Dominio | Puede importar de                                      |
+  | ------- | ------------------------------------------------------ |
+  | `auth`  | —                                                      |
+  | `panel` | `auth` (usuario actual, permisos y cierre de sesión)   |
+
 - **Elegir la mejor opción, no la librería por defecto.** Ante una necesidad técnica se
   comparan las alternativas reales (lo que trae Next.js, una librería, código propio) y se
   deja escrito en el PR lo elegido y lo descartado.
