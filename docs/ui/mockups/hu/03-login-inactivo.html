@@ -1,41 +1,80 @@
 <!doctype html>
 <html lang="es">
-<head>
-<meta charset="utf-8">
-<title>Inicio de sesión: cuenta inactiva</title>
-<link rel="stylesheet" href="panel.css">
-</head>
-<body>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap">
-<style>body{margin:0}</style>
-<div class="auth">
-  <section class="auth-l">
-    <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
-    <div>
-      <h2>Cada viaje, de la solicitud a la maleta.</h2>
-      <p>Panel interno para el equipo de la agencia: clientes, cotizaciones, proveedores y reservas en un solo lugar.</p>
+  <head>
+    <meta charset="utf-8" />
+    <title>Inicio de sesión: cuenta inactiva</title>
+    <link rel="stylesheet" href="panel.css" />
+  </head>
+  <body>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap"
+    />
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+    <div class="auth">
+      <section class="auth-l">
+        <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
+        <div>
+          <h2>Cada viaje, de la solicitud a la maleta.</h2>
+          <p>
+            Panel interno para el equipo de la agencia: clientes, cotizaciones,
+            proveedores y reservas en un solo lugar.
+          </p>
+        </div>
+        <span
+          class="mono"
+          style="
+            font-size: 10px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            opacity: 0.6;
+          "
+          >Acceso solo para personal autorizado</span
+        >
+      </section>
+      <section class="auth-r">
+        <form class="auth-card" novalidate>
+          <div>
+            <p class="eyebrow" style="color: rgb(240 160 75)">
+              Portal de asesores
+            </p>
+            <h1 style="margin-top: 8px">Iniciar sesión</h1>
+          </div>
+          <div class="alert info" role="alert">
+            <div>
+              <b>Tu cuenta está inactiva.</b><br />No puedes ingresar por ahora.
+              Si crees que es un error, escribe a un administrador de la
+              agencia.
+            </div>
+          </div>
+          <div class="fld">
+            <label class="lbl" for="email">Correo electrónico<s>*</s></label>
+            <input
+              class="in"
+              id="email"
+              type="email"
+              value="mateo.pardo@escapate.example"
+              autocomplete="username"
+            />
+          </div>
+          <div class="fld">
+            <label class="lbl" for="pass">Contraseña<s>*</s></label>
+            <input
+              class="in"
+              id="pass"
+              type="password"
+              value="••••••••••"
+              autocomplete="current-password"
+            />
+          </div>
+          <button class="btn pri" type="submit">Entrar</button>
+          <a class="lnk" href="04-recuperar.html">¿Olvidaste tu contraseña?</a>
+        </form>
+      </section>
     </div>
-    <span class="mono" style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;opacity:.6">Acceso solo para personal autorizado</span>
-  </section>
-  <section class="auth-r">
-    <form class="auth-card" novalidate>
-      <div>
-        <p class="eyebrow" style="color:rgb(240 160 75)">Portal de asesores</p>
-        <h1 style="margin-top:8px">Iniciar sesión</h1>
-      </div>
-      <div class="alert info" role="alert"><div><b>Tu cuenta está inactiva.</b><br>No puedes ingresar por ahora. Si crees que es un error, escribe a un administrador de la agencia.</div></div>
-      <div class="fld">
-        <label class="lbl" for="email">Correo electrónico<s>*</s></label>
-        <input class="in" id="email" type="email" value="mateo.pardo@escapate.example" autocomplete="username">
-      </div>
-      <div class="fld">
-        <label class="lbl" for="pass">Contraseña<s>*</s></label>
-        <input class="in" id="pass" type="password" value="••••••••••" autocomplete="current-password">
-      </div>
-      <button class="btn pri" type="submit">Entrar</button>
-      <a class="lnk" href="04-recuperar.html">¿Olvidaste tu contraseña?</a>
-    </form>
-  </section>
-</div>
-</body>
+  </body>
 </html>
