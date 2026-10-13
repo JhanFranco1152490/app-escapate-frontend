@@ -1,53 +1,178 @@
 <!doctype html>
 <html lang="es">
-<head>
-<meta charset="utf-8">
-<title>Asignar rol a un usuario</title>
-<link rel="stylesheet" href="panel.css">
-</head>
-<body>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap">
-<style>body{margin:0}</style>
-<div class="app">
-  <aside class="side">
-    <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
-    <nav class="nav" aria-label="Navegación principal">
-      <div class="nav-g"><div class="nav-h">Operación</div><a href="#"><i>01</i>Resumen</a></div>
-      <div class="nav-g"><div class="nav-h">Administración <em>Solo admin</em></div>
-        <a href="06-usuarios.html" aria-current="page"><i>02</i>Usuarios</a>
-        <a href="08-roles-permisos.html"><i>03</i>Roles y permisos</a></div>
-    </nav>
-    <div class="me"><span class="av">CM</span><div><p>Carolina Mejía</p><small>Administrador</small></div></div>
-  </aside>
-  <div class="main">
-    <header class="top"><span class="crumb">Administración / Usuarios / Andrés Quintero / <b>Rol</b></span><div class="who">Carolina Mejía<small>Administrador</small></div></header>
-    <main class="content">
-      <div class="head">
-        <div><p class="eyebrow">Usuario</p><h1 class="h1">Andrés Quintero</h1><p class="ctx">andres.quintero@escapate.example · <span class="st ok">Activo</span></p></div>
-      </div>
-      <div class="split">
-        <div class="box">
-          <div class="box-h"><h2>Rol asignado</h2><span class="eyebrow">Elige uno</span></div>
-          <fieldset style="border:0;margin:0;padding:0">
-            <legend class="sr">Rol del usuario</legend>
-            <label style="display:flex;gap:14px;padding:18px 24px;border-bottom:1px solid rgb(var(--panel-line)/.1);background:rgb(var(--orange)/.08)"><input type="radio" name="rol" checked style="accent-color:rgb(var(--orange));margin-top:3px"><span><b style="font-weight:500">Asesor comercial</b><span class="help" style="display:block;margin-top:3px;line-height:1.5">Clientes, viajeros, solicitudes y borradores. Actual.</span></span></label>
-            <label style="display:flex;gap:14px;padding:18px 24px;border-bottom:1px solid rgb(var(--panel-line)/.1)"><input type="radio" name="rol" style="accent-color:rgb(var(--orange));margin-top:3px"><span><b style="font-weight:500">Encargado de proveedores</b><span class="help" style="display:block;margin-top:3px;line-height:1.5">Proveedores, servicios y tarifas.</span></span></label>
-            <label style="display:flex;gap:14px;padding:18px 24px;border-bottom:1px solid rgb(var(--panel-line)/.1)"><input type="radio" name="rol" style="accent-color:rgb(var(--orange));margin-top:3px"><span><b style="font-weight:500">Operativo</b><span class="help" style="display:block;margin-top:3px;line-height:1.5">Reservas, documentos y pagos posteriores a la venta.</span></span></label>
-            <label style="display:flex;gap:14px;padding:18px 24px"><input type="radio" name="rol" style="accent-color:rgb(var(--orange));margin-top:3px"><span><b style="font-weight:500">Administrador</b><span class="help" style="display:block;margin-top:3px;line-height:1.5">Acceso global, incluida la gestión de usuarios y permisos.</span></span></label>
-          </fieldset>
-          <div class="box-f"><a class="btn" href="06-usuarios.html">Cancelar</a><button class="btn pri" type="button">Guardar rol</button></div>
-        </div>
-        <div class="box">
-          <div class="box-h"><h2>Qué podrá hacer</h2></div>
-          <div class="box-b">
-            <p class="help" style="line-height:1.5">Con el rol seleccionado, Andrés verá estas secciones al entrar:</p>
-            <div style="display:flex;flex-wrap:wrap;gap:8px"><span class="chip">Clientes</span><span class="chip">Viajeros</span><span class="chip">Solicitudes</span><span class="chip">Borradores</span><span class="chip">Por cotizar</span></div>
-            <div class="alert info"><div>El cambio de rol actualiza sus autorizaciones de inmediato. No podrá abrir lo que su nuevo rol no permita.</div></div>
+  <head>
+    <meta charset="utf-8" />
+    <title>Asignar rol a un usuario</title>
+    <link rel="stylesheet" href="panel.css" />
+  </head>
+  <body>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap"
+    />
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+    <div class="app">
+      <aside class="side">
+        <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
+        <nav class="nav" aria-label="Navegación principal">
+          <div class="nav-g">
+            <div class="nav-h">Operación</div>
+            <a href="#"><i>01</i>Resumen</a>
+          </div>
+          <div class="nav-g">
+            <div class="nav-h">Administración <em>Solo admin</em></div>
+            <a href="06-usuarios.html" aria-current="page"><i>02</i>Usuarios</a>
+            <a href="08-roles-permisos.html"><i>03</i>Roles y permisos</a>
+          </div>
+        </nav>
+        <div class="me">
+          <span class="av">CM</span>
+          <div>
+            <p>Carolina Mejía</p>
+            <small>Administrador</small>
           </div>
         </div>
+      </aside>
+      <div class="main">
+        <header class="top">
+          <span class="crumb"
+            >Administración / Usuarios / Andrés Quintero / <b>Rol</b></span
+          >
+          <div class="who">Carolina Mejía<small>Administrador</small></div>
+        </header>
+        <main class="content">
+          <div class="head">
+            <div>
+              <p class="eyebrow">Usuario</p>
+              <h1 class="h1">Andrés Quintero</h1>
+              <p class="ctx">
+                andres.quintero@escapate.example ·
+                <span class="st ok">Activo</span>
+              </p>
+            </div>
+          </div>
+          <div class="split">
+            <div class="box">
+              <div class="box-h">
+                <h2>Rol asignado</h2>
+                <span class="eyebrow">Elige uno</span>
+              </div>
+              <fieldset style="border: 0; margin: 0; padding: 0">
+                <legend class="sr">Rol del usuario</legend>
+                <label
+                  style="
+                    display: flex;
+                    gap: 14px;
+                    padding: 18px 24px;
+                    border-bottom: 1px solid rgb(var(--panel-line) / 0.1);
+                    background: rgb(var(--orange) / 0.08);
+                  "
+                  ><input
+                    type="radio"
+                    name="rol"
+                    checked
+                    style="accent-color: rgb(var(--orange)); margin-top: 3px"
+                  /><span
+                    ><b style="font-weight: 500">Asesor comercial</b
+                    ><span
+                      class="help"
+                      style="display: block; margin-top: 3px; line-height: 1.5"
+                      >Clientes, viajeros, solicitudes y borradores.
+                      Actual.</span
+                    ></span
+                  ></label
+                >
+                <label
+                  style="
+                    display: flex;
+                    gap: 14px;
+                    padding: 18px 24px;
+                    border-bottom: 1px solid rgb(var(--panel-line) / 0.1);
+                  "
+                  ><input
+                    type="radio"
+                    name="rol"
+                    style="accent-color: rgb(var(--orange)); margin-top: 3px"
+                  /><span
+                    ><b style="font-weight: 500">Encargado de proveedores</b
+                    ><span
+                      class="help"
+                      style="display: block; margin-top: 3px; line-height: 1.5"
+                      >Proveedores, servicios y tarifas.</span
+                    ></span
+                  ></label
+                >
+                <label
+                  style="
+                    display: flex;
+                    gap: 14px;
+                    padding: 18px 24px;
+                    border-bottom: 1px solid rgb(var(--panel-line) / 0.1);
+                  "
+                  ><input
+                    type="radio"
+                    name="rol"
+                    style="accent-color: rgb(var(--orange)); margin-top: 3px"
+                  /><span
+                    ><b style="font-weight: 500">Operativo</b
+                    ><span
+                      class="help"
+                      style="display: block; margin-top: 3px; line-height: 1.5"
+                      >Reservas, documentos y pagos posteriores a la
+                      venta.</span
+                    ></span
+                  ></label
+                >
+                <label style="display: flex; gap: 14px; padding: 18px 24px"
+                  ><input
+                    type="radio"
+                    name="rol"
+                    style="accent-color: rgb(var(--orange)); margin-top: 3px"
+                  /><span
+                    ><b style="font-weight: 500">Administrador</b
+                    ><span
+                      class="help"
+                      style="display: block; margin-top: 3px; line-height: 1.5"
+                      >Acceso global, incluida la gestión de usuarios y
+                      permisos.</span
+                    ></span
+                  ></label
+                >
+              </fieldset>
+              <div class="box-f">
+                <a class="btn" href="06-usuarios.html">Cancelar</a
+                ><button class="btn pri" type="button">Guardar rol</button>
+              </div>
+            </div>
+            <div class="box">
+              <div class="box-h"><h2>Qué podrá hacer</h2></div>
+              <div class="box-b">
+                <p class="help" style="line-height: 1.5">
+                  Con el rol seleccionado, Andrés verá estas secciones al
+                  entrar:
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px">
+                  <span class="chip">Clientes</span
+                  ><span class="chip">Viajeros</span
+                  ><span class="chip">Solicitudes</span
+                  ><span class="chip">Borradores</span
+                  ><span class="chip">Por cotizar</span>
+                </div>
+                <div class="alert info">
+                  <div>
+                    El cambio de rol actualiza sus autorizaciones de inmediato.
+                    No podrá abrir lo que su nuevo rol no permita.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
       </div>
-    </main>
-  </div>
-</div>
-</body>
+    </div>
+  </body>
 </html>

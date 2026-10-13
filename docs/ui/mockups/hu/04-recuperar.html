@@ -1,38 +1,71 @@
 <!doctype html>
 <html lang="es">
-<head>
-<meta charset="utf-8">
-<title>Recuperar contraseña</title>
-<link rel="stylesheet" href="panel.css">
-</head>
-<body>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap">
-<style>body{margin:0}</style>
-<div class="auth">
-  <section class="auth-l">
-    <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
-    <div>
-      <h2>Recupera el acceso a tu cuenta.</h2>
-      <p>Te enviaremos un enlace seguro al correo registrado para que definas una contraseña nueva.</p>
+  <head>
+    <meta charset="utf-8" />
+    <title>Recuperar contraseña</title>
+    <link rel="stylesheet" href="panel.css" />
+  </head>
+  <body>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap"
+    />
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+    <div class="auth">
+      <section class="auth-l">
+        <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
+        <div>
+          <h2>Recupera el acceso a tu cuenta.</h2>
+          <p>
+            Te enviaremos un enlace seguro al correo registrado para que definas
+            una contraseña nueva.
+          </p>
+        </div>
+        <span
+          class="mono"
+          style="
+            font-size: 10px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            opacity: 0.6;
+          "
+          >Acceso solo para personal autorizado</span
+        >
+      </section>
+      <section class="auth-r">
+        <form class="auth-card" novalidate>
+          <div>
+            <p class="eyebrow" style="color: rgb(240 160 75)">Paso 1 de 2</p>
+            <h1 style="margin-top: 8px">Recuperar contraseña</h1>
+          </div>
+          <p class="help" style="font-size: 14px; line-height: 1.5">
+            Escribe el correo con el que te registraron en el panel.
+          </p>
+          <div class="fld">
+            <label class="lbl" for="email">Correo electrónico<s>*</s></label>
+            <input
+              class="in"
+              id="email"
+              type="email"
+              value="laura.rojas@escapate.example"
+              autocomplete="username"
+            />
+          </div>
+          <div class="alert ok" role="status">
+            <div>
+              <b>Solicitud enviada.</b><br />Si el correo está registrado,
+              recibirás un enlace para restablecer tu contraseña. El enlace
+              vence en 30 minutos.
+            </div>
+          </div>
+          <button class="btn pri" type="submit">Enviar enlace</button>
+          <a class="lnk" href="01-login.html">Volver a iniciar sesión</a>
+        </form>
+      </section>
     </div>
-    <span class="mono" style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;opacity:.6">Acceso solo para personal autorizado</span>
-  </section>
-  <section class="auth-r">
-    <form class="auth-card" novalidate>
-      <div>
-        <p class="eyebrow" style="color:rgb(240 160 75)">Paso 1 de 2</p>
-        <h1 style="margin-top:8px">Recuperar contraseña</h1>
-      </div>
-      <p class="help" style="font-size:14px;line-height:1.5">Escribe el correo con el que te registraron en el panel.</p>
-      <div class="fld">
-        <label class="lbl" for="email">Correo electrónico<s>*</s></label>
-        <input class="in" id="email" type="email" value="laura.rojas@escapate.example" autocomplete="username">
-      </div>
-      <div class="alert ok" role="status"><div><b>Solicitud enviada.</b><br>Si el correo está registrado, recibirás un enlace para restablecer tu contraseña. El enlace vence en 30 minutos.</div></div>
-      <button class="btn pri" type="submit">Enviar enlace</button>
-      <a class="lnk" href="01-login.html">Volver a iniciar sesión</a>
-    </form>
-  </section>
-</div>
-</body>
+  </body>
 </html>

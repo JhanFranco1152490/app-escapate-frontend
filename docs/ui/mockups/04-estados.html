@@ -1,44 +1,671 @@
 <!doctype html>
 <html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>04 · Estados · Escápate panel interno</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&amp;display=swap">
-<link rel="stylesheet" href="../design-system/tokens.css">
-<link rel="stylesheet" href="_mockup.css">
-</head>
-<body>
-<div class="mockup-frame" style="width: 1280px; height: 1020px; box-sizing: border-box; background: rgb(var(--panel-canvas)); color: rgb(var(--panel-ink)); padding: 48px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; align-content: start;">
-<div style="display: flex; flex-direction: column; gap: 10px; width: 578px;"><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(var(--panel-line) / 0.70);">Vacío inicial · sin registros</span><div style="height: 416px; box-sizing: border-box; background: rgb(var(--panel-surface)); border: 1px solid rgb(var(--panel-line) / 0.16); border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 32px 56px; text-align: center;"><svg width="104" height="104" viewBox="0 0 96 96" aria-hidden="true">
-<circle cx="46" cy="52" r="27" stroke="rgb(var(--panel-ink))" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" opacity="0.5"/>
-<ellipse cx="46" cy="52" rx="27" ry="10.5" stroke="rgb(var(--panel-ink))" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" opacity="0.3"/>
-<path d="M19 52h54" stroke="rgb(var(--panel-ink))" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" opacity="0.3"/>
-<path d="M46 25c-7 8-7 46 0 54" stroke="rgb(var(--panel-ink))" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" opacity="0.3"/>
-<path d="M12 80c22 4 46-8 58-28 4-7 6-13 5-18" stroke="#E8732A" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke-dasharray="0.5 6"/>
-<path d="M70 26.5l11-5.5-3.5 10.5-3-2.5z" fill="#E8732A"/>
-</svg><div style="display: flex; flex-direction: column; align-items: center; gap: 10px;"><h2 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; font-size: 23px; line-height: 1.2; letter-spacing: -0.02em;">Todavía no hay cotizaciones</h2><p style="margin: 0; font-size: 13.5px; line-height: 1.6; color: rgb(var(--panel-line) / 0.70); max-width: 400px;">Cuando un asesor arme la primera, aparecerá aquí con su código, su vigencia y el estado del envío al cliente.</p></div><div style="display: flex; align-items: center; gap: 12px;"><button type="button" style="display: flex; align-items: center; gap: 9px; height: 44px; padding: 0 19px; background: #E8732A; border: 0; border-radius: 4px; color: #0C1B2F; font-family: 'Inter', sans-serif; font-size: 13.5px; font-weight: 600;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0C1B2F" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Nueva cotización</button><a href="#" style="display: inline-flex; align-items: center; height: 44px; font-size: 13.5px; color: rgb(var(--panel-ink)); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px;">Cómo armar una</a></div></div></div>
-<div style="display: flex; flex-direction: column; gap: 10px; width: 578px;"><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(var(--panel-line) / 0.70);">Sin resultados · búsqueda y filtros</span><div style="height: 416px; box-sizing: border-box; background: rgb(var(--panel-surface)); border: 1px solid rgb(var(--panel-line) / 0.16); border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 32px 56px; text-align: center;"><svg width="104" height="104" viewBox="0 0 96 96" aria-hidden="true">
-<circle cx="42" cy="42" r="21" stroke="rgb(var(--panel-ink))" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" opacity="0.6"/>
-<path d="M57.5 57.5 76 76" stroke="rgb(var(--panel-ink))" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" opacity="0.6"/>
-<path d="M14 72c16 10 40 6 54-8" stroke="#E8732A" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke-dasharray="0.5 6"/>
-<path d="M34 42h16M42 34v16" stroke="#E8732A" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" opacity="0.5" transform="rotate(45 42 42)"/>
-</svg><div style="display: flex; flex-direction: column; align-items: center; gap: 10px;"><h2 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; font-size: 23px; line-height: 1.2; letter-spacing: -0.02em;">Ningún resultado para «punta cana»</h2><p style="margin: 0; font-size: 13.5px; line-height: 1.6; color: rgb(var(--panel-line) / 0.70); max-width: 400px;">Hay 2 filtros activos: estado <strong style="font-weight: 600; color: rgb(var(--panel-ink));">Aprobada</strong> y salidas de septiembre. Puede que la cotización que buscas quedara fuera.</p></div><div style="display: flex; align-items: center; gap: 12px;"><button type="button" style="display: flex; align-items: center; gap: 9px; height: 44px; padding: 0 17px; background: transparent; border: 1px solid rgb(var(--panel-line) / 0.16); border-radius: 4px; color: rgb(var(--panel-ink)); font-family: 'Inter', sans-serif; font-size: 13.5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>Limpiar filtros</button><button type="button" style="display: flex; align-items: center; gap: 9px; height: 44px; padding: 0 17px; background: transparent; border: 1px solid rgb(var(--panel-line) / 0.16); border-radius: 4px; color: rgb(var(--panel-ink)); font-family: 'Inter', sans-serif; font-size: 13.5px;">Buscar en todas</button></div></div></div>
-<div style="display: flex; flex-direction: column; gap: 10px; width: 578px;"><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(var(--panel-line) / 0.70);">Error · no se pudo cargar</span><div style="height: 416px; box-sizing: border-box; background: rgb(var(--panel-surface)); border: 1px solid rgb(var(--panel-line) / 0.16); border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 32px 56px; text-align: center;"><svg width="104" height="104" viewBox="0 0 96 96" aria-hidden="true">
-<path d="M10 62c12-12 22 6 32-4" stroke="#E8732A" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke-dasharray="0.5 6"/>
-<path d="M56 54c8-7 17-1 28-11" stroke="#E8732A" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke-dasharray="0.5 6"/>
-<circle cx="10" cy="62" r="3.2" fill="rgb(var(--panel-ink))" opacity="0.55"/>
-<circle cx="84" cy="43" r="3.2" fill="rgb(var(--panel-ink))" opacity="0.55"/>
-<path d="M42 46l12 12M54 46 42 58" stroke="rgb(var(--danger))" fill="none" stroke-width="2.4" stroke-linecap="round"/>
-<circle cx="48" cy="52" r="15" stroke="rgb(var(--danger))" fill="none" stroke-width="1.3" opacity="0.45"/>
-</svg><div style="display: flex; flex-direction: column; align-items: center; gap: 10px;"><h2 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; font-size: 23px; line-height: 1.2; letter-spacing: -0.02em;">No pudimos cargar las cotizaciones</h2><p style="margin: 0; font-size: 13.5px; line-height: 1.6; color: rgb(var(--panel-line) / 0.70); max-width: 400px;">Se interrumpió la conexión con el servidor. Nada se perdió: los borradores siguen guardados.</p><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(var(--panel-line) / 0.70); padding: 5px 10px; border: 1px solid rgb(var(--panel-line) / 0.16); border-radius: 3px;">ERR-503 · 20 sep 2026, 18:04</span></div><div style="display: flex; align-items: center; gap: 12px;"><button type="button" style="display: flex; align-items: center; gap: 9px; height: 44px; padding: 0 19px; background: #E8732A; border: 0; border-radius: 4px; color: #0C1B2F; font-family: 'Inter', sans-serif; font-size: 13.5px; font-weight: 600;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0C1B2F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>Reintentar</button><a href="#" style="display: inline-flex; align-items: center; height: 44px; font-size: 13.5px; color: rgb(var(--panel-ink)); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px;">Reportar a soporte</a></div></div></div>
-<div style="display: flex; flex-direction: column; gap: 10px; width: 578px;"><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(var(--panel-line) / 0.70);">Sin permiso · rol asesor</span><div style="height: 416px; box-sizing: border-box; background: rgb(var(--panel-surface)); border: 1px solid rgb(var(--panel-line) / 0.16); border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 32px 56px; text-align: center;"><svg width="104" height="104" viewBox="0 0 96 96" aria-hidden="true">
-<circle cx="48" cy="48" r="33" stroke="#E8732A" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke-dasharray="0.5 6"/>
-<rect x="33" y="46" width="30" height="23" rx="3.5" stroke="rgb(var(--panel-ink))" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" opacity="0.65"/>
-<path d="M39 46v-6a9 9 0 0 1 18 0v6" stroke="rgb(var(--panel-ink))" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" opacity="0.65"/>
-<circle cx="48" cy="57" r="2.6" fill="rgb(var(--panel-ink))" opacity="0.65"/>
-</svg><div style="display: flex; flex-direction: column; align-items: center; gap: 10px;"><h2 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; font-size: 23px; line-height: 1.2; letter-spacing: -0.02em;">Esta sección es solo para administradores</h2><p style="margin: 0; font-size: 13.5px; line-height: 1.6; color: rgb(var(--panel-line) / 0.70); max-width: 400px;">Tu cuenta está registrada como <strong style="font-weight: 600; color: rgb(var(--panel-ink));">asesor</strong>. Pídele a un administrador que te habilite Usuarios y roles.</p></div><div style="display: flex; align-items: center; gap: 12px;"><button type="button" style="display: flex; align-items: center; gap: 9px; height: 44px; padding: 0 17px; background: transparent; border: 1px solid rgb(var(--panel-line) / 0.16); border-radius: 4px; color: rgb(var(--panel-ink)); font-family: 'Inter', sans-serif; font-size: 13.5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>Volver a cotizaciones</button></div></div></div>
-</div>
-<script src="_mockup.js"></script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>04 · Estados · Escápate panel interno</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&amp;display=swap"
+    />
+    <link rel="stylesheet" href="../design-system/tokens.css" />
+    <link rel="stylesheet" href="_mockup.css" />
+  </head>
+  <body>
+    <div
+      class="mockup-frame"
+      style="
+        width: 1280px;
+        height: 1020px;
+        box-sizing: border-box;
+        background: rgb(var(--panel-canvas));
+        color: rgb(var(--panel-ink));
+        padding: 48px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 28px;
+        align-content: start;
+      "
+    >
+      <div
+        style="display: flex; flex-direction: column; gap: 10px; width: 578px"
+      >
+        <span
+          style="
+            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-size: 9.5px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgb(var(--panel-line) / 0.7);
+          "
+          >Vacío inicial · sin registros</span
+        >
+        <div
+          style="
+            height: 416px;
+            box-sizing: border-box;
+            background: rgb(var(--panel-surface));
+            border: 1px solid rgb(var(--panel-line) / 0.16);
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            padding: 32px 56px;
+            text-align: center;
+          "
+        >
+          <svg width="104" height="104" viewBox="0 0 96 96" aria-hidden="true">
+            <circle
+              cx="46"
+              cy="52"
+              r="27"
+              stroke="rgb(var(--panel-ink))"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.25"
+              opacity="0.5"
+            />
+            <ellipse
+              cx="46"
+              cy="52"
+              rx="27"
+              ry="10.5"
+              stroke="rgb(var(--panel-ink))"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.1"
+              opacity="0.3"
+            />
+            <path
+              d="M19 52h54"
+              stroke="rgb(var(--panel-ink))"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.1"
+              opacity="0.3"
+            />
+            <path
+              d="M46 25c-7 8-7 46 0 54"
+              stroke="rgb(var(--panel-ink))"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.1"
+              opacity="0.3"
+            />
+            <path
+              d="M12 80c22 4 46-8 58-28 4-7 6-13 5-18"
+              stroke="#E8732A"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              stroke-dasharray="0.5 6"
+            />
+            <path d="M70 26.5l11-5.5-3.5 10.5-3-2.5z" fill="#E8732A" />
+          </svg>
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              gap: 10px;
+            "
+          >
+            <h2
+              style="
+                margin: 0;
+                font-family: 'Playfair Display', Georgia, serif;
+                font-weight: 600;
+                font-size: 23px;
+                line-height: 1.2;
+                letter-spacing: -0.02em;
+              "
+            >
+              Todavía no hay cotizaciones
+            </h2>
+            <p
+              style="
+                margin: 0;
+                font-size: 13.5px;
+                line-height: 1.6;
+                color: rgb(var(--panel-line) / 0.7);
+                max-width: 400px;
+              "
+            >
+              Cuando un asesor arme la primera, aparecerá aquí con su código, su
+              vigencia y el estado del envío al cliente.
+            </p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px">
+            <button
+              type="button"
+              style="
+                display: flex;
+                align-items: center;
+                gap: 9px;
+                height: 44px;
+                padding: 0 19px;
+                background: #e8732a;
+                border: 0;
+                border-radius: 4px;
+                color: #0c1b2f;
+                font-family: 'Inter', sans-serif;
+                font-size: 13.5px;
+                font-weight: 600;
+              "
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#0C1B2F"
+                stroke-width="2.1"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14" />
+                <path d="M12 5v14" /></svg
+              >Nueva cotización</button
+            ><a
+              href="#"
+              style="
+                display: inline-flex;
+                align-items: center;
+                height: 44px;
+                font-size: 13.5px;
+                color: rgb(var(--panel-ink));
+                text-decoration: underline;
+                text-underline-offset: 3px;
+                text-decoration-thickness: 1px;
+              "
+              >Cómo armar una</a
+            >
+          </div>
+        </div>
+      </div>
+      <div
+        style="display: flex; flex-direction: column; gap: 10px; width: 578px"
+      >
+        <span
+          style="
+            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-size: 9.5px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgb(var(--panel-line) / 0.7);
+          "
+          >Sin resultados · búsqueda y filtros</span
+        >
+        <div
+          style="
+            height: 416px;
+            box-sizing: border-box;
+            background: rgb(var(--panel-surface));
+            border: 1px solid rgb(var(--panel-line) / 0.16);
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            padding: 32px 56px;
+            text-align: center;
+          "
+        >
+          <svg width="104" height="104" viewBox="0 0 96 96" aria-hidden="true">
+            <circle
+              cx="42"
+              cy="42"
+              r="21"
+              stroke="rgb(var(--panel-ink))"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.6"
+              opacity="0.6"
+            />
+            <path
+              d="M57.5 57.5 76 76"
+              stroke="rgb(var(--panel-ink))"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.6"
+              opacity="0.6"
+            />
+            <path
+              d="M14 72c16 10 40 6 54-8"
+              stroke="#E8732A"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              stroke-dasharray="0.5 6"
+            />
+            <path
+              d="M34 42h16M42 34v16"
+              stroke="#E8732A"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.8"
+              opacity="0.5"
+              transform="rotate(45 42 42)"
+            />
+          </svg>
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              gap: 10px;
+            "
+          >
+            <h2
+              style="
+                margin: 0;
+                font-family: 'Playfair Display', Georgia, serif;
+                font-weight: 600;
+                font-size: 23px;
+                line-height: 1.2;
+                letter-spacing: -0.02em;
+              "
+            >
+              Ningún resultado para «punta cana»
+            </h2>
+            <p
+              style="
+                margin: 0;
+                font-size: 13.5px;
+                line-height: 1.6;
+                color: rgb(var(--panel-line) / 0.7);
+                max-width: 400px;
+              "
+            >
+              Hay 2 filtros activos: estado
+              <strong style="font-weight: 600; color: rgb(var(--panel-ink))"
+                >Aprobada</strong
+              >
+              y salidas de septiembre. Puede que la cotización que buscas
+              quedara fuera.
+            </p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px">
+            <button
+              type="button"
+              style="
+                display: flex;
+                align-items: center;
+                gap: 9px;
+                height: 44px;
+                padding: 0 17px;
+                background: transparent;
+                border: 1px solid rgb(var(--panel-line) / 0.16);
+                border-radius: 4px;
+                color: rgb(var(--panel-ink));
+                font-family: 'Inter', sans-serif;
+                font-size: 13.5px;
+              "
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M18 6 6 18" />
+                <path d="m6 6 12 12" /></svg
+              >Limpiar filtros</button
+            ><button
+              type="button"
+              style="
+                display: flex;
+                align-items: center;
+                gap: 9px;
+                height: 44px;
+                padding: 0 17px;
+                background: transparent;
+                border: 1px solid rgb(var(--panel-line) / 0.16);
+                border-radius: 4px;
+                color: rgb(var(--panel-ink));
+                font-family: 'Inter', sans-serif;
+                font-size: 13.5px;
+              "
+            >
+              Buscar en todas
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        style="display: flex; flex-direction: column; gap: 10px; width: 578px"
+      >
+        <span
+          style="
+            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-size: 9.5px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgb(var(--panel-line) / 0.7);
+          "
+          >Error · no se pudo cargar</span
+        >
+        <div
+          style="
+            height: 416px;
+            box-sizing: border-box;
+            background: rgb(var(--panel-surface));
+            border: 1px solid rgb(var(--panel-line) / 0.16);
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            padding: 32px 56px;
+            text-align: center;
+          "
+        >
+          <svg width="104" height="104" viewBox="0 0 96 96" aria-hidden="true">
+            <path
+              d="M10 62c12-12 22 6 32-4"
+              stroke="#E8732A"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              stroke-dasharray="0.5 6"
+            />
+            <path
+              d="M56 54c8-7 17-1 28-11"
+              stroke="#E8732A"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              stroke-dasharray="0.5 6"
+            />
+            <circle
+              cx="10"
+              cy="62"
+              r="3.2"
+              fill="rgb(var(--panel-ink))"
+              opacity="0.55"
+            />
+            <circle
+              cx="84"
+              cy="43"
+              r="3.2"
+              fill="rgb(var(--panel-ink))"
+              opacity="0.55"
+            />
+            <path
+              d="M42 46l12 12M54 46 42 58"
+              stroke="rgb(var(--danger))"
+              fill="none"
+              stroke-width="2.4"
+              stroke-linecap="round"
+            />
+            <circle
+              cx="48"
+              cy="52"
+              r="15"
+              stroke="rgb(var(--danger))"
+              fill="none"
+              stroke-width="1.3"
+              opacity="0.45"
+            />
+          </svg>
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              gap: 10px;
+            "
+          >
+            <h2
+              style="
+                margin: 0;
+                font-family: 'Playfair Display', Georgia, serif;
+                font-weight: 600;
+                font-size: 23px;
+                line-height: 1.2;
+                letter-spacing: -0.02em;
+              "
+            >
+              No pudimos cargar las cotizaciones
+            </h2>
+            <p
+              style="
+                margin: 0;
+                font-size: 13.5px;
+                line-height: 1.6;
+                color: rgb(var(--panel-line) / 0.7);
+                max-width: 400px;
+              "
+            >
+              Se interrumpió la conexión con el servidor. Nada se perdió: los
+              borradores siguen guardados.
+            </p>
+            <span
+              style="
+                font-family: 'JetBrains Mono', ui-monospace, monospace;
+                font-size: 10px;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                color: rgb(var(--panel-line) / 0.7);
+                padding: 5px 10px;
+                border: 1px solid rgb(var(--panel-line) / 0.16);
+                border-radius: 3px;
+              "
+              >ERR-503 · 20 sep 2026, 18:04</span
+            >
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px">
+            <button
+              type="button"
+              style="
+                display: flex;
+                align-items: center;
+                gap: 9px;
+                height: 44px;
+                padding: 0 19px;
+                background: #e8732a;
+                border: 0;
+                border-radius: 4px;
+                color: #0c1b2f;
+                font-family: 'Inter', sans-serif;
+                font-size: 13.5px;
+                font-weight: 600;
+              "
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#0C1B2F"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
+                <path d="M3 3v5h5" /></svg
+              >Reintentar</button
+            ><a
+              href="#"
+              style="
+                display: inline-flex;
+                align-items: center;
+                height: 44px;
+                font-size: 13.5px;
+                color: rgb(var(--panel-ink));
+                text-decoration: underline;
+                text-underline-offset: 3px;
+                text-decoration-thickness: 1px;
+              "
+              >Reportar a soporte</a
+            >
+          </div>
+        </div>
+      </div>
+      <div
+        style="display: flex; flex-direction: column; gap: 10px; width: 578px"
+      >
+        <span
+          style="
+            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-size: 9.5px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgb(var(--panel-line) / 0.7);
+          "
+          >Sin permiso · rol asesor</span
+        >
+        <div
+          style="
+            height: 416px;
+            box-sizing: border-box;
+            background: rgb(var(--panel-surface));
+            border: 1px solid rgb(var(--panel-line) / 0.16);
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            padding: 32px 56px;
+            text-align: center;
+          "
+        >
+          <svg width="104" height="104" viewBox="0 0 96 96" aria-hidden="true">
+            <circle
+              cx="48"
+              cy="48"
+              r="33"
+              stroke="#E8732A"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              stroke-dasharray="0.5 6"
+            />
+            <rect
+              x="33"
+              y="46"
+              width="30"
+              height="23"
+              rx="3.5"
+              stroke="rgb(var(--panel-ink))"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.6"
+              opacity="0.65"
+            />
+            <path
+              d="M39 46v-6a9 9 0 0 1 18 0v6"
+              stroke="rgb(var(--panel-ink))"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.6"
+              opacity="0.65"
+            />
+            <circle
+              cx="48"
+              cy="57"
+              r="2.6"
+              fill="rgb(var(--panel-ink))"
+              opacity="0.65"
+            />
+          </svg>
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              gap: 10px;
+            "
+          >
+            <h2
+              style="
+                margin: 0;
+                font-family: 'Playfair Display', Georgia, serif;
+                font-weight: 600;
+                font-size: 23px;
+                line-height: 1.2;
+                letter-spacing: -0.02em;
+              "
+            >
+              Esta sección es solo para administradores
+            </h2>
+            <p
+              style="
+                margin: 0;
+                font-size: 13.5px;
+                line-height: 1.6;
+                color: rgb(var(--panel-line) / 0.7);
+                max-width: 400px;
+              "
+            >
+              Tu cuenta está registrada como
+              <strong style="font-weight: 600; color: rgb(var(--panel-ink))"
+                >asesor</strong
+              >. Pídele a un administrador que te habilite Usuarios y roles.
+            </p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px">
+            <button
+              type="button"
+              style="
+                display: flex;
+                align-items: center;
+                gap: 9px;
+                height: 44px;
+                padding: 0 17px;
+                background: transparent;
+                border: 1px solid rgb(var(--panel-line) / 0.16);
+                border-radius: 4px;
+                color: rgb(var(--panel-ink));
+                font-family: 'Inter', sans-serif;
+                font-size: 13.5px;
+              "
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.9"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M19 12H5" />
+                <path d="m12 19-7-7 7-7" /></svg
+              >Volver a cotizaciones
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="_mockup.js"></script>
+  </body>
 </html>
