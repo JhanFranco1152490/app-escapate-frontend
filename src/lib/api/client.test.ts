@@ -196,6 +196,67 @@ describe('apiFetch: renovación de la sesión', () => {
     expect(error.status).toBe(401);
   });
 
+  it('reintenta una vez si otra pestaña ya renovó la sesión', async () => {
+    countRequests('post', '/api/auth/refresh', () =>
+      HttpResponse.json(errorBody('authentication_failed'), { status: 401 }),
+    );
+    let attempts = 0;
+    const calls = countRequests('get', '/api/things', () =>
+      ++attempts === 1
+        ? HttpResponse.json(errorBody('authentication_failed'), {
+            status: 401,
+          })
+        : HttpResponse.json(['ok']),
+    );
+
+    const result = await apiFetch('/api/things');
+
+    expect(result).toEqual(['ok']);
+    expect(calls).toHaveLength(2);
+  });
+
+  it('no reintenta más de una vez cuando la renovación falla', async () => {
+    countRequests('post', '/api/auth/refresh', () =>
+      HttpResponse.json(errorBody('authentication_failed'), { status: 401 }),
+    );
+    const calls = countRequests('get', '/api/things', () =>
+      HttpResponse.json(errorBody('authentication_failed'), { status: 401 }),
+    );
+
+    const error = (await captureError(apiFetch('/api/things'))) as ApiError;
+
+    expect(error.status).toBe(401);
+    expect(calls).toHaveLength(2);
+  });
+
+  it('no reintenta si no hay cookie de renovación', async () => {
+    countRequests('post', '/api/auth/refresh', () =>
+      HttpResponse.json(errorBody('not_authenticated'), { status: 401 }),
+    );
+    const calls = countRequests('get', '/api/things', () =>
+      HttpResponse.json(errorBody('not_authenticated'), { status: 401 }),
+    );
+
+    const error = (await captureError(apiFetch('/api/things'))) as ApiError;
+
+    expect(error.code).toBe('not_authenticated');
+    expect(calls).toHaveLength(1);
+  });
+
+  it('no reintenta si la renovación falla por un error del servidor', async () => {
+    countRequests('post', '/api/auth/refresh', () =>
+      HttpResponse.json(errorBody('internal_error'), { status: 500 }),
+    );
+    const calls = countRequests('get', '/api/things', () =>
+      HttpResponse.json(errorBody('authentication_failed'), { status: 401 }),
+    );
+
+    const error = (await captureError(apiFetch('/api/things'))) as ApiError;
+
+    expect(error.status).toBe(500);
+    expect(calls).toHaveLength(1);
+  });
+
   it('no renueva cuando el login responde 401', async () => {
     const refresh = countRequests(
       'post',

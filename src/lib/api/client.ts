@@ -3,6 +3,7 @@ import { API_URL } from '@/lib/env';
 import {
   ApiError,
   UNEXPECTED_RESPONSE_CODE,
+  isApiError,
   isUnauthorized,
   type ApiErrorBody,
 } from './errors';
@@ -140,7 +141,15 @@ export async function apiFetch<T>(
       !logoutRequest &&
       !NO_RENEWAL_PREFIXES.some((prefix) => path.startsWith(prefix));
     if (!isUnauthorized(error) || !canRenew) throw error;
-    await renewSession();
+    try {
+      await renewSession();
+    } catch (renewal) {
+      // Otra pestaña pudo renovar justo antes: el API rechaza el token que ya rotó, pero las
+      // cookies nuevas ya están en el navegador. Sin cookie de renovación (not_authenticated)
+      // no hay nada que reintentar.
+      if (!isApiError(renewal) || renewal.code !== 'authentication_failed')
+        throw renewal;
+    }
     return request<T>(path, init);
   }
 }

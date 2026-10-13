@@ -92,9 +92,12 @@ tres temas). Las maquetas de `docs/ui/` son la guía visual.
 
 - `lib/api/client.ts` (`apiFetch`) es el **único** lugar que llama a `fetch`: prefija la
   URL, envía las cookies, agrega `X-CSRF-Token` en mutaciones (lo pide a
-  `GET /api/auth/csrf` una vez) y, ante un `401` de un endpoint que usa el token de acceso,
-  renueva la sesión una sola vez y reintenta. El cierre de sesión espera a una renovación en
-  vuelo.
+  `GET /api/auth/csrf` en cada mutación; las simultáneas comparten una sola petición, y no
+  se guarda para después porque otra pestaña puede rotar la cookie) y, ante un `401` de un
+  endpoint que usa el token de acceso, renueva la sesión una sola vez y reintenta. Si la
+  renovación falla con `authentication_failed`, reintenta igual una vez: otra pestaña pudo
+  renovar antes y dejó las cookies nuevas en el navegador. Con `not_authenticated` (sin
+  cookie de renovación) no reintenta. El cierre de sesión espera a una renovación en vuelo.
 - Todo error sale como `ApiError { status, code, fields, message }`; un 2xx que no es JSON
   da `unexpected_response`, y sin red llega un `TypeError` (`isNetworkFailure`).
 - Tipos de la API: solo de `lib/api/schema.d.ts`, generado con `pnpm gen:api` (backend local
