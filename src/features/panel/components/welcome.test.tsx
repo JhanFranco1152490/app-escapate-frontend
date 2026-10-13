@@ -6,7 +6,7 @@ import { renderWithProviders } from '@/test/render';
 import { server } from '@/test/server';
 import { buildSession } from '@/test/session';
 
-import { SessionGuard } from './session-guard';
+import { SessionGuard } from '@/features/auth/components/session-guard';
 import { Welcome } from './welcome';
 
 vi.mock('next/navigation', () => ({ useRouter: () => ({ replace: vi.fn() }) }));

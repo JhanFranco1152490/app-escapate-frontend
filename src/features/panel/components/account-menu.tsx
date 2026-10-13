@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-import type { SessionUser } from '../api';
+import type { SessionUser } from '@/features/auth/api';
 import { RoleBadge } from './role-badge';
 import { UserAvatar } from './user-avatar';
 

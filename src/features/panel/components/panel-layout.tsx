@@ -8,7 +8,10 @@ import { Button } from '@/components/ui/button';
 
 import { AccountMenu } from './account-menu';
 import { RoleBadge } from './role-badge';
-import { useCurrentUser, useSignOut } from './session-guard';
+import {
+  useCurrentUser,
+  useSignOut,
+} from '@/features/auth/components/session-guard';
 import { UserAvatar } from './user-avatar';
 
 export function PanelLayout({ children }: { children: ReactNode }) {

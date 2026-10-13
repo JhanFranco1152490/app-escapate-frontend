@@ -10,7 +10,7 @@ import { server } from '@/test/server';
 import { buildSession } from '@/test/session';
 
 import { PanelLayout } from './panel-layout';
-import { SessionGuard } from './session-guard';
+import { SessionGuard } from '@/features/auth/components/session-guard';
 
 const router = vi.hoisted(() => ({ replace: vi.fn() }));
 vi.mock('next/navigation', () => ({ useRouter: () => router }));

@@ -1,6 +1,6 @@
 'use client';
 
-import { useCurrentUser } from './session-guard';
+import { useCurrentUser } from '@/features/auth/components/session-guard';
 
 export function Welcome() {
   const user = useCurrentUser();
