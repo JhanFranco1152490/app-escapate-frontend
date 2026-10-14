@@ -8,8 +8,8 @@ import { useForm } from 'react-hook-form';
 import { Alert } from '@/components/alert';
 import { FormField, fieldAriaProps } from '@/components/form-field';
 import { Button } from '@/components/ui/button';
-import { RATE_LIMIT_MESSAGE, isApiError } from '@/lib/api/errors';
-import { applyApiFieldErrors } from '@/lib/api/form-errors';
+import { isApiError, rateLimitOr } from '@/lib/api/errors';
+import { applyApiFormError } from '@/lib/api/form-errors';
 
 import { useConfirmPasswordReset } from '../api';
 import { setPasswordSchema, type SetPasswordValues } from '../schemas';
@@ -60,18 +60,13 @@ export function SetPasswordForm({
         return;
       }
       FIELDS.forEach((field) => resetField(field));
-      const { applied, unmatched } = applyApiFieldErrors(
+      const { needsNotice, firstInvalid } = applyApiFormError(
         error,
         setError,
         FIELDS,
       );
-      const isValidation =
-        isApiError(error) && error.code === 'validation_error';
-      if (!isValidation || !applied || unmatched.length) {
-        const throttled = isApiError(error) && error.code === 'throttled';
-        setNotice(throttled ? RATE_LIMIT_MESSAGE : GENERIC_ERROR);
-      }
-      setFocus('password');
+      if (needsNotice) setNotice(rateLimitOr(error, GENERIC_ERROR));
+      setFocus(firstInvalid ?? 'password');
     }
   });
 

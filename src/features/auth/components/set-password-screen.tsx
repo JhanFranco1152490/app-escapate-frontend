@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { ErrorState } from '@/components/error-state';
 import { Button } from '@/components/ui/button';
-import { RATE_LIMIT_MESSAGE, isApiError } from '@/lib/api/errors';
+import { isApiError, rateLimitOr } from '@/lib/api/errors';
 
 import { useResetTokenCheck, type TokenPurpose } from '../api';
 import { useResetTokenFromHash } from '../reset-token';
@@ -55,8 +55,6 @@ export function SetPasswordScreen({
   }
 
   if (check.isError) {
-    const throttled =
-      isApiError(check.error) && check.error.code === 'throttled';
     return (
       <AuthShell eyebrow={texts.eyebrow} title={texts.title()}>
         <ErrorState
@@ -67,9 +65,7 @@ export function SetPasswordScreen({
             </Button>
           }
         >
-          {throttled
-            ? RATE_LIMIT_MESSAGE
-            : 'Revisa tu conexión e inténtalo de nuevo.'}
+          {rateLimitOr(check.error, 'Revisa tu conexión e inténtalo de nuevo.')}
         </ErrorState>
       </AuthShell>
     );

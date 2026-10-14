@@ -5,8 +5,8 @@ import { useEffect } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
-import { RATE_LIMIT_MESSAGE, isApiError } from '@/lib/api/errors';
-import { applyApiFieldErrors } from '@/lib/api/form-errors';
+import { rateLimitOr } from '@/lib/api/errors';
+import { applyApiFormError } from '@/lib/api/form-errors';
 
 import { clearResetPrefill, readResetPrefill } from '../reset-prefill';
 import { documentSchema, type DocumentValues } from '../schemas';
@@ -48,20 +48,12 @@ export function RequestResetForm({ onSubmit, onError }: RequestResetFormProps) {
     try {
       await onSubmit(values);
     } catch (error) {
-      const { applied, unmatched } = applyApiFieldErrors(
+      const { needsNotice, firstInvalid } = applyApiFormError(
         error,
         setError,
         FIELDS,
       );
-      const isValidation =
-        isApiError(error) && error.code === 'validation_error';
-      if (!isValidation || !applied || unmatched.length) {
-        const throttled = isApiError(error) && error.code === 'throttled';
-        onError(throttled ? RATE_LIMIT_MESSAGE : GENERIC_REQUEST_ERROR);
-      }
-      const firstInvalid = isApiError(error)
-        ? FIELDS.find((field) => error.fields[field]?.length)
-        : undefined;
+      if (needsNotice) onError(rateLimitOr(error, GENERIC_REQUEST_ERROR));
       if (firstInvalid) setFocus(firstInvalid);
     }
   });

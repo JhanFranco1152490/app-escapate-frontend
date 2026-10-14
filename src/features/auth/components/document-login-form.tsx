@@ -5,8 +5,7 @@ import { useForm, useWatch } from 'react-hook-form';
 
 import { FormField, fieldAriaProps } from '@/components/form-field';
 import { Button } from '@/components/ui/button';
-import { isApiError } from '@/lib/api/errors';
-import { applyApiFieldErrors } from '@/lib/api/form-errors';
+import { applyApiFormError } from '@/lib/api/form-errors';
 
 import {
   GENERIC_LOGIN_NOTICE,
@@ -50,18 +49,16 @@ export function DocumentLoginForm({
       await onSubmit(values);
     } catch (error) {
       resetField('password');
-      const { applied, unmatched } = applyApiFieldErrors(
+      const { isValidation, needsNotice, firstInvalid } = applyApiFormError(
         error,
         setError,
         FIELDS,
       );
-      const isValidation =
-        isApiError(error) && error.code === 'validation_error';
-      if (!isValidation) onNotice(loginNoticeFromError(error));
-      else if (!applied || unmatched.length) onNotice(GENERIC_LOGIN_NOTICE);
-      const firstInvalid = isApiError(error)
-        ? FIELDS.find((field) => error.fields[field]?.length)
-        : undefined;
+      if (needsNotice) {
+        onNotice(
+          isValidation ? GENERIC_LOGIN_NOTICE : loginNoticeFromError(error),
+        );
+      }
       setFocus(firstInvalid ?? 'password');
     }
   });
