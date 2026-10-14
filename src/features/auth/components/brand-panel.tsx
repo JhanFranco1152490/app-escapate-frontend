@@ -8,6 +8,7 @@ export function BrandPanel() {
         alt="Sala de espera de la oficina de Escápate en Cúcuta"
         fill
         sizes="(min-width: 768px) 60vw, 0px"
+        loading="eager"
         className="object-cover object-[38%_50%]"
       />
       {/* Oscurece la foto hacia abajo para que el texto blanco mantenga el contraste. */}
