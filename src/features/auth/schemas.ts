@@ -37,3 +37,19 @@ export const loginSchema = documentSchema.extend({
 });
 
 export type LoginValues = z.infer<typeof loginSchema>;
+
+// Sin trim: los espacios cuentan como parte de la contraseña, igual que en la API.
+export const setPasswordSchema = z
+  .object({
+    password: z
+      .string()
+      .min(12, 'Usa al menos 12 caracteres.')
+      .max(256, 'La contraseña es demasiado larga.'),
+    password_confirmation: z.string().min(1, 'Confirma la contraseña.'),
+  })
+  .refine((values) => values.password === values.password_confirmation, {
+    path: ['password_confirmation'],
+    message: 'Las contraseñas no coinciden.',
+  });
+
+export type SetPasswordValues = z.infer<typeof setPasswordSchema>;
