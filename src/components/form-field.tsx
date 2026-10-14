@@ -3,18 +3,30 @@ import type { ReactNode } from 'react';
 
 import { Label } from '@/components/ui/label';
 
-// El control recibe aria-invalid y aria-describedby={fieldErrorId(id)} para que el lector de
-// pantalla lea el mensaje de error al enfocarlo.
 export const fieldErrorId = (id: string) => `${id}-error`;
+export const fieldHintId = (id: string) => `${id}-hint`;
 
-export const invalidFieldProps = (id: string, error: string | undefined) =>
-  error ? { 'aria-invalid': true, 'aria-describedby': fieldErrorId(id) } : {};
+// Atributos para el control: aria-describedby apunta a la ayuda y al error para que el lector
+// de pantalla los lea al enfocarlo, y aria-invalid lo marca cuando hay error.
+export function fieldAriaProps(
+  id: string,
+  { error, hint }: { error?: string; hint?: string },
+) {
+  const describedBy = [hint && fieldHintId(id), error && fieldErrorId(id)]
+    .filter(Boolean)
+    .join(' ');
+  return {
+    ...(error && { 'aria-invalid': true }),
+    ...(describedBy && { 'aria-describedby': describedBy }),
+  };
+}
 
 type FormFieldProps = {
   id: string;
   label: string;
   required?: boolean;
   error?: string;
+  hint?: string;
   children: ReactNode;
 };
 
@@ -23,6 +35,7 @@ export function FormField({
   label,
   required,
   error,
+  hint,
   children,
 }: FormFieldProps) {
   return (
@@ -38,6 +51,14 @@ export function FormField({
         </span>
       </Label>
       {children}
+      {hint && (
+        <p
+          id={fieldHintId(id)}
+          className="text-[0.78125rem] leading-normal text-muted-foreground"
+        >
+          {hint}
+        </p>
+      )}
       {error && (
         <p
           id={fieldErrorId(id)}

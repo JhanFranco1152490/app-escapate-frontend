@@ -1,6 +1,6 @@
 import type { UseFormRegisterReturn } from 'react-hook-form';
 
-import { FormField, invalidFieldProps } from '@/components/form-field';
+import { FormField, fieldAriaProps } from '@/components/form-field';
 import { Input } from '@/components/ui/input';
 import {
   NativeSelect,
@@ -35,7 +35,7 @@ export function DocumentFields({
           id="document_type"
           className="w-full [&_select]:h-11"
           {...typeField}
-          {...invalidFieldProps('document_type', errors.document_type)}
+          {...fieldAriaProps('document_type', { error: errors.document_type })}
         >
           {DOCUMENT_TYPES.map((type) => (
             <NativeSelectOption key={type} value={type}>
@@ -57,7 +57,9 @@ export function DocumentFields({
           inputMode={documentType === 'CC' ? 'numeric' : 'text'}
           className="h-11"
           {...numberField}
-          {...invalidFieldProps('document_number', errors.document_number)}
+          {...fieldAriaProps('document_number', {
+            error: errors.document_number,
+          })}
         />
       </FormField>
     </>

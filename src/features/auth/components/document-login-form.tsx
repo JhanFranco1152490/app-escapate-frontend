@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, useWatch } from 'react-hook-form';
 
-import { FormField, invalidFieldProps } from '@/components/form-field';
+import { FormField, fieldAriaProps } from '@/components/form-field';
 import { Button } from '@/components/ui/button';
 import { isApiError } from '@/lib/api/errors';
 import { applyApiFieldErrors } from '@/lib/api/form-errors';
@@ -86,7 +86,7 @@ export function DocumentLoginForm({
           autoComplete="current-password"
           className="h-11"
           {...register('password')}
-          {...invalidFieldProps('password', errors.password?.message)}
+          {...fieldAriaProps('password', { error: errors.password?.message })}
         />
       </FormField>
       <Button type="submit" className="w-full" disabled={isSubmitting}>
