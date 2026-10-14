@@ -16,6 +16,7 @@ import {
 import { loginSchema, type LoginValues } from '../schemas';
 import { DocumentFields } from './document-fields';
 import { PasswordInput } from './password-input';
+import { RecoveryLink } from './recovery-link';
 
 const FIELDS = ['document_type', 'document_number', 'password'] as const;
 
@@ -35,6 +36,7 @@ export function DocumentLoginForm({
     setError,
     setFocus,
     resetField,
+    getValues,
     formState: { errors, isSubmitting },
   } = useForm<LoginValues>({
     resolver: zodResolver(loginSchema),
@@ -89,6 +91,15 @@ export function DocumentLoginForm({
           {...fieldAriaProps('password', { error: errors.password?.message })}
         />
       </FormField>
+      <RecoveryLink
+        getDocument={() => ({
+          document_type: getValues('document_type'),
+          document_number: getValues('document_number'),
+        })}
+        className="-mt-2 self-end text-[0.8125rem] text-orange-400 underline-offset-4 hover:underline"
+      >
+        ¿Olvidaste tu contraseña?
+      </RecoveryLink>
       <Button type="submit" className="w-full" disabled={isSubmitting}>
         {isSubmitting ? 'Entrando…' : 'Entrar'}
       </Button>

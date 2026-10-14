@@ -9,10 +9,11 @@ import { Alert } from '@/components/alert';
 import { useLogin, useSession } from '../api';
 import { loginNoticeFromUrl } from '../login-errors';
 import { safeNext } from '../safe-next';
-import type { LoginValues } from '../schemas';
+import type { DocumentValues, LoginValues } from '../schemas';
 import { AuthShell } from './auth-shell';
 import { DocumentLoginForm } from './document-login-form';
 import { GoogleButton } from './google-button';
+import { LockedNotice } from './locked-notice';
 
 export function LoginScreen() {
   const [next] = useQueryState('next');
@@ -31,7 +32,14 @@ export function LoginScreen() {
   // una sesión activa devolvería al panel, que a su vez mandaría aquí, sin fin.
   const hadSession = session.isSuccess && !loggingIn;
 
+  // Último documento enviado, para precargarlo si el aviso ofrece restablecer la contraseña.
+  const [lastDocument, setLastDocument] = useState<DocumentValues>();
+
   async function submitLogin(values: LoginValues) {
+    setLastDocument({
+      document_type: values.document_type,
+      document_number: values.document_number,
+    });
     await login.mutateAsync(values);
     router.replace(safeNext(next));
   }
@@ -48,7 +56,15 @@ export function LoginScreen() {
 
   return (
     <AuthShell eyebrow="Portal de asesores" title="Iniciar sesión">
-      {notice && <Alert variant={notice.variant}>{notice.message}</Alert>}
+      {notice?.recovery ? (
+        <LockedNotice
+          title={notice.message}
+          document={lastDocument}
+          next={next}
+        />
+      ) : (
+        notice && <Alert variant={notice.variant}>{notice.message}</Alert>
+      )}
       <DocumentLoginForm onSubmit={submitLogin} onNotice={setNotice} />
       <div
         role="separator"

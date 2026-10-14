@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { http, HttpResponse } from 'msw';
 import type { UrlUpdateEvent } from 'nuqs/adapters/testing';
@@ -13,12 +13,14 @@ import { server } from '@/test/server';
 import { buildSession } from '@/test/session';
 
 import { googleLoginUrl } from '../google-login-url';
+import { clearResetPrefill, readResetPrefill } from '../reset-prefill';
 import { LoginScreen } from './login-screen';
 
 const router = vi.hoisted(() => ({ replace: vi.fn() }));
 vi.mock('next/navigation', () => ({ useRouter: () => router }));
 
 beforeEach(() => {
+  clearResetPrefill();
   router.replace.mockReset();
   server.use(...noSessionHandlers);
 });
@@ -90,20 +92,37 @@ describe('LoginScreen', () => {
     expect(router.replace).not.toHaveBeenCalled();
   });
 
-  it('con la cuenta bloqueada muestra el plazo que da la API', async () => {
-    const detail =
-      'Demasiados intentos fallidos. Inténtalo de nuevo en 15 minutos.';
+  it('con la cuenta bloqueada ofrece restablecer o entrar con Google', async () => {
     respondToLogin(() =>
       HttpResponse.json(
-        { detail, code: 'account_locked', fields: {} },
+        { detail: 'Mensaje del API', code: 'account_locked', fields: {} },
         { status: 429 },
       ),
     );
-    renderWithProviders(<LoginScreen />);
+    renderWithProviders(<LoginScreen />, {
+      searchParams: '?next=/clientes',
+    });
 
     await login();
 
-    expect(await screen.findByRole('alert')).toHaveTextContent(detail);
+    const alert = await screen.findByRole('alert');
+    expect(alert).toHaveTextContent(
+      'Demasiados intentos fallidos. Puedes esperar 15 minutos, restablecer tu contraseña o entrar con Google.',
+    );
+    expect(
+      within(alert).getByRole('link', { name: 'entrar con Google' }),
+    ).toHaveAttribute('href', googleLoginUrl('/clientes'));
+    const reset = within(alert).getByRole('link', {
+      name: 'restablecer tu contraseña',
+    });
+    expect(reset).toHaveAttribute('href', '/recuperar-contrasena');
+
+    await userEvent.click(reset);
+
+    expect(readResetPrefill()).toEqual({
+      document_type: 'CC',
+      document_number: '1090123456',
+    });
   });
 
   it.each([
