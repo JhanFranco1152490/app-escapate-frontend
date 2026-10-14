@@ -7,6 +7,9 @@ import { Label } from '@/components/ui/label';
 // pantalla lea el mensaje de error al enfocarlo.
 export const fieldErrorId = (id: string) => `${id}-error`;
 
+export const invalidFieldProps = (id: string, error: string | undefined) =>
+  error ? { 'aria-invalid': true, 'aria-describedby': fieldErrorId(id) } : {};
+
 type FormFieldProps = {
   id: string;
   label: string;
