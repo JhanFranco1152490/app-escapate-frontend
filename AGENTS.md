@@ -65,11 +65,12 @@ Husky + lint-staged.
 ```
 src/
 ├── app/                  rutas; layout.tsx monta providers.tsx (QueryClient + NuqsAdapter)
-│   ├── (auth)/           pantallas sin sesión (/iniciar-sesion)
+│   ├── (auth)/           pantallas sin sesión (/iniciar-sesion, /recuperar-contrasena,
+│   │                     /restablecer-contrasena, /crear-contrasena), todas sobre AuthShell
 │   └── (app)/            panel: layout.tsx = SessionGuard + PanelLayout; toda página con
 │                         sesión va aquí
 ├── features/<dominio>/   api.ts, schemas.ts, components/, hooks use-*.ts
-│   ├── auth/             sesión, login, guardia y permisos
+│   ├── auth/             sesión, login, recuperar contraseña, guardia y permisos
 │   └── panel/            marco del panel: barra superior, menú de cuenta, bienvenida
 ├── components/
 │   ├── ui/               solo shadcn/ui
@@ -122,6 +123,12 @@ tres temas). Las maquetas de `docs/ui/` son la guía visual.
 - `useHasPermission` solo decide qué se muestra; la API responde 403 de todas formas.
 - La pantalla de login confía en `session.isSuccess`, no en `session.data`: tras un 401 la
   caché conserva el último usuario.
+- **Recuperar contraseña e invitación:** el token del enlace llega después de `#` (el
+  navegador no lo envía a ningún servidor); `useResetTokenFromHash` lo lee una sola vez y lo
+  quita de la barra de direcciones, y viaja solo en el cuerpo de `check` y `confirm`. El
+  documento que el login pasa a `/recuperar-contrasena` va en memoria del módulo
+  (`reset-prefill.ts`), nunca en la URL ni en el almacenamiento del navegador. Al crear la
+  contraseña la API deja la sesión abierta y el frontend entra al panel.
 - Pantallas usables desde 360 px. El quiebre principal es `md` (768 px): por debajo, el
   login oculta el panel de marca y la barra del panel pasa nombre y cierre a un menú.
   Campos con letra de 16 px y áreas táctiles de 44 px como mínimo.
@@ -129,7 +136,9 @@ tres temas). Las maquetas de `docs/ui/` son la guía visual.
 ### Datos y formularios
 
 - Formularios con react-hook-form + zod (schemas en `features/<dominio>/schemas.ts`); los
-  errores por campo del servidor se aplican con `applyApiFieldErrors`.
+  errores de la API se aplican con `applyApiFormError` (marca los campos y dice si hace
+  falta un aviso general y a qué campo llevar el foco). Para un aviso que no muestra el
+  texto del servidor, `rateLimitOr(error, genérico)`.
 - Filtros y paginación en la URL con `nuqs`.
 - Fechas solo desde `lib/format/dates.ts` y montos solo desde `lib/format/money.ts`: los
   componentes no llaman a `Intl` ni a `new Date()`. Los montos llegan en pesos enteros y el

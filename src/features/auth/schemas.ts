@@ -18,13 +18,18 @@ export const DOCUMENT_TYPES = Object.keys(DOCUMENT_TYPE_LABELS) as [
 
 // Solo se exige que los campos vengan llenos: el formato del número lo revisa la API, que
 // responde lo mismo ante un formato inválido que ante un documento inexistente.
-export const loginSchema = z.object({
+export const documentSchema = z.object({
   document_type: z.enum(DOCUMENT_TYPES),
   document_number: z
     .string()
     .trim()
     .min(1, 'Ingresa tu número de documento.')
     .max(30, 'El número de documento es demasiado largo.'),
+});
+
+export type DocumentValues = z.infer<typeof documentSchema>;
+
+export const loginSchema = documentSchema.extend({
   password: z
     .string()
     .min(1, 'Ingresa tu contraseña.')
@@ -32,3 +37,19 @@ export const loginSchema = z.object({
 });
 
 export type LoginValues = z.infer<typeof loginSchema>;
+
+// Sin trim: los espacios cuentan como parte de la contraseña, igual que en la API.
+export const setPasswordSchema = z
+  .object({
+    password: z
+      .string()
+      .min(12, 'Usa al menos 12 caracteres.')
+      .max(256, 'La contraseña es demasiado larga.'),
+    password_confirmation: z.string().min(1, 'Confirma la contraseña.'),
+  })
+  .refine((values) => values.password === values.password_confirmation, {
+    path: ['password_confirmation'],
+    message: 'Las contraseñas no coinciden.',
+  });
+
+export type SetPasswordValues = z.infer<typeof setPasswordSchema>;
