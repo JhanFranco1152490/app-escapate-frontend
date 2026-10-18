@@ -105,10 +105,11 @@ export function useUserLogins(id: number, page: number) {
   });
 }
 
-export function useRoles() {
+export function useRoles({ enabled = true } = {}) {
   return useQuery({
     queryKey: queryKeys.roles(),
     queryFn: fetchRoles,
+    enabled,
     // Los roles cambian muy de vez en cuando (solo desde la gestión de roles).
     staleTime: 5 * 60 * 1000,
   });

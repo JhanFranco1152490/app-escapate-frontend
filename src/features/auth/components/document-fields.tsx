@@ -15,13 +15,19 @@ type DocumentFieldsProps = {
   numberField: UseFormRegisterReturn<'document_number'>;
   documentType: DocumentType;
   errors: { document_type?: string; document_number?: string };
+  // `username` cuando es el documento de quien usa el navegador (login y recuperación), para
+  // que el gestor de contraseñas lo recuerde; `off` cuando es el de otra persona.
+  autoComplete?: 'username' | 'off';
 };
+
+// Pensado también para otros dominios: el formulario de usuarios pide los mismos dos campos.
 
 export function DocumentFields({
   typeField,
   numberField,
   documentType,
   errors,
+  autoComplete = 'username',
 }: DocumentFieldsProps) {
   return (
     <>
@@ -52,7 +58,7 @@ export function DocumentFields({
       >
         <Input
           id="document_number"
-          autoComplete="username"
+          autoComplete={autoComplete}
           // CE, PPT y pasaporte pueden llevar letras: solo la cédula usa el teclado numérico.
           inputMode={documentType === 'CC' ? 'numeric' : 'text'}
           className="h-11"
