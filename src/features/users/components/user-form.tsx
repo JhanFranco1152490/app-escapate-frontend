@@ -1,13 +1,13 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import Link from 'next/link';
 import { useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
 import { Alert } from '@/components/alert';
+import { ButtonLink } from '@/components/button-link';
 import { FormField, fieldAriaProps } from '@/components/form-field';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { DocumentFields } from '@/features/auth/components/document-fields';
 import { rateLimitOr } from '@/lib/api/errors';
@@ -157,12 +157,9 @@ export function UserForm({
           </div>
         </div>
         <footer className="flex flex-col-reverse gap-3 border-t px-5 py-4 sm:flex-row sm:justify-end">
-          <Link
-            href={cancelHref}
-            className={buttonVariants({ variant: 'outline' })}
-          >
+          <ButtonLink href={cancelHref} variant="outline">
             Cancelar
-          </Link>
+          </ButtonLink>
           <Button type="submit" disabled={isSubmitting}>
             {isSubmitting ? 'Guardando…' : submitLabel}
           </Button>

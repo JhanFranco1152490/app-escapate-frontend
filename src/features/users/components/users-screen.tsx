@@ -1,15 +1,15 @@
 'use client';
 
 import { Plus, RotateCcw } from 'lucide-react';
-import Link from 'next/link';
 import { useEffect } from 'react';
 
+import { ButtonLink } from '@/components/button-link';
 import { EmptyState } from '@/components/empty-state';
 import { ErrorState } from '@/components/error-state';
 import { ForbiddenState } from '@/components/forbidden-state';
 import { PageHeader } from '@/components/page-header';
 import { Pagination } from '@/components/pagination';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { useHasPermission } from '@/features/auth/permissions';
 import { isApiError } from '@/lib/api/errors';
 
@@ -43,10 +43,10 @@ export function UsersScreen() {
         description="Personas autorizadas para operar el panel. Desactivar una cuenta bloquea el acceso y conserva todo su historial."
         actions={
           canManage && (
-            <Link href="/usuarios/nuevo" className={buttonVariants()}>
+            <ButtonLink href="/usuarios/nuevo">
               <Plus aria-hidden="true" />
               Nuevo usuario
-            </Link>
+            </ButtonLink>
           )
         }
       />

@@ -4,6 +4,7 @@ import { ArrowLeft, RotateCcw } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
+import { Alert } from '@/components/alert';
 import { ErrorState } from '@/components/error-state';
 import { ForbiddenState } from '@/components/forbidden-state';
 import { PageHeader } from '@/components/page-header';
@@ -11,10 +12,13 @@ import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { isApiError } from '@/lib/api/errors';
 
+import type { ActionFeedback } from '../action-feedback';
 import { useUser } from '../api';
 import { clearSavedNotice, readSavedNotice } from '../saved-notice';
 import { parseUserId } from '../user-id';
 import { LoginHistory } from './login-history';
+import { ResendInvitationButton } from './resend-invitation-button';
+import { UserActions } from './user-actions';
 import { UserDetail } from './user-detail';
 import { UserNotFound } from './user-not-found';
 import { UserSavedNotice } from './user-saved-notice';
@@ -28,6 +32,9 @@ export function UserDetailScreen({ id }: { id: string }) {
     userId === null ? undefined : readSavedNotice(userId),
   );
   useEffect(clearSavedNotice, []);
+  // Resultado de la última acción (activar, reenviar…). Reemplaza al aviso de guardado: es
+  // más reciente.
+  const [feedback, setFeedback] = useState<ActionFeedback>();
 
   const errorStatus = isApiError(user.error) ? user.error.status : undefined;
   if (userId === null || errorStatus === 404) return <UserNotFound />;
@@ -47,8 +54,26 @@ export function UserDetailScreen({ id }: { id: string }) {
           <PageHeader
             eyebrow="Administración / 02"
             title={user.data.full_name}
+            actions={<UserActions user={user.data} onDone={setFeedback} />}
           />
-          {notice && <UserSavedNotice notice={notice} />}
+          {feedback ? (
+            <Alert variant={feedback.variant} title={feedback.text} />
+          ) : (
+            notice && (
+              <UserSavedNotice
+                notice={notice}
+                action={
+                  user.data.is_active &&
+                  !user.data.has_password && (
+                    <ResendInvitationButton
+                      userId={user.data.id}
+                      onDone={setFeedback}
+                    />
+                  )
+                }
+              />
+            )
+          )}
           <UserDetail user={user.data} />
           <LoginHistory userId={user.data.id} />
         </>

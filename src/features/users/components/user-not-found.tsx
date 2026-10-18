@@ -1,19 +1,14 @@
-import Link from 'next/link';
-
+import { ButtonLink } from '@/components/button-link';
 import { EmptyState } from '@/components/empty-state';
-import { buttonVariants } from '@/components/ui/button';
 
 export function UserNotFound() {
   return (
     <EmptyState
       title="No encontramos este usuario"
       action={
-        <Link
-          href="/usuarios"
-          className={buttonVariants({ variant: 'outline' })}
-        >
+        <ButtonLink href="/usuarios" variant="outline">
           Volver a usuarios
-        </Link>
+        </ButtonLink>
       }
     >
       Puede que el enlace esté mal escrito. Búscalo en la lista de usuarios.
