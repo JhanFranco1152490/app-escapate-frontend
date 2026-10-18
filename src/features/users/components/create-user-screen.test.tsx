@@ -48,15 +48,21 @@ const renderScreen = async () => {
   return userEvent.setup();
 };
 
+// Pega el texto en vez de escribirlo tecla por tecla: el formulario recibe los mismos
+// eventos y la prueba no depende de lo rápida que esté la máquina.
+async function fill(user: UserEvent, label: RegExp, text: string) {
+  const field = screen.getByLabelText(label);
+  await user.clear(field);
+  await user.click(field);
+  await user.paste(text);
+}
+
 async function fillForm(user: UserEvent) {
-  await user.type(screen.getByLabelText(/Nombres/), 'Laura');
-  await user.type(screen.getByLabelText(/Apellidos/), 'Rojas');
-  await user.type(screen.getByLabelText(/Correo/), 'Laura.Rojas@Example.com');
-  await user.type(
-    screen.getByLabelText(/Número de documento/),
-    '1.090.123.456',
-  );
-  await user.type(screen.getByLabelText(/Celular/), '300 123 4567');
+  await fill(user, /Nombres/, 'Laura');
+  await fill(user, /Apellidos/, 'Rojas');
+  await fill(user, /Correo/, 'Laura.Rojas@Example.com');
+  await fill(user, /Número de documento/, '1.090.123.456');
+  await fill(user, /Celular/, '300 123 4567');
   await user.selectOptions(screen.getByLabelText(/Rol/), 'Asesor comercial');
 }
 
@@ -81,10 +87,8 @@ describe('CreateUserScreen', () => {
   it('con formatos inválidos no llama a la API y marca cada campo', async () => {
     const user = await renderScreen();
     await fillForm(user);
-    await user.clear(screen.getByLabelText(/Correo/));
-    await user.type(screen.getByLabelText(/Correo/), 'laura@');
-    await user.clear(screen.getByLabelText(/Celular/));
-    await user.type(screen.getByLabelText(/Celular/), '6012345678');
+    await fill(user, /Correo/, 'laura@');
+    await fill(user, /Celular/, '6012345678');
 
     await submit(user);
 
@@ -192,5 +196,36 @@ describe('CreateUserScreen', () => {
       'href',
       '/usuarios',
     );
+  });
+
+  it('si los roles no cargan lo dice y permite reintentar', async () => {
+    let fail = true;
+    server.use(
+      http.get(apiUrl('/api/roles'), () =>
+        fail
+          ? HttpResponse.json(
+              { detail: 'Error interno.', code: 'internal_error', fields: {} },
+              { status: 500 },
+            )
+          : HttpResponse.json(ROLES),
+      ),
+    );
+    renderWithProviders(
+      <SessionGuard>
+        <CreateUserScreen />
+      </SessionGuard>,
+    );
+
+    expect(
+      await screen.findByText(/No pudimos cargar los roles/),
+    ).toBeInTheDocument();
+    fail = false;
+    await userEvent
+      .setup()
+      .click(screen.getByRole('button', { name: 'Reintentar' }));
+
+    expect(
+      await screen.findByRole('option', { name: 'Operativo' }),
+    ).toBeInTheDocument();
   });
 });

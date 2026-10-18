@@ -49,6 +49,19 @@ export function RoleField(props: RoleFieldProps) {
           </NativeSelectOption>
         ))}
       </NativeSelect>
+      {/* Sin roles no hay qué elegir: se dice por qué en vez de dejar el selector vacío. */}
+      {roles.isError && (
+        <p className="text-[0.78125rem] text-destructive">
+          No pudimos cargar los roles.{' '}
+          <button
+            type="button"
+            className="min-h-11 underline underline-offset-4"
+            onClick={() => void roles.refetch()}
+          >
+            Reintentar
+          </button>
+        </p>
+      )}
     </FormField>
   );
 }
