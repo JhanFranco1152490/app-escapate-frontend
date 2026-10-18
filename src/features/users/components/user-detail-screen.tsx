@@ -1,31 +1,22 @@
 'use client';
 
-import { ArrowLeft, RotateCcw } from 'lucide-react';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import { Alert } from '@/components/alert';
-import { ErrorState } from '@/components/error-state';
-import { ForbiddenState } from '@/components/forbidden-state';
 import { PageHeader } from '@/components/page-header';
-import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
-import { isApiError } from '@/lib/api/errors';
 
 import type { ActionFeedback } from '../action-feedback';
-import { useUser } from '../api';
 import { clearSavedNotice, readSavedNotice } from '../saved-notice';
 import { parseUserId } from '../user-id';
 import { LoginHistory } from './login-history';
 import { ResendInvitationButton } from './resend-invitation-button';
 import { UserActions } from './user-actions';
 import { UserDetail } from './user-detail';
-import { UserNotFound } from './user-not-found';
+import { UserLoader } from './user-loader';
 import { UserSavedNotice } from './user-saved-notice';
 
 export function UserDetailScreen({ id }: { id: string }) {
   const userId = parseUserId(id);
-  const user = useUser(userId);
   // Lo que dejó el formulario al guardar: se lee al montar y se borra enseguida, así no
   // reaparece al volver a abrir la ficha.
   const [notice] = useState(() =>
@@ -36,25 +27,14 @@ export function UserDetailScreen({ id }: { id: string }) {
   // más reciente.
   const [feedback, setFeedback] = useState<ActionFeedback>();
 
-  const errorStatus = isApiError(user.error) ? user.error.status : undefined;
-  if (userId === null || errorStatus === 404) return <UserNotFound />;
-  if (errorStatus === 403) return <ForbiddenState />;
-
   return (
-    <div className="flex max-w-5xl flex-col gap-7">
-      <Link
-        href="/usuarios"
-        className="flex min-h-11 w-fit items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
-      >
-        <ArrowLeft aria-hidden="true" className="size-4" />
-        Usuarios
-      </Link>
-      {user.data ? (
+    <UserLoader userId={userId} back={{ href: '/usuarios', label: 'Usuarios' }}>
+      {(user) => (
         <>
           <PageHeader
             eyebrow="Administración / 02"
-            title={user.data.full_name}
-            actions={<UserActions user={user.data} onDone={setFeedback} />}
+            title={user.full_name}
+            actions={<UserActions user={user} onDone={setFeedback} />}
           />
           {feedback ? (
             <Alert variant={feedback.variant} title={feedback.text} />
@@ -63,10 +43,10 @@ export function UserDetailScreen({ id }: { id: string }) {
               <UserSavedNotice
                 notice={notice}
                 action={
-                  user.data.is_active &&
-                  !user.data.has_password && (
+                  user.is_active &&
+                  !user.has_password && (
                     <ResendInvitationButton
-                      userId={user.data.id}
+                      userId={user.id}
                       onDone={setFeedback}
                     />
                   )
@@ -74,32 +54,10 @@ export function UserDetailScreen({ id }: { id: string }) {
               />
             )
           )}
-          <UserDetail user={user.data} />
-          <LoginHistory userId={user.data.id} />
+          <UserDetail user={user} />
+          <LoginHistory userId={user.id} />
         </>
-      ) : user.isError ? (
-        <ErrorState
-          title="No pudimos cargar el usuario"
-          action={
-            <Button onClick={() => void user.refetch()}>
-              <RotateCcw aria-hidden="true" />
-              Reintentar
-            </Button>
-          }
-        >
-          Se interrumpió la conexión con el servidor. Inténtalo de nuevo en un
-          momento.
-        </ErrorState>
-      ) : (
-        <div
-          role="status"
-          aria-label="Cargando el usuario"
-          className="flex flex-col gap-4"
-        >
-          <Skeleton className="h-9 w-72 max-w-full" />
-          <Skeleton className="h-48 w-full" />
-        </div>
       )}
-    </div>
+    </UserLoader>
   );
 }
