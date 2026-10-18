@@ -1,23 +1,29 @@
 import { describe, expect, it } from 'vitest';
 
-import { setSavedNotice, takeSavedNotice } from './saved-notice';
+import {
+  clearSavedNotice,
+  readSavedNotice,
+  setSavedNotice,
+} from './saved-notice';
 
 describe('saved-notice', () => {
-  it('se lee una sola vez', () => {
+  it('se lee hasta que se borra', () => {
     setSavedNotice({ userId: 7, kind: 'created', invitationSent: true });
 
-    expect(takeSavedNotice(7)).toEqual({
+    expect(readSavedNotice(7)).toEqual({
       userId: 7,
       kind: 'created',
       invitationSent: true,
     });
-    expect(takeSavedNotice(7)).toBeUndefined();
+    expect(readSavedNotice(7)).toBeDefined();
+    clearSavedNotice();
+    expect(readSavedNotice(7)).toBeUndefined();
   });
 
-  it('no entrega el aviso de otro usuario, y lo descarta', () => {
+  it('no entrega el aviso de otro usuario', () => {
     setSavedNotice({ userId: 7, kind: 'updated', invitationSent: null });
 
-    expect(takeSavedNotice(8)).toBeUndefined();
-    expect(takeSavedNotice(7)).toBeUndefined();
+    expect(readSavedNotice(8)).toBeUndefined();
+    clearSavedNotice();
   });
 });

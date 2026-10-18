@@ -14,9 +14,12 @@ export const setSavedNotice = (value: SavedNotice) => {
   notice = value;
 };
 
-// Lo entrega una sola vez y solo a la ficha del mismo usuario; en cualquier caso lo borra.
-export function takeSavedNotice(userId: number) {
-  const current = notice;
+// Leer y borrar van por separado: en desarrollo React ejecuta dos veces el estado inicial, y
+// si la lectura borrara, la segunda ya no encontraría el aviso. La ficha lo lee al montar y
+// lo borra en un efecto.
+export const readSavedNotice = (userId: number) =>
+  notice?.userId === userId ? notice : undefined;
+
+export const clearSavedNotice = () => {
   notice = undefined;
-  return current?.userId === userId ? current : undefined;
-}
+};

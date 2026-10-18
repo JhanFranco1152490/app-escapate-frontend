@@ -10,7 +10,7 @@ import { server } from '@/test/server';
 import { buildSession } from '@/test/session';
 import { ROLES, buildUserDetail } from '@/test/users';
 
-import { takeSavedNotice } from '../saved-notice';
+import { clearSavedNotice, readSavedNotice } from '../saved-notice';
 import { CreateUserScreen } from './create-user-screen';
 
 const router = vi.hoisted(() => ({ replace: vi.fn(), push: vi.fn() }));
@@ -118,11 +118,12 @@ describe('CreateUserScreen', () => {
         role_id: 2,
       },
     ]);
-    expect(takeSavedNotice(9)).toEqual({
+    expect(readSavedNotice(9)).toEqual({
       userId: 9,
       kind: 'created',
       invitationSent: false,
     });
+    clearSavedNotice();
   });
 
   it('los errores de campo del servidor caen en su campo', async () => {
