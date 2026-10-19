@@ -67,6 +67,16 @@ describe('UsersScreen', () => {
     );
   });
 
+  it.each([['0'], ['-3'], ['abc'], ['9007199254740993']])(
+    'un role_id imposible en la URL (%s) no se envía a la API',
+    async (roleId) => {
+      renderScreen({ searchParams: `?role_id=${roleId}` });
+
+      await screen.findByText('Laura Rojas');
+      expect(lastRequest()).not.toHaveProperty('role_id');
+    },
+  );
+
   it('buscar escribe q en la URL y vuelve a la primera página', async () => {
     const onUrlUpdate = vi.fn<OnUrlUpdateFunction>();
     renderScreen({ searchParams: '?page=2', onUrlUpdate });

@@ -58,9 +58,10 @@ export function LoginHistory({ userId }: { userId: number }) {
         ) : (
           <>
             <ul aria-busy={logins.isFetching}>
-              {logins.data.results.map((login) => (
+              {logins.data.results.map((login, index) => (
                 <li
-                  key={`${login.created_at}-${login.method}`}
+                  // La API no da un id por ingreso, y dos pueden coincidir en fecha y método.
+                  key={`${login.created_at}-${login.method}-${index}`}
                   className="flex flex-col gap-0.5 border-t px-5 py-3 first:border-t-0 sm:flex-row sm:justify-between"
                 >
                   <span className="text-sm">

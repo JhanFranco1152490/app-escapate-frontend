@@ -80,7 +80,7 @@ describe('acciones de la ficha', () => {
     expect(mutations).toEqual([]);
   });
 
-  it('desactivar confirmado deja la ficha inactiva (CA-05)', async () => {
+  it('desactivar confirmado deja la ficha inactiva', async () => {
     server.use(
       http.post(apiUrl('/api/users/7/deactivate'), () => {
         mutations.push('deactivate');
@@ -130,7 +130,7 @@ describe('acciones de la ficha', () => {
     expect(screen.getByRole('alertdialog')).toBeInTheDocument();
   });
 
-  it('activar vuelve a dejar la cuenta activa (CA-06)', async () => {
+  it('activar vuelve a dejar la cuenta activa', async () => {
     serveUser(buildUserDetail({ id: 7, is_active: false }));
     server.use(
       http.post(apiUrl('/api/users/7/activate'), () =>
@@ -226,6 +226,32 @@ describe('acciones de la ficha', () => {
     expect(
       screen.getByText('Google', { selector: 'dt' }).nextElementSibling,
     ).toHaveTextContent('No vinculado');
+  });
+
+  it('al desvincular el propio Google, el diálogo avisa que se cerrará la sesión', async () => {
+    serveUser(buildUserDetail({ id: 7, google_linked: true }));
+    const user = await renderScreen({ sessionId: 7 });
+
+    await user.click(
+      screen.getByRole('button', { name: 'Desvincular Google' }),
+    );
+
+    expect(await screen.findByRole('alertdialog')).toHaveTextContent(
+      'Es tu propia cuenta: se cerrarán todas tus sesiones abiertas, incluida esta',
+    );
+  });
+
+  it('al desvincular el Google de otra persona no se habla de la sesión propia', async () => {
+    serveUser(buildUserDetail({ id: 7, google_linked: true }));
+    const user = await renderScreen();
+
+    await user.click(
+      screen.getByRole('button', { name: 'Desvincular Google' }),
+    );
+
+    expect(await screen.findByRole('alertdialog')).not.toHaveTextContent(
+      'Es tu propia cuenta',
+    );
   });
 
   it('muestra solo las acciones que corresponden al estado', async () => {

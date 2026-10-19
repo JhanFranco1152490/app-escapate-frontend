@@ -52,10 +52,19 @@ export function useUserFilters() {
     [setValues],
   );
 
+  // Un id imposible (0, negativo o más grande de lo que JavaScript representa) la API lo
+  // rechazaría con un 422 y la lista mostraría un error que "Reintentar" no arregla.
+  const roleId =
+    values.role_id !== null &&
+    Number.isSafeInteger(values.role_id) &&
+    values.role_id >= 1
+      ? values.role_id
+      : null;
+
   const filters: UserListFilters = {
     q: values.q.trim(),
     status: values.status,
-    roleId: values.role_id,
+    roleId,
     page: Math.max(values.page, 1),
   };
   const hasFilters =

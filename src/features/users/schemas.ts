@@ -33,13 +33,12 @@ export function normalizePhone(value: string) {
   return digits;
 }
 
-// Caracteres de control (categoría Cc de Unicode): un nombre escrito por una persona no los
-// lleva, y la base no puede guardar el NUL.
+// Caracteres de control (categoría Cc de Unicode) y de formato invisibles (Cf: ancho cero,
+// cambio de dirección del texto): un nombre escrito por una persona no los lleva, la base no
+// puede guardar el NUL y los invisibles hacen que dos nombres iguales a la vista no lo sean.
+const FORBIDDEN_CHARACTERS = /[\p{Cc}\p{Cf}]/u;
 const hasControlCharacters = (value: string) =>
-  [...value].some((character) => {
-    const code = character.charCodeAt(0);
-    return code <= 0x1f || (code >= 0x7f && code <= 0x9f);
-  });
+  FORBIDDEN_CHARACTERS.test(value);
 
 // Un campo vacío solo muestra "obligatorio": las reglas de formato lo dejan pasar. No se usa
 // `abort`, porque además cancelaría la revisión del documento, que se hace sobre el objeto.

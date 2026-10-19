@@ -89,8 +89,15 @@ describe('userSchema', () => {
     });
   });
 
-  it('rechaza caracteres de control en el nombre', () => {
-    expect(errorsOf({ ...valid, first_name: 'Lau\u0000ra' })).toEqual({
+  it.each([
+    ['un NUL', 'Lau\u0000ra'],
+    ['un salto de línea', 'Lau\nra'],
+    ['un espacio de ancho cero', 'Lau\u200bra'],
+    ['un cambio de dirección del texto', 'Laura\u202e'],
+    ['un guion blando', 'Lau\u00adra'],
+    ['una marca de orden de bytes en medio', 'Lau\ufeffra'],
+  ])('rechaza en el nombre %s', (_description, first_name) => {
+    expect(errorsOf({ ...valid, first_name })).toEqual({
       first_name: 'Contiene caracteres que no se permiten.',
     });
   });

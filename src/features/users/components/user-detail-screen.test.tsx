@@ -71,7 +71,7 @@ const valueOf = (term: string) =>
   screen.getByText(term, { selector: 'dt' }).nextElementSibling;
 
 describe('UserDetailScreen', () => {
-  it('muestra los datos registrados (CA-03)', async () => {
+  it('muestra los datos registrados', async () => {
     serveUser(
       buildUserDetail({
         id: 7,
@@ -164,6 +164,30 @@ describe('UserDetailScreen', () => {
     expect(items[1]).toHaveTextContent('Google');
     expect(items[2]).toHaveTextContent('Enlace del correo');
     expect(within(history).getByText(/últimos 90 días/)).toBeInTheDocument();
+  });
+
+  it('dos ingresos con la misma fecha y vía se muestran los dos, sin avisos de React', async () => {
+    const consoleError = vi
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
+    server.use(
+      http.get(apiUrl('/api/users/7/logins'), () =>
+        HttpResponse.json(
+          loginPage([
+            { created_at: '2026-10-05T20:30:00Z', method: 'google' },
+            { created_at: '2026-10-05T20:30:00Z', method: 'google' },
+          ]),
+        ),
+      ),
+    );
+    renderScreen();
+
+    const history = await screen.findByRole('region', {
+      name: 'Historial de ingresos',
+    });
+    expect(await within(history).findAllByRole('listitem')).toHaveLength(2);
+    expect(consoleError).not.toHaveBeenCalled();
+    consoleError.mockRestore();
   });
 
   it('sin ingresos lo dice', async () => {
