@@ -2,8 +2,8 @@
 
 import { Button } from '@/components/ui/button';
 
-import { useActivateUser } from '../api';
-import { actionError, type ActionFeedback } from '../action-feedback';
+import type { ActionFeedback } from '../action-feedback';
+import { useActivateAction } from '../use-user-actions';
 
 type ActivateUserButtonProps = {
   userId: number;
@@ -15,22 +15,10 @@ export function ActivateUserButton({
   userId,
   onDone,
 }: ActivateUserButtonProps) {
-  const activate = useActivateUser(userId);
+  const activate = useActivateAction(userId, onDone);
 
   return (
-    <Button
-      disabled={activate.isPending}
-      onClick={() =>
-        activate.mutate(undefined, {
-          onSuccess: () =>
-            onDone({
-              variant: 'info',
-              text: 'Cuenta activada. Ya puede entrar al panel.',
-            }),
-          onError: (error) => onDone(actionError(error)),
-        })
-      }
-    >
+    <Button disabled={activate.pending} onClick={activate.run}>
       Activar
     </Button>
   );

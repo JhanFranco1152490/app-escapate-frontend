@@ -2,7 +2,9 @@ import Link from 'next/link';
 
 import { formatShortDateTime } from '@/lib/format/dates';
 
+import type { ActionFeedback } from '../action-feedback';
 import type { UserListItem } from '../api';
+import { UserRowActions } from './user-row-actions';
 import { UserStatusBadge } from './user-status-badge';
 
 const headerCell =
@@ -11,14 +13,20 @@ const headerCell =
 // datos para celular.
 const cell = 'px-4 md:h-13.5 md:py-2';
 
-export function UsersTable({ users }: { users: UserListItem[] }) {
+type UsersTableProps = {
+  users: UserListItem[];
+  onActionDone: (feedback: ActionFeedback) => void;
+};
+
+export function UsersTable({ users, onActionDone }: UsersTableProps) {
   return (
     <table className="w-full text-sm md:table-fixed">
       <colgroup className="max-md:hidden">
-        <col className="w-[38%]" />
-        <col className="w-[22%]" />
-        <col className="w-[18%]" />
-        <col className="w-[22%]" />
+        <col />
+        <col className="w-[20%]" />
+        <col className="w-[17%]" />
+        <col className="w-[21%]" />
+        <col className="w-14" />
       </colgroup>
       <thead className="bg-muted/60 max-md:sr-only">
         <tr>
@@ -34,15 +42,18 @@ export function UsersTable({ users }: { users: UserListItem[] }) {
           <th scope="col" className={headerCell}>
             Última actividad
           </th>
+          <th scope="col" className={headerCell}>
+            <span className="sr-only">Acciones</span>
+          </th>
         </tr>
       </thead>
       <tbody>
         {users.map((user) => (
           <tr
             key={user.id}
-            className="border-t max-md:flex max-md:flex-col max-md:gap-1.5 max-md:py-3.5"
+            className="relative border-t max-md:flex max-md:flex-col max-md:gap-1.5 max-md:py-3.5"
           >
-            <td className={`${cell} min-w-0`}>
+            <td className={`${cell} min-w-0 max-md:pr-14`}>
               <Link
                 href={`/usuarios/${user.id}`}
                 className="block truncate font-medium underline-offset-4 hover:underline"
@@ -64,6 +75,9 @@ export function UsersTable({ users }: { users: UserListItem[] }) {
               {user.last_activity_at
                 ? formatShortDateTime(user.last_activity_at)
                 : 'Nunca'}
+            </td>
+            <td className="max-md:absolute max-md:top-1.5 max-md:right-2 md:px-2 md:text-right">
+              <UserRowActions user={user} onDone={onActionDone} />
             </td>
           </tr>
         ))}

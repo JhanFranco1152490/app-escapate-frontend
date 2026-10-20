@@ -1,8 +1,9 @@
 'use client';
 
 import { Plus, RotateCcw } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
+import { Alert } from '@/components/alert';
 import { ButtonLink } from '@/components/button-link';
 import { EmptyState } from '@/components/empty-state';
 import { ErrorState } from '@/components/error-state';
@@ -13,6 +14,7 @@ import { Button } from '@/components/ui/button';
 import { useHasPermission } from '@/features/auth/permissions';
 import { isApiError } from '@/lib/api/errors';
 
+import type { ActionFeedback } from '../action-feedback';
 import { USERS_PAGE_SIZE, useUsers } from '../api';
 import { useUserFilters } from '../use-user-filters';
 import { UsersFilters } from './users-filters';
@@ -24,6 +26,8 @@ export function UsersScreen() {
   const { search, filters, hasFilters, setFilter, setPage, clearFilters } =
     useUserFilters();
   const users = useUsers(filters);
+  // Resultado de la última acción del menú de una fila.
+  const [feedback, setFeedback] = useState<ActionFeedback>();
   const errorStatus = isApiError(users.error) ? users.error.status : undefined;
   // La página pedida ya no existe (por ejemplo, se desactivó el último usuario de la última
   // página con el filtro "Activos"): se vuelve a la primera en vez de mostrar un error.
@@ -50,6 +54,7 @@ export function UsersScreen() {
           )
         }
       />
+      {feedback && <Alert variant={feedback.variant} title={feedback.text} />}
       <UsersFilters
         search={search}
         status={filters.status}
@@ -90,7 +95,10 @@ export function UsersScreen() {
         >
           {users.data ? (
             <>
-              <UsersTable users={users.data.results} />
+              <UsersTable
+                users={users.data.results}
+                onActionDone={setFeedback}
+              />
               <Pagination
                 page={filters.page}
                 pageSize={USERS_PAGE_SIZE}

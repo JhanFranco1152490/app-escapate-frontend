@@ -2,8 +2,8 @@
 
 import { Button } from '@/components/ui/button';
 
-import { useResendInvitation } from '../api';
-import { actionError, type ActionFeedback } from '../action-feedback';
+import type { ActionFeedback } from '../action-feedback';
+import { useResendAction } from '../use-user-actions';
 
 type ResendInvitationButtonProps = {
   userId: number;
@@ -14,21 +14,11 @@ export function ResendInvitationButton({
   userId,
   onDone,
 }: ResendInvitationButtonProps) {
-  const resend = useResendInvitation(userId);
+  const resend = useResendAction(userId, onDone);
 
   return (
-    <Button
-      variant="outline"
-      disabled={resend.isPending}
-      onClick={() =>
-        resend.mutate(undefined, {
-          onSuccess: () =>
-            onDone({ variant: 'info', text: 'Invitación enviada.' }),
-          onError: (error) => onDone(actionError(error)),
-        })
-      }
-    >
-      {resend.isPending ? 'Enviando…' : 'Reenviar invitación'}
+    <Button variant="outline" disabled={resend.pending} onClick={resend.run}>
+      {resend.pending ? 'Enviando…' : 'Reenviar invitación'}
     </Button>
   );
 }
