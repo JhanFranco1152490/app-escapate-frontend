@@ -1,6 +1,11 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import { formatDateTime, formatLongDate, todayInBogota } from './dates';
+import {
+  formatDateTime,
+  formatLongDate,
+  formatShortDateTime,
+  todayInBogota,
+} from './dates';
 
 afterEach(() => {
   vi.useRealTimers();
@@ -19,6 +24,15 @@ describe('todayInBogota', () => {
 describe('formatLongDate', () => {
   it('no corre una fecha sin hora a otro día', () => {
     expect(formatLongDate('2026-10-05')).toBe('5 de octubre de 2026');
+  });
+});
+
+describe('formatShortDateTime', () => {
+  it('muestra el momento abreviado con la hora de Bogotá', () => {
+    // 02:15 UTC del 6 de octubre son las 21:15 del 5 de octubre en Bogotá.
+    expect(formatShortDateTime('2026-10-06T02:15:00Z')).toBe(
+      '5 oct 2026, 9:15 p.m.',
+    );
   });
 });
 
