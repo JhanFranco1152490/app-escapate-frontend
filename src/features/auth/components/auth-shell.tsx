@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
 
+import { LegalLinks } from '@/components/legal-links';
+
 import { BrandPanel } from './brand-panel';
 
 type AuthShellProps = {
@@ -23,6 +25,7 @@ export function AuthShell({ eyebrow, title, children }: AuthShellProps) {
             </h1>
           </header>
           {children}
+          <LegalLinks className="mt-2 text-muted-foreground" />
         </div>
       </section>
     </main>
