@@ -3,28 +3,19 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, useWatch } from 'react-hook-form';
 
-import { FormField, fieldErrorId } from '@/components/form-field';
+import { FormField, fieldAriaProps } from '@/components/form-field';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import {
-  NativeSelect,
-  NativeSelectOption,
-} from '@/components/ui/native-select';
-import { isApiError } from '@/lib/api/errors';
-import { applyApiFieldErrors } from '@/lib/api/form-errors';
+import { applyApiFormError } from '@/lib/api/form-errors';
 
 import {
   GENERIC_LOGIN_NOTICE,
   loginNoticeFromError,
   type LoginNotice,
 } from '../login-errors';
-import {
-  DOCUMENT_TYPES,
-  DOCUMENT_TYPE_LABELS,
-  loginSchema,
-  type LoginValues,
-} from '../schemas';
+import { loginSchema, type LoginValues } from '../schemas';
+import { DocumentFields } from './document-fields';
 import { PasswordInput } from './password-input';
+import { RecoveryLink } from './recovery-link';
 
 const FIELDS = ['document_type', 'document_number', 'password'] as const;
 
@@ -44,6 +35,7 @@ export function DocumentLoginForm({
     setError,
     setFocus,
     resetField,
+    getValues,
     formState: { errors, isSubmitting },
   } = useForm<LoginValues>({
     resolver: zodResolver(loginSchema),
@@ -57,64 +49,31 @@ export function DocumentLoginForm({
       await onSubmit(values);
     } catch (error) {
       resetField('password');
-      const { applied, unmatched } = applyApiFieldErrors(
+      const { isValidation, needsNotice, firstInvalid } = applyApiFormError(
         error,
         setError,
         FIELDS,
       );
-      const isValidation =
-        isApiError(error) && error.code === 'validation_error';
-      if (!isValidation) onNotice(loginNoticeFromError(error));
-      else if (!applied || unmatched.length) onNotice(GENERIC_LOGIN_NOTICE);
-      const firstInvalid = isApiError(error)
-        ? FIELDS.find((field) => error.fields[field]?.length)
-        : undefined;
+      if (needsNotice) {
+        onNotice(
+          isValidation ? GENERIC_LOGIN_NOTICE : loginNoticeFromError(error),
+        );
+      }
       setFocus(firstInvalid ?? 'password');
     }
   });
 
-  const invalidProps = (field: (typeof FIELDS)[number]) =>
-    errors[field]
-      ? { 'aria-invalid': true, 'aria-describedby': fieldErrorId(field) }
-      : {};
-
   return (
     <form noValidate onSubmit={submit} className="flex flex-col gap-4">
-      <FormField
-        id="document_type"
-        label="Tipo de documento"
-        required
-        error={errors.document_type?.message}
-      >
-        <NativeSelect
-          id="document_type"
-          className="w-full [&_select]:h-11"
-          {...register('document_type')}
-          {...invalidProps('document_type')}
-        >
-          {DOCUMENT_TYPES.map((type) => (
-            <NativeSelectOption key={type} value={type}>
-              {DOCUMENT_TYPE_LABELS[type]}
-            </NativeSelectOption>
-          ))}
-        </NativeSelect>
-      </FormField>
-      <FormField
-        id="document_number"
-        label="Número de documento"
-        required
-        error={errors.document_number?.message}
-      >
-        <Input
-          id="document_number"
-          autoComplete="username"
-          // CE, PPT y pasaporte pueden llevar letras: solo la cédula usa el teclado numérico.
-          inputMode={documentType === 'CC' ? 'numeric' : 'text'}
-          className="h-11"
-          {...register('document_number')}
-          {...invalidProps('document_number')}
-        />
-      </FormField>
+      <DocumentFields
+        typeField={register('document_type')}
+        numberField={register('document_number')}
+        documentType={documentType}
+        errors={{
+          document_type: errors.document_type?.message,
+          document_number: errors.document_number?.message,
+        }}
+      />
       <FormField
         id="password"
         label="Contraseña"
@@ -126,9 +85,18 @@ export function DocumentLoginForm({
           autoComplete="current-password"
           className="h-11"
           {...register('password')}
-          {...invalidProps('password')}
+          {...fieldAriaProps('password', { error: errors.password?.message })}
         />
       </FormField>
+      <RecoveryLink
+        getDocument={() => ({
+          document_type: getValues('document_type'),
+          document_number: getValues('document_number'),
+        })}
+        className="-mt-2 self-end text-[0.8125rem] text-orange-400 underline-offset-4 hover:underline"
+      >
+        ¿Olvidaste tu contraseña?
+      </RecoveryLink>
       <Button type="submit" className="w-full" disabled={isSubmitting}>
         {isSubmitting ? 'Entrando…' : 'Entrar'}
       </Button>

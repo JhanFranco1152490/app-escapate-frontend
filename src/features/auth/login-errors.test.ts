@@ -8,6 +8,12 @@ import {
   loginNoticeFromUrl,
 } from './login-errors';
 
+const LOCKED_NOTICE = {
+  variant: 'error',
+  message: 'Demasiados intentos fallidos.',
+  recovery: true,
+};
+
 const apiError = (status: number, code: string, detail = 'Detalle del API') =>
   new ApiError(status, { detail, code, fields: {} });
 
@@ -28,13 +34,10 @@ describe('loginNoticeFromError', () => {
     });
   });
 
-  it('cuenta bloqueada: usa el detail del servidor, que dice cuánto esperar', () => {
-    const detail =
-      'Demasiados intentos fallidos. Inténtalo de nuevo en 15 minutos.';
-
-    expect(
-      loginNoticeFromError(apiError(429, 'account_locked', detail)),
-    ).toEqual({ variant: 'error', message: detail });
+  it('cuenta bloqueada: texto propio que ofrece las salidas', () => {
+    expect(loginNoticeFromError(apiError(429, 'account_locked'))).toEqual(
+      LOCKED_NOTICE,
+    );
   });
 
   it('límite de solicitudes: usa el mensaje común del cliente', () => {
@@ -72,14 +75,13 @@ describe('loginNoticeFromUrl', () => {
       'info',
       'Tu cuenta está inactiva. Si crees que es un error, escribe a un administrador de la agencia.',
     ],
-    [
-      'account_locked',
-      'error',
-      'Demasiados intentos fallidos. Inténtalo de nuevo en 15 minutos.',
-    ],
     ['throttled', 'error', RATE_LIMIT_MESSAGE],
   ])('muestra el aviso de %s', (code, variant, message) => {
     expect(loginNoticeFromUrl(code)).toEqual({ variant, message });
+  });
+
+  it('muestra el aviso de account_locked con las salidas', () => {
+    expect(loginNoticeFromUrl('account_locked')).toEqual(LOCKED_NOTICE);
   });
 
   it.each([

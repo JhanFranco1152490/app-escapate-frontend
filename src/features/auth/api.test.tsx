@@ -8,7 +8,14 @@ import { renderHookWithProviders } from '@/test/render';
 import { server } from '@/test/server';
 import { buildSession } from '@/test/session';
 
-import { useLogin, useLogout, useSession } from './api';
+import {
+  useConfirmPasswordReset,
+  useLogin,
+  useLogout,
+  useRequestPasswordReset,
+  useResetTokenCheck,
+  useSession,
+} from './api';
 
 describe('useSession', () => {
   it('devuelve la sesión de /api/auth/me', async () => {
@@ -60,5 +67,97 @@ describe('useLogout', () => {
     await result.current.mutateAsync();
 
     expect(queryClient.getQueryCache().getAll()).toHaveLength(0);
+  });
+});
+
+describe('useRequestPasswordReset', () => {
+  it('envía el documento a /api/auth/password-reset', async () => {
+    let received: unknown;
+    server.use(
+      http.post(apiUrl('/api/auth/password-reset'), async ({ request }) => {
+        received = await request.json();
+        return HttpResponse.json(
+          { detail: 'Solicitud recibida.' },
+          { status: 202 },
+        );
+      }),
+    );
+    const { result } = renderHookWithProviders(() => useRequestPasswordReset());
+    const document = {
+      document_type: 'CC',
+      document_number: '1090123456',
+    } as const;
+
+    await result.current.mutateAsync(document);
+
+    expect(received).toEqual(document);
+  });
+});
+
+describe('useResetTokenCheck', () => {
+  it('comprueba el token en el cuerpo, no en la URL', async () => {
+    let received: unknown;
+    let url = '';
+    server.use(
+      http.post(
+        apiUrl('/api/auth/password-reset/check'),
+        async ({ request }) => {
+          received = await request.json();
+          url = request.url;
+          return HttpResponse.json({
+            purpose: 'invitation',
+            full_name: 'Persona de Prueba',
+          });
+        },
+      ),
+    );
+
+    const { result } = renderHookWithProviders(() =>
+      useResetTokenCheck('abc.def'),
+    );
+
+    await waitFor(() =>
+      expect(result.current.data).toEqual({
+        purpose: 'invitation',
+        full_name: 'Persona de Prueba',
+      }),
+    );
+    expect(received).toEqual({ token: 'abc.def' });
+    expect(url).not.toContain('abc.def');
+  });
+
+  it('sin token no llama a la API', () => {
+    const { result } = renderHookWithProviders(() => useResetTokenCheck(null));
+
+    expect(result.current.fetchStatus).toBe('idle');
+  });
+});
+
+describe('useConfirmPasswordReset', () => {
+  it('crea la contraseña y guarda la sesión en la caché', async () => {
+    const session = buildSession();
+    let received: unknown;
+    server.use(
+      http.post(
+        apiUrl('/api/auth/password-reset/confirm'),
+        async ({ request }) => {
+          received = await request.json();
+          return HttpResponse.json(session);
+        },
+      ),
+    );
+    const { result, queryClient } = renderHookWithProviders(() =>
+      useConfirmPasswordReset(),
+    );
+    const body = {
+      token: 'abc.def',
+      password: 'una frase larga de prueba',
+      password_confirmation: 'una frase larga de prueba',
+    };
+
+    await result.current.mutateAsync(body);
+
+    expect(received).toEqual(body);
+    expect(queryClient.getQueryData(queryKeys.session())).toEqual(session);
   });
 });

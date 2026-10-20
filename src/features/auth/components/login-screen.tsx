@@ -5,15 +5,15 @@ import { useQueryState } from 'nuqs';
 import { useEffect, useState } from 'react';
 
 import { Alert } from '@/components/alert';
-import { LegalLinks } from '@/components/legal-links';
 
 import { useLogin, useSession } from '../api';
 import { loginNoticeFromUrl } from '../login-errors';
 import { safeNext } from '../safe-next';
-import type { LoginValues } from '../schemas';
-import { BrandPanel } from './brand-panel';
+import type { DocumentValues, LoginValues } from '../schemas';
+import { AuthShell } from './auth-shell';
 import { DocumentLoginForm } from './document-login-form';
 import { GoogleButton } from './google-button';
+import { LockedNotice } from './locked-notice';
 
 export function LoginScreen() {
   const [next] = useQueryState('next');
@@ -32,7 +32,14 @@ export function LoginScreen() {
   // una sesión activa devolvería al panel, que a su vez mandaría aquí, sin fin.
   const hadSession = session.isSuccess && !loggingIn;
 
+  // Último documento enviado, para precargarlo si el aviso ofrece restablecer la contraseña.
+  const [lastDocument, setLastDocument] = useState<DocumentValues>();
+
   async function submitLogin(values: LoginValues) {
+    setLastDocument({
+      document_type: values.document_type,
+      document_number: values.document_number,
+    });
     await login.mutateAsync(values);
     router.replace(safeNext(next));
   }
@@ -48,31 +55,25 @@ export function LoginScreen() {
   if (hadSession) return null;
 
   return (
-    <main className="dark-surface flex min-h-dvh bg-navy-950 text-foreground">
-      <BrandPanel />
-      <section className="flex flex-1 items-center justify-center px-4 py-6 sm:px-12 md:w-96 md:flex-none md:px-10 lg:w-140 lg:px-12">
-        <div className="flex w-full max-w-md flex-col gap-4">
-          <header>
-            <p className="font-mono text-[0.625rem] tracking-[0.2em] text-orange-400 uppercase">
-              Portal de asesores
-            </p>
-            <h1 className="mt-2 font-heading text-[2rem] font-semibold tracking-[-0.03em]">
-              Iniciar sesión
-            </h1>
-          </header>
-          {notice && <Alert variant={notice.variant}>{notice.message}</Alert>}
-          <DocumentLoginForm onSubmit={submitLogin} onNotice={setNotice} />
-          <div
-            role="separator"
-            className="flex items-center gap-3 font-mono text-[0.625rem] tracking-[0.2em] text-muted-foreground uppercase"
-          >
-            <span aria-hidden="true" className="h-px flex-1 bg-border" />o
-            <span aria-hidden="true" className="h-px flex-1 bg-border" />
-          </div>
-          <GoogleButton next={next} />
-          <LegalLinks className="mt-2 text-muted-foreground" />
-        </div>
-      </section>
-    </main>
+    <AuthShell eyebrow="Portal de asesores" title="Iniciar sesión">
+      {notice?.recovery ? (
+        <LockedNotice
+          title={notice.message}
+          document={lastDocument}
+          next={next}
+        />
+      ) : (
+        notice && <Alert variant={notice.variant}>{notice.message}</Alert>
+      )}
+      <DocumentLoginForm onSubmit={submitLogin} onNotice={setNotice} />
+      <div
+        role="separator"
+        className="flex items-center gap-3 font-mono text-[0.625rem] tracking-[0.2em] text-muted-foreground uppercase"
+      >
+        <span aria-hidden="true" className="h-px flex-1 bg-border" />o
+        <span aria-hidden="true" className="h-px flex-1 bg-border" />
+      </div>
+      <GoogleButton next={next} />
+    </AuthShell>
   );
 }

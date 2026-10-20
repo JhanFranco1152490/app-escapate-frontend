@@ -5,7 +5,12 @@ import {
   isApiError,
 } from '@/lib/api/errors';
 
-export type LoginNotice = { variant: AlertVariant; message: string };
+// recovery: el aviso ofrece restablecer la contraseña o entrar con Google, con enlaces.
+export type LoginNotice = {
+  variant: AlertVariant;
+  message: string;
+  recovery?: true;
+};
 
 export const GENERIC_LOGIN_NOTICE: LoginNotice = {
   variant: 'error',
@@ -35,8 +40,8 @@ const NOTICES = new Map<string, LoginNotice>([
     'account_locked',
     {
       variant: 'error',
-      message:
-        'Demasiados intentos fallidos. Inténtalo de nuevo en 15 minutos.',
+      message: 'Demasiados intentos fallidos.',
+      recovery: true,
     },
   ],
   ['throttled', { variant: 'error', message: RATE_LIMIT_MESSAGE }],
@@ -62,8 +67,8 @@ const NOTICES = new Map<string, LoginNotice>([
   ],
 ]);
 
-// En estos el texto del servidor dice cuánto esperar, y ese plazo lo decide la API.
-const SERVER_DETAIL_CODES = new Set(['account_locked', 'throttled']);
+// En este el texto del servidor dice cuánto esperar, y ese plazo lo decide la API.
+const SERVER_DETAIL_CODES = new Set(['throttled']);
 
 export function loginNoticeFromError(error: unknown): LoginNotice {
   if (!isApiError(error)) return GENERIC_LOGIN_NOTICE;

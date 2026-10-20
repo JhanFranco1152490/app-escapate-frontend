@@ -1,10 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { ApiError } from '@/lib/api/errors';
 
 import { GENERIC_LOGIN_NOTICE, loginNoticeFromError } from '../login-errors';
+import { clearResetPrefill, readResetPrefill } from '../reset-prefill';
 import type { LoginValues } from '../schemas';
 import { DocumentLoginForm } from './document-login-form';
 
@@ -34,7 +35,28 @@ async function fillAndSubmit(
   await user.click(screen.getByRole('button', { name: 'Entrar' }));
 }
 
+afterEach(clearResetPrefill);
+
 describe('DocumentLoginForm', () => {
+  it('¿Olvidaste tu contraseña? lleva el documento escrito, sin la contraseña', async () => {
+    const form = setup();
+    await form.user.selectOptions(form.fields.type, 'PA');
+    await form.user.type(form.fields.number, 'AB123');
+    await form.user.type(form.fields.password, 'una-clave-de-prueba');
+    const link = screen.getByRole('link', {
+      name: '¿Olvidaste tu contraseña?',
+    });
+    expect(link).toHaveAttribute('href', '/recuperar-contrasena');
+
+    await form.user.click(link);
+
+    expect(readResetPrefill()).toEqual({
+      document_type: 'PA',
+      document_number: 'AB123',
+    });
+    expect(form.onSubmit).not.toHaveBeenCalled();
+  });
+
   it('trae los cuatro tipos de documento con CC preseleccionado', () => {
     const { fields } = setup();
 

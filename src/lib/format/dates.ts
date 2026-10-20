@@ -15,6 +15,13 @@ export const formatDateTime = (isoDateTime: string) =>
     in: BOGOTA,
   });
 
+// Versión corta para tablas, donde la larga no cabe.
+export const formatShortDateTime = (isoDateTime: string) =>
+  format(parseISO(isoDateTime), 'd MMM yyyy, h:mm aaaa', {
+    locale: es,
+    in: BOGOTA,
+  });
+
 // Recibe una fecha sin hora (yyyy-MM-dd) y no la desplaza por zona horaria.
 export const formatLongDate = (isoDate: string) =>
   format(parseISO(isoDate), "d 'de' MMMM 'de' yyyy", { locale: es });

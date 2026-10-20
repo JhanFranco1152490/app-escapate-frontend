@@ -1,6 +1,7 @@
 'use client';
 
 import { LogOut } from 'lucide-react';
+import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -14,6 +15,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import type { SessionUser } from '@/features/auth/api';
+import { isNavItemActive } from '../nav-items';
+import { useNavGroups } from '../use-nav-groups';
 import { RoleBadge } from './role-badge';
 import { UserAvatar } from './user-avatar';
 
@@ -23,9 +26,11 @@ type AccountMenuProps = {
   loggingOut: boolean;
 };
 
-// Versión de celular de la cuenta: en pantallas angostas no caben nombre, rol y el botón
-// de cierre en la barra.
+// Versión de celular de la cuenta: en pantallas angostas no caben nombre, rol, el botón de
+// cierre ni la barra lateral, así que las entradas del menú también van aquí.
 export function AccountMenu({ user, onLogout, loggingOut }: AccountMenuProps) {
+  const { groups, pathname } = useNavGroups();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
@@ -47,6 +52,31 @@ export function AccountMenu({ user, onLogout, loggingOut }: AccountMenuProps) {
             <RoleBadge name={user.role.name} />
           </DropdownMenuLabel>
         </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        {groups.map((group) => (
+          <DropdownMenuGroup key={group.label}>
+            <DropdownMenuLabel className="font-mono text-[0.59375rem] tracking-[0.2em] uppercase">
+              {group.label}
+            </DropdownMenuLabel>
+            {group.items.map((item) => (
+              <DropdownMenuItem
+                key={item.href}
+                className="min-h-11"
+                render={
+                  <Link
+                    href={item.href}
+                    aria-current={
+                      isNavItemActive(item, pathname) ? 'page' : undefined
+                    }
+                  />
+                }
+              >
+                <item.icon aria-hidden="true" />
+                {item.label}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuGroup>
+        ))}
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="min-h-11"

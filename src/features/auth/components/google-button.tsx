@@ -1,3 +1,5 @@
+import { cn } from 'cn';
+
 import { buttonVariants } from '@/components/ui/button';
 
 import { googleLoginUrl } from '../google-login-url';
@@ -7,10 +9,9 @@ export function GoogleButton({ next }: { next: string | null }) {
   return (
     <a
       href={googleLoginUrl(next)}
-      className={buttonVariants({
-        variant: 'outline',
-        className: 'w-full gap-3',
-      })}
+      // Con `cn`, como `Button`: si no, el borde transparente de la base le gana al de
+      // `outline` y el botón se ve sin marco.
+      className={cn(buttonVariants({ variant: 'outline' }), 'w-full gap-3')}
     >
       <GoogleLogo />
       Continuar con Google

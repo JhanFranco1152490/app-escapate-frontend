@@ -6,6 +6,7 @@ import {
   getErrorMessage,
   isNetworkFailure,
   isUnauthorized,
+  rateLimitOr,
 } from './errors';
 
 const apiError = (status: number, code: string) =>
@@ -38,5 +39,19 @@ describe('clasificación de errores', () => {
   it('reconoce un fallo de red', () => {
     expect(isNetworkFailure(new TypeError('Failed to fetch'))).toBe(true);
     expect(isNetworkFailure(apiError(500, 'internal_error'))).toBe(false);
+  });
+});
+
+describe('rateLimitOr', () => {
+  it('con throttled usa el mensaje de límite y si no, el genérico', () => {
+    expect(rateLimitOr(apiError(429, 'throttled'), 'Genérico.')).toBe(
+      RATE_LIMIT_MESSAGE,
+    );
+    expect(rateLimitOr(apiError(500, 'internal_error'), 'Genérico.')).toBe(
+      'Genérico.',
+    );
+    expect(rateLimitOr(new TypeError('Failed to fetch'), 'Genérico.')).toBe(
+      'Genérico.',
+    );
   });
 });
