@@ -34,6 +34,17 @@ async function login() {
 }
 
 describe('LoginScreen', () => {
+  it('enlaza a la política de privacidad y a los términos', () => {
+    renderWithProviders(<LoginScreen />);
+
+    expect(
+      screen.getByRole('link', { name: 'Política de privacidad' }),
+    ).toHaveAttribute('href', '/privacidad');
+    expect(
+      screen.getByRole('link', { name: 'Términos y condiciones' }),
+    ).toHaveAttribute('href', '/terminos');
+  });
+
   it('muestra el título y el botón de Google con el next de la URL', () => {
     renderWithProviders(<LoginScreen />, {
       searchParams: '?next=/clientes',

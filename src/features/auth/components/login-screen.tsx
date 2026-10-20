@@ -5,6 +5,7 @@ import { useQueryState } from 'nuqs';
 import { useEffect, useState } from 'react';
 
 import { Alert } from '@/components/alert';
+import { LegalLinks } from '@/components/legal-links';
 
 import { useLogin, useSession } from '../api';
 import { loginNoticeFromUrl } from '../login-errors';
@@ -69,6 +70,7 @@ export function LoginScreen() {
             <span aria-hidden="true" className="h-px flex-1 bg-border" />
           </div>
           <GoogleButton next={next} />
+          <LegalLinks className="mt-2 text-muted-foreground" />
         </div>
       </section>
     </main>

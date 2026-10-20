@@ -66,11 +66,13 @@ Husky + lint-staged.
 src/
 ├── app/                  rutas; layout.tsx monta providers.tsx (QueryClient + NuqsAdapter)
 │   ├── (auth)/           pantallas sin sesión (/iniciar-sesion)
+│   ├── (public)/         páginas sin sesión ni guardia: /acerca, /privacidad, /terminos
 │   └── (app)/            panel: layout.tsx = SessionGuard + PanelLayout; toda página con
 │                         sesión va aquí
 ├── features/<dominio>/   api.ts, schemas.ts, components/, hooks use-*.ts
 │   ├── auth/             sesión, login, guardia y permisos
-│   └── panel/            marco del panel: barra superior, menú de cuenta, bienvenida
+│   ├── panel/            marco del panel: barra superior, menú de cuenta, bienvenida
+│   └── legal/            páginas públicas: marco, "acerca de" y visor del texto legal
 ├── components/
 │   ├── ui/               solo shadcn/ui
 │   └── …                 compartidos por más de un dominio
@@ -79,6 +81,7 @@ src/
 │   ├── format/           dates.ts, money.ts
 │   ├── query-client.ts   reintentos e invalidación de la sesión ante un 401
 │   └── env.ts            NEXT_PUBLIC_API_URL (el build falla si falta en producción)
+├── content/legal/       privacidad.md y terminos.md: el texto publicado (fuente única)
 └── test/                 render.tsx, server.ts, handlers.ts, session.ts
 ```
 
