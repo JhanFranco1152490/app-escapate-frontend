@@ -32,6 +32,11 @@ export const isNetworkFailure = (error: unknown) => error instanceof TypeError;
 export const isUnauthorized = (error: unknown) =>
   isApiError(error) && error.status === 401;
 
+export const isPermissionDenied = (error: unknown) =>
+  isApiError(error) &&
+  error.status === 403 &&
+  error.code === 'permission_denied';
+
 export function getErrorMessage(error: unknown, fallback: string) {
   if (!isApiError(error)) return fallback;
   return error.code === 'throttled' ? RATE_LIMIT_MESSAGE : error.message;
