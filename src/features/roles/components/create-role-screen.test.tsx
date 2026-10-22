@@ -50,7 +50,7 @@ const renderScreen = () =>
 const checkbox = (name: string) => screen.getByRole('checkbox', { name });
 
 describe('CreateRoleScreen', () => {
-  it('arma la matriz desde el catálogo, con los avisos de los permisos delicados', async () => {
+  it('arma la matriz desde el catálogo, con la explicación de cada permiso', async () => {
     renderScreen();
 
     const users = await screen.findByRole('group', { name: 'Usuarios' });
@@ -59,12 +59,11 @@ describe('CreateRoleScreen', () => {
         .getAllByRole('checkbox')
         .map((box) => box.getAttribute('aria-label')),
     ).toEqual(['Usuarios: ver', 'Usuarios: gestionar']);
-    expect(checkbox('Usuarios: gestionar')).toHaveAccessibleDescription(
-      PERMISSION_CATALOG[1].help!,
-    );
-    expect(checkbox('Roles y permisos: gestionar')).toHaveAccessibleDescription(
-      PERMISSION_CATALOG[3].help!,
-    );
+    for (const item of PERMISSION_CATALOG) {
+      const name = `${item.group}: ${item.label.toLowerCase()}`;
+      expect(checkbox(name)).toHaveAccessibleDescription(item.help!);
+      expect(screen.getByText(item.help!)).toBeInTheDocument();
+    }
     expect(checkbox('Usuarios: ver')).not.toBeChecked();
   });
 

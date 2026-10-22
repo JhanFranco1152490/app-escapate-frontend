@@ -15,7 +15,7 @@ export const PERMISSION_CATALOG: PermissionItem[] = [
     label: 'Ver',
     description: 'Ver usuarios',
     requires: [],
-    help: null,
+    help: 'Ver la lista de usuarios, su ficha y su historial de ingresos.',
   },
   {
     code: 'users.manage',
@@ -24,7 +24,7 @@ export const PERMISSION_CATALOG: PermissionItem[] = [
     label: 'Gestionar',
     description: 'Gestionar usuarios',
     requires: ['users.view'],
-    help: `Permite crear administradores y cambiar el rol de cualquier persona. ${ADMIN_HELP}`,
+    help: `Crear, editar, desactivar y activar usuarios, reenviar invitaciones y cambiar su rol. Permite crear administradores y cambiar el rol de cualquier persona. ${ADMIN_HELP}`,
   },
   {
     code: 'roles.view',
@@ -33,7 +33,7 @@ export const PERMISSION_CATALOG: PermissionItem[] = [
     label: 'Ver',
     description: 'Ver roles y permisos',
     requires: [],
-    help: null,
+    help: 'Ver los roles y qué permisos tiene cada uno.',
   },
   {
     code: 'roles.manage',
@@ -42,7 +42,7 @@ export const PERMISSION_CATALOG: PermissionItem[] = [
     label: 'Gestionar',
     description: 'Gestionar roles y permisos',
     requires: ['roles.view'],
-    help: `Permite dar cualquier permiso a cualquier rol. ${ADMIN_HELP}`,
+    help: `Crear, editar y borrar roles y cambiar sus permisos. Permite dar cualquier permiso a cualquier rol. ${ADMIN_HELP}`,
   },
 ];
 
