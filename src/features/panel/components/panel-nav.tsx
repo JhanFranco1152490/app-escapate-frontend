@@ -33,15 +33,6 @@ export function PanelNav() {
                     'bg-sidebar-accent font-medium text-sidebar-foreground shadow-[inset_3px_0_0_0_var(--sidebar-primary)]',
                 )}
               >
-                <span
-                  aria-hidden="true"
-                  className={cn(
-                    'w-4 shrink-0 font-mono text-[0.625rem] tracking-[0.1em]',
-                    active && 'text-sidebar-primary',
-                  )}
-                >
-                  {item.index}
-                </span>
                 <item.icon aria-hidden="true" className="size-4.5" />
                 {item.label}
               </Link>

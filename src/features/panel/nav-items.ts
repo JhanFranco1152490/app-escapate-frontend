@@ -6,8 +6,6 @@ import { hasPermission } from '@/features/auth/permissions';
 export type NavItem = {
   href: string;
   label: string;
-  // Número de dos dígitos que se muestra antes de la etiqueta, fijo para cada módulo.
-  index: string;
   icon: LucideIcon;
   group: string;
   // Sin permiso, la entrada la ve cualquier persona con sesión.
@@ -18,11 +16,10 @@ export type NavGroup = { label: string; items: NavItem[] };
 
 // Cada módulo nuevo agrega aquí su entrada. El orden de la lista es el del menú.
 export const NAV_ITEMS: NavItem[] = [
-  { href: '/', label: 'Inicio', index: '01', icon: House, group: 'Operación' },
+  { href: '/', label: 'Inicio', icon: House, group: 'Operación' },
   {
     href: '/usuarios',
     label: 'Usuarios',
-    index: '02',
     icon: Users,
     group: 'Administración',
     permission: 'users.view',
@@ -30,7 +27,6 @@ export const NAV_ITEMS: NavItem[] = [
   {
     href: '/roles',
     label: 'Roles y permisos',
-    index: '03',
     icon: ShieldCheck,
     group: 'Administración',
     permission: 'roles.view',

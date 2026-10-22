@@ -87,9 +87,9 @@ describe('UserDetailScreen', () => {
       await screen.findByRole('heading', { name: 'Laura Rojas' }),
     ).toBeInTheDocument();
     expect(valueOf('Correo')).toHaveTextContent('laura.rojas@example.com');
-    expect(valueOf('Documento')).toHaveTextContent(
-      'Cédula de ciudadanía 1090123456',
-    );
+    // La sigla, con el nombre completo para quien pase el mouse o use lector de pantalla.
+    expect(valueOf('Documento')).toHaveTextContent(/^CC 1090123456$/);
+    expect(screen.getByTitle('Cédula de ciudadanía')).toHaveTextContent('CC');
     expect(valueOf('Celular')).toHaveTextContent('+57 300 123 4567');
     expect(valueOf('Rol')).toHaveTextContent('Asesor comercial');
     expect(valueOf('Estado')).toHaveTextContent('Invitación pendiente');

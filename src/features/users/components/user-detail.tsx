@@ -39,16 +39,22 @@ export function UserDetail({ user, roleAction }: UserDetailProps) {
       <dl className="grid gap-5 px-5 py-5 sm:grid-cols-2 lg:grid-cols-3">
         <Item term="Correo">{user.email}</Item>
         <Item term="Documento">
-          {DOCUMENT_TYPE_LABELS[user.document_type]} {user.document_number}
+          {/* La sigla, como se escribe en los documentos; el nombre completo queda para
+              quien pase el mouse o use lector de pantalla. */}
+          <abbr
+            title={DOCUMENT_TYPE_LABELS[user.document_type]}
+            className="no-underline"
+          >
+            {user.document_type}
+          </abbr>{' '}
+          {user.document_number}
         </Item>
         <Item term="Celular">
           {user.phone ? formatPhone(user.phone) : 'Sin registrar'}
         </Item>
         <Item term="Rol">
-          <span className="flex flex-wrap items-center gap-x-3">
-            {user.role.name}
-            {roleAction}
-          </span>
+          {user.role.name}
+          {roleAction}
         </Item>
         <Item term="Estado">
           <UserStatusBadge user={user} />
