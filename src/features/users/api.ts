@@ -73,6 +73,12 @@ const userAction = (id: number, action: 'deactivate' | 'activate') =>
 const resendInvitation = (id: number) =>
   apiFetch<void>(`/api/users/${id}/invitation`, { method: 'POST' });
 
+const changeUserRole = (id: number, roleId: number) =>
+  apiFetch<UserDetail>(`/api/users/${id}/role`, {
+    method: 'PUT',
+    body: { role_id: roleId },
+  });
+
 const unlinkGoogle = (id: number) =>
   apiFetch<UserDetail>(`/api/users/${id}/google`, { method: 'DELETE' });
 
@@ -154,6 +160,19 @@ export function useUnlinkGoogle(id: number) {
   return useMutation({
     mutationFn: () => unlinkGoogle(id),
     onSuccess: storeUser,
+  });
+}
+
+export function useChangeUserRole(id: number) {
+  const queryClient = useQueryClient();
+  const storeUser = useStoreUser();
+  return useMutation({
+    mutationFn: (roleId: number) => changeUserRole(id, roleId),
+    onSuccess: (user) => {
+      storeUser(user);
+      // Cambian los conteos de personas de cada rol.
+      void queryClient.invalidateQueries({ queryKey: queryKeys.roles.lists() });
+    },
   });
 }
 

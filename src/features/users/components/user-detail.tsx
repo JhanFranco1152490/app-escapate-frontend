@@ -18,7 +18,13 @@ function Item({ term, children }: { term: string; children: ReactNode }) {
   );
 }
 
-export function UserDetail({ user }: { user: UserDetailData }) {
+type UserDetailProps = {
+  user: UserDetailData;
+  // Acción junto al rol ("Cambiar rol"), según los permisos de quien mira.
+  roleAction?: ReactNode;
+};
+
+export function UserDetail({ user, roleAction }: UserDetailProps) {
   return (
     <section
       aria-labelledby="user-data-title"
@@ -38,7 +44,12 @@ export function UserDetail({ user }: { user: UserDetailData }) {
         <Item term="Celular">
           {user.phone ? formatPhone(user.phone) : 'Sin registrar'}
         </Item>
-        <Item term="Rol">{user.role.name}</Item>
+        <Item term="Rol">
+          <span className="flex flex-wrap items-center gap-x-3">
+            {user.role.name}
+            {roleAction}
+          </span>
+        </Item>
         <Item term="Estado">
           <UserStatusBadge user={user} />
         </Item>

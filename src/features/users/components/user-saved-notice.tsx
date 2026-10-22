@@ -5,7 +5,11 @@ import { Alert } from '@/components/alert';
 import type { SavedNotice } from '../saved-notice';
 
 function noticeText({ kind, invitationSent }: SavedNotice) {
-  const saved = kind === 'created' ? 'Usuario creado' : 'Cambios guardados';
+  const saved = {
+    created: 'Usuario creado',
+    updated: 'Cambios guardados',
+    role: 'Rol actualizado',
+  }[kind];
   if (invitationSent === false)
     return `${saved}, pero no pudimos enviar la invitación.`;
   if (invitationSent === null) return `${saved}.`;

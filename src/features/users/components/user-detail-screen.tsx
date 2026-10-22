@@ -8,6 +8,7 @@ import { parseRouteId } from '@/lib/route-id';
 
 import type { ActionFeedback } from '../action-feedback';
 import { clearSavedNotice, readSavedNotice } from '../saved-notice';
+import { ChangeRoleLink } from './change-role-link';
 import { LoginHistory } from './login-history';
 import { ResendInvitationButton } from './resend-invitation-button';
 import { UserActions } from './user-actions';
@@ -54,7 +55,10 @@ export function UserDetailScreen({ id }: { id: string }) {
               />
             )
           )}
-          <UserDetail user={user} />
+          <UserDetail
+            user={user}
+            roleAction={<ChangeRoleLink userId={user.id} />}
+          />
           <LoginHistory userId={user.id} />
         </>
       )}
