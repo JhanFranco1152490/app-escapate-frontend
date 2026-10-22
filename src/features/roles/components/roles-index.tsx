@@ -6,12 +6,18 @@ import { useRoleNotice } from '../use-role-notice';
 import { RolePlaceholder } from './role-placeholder';
 
 // /roles sin un rol abierto: el aviso de la última acción (por ejemplo, "Rol borrado.") y, en
-// escritorio, la invitación a elegir un rol.
+// escritorio, la invitación a elegir un rol. El aviso entra con el mismo movimiento suave.
 export function RolesIndex() {
   const notice = useRoleNotice('list');
   return (
     <div className="flex flex-col gap-4">
-      {notice && <Alert variant="info" title={notice} />}
+      {notice && (
+        <Alert
+          variant="info"
+          title={notice}
+          className="motion-safe:animate-in motion-safe:duration-300 motion-safe:fade-in motion-safe:slide-in-from-top-1"
+        />
+      )}
       <RolePlaceholder />
     </div>
   );
