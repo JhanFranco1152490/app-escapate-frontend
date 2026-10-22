@@ -95,7 +95,7 @@ describe('RoleScreen: ver y editar', () => {
     ).not.toBeInTheDocument();
   });
 
-  it('guarda el nombre, la descripción y la lista completa de permisos', async () => {
+  it('guarda el nombre, la descripción y la lista completa de permisos, y vuelve a la lista', async () => {
     const user = userEvent.setup();
     renderScreen();
 
@@ -104,7 +104,8 @@ describe('RoleScreen: ver y editar', () => {
     await user.click(checkbox('Roles y permisos: gestionar'));
     await user.click(screen.getByRole('button', { name: 'Guardar cambios' }));
 
-    expect(await screen.findByText('Cambios guardados.')).toBeInTheDocument();
+    await vi.waitFor(() => expect(router.push).toHaveBeenCalledWith('/roles'));
+    expect(readRoleNotice('list')).toBe('Cambios guardados en Ventas.');
     expect(saved).toEqual({
       name: 'Ventas',
       description: 'Clientes, viajeros, solicitudes y borradores.',
@@ -202,7 +203,8 @@ describe('RoleScreen: rol protegido', () => {
     await user.type(description, 'Dueño de la agencia');
     await user.click(screen.getByRole('button', { name: 'Guardar cambios' }));
 
-    expect(await screen.findByText('Cambios guardados.')).toBeInTheDocument();
+    await vi.waitFor(() => expect(router.push).toHaveBeenCalledWith('/roles'));
+    expect(readRoleNotice('list')).toBe('Cambios guardados en Administrador.');
     expect(saved).toEqual({
       name: 'Administrador',
       description: 'Dueño de la agencia',

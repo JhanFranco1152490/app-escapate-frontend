@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { Alert } from '@/components/alert';
@@ -7,6 +8,7 @@ import { useHasPermission } from '@/features/auth/permissions';
 import { parseRouteId } from '@/lib/route-id';
 
 import { useUpdateRole, type PermissionItem, type RoleDetail } from '../api';
+import { setRoleNotice } from '../role-notice';
 import type { RoleFormValues, RoleValues } from '../schemas';
 import { useRoleNotice } from '../use-role-notice';
 import { DeleteRoleButton } from './delete-role-button';
@@ -50,10 +52,10 @@ function RoleView({
   role: RoleDetail;
   catalog: PermissionItem[];
 }) {
+  const router = useRouter();
   const canManage = useHasPermission('roles.manage');
   const updateRole = useUpdateRole(role.id);
   const createdNotice = useRoleNotice(role.id);
-  const [savedNotice, setSavedNotice] = useState<string>();
   // Los valores del formulario se fijan al montar: una nueva lectura del rol no pisa lo que
   // se está escribiendo.
   const [defaultValues] = useState(() => toFormValues(role));
@@ -64,17 +66,19 @@ function RoleView({
       : 'none';
 
   const submit = async (values: RoleValues) => {
-    setSavedNotice(undefined);
     // Del rol protegido solo cambia la descripción: el nombre y los permisos se envían tal
     // como están guardados.
     const body = role.is_protected
       ? { ...values, name: role.name, permissions: role.permissions }
       : values;
-    await updateRole.mutateAsync(body);
-    setSavedNotice('Cambios guardados.');
+    const saved = await updateRole.mutateAsync(body);
+    // Guardar termina la edición: se vuelve a la lista, igual que al borrar.
+    setRoleNotice({
+      target: 'list',
+      text: `Cambios guardados en ${saved.name}.`,
+    });
+    router.push('/roles');
   };
-
-  const notice = savedNotice ?? createdNotice;
 
   return (
     <div className="flex flex-col gap-5">
@@ -86,7 +90,7 @@ function RoleView({
           {peopleNote(role.user_count)}
         </p>
       </header>
-      {notice && <Alert variant="info" title={notice} />}
+      {createdNotice && <Alert variant="info" title={createdNotice} />}
       {role.is_protected && <Alert variant="info" title={PROTECTED_NOTE} />}
       <RoleForm
         catalog={catalog}
