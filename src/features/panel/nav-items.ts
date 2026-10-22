@@ -1,4 +1,4 @@
-import { House, Users, type LucideIcon } from 'lucide-react';
+import { House, ShieldCheck, Users, type LucideIcon } from 'lucide-react';
 
 import type { SessionUser } from '@/features/auth/api';
 import { hasPermission } from '@/features/auth/permissions';
@@ -26,6 +26,14 @@ export const NAV_ITEMS: NavItem[] = [
     icon: Users,
     group: 'Administración',
     permission: 'users.view',
+  },
+  {
+    href: '/roles',
+    label: 'Roles y permisos',
+    index: '03',
+    icon: ShieldCheck,
+    group: 'Administración',
+    permission: 'roles.view',
   },
 ];
 

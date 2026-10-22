@@ -1,11 +1,12 @@
 'use client';
 
-import { parseUserId } from '../user-id';
+import { parseRouteId } from '@/lib/route-id';
+
 import { EditUserForm } from './edit-user-form';
 import { UserLoader } from './user-loader';
 
 export function EditUserScreen({ id }: { id: string }) {
-  const userId = parseUserId(id);
+  const userId = parseRouteId(id);
 
   return (
     <UserLoader

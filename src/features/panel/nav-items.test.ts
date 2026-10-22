@@ -42,4 +42,26 @@ describe('visibleNavGroups', () => {
     ]);
     expect(groups[1].items.map((item) => item.label)).toEqual(['Usuarios']);
   });
+
+  it('"Roles y permisos" aparece con roles.view, después de "Usuarios"', () => {
+    const groups = visibleNavGroups(
+      buildSession({ permissions: ['users.view', 'roles.view'] }),
+    );
+
+    expect(groups[1].items.map((item) => item.label)).toEqual([
+      'Usuarios',
+      'Roles y permisos',
+    ]);
+    expect(groups[1].items[1].href).toBe('/roles');
+  });
+
+  it('sin roles.view no aparece "Roles y permisos"', () => {
+    const groups = visibleNavGroups(
+      buildSession({ permissions: ['users.view'] }),
+    );
+
+    expect(groups[1].items.map((item) => item.label)).not.toContain(
+      'Roles y permisos',
+    );
+  });
 });
