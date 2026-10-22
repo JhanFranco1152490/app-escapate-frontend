@@ -7,9 +7,9 @@ import { SessionGuard } from '@/features/auth/components/session-guard';
 import { apiUrl, sessionHandler } from '@/test/handlers';
 import { renderWithProviders } from '@/test/render';
 import { server } from '@/test/server';
+import { ROLES } from '@/test/roles';
 import { buildSession } from '@/test/session';
 import {
-  ROLES,
   buildUserDetail,
   buildUserListItem,
   buildUserPage,

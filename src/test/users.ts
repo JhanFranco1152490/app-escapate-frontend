@@ -69,10 +69,3 @@ export function buildUserPage(
     ...overrides,
   };
 }
-
-export const ROLES = [
-  { id: 1, name: 'Administrador' },
-  { id: 2, name: 'Asesor comercial' },
-  { id: 3, name: 'Encargado de proveedores' },
-  { id: 4, name: 'Operativo' },
-];

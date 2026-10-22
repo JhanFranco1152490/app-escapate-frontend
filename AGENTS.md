@@ -200,7 +200,8 @@ tres temas). Las maquetas de `docs/ui/` son la guía visual.
   | ------- | ------------------------------------------------------ |
   | `auth`  | —                                                      |
   | `panel` | `auth` (usuario actual, permisos y cierre de sesión)   |
-  | `users` | `auth` (usuario actual, permisos, `RequirePermission`, `DocumentFields` y etiquetas de documento) |
+  | `users` | `auth` (usuario actual, permisos, `RequirePermission`, `DocumentFields` y etiquetas de documento); `roles` (`useRoles`, `useRole`, `usePermissionCatalog` y `RoleGrants`) |
+  | `roles` | `auth` (usuario actual, permisos y `RequirePermission`)                  |
 
 - **Elegir la mejor opción, no la librería por defecto.** Ante una necesidad técnica se
   comparan las alternativas reales (lo que trae Next.js, una librería, código propio) y se
