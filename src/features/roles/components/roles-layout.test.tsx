@@ -10,7 +10,8 @@ import { ROLES } from '@/test/roles';
 import { server } from '@/test/server';
 import { buildSession } from '@/test/session';
 
-import { RolePlaceholder } from './role-placeholder';
+import { setRoleNotice } from '../role-notice';
+import { RolesIndex } from './roles-index';
 import { RolesLayout } from './roles-layout';
 
 const navigation = vi.hoisted(() => ({ pathname: '/roles' }));
@@ -31,7 +32,7 @@ const renderLayout = (
   return renderWithProviders(
     <SessionGuard>
       <RolesLayout>
-        <RolePlaceholder />
+        <RolesIndex />
       </RolesLayout>
     </SessionGuard>,
   );
@@ -84,6 +85,13 @@ describe('RolesLayout', () => {
     expect(
       await screen.findByText('Elige un rol para ver sus permisos.'),
     ).toBeInTheDocument();
+  });
+
+  it('al volver de borrar un rol, muestra el aviso', async () => {
+    setRoleNotice({ target: 'list', text: 'Rol borrado.' });
+    renderLayout();
+
+    expect(await screen.findByText('Rol borrado.')).toBeInTheDocument();
   });
 
   it('"Nuevo rol" solo con roles.manage', async () => {

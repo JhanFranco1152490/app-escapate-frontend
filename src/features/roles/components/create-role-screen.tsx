@@ -25,7 +25,7 @@ export function CreateRoleScreen() {
 
   const submit = async (values: RoleValues) => {
     const role = await createRole.mutateAsync(values);
-    setRoleNotice({ roleId: role.id, text: 'Rol creado.' });
+    setRoleNotice({ target: role.id, text: 'Rol creado.' });
     router.push(`/roles/${role.id}`);
   };
 

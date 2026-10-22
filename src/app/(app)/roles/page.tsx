@@ -1,5 +1,5 @@
-import { RolePlaceholder } from '@/features/roles/components/role-placeholder';
+import { RolesIndex } from '@/features/roles/components/roles-index';
 
 export default function RolesPage() {
-  return <RolePlaceholder />;
+  return <RolesIndex />;
 }

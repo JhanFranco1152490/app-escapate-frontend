@@ -9,7 +9,7 @@ import { ButtonLink } from '@/components/button-link';
 import { FormField, fieldAriaProps } from '@/components/form-field';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { rateLimitOr } from '@/lib/api/errors';
+import { getErrorMessage } from '@/lib/api/errors';
 import { applyApiFormError } from '@/lib/api/form-errors';
 import { useUnsavedChangesWarning } from '@/lib/use-unsaved-changes-warning';
 
@@ -26,11 +26,18 @@ const DESCRIPTION_HINT =
   'Opcional. Se muestra al elegir el rol de una persona.';
 const GENERIC_SAVE_ERROR = 'No pudimos guardar el rol. Inténtalo de nuevo.';
 
+// Qué se puede editar: todo, solo la descripción (el rol protegido) o nada (sin permiso
+// para gestionar roles).
+export type RoleFormLock = 'none' | 'protected' | 'all';
+
 type RoleFormProps = {
   catalog: PermissionItem[];
   defaultValues: RoleFormValues;
   submitLabel: string;
-  cancelHref: string;
+  // Al crear, "Cancelar" vuelve a la lista; al editar, "Descartar cambios" vuelve a lo
+  // guardado.
+  cancelHref?: string;
+  lock?: RoleFormLock;
   onSubmit: (values: RoleValues) => Promise<unknown>;
 };
 
@@ -39,6 +46,7 @@ export function RoleForm({
   defaultValues,
   submitLabel,
   cancelHref,
+  lock = 'none',
   onSubmit,
 }: RoleFormProps) {
   const [notice, setNotice] = useState<string>();
@@ -46,6 +54,7 @@ export function RoleForm({
     register,
     control,
     handleSubmit,
+    reset,
     setError,
     setFocus,
     formState: { errors, isSubmitting, isDirty },
@@ -54,18 +63,23 @@ export function RoleForm({
     defaultValues,
   });
   useUnsavedChangesWarning(isDirty);
+  const nameLocked = lock !== 'none';
 
   const submit = handleSubmit(async (values) => {
     setNotice(undefined);
     try {
       await onSubmit(values);
+      // Lo guardado pasa a ser el punto de partida: "Descartar cambios" vuelve aquí y el
+      // navegador deja de avisar al salir.
+      reset(undefined, { keepValues: true });
     } catch (error) {
       const { needsNotice, firstInvalid } = applyApiFormError(
         error,
         setError,
         FIELDS,
       );
-      if (needsNotice) setNotice(rateLimitOr(error, GENERIC_SAVE_ERROR));
+      // Un conflicto (rol protegido, el propio rol, el último gestor) trae su motivo.
+      if (needsNotice) setNotice(getErrorMessage(error, GENERIC_SAVE_ERROR));
       if (firstInvalid && firstInvalid !== 'permissions')
         setFocus(firstInvalid);
     }
@@ -85,6 +99,7 @@ export function RoleForm({
             id="name"
             autoComplete="off"
             className="h-11"
+            disabled={nameLocked}
             {...register('name')}
             {...fieldAriaProps('name', { error: errors.name?.message })}
           />
@@ -99,6 +114,7 @@ export function RoleForm({
             id="description"
             autoComplete="off"
             className="h-11"
+            disabled={lock === 'all'}
             {...register('description')}
             {...fieldAriaProps('description', {
               hint: DESCRIPTION_HINT,
@@ -115,18 +131,35 @@ export function RoleForm({
             catalog={catalog}
             value={field.value}
             onChange={field.onChange}
+            disabled={nameLocked}
             error={errors.permissions?.message}
           />
         )}
       />
-      <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-        <ButtonLink href={cancelHref} variant="outline">
-          Cancelar
-        </ButtonLink>
-        <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Guardando…' : submitLabel}
-        </Button>
-      </div>
+      {lock !== 'all' && (
+        <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+          {cancelHref ? (
+            <ButtonLink href={cancelHref} variant="outline">
+              Cancelar
+            </ButtonLink>
+          ) : (
+            <Button
+              type="button"
+              variant="outline"
+              disabled={!isDirty || isSubmitting}
+              onClick={() => {
+                reset();
+                setNotice(undefined);
+              }}
+            >
+              Descartar cambios
+            </Button>
+          )}
+          <Button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? 'Guardando…' : submitLabel}
+          </Button>
+        </div>
+      )}
     </form>
   );
 }

@@ -12,7 +12,9 @@ import { useHasPermission } from '@/features/auth/permissions';
 import { RolesList } from './roles-list';
 
 // En escritorio, la lista de roles queda a la izquierda y el rol abierto a la derecha. En
-// celular son pantallas separadas: la lista en /roles y el rol en su propia ruta.
+// celular son pantallas separadas: la lista en /roles y el rol en su propia ruta. En /roles
+// la columna derecha no se oculta en celular, sino que sube arriba de la lista: ahí aparece el
+// aviso de la última acción (por ejemplo, "Rol borrado.").
 export function RolesLayout({ children }: { children: ReactNode }) {
   const canManage = useHasPermission('roles.manage');
   const onIndex = usePathname() === '/roles';
@@ -42,7 +44,7 @@ export function RolesLayout({ children }: { children: ReactNode }) {
         >
           <RolesList />
         </nav>
-        <div className={cn('min-w-0', onIndex && 'max-lg:hidden')}>
+        <div className={cn('min-w-0', onIndex && 'max-lg:order-first')}>
           {children}
         </div>
       </div>
