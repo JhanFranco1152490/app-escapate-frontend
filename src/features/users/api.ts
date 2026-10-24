@@ -17,7 +17,6 @@ export type UserInput = components['schemas']['UserInput'];
 export type UserCreate = components['schemas']['UserCreate'];
 export type LoginEventItem = components['schemas']['LoginEventItem'];
 export type LoginMethod = components['schemas']['LoginMethod'];
-export type RoleSummary = components['schemas']['RoleSummary'];
 export type UserPage = components['schemas']['Page_UserListItem_'];
 export type LoginPage = components['schemas']['Page_LoginEventItem_'];
 
@@ -62,8 +61,6 @@ const fetchUserLogins = (id: number, page: number) =>
     withQuery(`/api/users/${id}/logins`, { page, page_size: LOGINS_PAGE_SIZE }),
   );
 
-const fetchRoles = () => apiFetch<RoleSummary[]>('/api/roles');
-
 const createUser = (body: UserCreate) =>
   apiFetch<UserSaved>('/api/users', { method: 'POST', body });
 
@@ -75,6 +72,12 @@ const userAction = (id: number, action: 'deactivate' | 'activate') =>
 
 const resendInvitation = (id: number) =>
   apiFetch<void>(`/api/users/${id}/invitation`, { method: 'POST' });
+
+const changeUserRole = (id: number, roleId: number) =>
+  apiFetch<UserDetail>(`/api/users/${id}/role`, {
+    method: 'PUT',
+    body: { role_id: roleId },
+  });
 
 const unlinkGoogle = (id: number) =>
   apiFetch<UserDetail>(`/api/users/${id}/google`, { method: 'DELETE' });
@@ -102,16 +105,6 @@ export function useUserLogins(id: number, page: number) {
     queryKey: queryKeys.users.logins(id, page),
     queryFn: () => fetchUserLogins(id, page),
     placeholderData: keepPreviousData,
-  });
-}
-
-export function useRoles({ enabled = true } = {}) {
-  return useQuery({
-    queryKey: queryKeys.roles(),
-    queryFn: fetchRoles,
-    enabled,
-    // Los roles cambian muy de vez en cuando (solo desde la gestión de roles).
-    staleTime: 5 * 60 * 1000,
   });
 }
 
@@ -167,6 +160,19 @@ export function useUnlinkGoogle(id: number) {
   return useMutation({
     mutationFn: () => unlinkGoogle(id),
     onSuccess: storeUser,
+  });
+}
+
+export function useChangeUserRole(id: number) {
+  const queryClient = useQueryClient();
+  const storeUser = useStoreUser();
+  return useMutation({
+    mutationFn: (roleId: number) => changeUserRole(id, roleId),
+    onSuccess: (user) => {
+      storeUser(user);
+      // Cambian los conteos de personas de cada rol.
+      void queryClient.invalidateQueries({ queryKey: queryKeys.roles.lists() });
+    },
   });
 }
 

@@ -8,7 +8,8 @@ import { apiUrl, sessionHandler } from '@/test/handlers';
 import { renderWithProviders } from '@/test/render';
 import { server } from '@/test/server';
 import { buildSession } from '@/test/session';
-import { ROLES, buildUserDetail } from '@/test/users';
+import { ROLES } from '@/test/roles';
+import { buildUserDetail } from '@/test/users';
 
 import { clearSavedNotice, readSavedNotice } from '../saved-notice';
 import { CreateUserScreen } from './create-user-screen';

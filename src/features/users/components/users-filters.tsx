@@ -7,8 +7,9 @@ import {
   NativeSelect,
   NativeSelectOption,
 } from '@/components/ui/native-select';
+import { useRoles } from '@/features/roles/api';
 
-import { useRoles, type UserStatusFilter } from '../api';
+import type { UserStatusFilter } from '../api';
 
 const TABS: { label: string; value: UserStatusFilter | null }[] = [
   { label: 'Todos', value: null },

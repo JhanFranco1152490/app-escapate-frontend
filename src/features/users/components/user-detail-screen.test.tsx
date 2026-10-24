@@ -87,9 +87,9 @@ describe('UserDetailScreen', () => {
       await screen.findByRole('heading', { name: 'Laura Rojas' }),
     ).toBeInTheDocument();
     expect(valueOf('Correo')).toHaveTextContent('laura.rojas@example.com');
-    expect(valueOf('Documento')).toHaveTextContent(
-      'Cédula de ciudadanía 1090123456',
-    );
+    // La sigla, con el nombre completo para quien pase el mouse o use lector de pantalla.
+    expect(valueOf('Documento')).toHaveTextContent(/^CC 1090123456$/);
+    expect(screen.getByTitle('Cédula de ciudadanía')).toHaveTextContent('CC');
     expect(valueOf('Celular')).toHaveTextContent('+57 300 123 4567');
     expect(valueOf('Rol')).toHaveTextContent('Asesor comercial');
     expect(valueOf('Estado')).toHaveTextContent('Invitación pendiente');
@@ -126,6 +126,45 @@ describe('UserDetailScreen', () => {
     renderScreen();
 
     expect(await screen.findByText(text)).toBeInTheDocument();
+  });
+
+  it('"Cambiar rol" lleva a su pantalla, con users.manage', async () => {
+    renderScreen();
+
+    expect(
+      await screen.findByRole('link', { name: 'Cambiar rol' }),
+    ).toHaveAttribute('href', '/usuarios/7/rol');
+  });
+
+  it('sin users.manage no se ofrece "Cambiar rol"', async () => {
+    renderScreen({ permissions: ['users.view'] });
+
+    await screen.findByText('Datos de la persona');
+    expect(
+      screen.queryByRole('link', { name: 'Cambiar rol' }),
+    ).not.toBeInTheDocument();
+  });
+
+  it('en la propia ficha no se ofrece "Cambiar rol"', async () => {
+    serveUser(buildUserDetail({ id: 1 }));
+    server.use(
+      http.get(apiUrl('/api/users/1/logins'), () =>
+        HttpResponse.json(loginPage([])),
+      ),
+    );
+    renderScreen({ id: '1' });
+
+    await screen.findByText('Datos de la persona');
+    expect(
+      screen.queryByRole('link', { name: 'Cambiar rol' }),
+    ).not.toBeInTheDocument();
+  });
+
+  it('muestra "Rol actualizado." al volver de cambiar el rol', async () => {
+    setSavedNotice({ userId: 7, kind: 'role', invitationSent: null });
+    renderScreen();
+
+    expect(await screen.findByText('Rol actualizado.')).toBeInTheDocument();
   });
 
   it('el aviso se muestra una sola vez', async () => {

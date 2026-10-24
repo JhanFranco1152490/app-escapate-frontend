@@ -9,7 +9,8 @@ import { apiUrl, sessionHandler } from '@/test/handlers';
 import { renderWithProviders } from '@/test/render';
 import { server } from '@/test/server';
 import { buildSession } from '@/test/session';
-import { ROLES, buildUserListItem, buildUserPage } from '@/test/users';
+import { ROLES } from '@/test/roles';
+import { buildUserListItem, buildUserPage } from '@/test/users';
 
 import { UsersScreen } from './users-screen';
 

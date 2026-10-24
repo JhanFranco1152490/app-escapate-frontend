@@ -12,5 +12,10 @@ export const queryKeys = {
     logins: (id: number, page: number) =>
       ['users', 'detail', id, 'logins', page] as const,
   },
-  roles: () => ['roles'] as const,
+  roles: {
+    all: () => ['roles'] as const,
+    lists: () => ['roles', 'list'] as const,
+    detail: (id: number) => ['roles', 'detail', id] as const,
+  },
+  permissions: () => ['permissions'] as const,
 };

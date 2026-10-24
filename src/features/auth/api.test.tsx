@@ -1,8 +1,10 @@
-import { waitFor } from '@testing-library/react';
+import { focusManager } from '@tanstack/react-query';
+import { act, waitFor } from '@testing-library/react';
 import { http, HttpResponse } from 'msw';
 import { describe, expect, it } from 'vitest';
 
 import { queryKeys } from '@/lib/api/query-keys';
+import { createQueryClient } from '@/lib/query-client';
 import { apiUrl, sessionHandler } from '@/test/handlers';
 import { renderHookWithProviders } from '@/test/render';
 import { server } from '@/test/server';
@@ -25,6 +27,30 @@ describe('useSession', () => {
     const { result } = renderHookWithProviders(() => useSession());
 
     await waitFor(() => expect(result.current.data).toEqual(session));
+  });
+
+  it('vuelve a pedir la sesión al regresar a la pestaña', async () => {
+    let requests = 0;
+    server.use(
+      http.get(apiUrl('/api/auth/me'), () => {
+        requests += 1;
+        return HttpResponse.json(buildSession());
+      }),
+    );
+    // La caché de la app, que no vuelve a pedir nada al enfocar salvo la sesión.
+    const queryClient = createQueryClient();
+    const { result } = renderHookWithProviders(() => useSession(), {
+      queryClient,
+    });
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+    act(() => {
+      focusManager.setFocused(false);
+      focusManager.setFocused(true);
+    });
+
+    await waitFor(() => expect(requests).toBe(2));
+    focusManager.setFocused(undefined);
   });
 });
 

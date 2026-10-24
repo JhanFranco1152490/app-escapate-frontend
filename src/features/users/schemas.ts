@@ -1,10 +1,11 @@
 import { z } from 'zod';
 
 import { DOCUMENT_TYPES } from '@/features/auth/schemas';
+import { REQUIRED_MESSAGE, requiredText } from '@/lib/validation/text';
 
 // Mismas reglas y mensajes que la API: lo que pasa aquí, la API lo acepta, salvo los datos
 // repetidos, que solo ella puede saber.
-export const REQUIRED_MESSAGE = 'Este campo es obligatorio.';
+export { REQUIRED_MESSAGE };
 export const ROLE_REQUIRED_MESSAGE = 'Selecciona un rol.';
 const NAME_MAX_LENGTH = 75;
 const EMAIL_MAX_LENGTH = 254;
@@ -33,27 +34,12 @@ export function normalizePhone(value: string) {
   return digits;
 }
 
-// Caracteres de control (categoría Cc de Unicode) y de formato invisibles (Cf: ancho cero,
-// cambio de dirección del texto): un nombre escrito por una persona no los lleva, la base no
-// puede guardar el NUL y los invisibles hacen que dos nombres iguales a la vista no lo sean.
-const FORBIDDEN_CHARACTERS = /[\p{Cc}\p{Cf}]/u;
-const hasControlCharacters = (value: string) =>
-  FORBIDDEN_CHARACTERS.test(value);
-
 // Un campo vacío solo muestra "obligatorio": las reglas de formato lo dejan pasar. No se usa
 // `abort`, porque además cancelaría la revisión del documento, que se hace sobre el objeto.
 const emptyOr = (rule: (value: string) => boolean) => (value: string) =>
   value === '' || rule(value);
 
-const personName = z
-  .string()
-  .trim()
-  .min(1, REQUIRED_MESSAGE)
-  .max(NAME_MAX_LENGTH, `Máximo ${NAME_MAX_LENGTH} caracteres.`)
-  .refine(
-    (value) => !hasControlCharacters(value),
-    'Contiene caracteres que no se permiten.',
-  );
+const personName = requiredText(NAME_MAX_LENGTH);
 
 const email = z
   .string()

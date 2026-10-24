@@ -48,6 +48,9 @@ export function useSession({ enabled = true } = {}) {
     queryKey: queryKeys.session(),
     queryFn: fetchSession,
     enabled,
+    // Los permisos pueden cambiar mientras la pestaña está en segundo plano: al volver, el
+    // menú debe mostrar los actuales.
+    refetchOnWindowFocus: true,
   });
 }
 

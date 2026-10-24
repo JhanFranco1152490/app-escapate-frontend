@@ -148,6 +148,20 @@ describe('PanelLayout', () => {
     ).not.toHaveAttribute('aria-current');
   });
 
+  it('las entradas del menú muestran solo el ícono y el nombre, sin número', async () => {
+    permissions = ['users.view', 'roles.view'];
+    renderPanel();
+    const nav = await screen.findByRole('navigation', {
+      name: 'Navegación principal',
+    });
+
+    expect(
+      within(nav)
+        .getAllByRole('link')
+        .map((link) => link.textContent),
+    ).toEqual(['Inicio', 'Usuarios', 'Roles y permisos']);
+  });
+
   it('en celular, el menú de la cuenta trae las mismas entradas', async () => {
     permissions = ['users.view'];
     renderPanel();

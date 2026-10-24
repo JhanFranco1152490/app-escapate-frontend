@@ -1,6 +1,6 @@
 export type SavedNotice = {
   userId: number;
-  kind: 'created' | 'updated';
+  kind: 'created' | 'updated' | 'role';
   // null si no hizo falta enviar la invitación; false si se intentó y el correo falló.
   invitationSent: boolean | null;
 };

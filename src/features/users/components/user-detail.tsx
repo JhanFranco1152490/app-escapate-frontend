@@ -18,7 +18,13 @@ function Item({ term, children }: { term: string; children: ReactNode }) {
   );
 }
 
-export function UserDetail({ user }: { user: UserDetailData }) {
+type UserDetailProps = {
+  user: UserDetailData;
+  // Acción junto al rol ("Cambiar rol"), según los permisos de quien mira.
+  roleAction?: ReactNode;
+};
+
+export function UserDetail({ user, roleAction }: UserDetailProps) {
   return (
     <section
       aria-labelledby="user-data-title"
@@ -33,12 +39,23 @@ export function UserDetail({ user }: { user: UserDetailData }) {
       <dl className="grid gap-5 px-5 py-5 sm:grid-cols-2 lg:grid-cols-3">
         <Item term="Correo">{user.email}</Item>
         <Item term="Documento">
-          {DOCUMENT_TYPE_LABELS[user.document_type]} {user.document_number}
+          {/* La sigla, como se escribe en los documentos; el nombre completo queda para
+              quien pase el mouse o use lector de pantalla. */}
+          <abbr
+            title={DOCUMENT_TYPE_LABELS[user.document_type]}
+            className="no-underline"
+          >
+            {user.document_type}
+          </abbr>{' '}
+          {user.document_number}
         </Item>
         <Item term="Celular">
           {user.phone ? formatPhone(user.phone) : 'Sin registrar'}
         </Item>
-        <Item term="Rol">{user.role.name}</Item>
+        <Item term="Rol">
+          {user.role.name}
+          {roleAction}
+        </Item>
         <Item term="Estado">
           <UserStatusBadge user={user} />
         </Item>

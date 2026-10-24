@@ -6,8 +6,7 @@ import {
   NativeSelect,
   NativeSelectOption,
 } from '@/components/ui/native-select';
-
-import { useRoles } from '../api';
+import { useRoles } from '@/features/roles/api';
 
 type RoleFieldProps =
   | { mode: 'create'; field: UseFormRegisterReturn<'role_id'>; error?: string }

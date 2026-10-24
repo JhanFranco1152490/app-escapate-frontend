@@ -6,10 +6,12 @@ import { queryKeys } from '@/lib/api/query-keys';
 import { apiUrl } from '@/test/handlers';
 import { renderHookWithProviders } from '@/test/render';
 import { server } from '@/test/server';
+import { ROLES } from '@/test/roles';
 import { buildSession } from '@/test/session';
 import { buildUserDetail, buildUserPage } from '@/test/users';
 
 import {
+  useChangeUserRole,
   useCreateUser,
   useDeactivateUser,
   useResendInvitation,
@@ -154,6 +156,32 @@ describe('mutaciones', () => {
     await result.current.mutateAsync();
 
     expect(queryClient.getQueryData(queryKeys.users.detail(7))).toEqual(user);
+  });
+
+  it('cambiar el rol guarda la ficha e invalida las listas de usuarios y de roles', async () => {
+    const user = buildUserDetail({ id: 7, role: { id: 3, name: 'Operativo' } });
+    let received: unknown;
+    server.use(
+      http.put(apiUrl('/api/users/7/role'), async ({ request }) => {
+        received = await request.json();
+        return HttpResponse.json(user);
+      }),
+    );
+    const { result, queryClient } = renderHookWithProviders(() =>
+      useChangeUserRole(7),
+    );
+    const usersKey = queryKeys.users.list({ q: '' });
+    queryClient.setQueryData(usersKey, buildUserPage());
+    queryClient.setQueryData(queryKeys.roles.lists(), ROLES);
+
+    await result.current.mutateAsync(3);
+
+    expect(received).toEqual({ role_id: 3 });
+    expect(queryClient.getQueryData(queryKeys.users.detail(7))).toEqual(user);
+    expect(queryClient.getQueryState(usersKey)?.isInvalidated).toBe(true);
+    expect(
+      queryClient.getQueryState(queryKeys.roles.lists())?.isInvalidated,
+    ).toBe(true);
   });
 
   it('reenviar la invitación acepta la respuesta sin cuerpo', async () => {
