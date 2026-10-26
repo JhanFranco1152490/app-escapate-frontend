@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Cotización · costos, margen y precio</title>
+    <link rel="stylesheet" href="panel.css" />
+  </head>
+  <body>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap"
+    />
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+    <div class="app" style="position: relative">
+      <aside class="side">
+        <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
+        <nav class="nav" aria-label="Navegación principal">
+          <div class="nav-g">
+            <div class="nav-h">Operación</div>
+            <a href="10-clientes.html"><i>01</i>Clientes</a
+            ><a href="13-viajeros.html"><i>02</i>Viajeros</a
+            ><a href="16-solicitudes.html"><i>03</i>Solicitudes</a
+            ><a href="19-pendientes-cotizacion.html"><i>04</i>Por cotizar</a
+            ><a href="25-paquetes.html"><i>05</i>Paquetes</a
+            ><a href="57-cotizaciones.html" aria-current="page"
+              ><i>06</i>Cotizaciones</a
+            ><a href="38-seguimientos.html"><i>07</i>Seguimientos</a
+            ><a href="40-alertas.html"><i>08</i>Alertas</a
+            ><a href="42-ventas.html"><i>09</i>Ventas</a>
+          </div>
+        </nav>
+        <div class="me">
+          <span class="av">LR</span>
+          <div>
+            <p>Laura Rojas</p>
+            <small>Asesor comercial</small>
+          </div>
+        </div>
+      </aside>
+      <div class="main">
+        <header class="top">
+          <span class="crumb"
+            >Cotizaciones / <b>Cotización · costos, margen y precio</b></span
+          >
+          <span class="tag">HU-28, HU-29 · RF-19, RF-20</span>
+          <div class="who">Laura Rojas<small>Asesor comercial</small></div>
+        </header>
+        <main class="content">
+          <div class="head">
+            <div>
+              <p class="eyebrow">Cotizaciones / ESC-2615</p>
+              <h1 class="h1">Cotización ESC-2615</h1>
+              <p class="ctx">
+                Marcela Gómez Ortiz · SOL-0231 · San Andrés, 18–24 dic 2026 · 3
+                viajeros
+              </p>
+            </div>
+            <div class="acts"></div>
+          </div>
+          <div style="display: flex; gap: 10px; align-items: center">
+            <span class="st">Borrador</span><span class="chip">Versión 2</span
+            ><span class="chip">Vigente hasta 05 nov 2026</span>
+          </div>
+          <div class="tabs">
+            <a href="29-cotizacion-general.html">General</a
+            ><a href="30-cotizacion-servicios.html">Servicios<b>4</b></a
+            ><a href="31-cotizacion-alternativas.html"
+              >Alternativas y opcionales<b>3</b></a
+            ><a href="32-cotizacion-condiciones.html">Condiciones</a
+            ><a href="33-cotizacion-costos-precio.html" aria-current="page"
+              >Costos y precio</a
+            ><a href="34-cotizacion-documento.html">Documento</a
+            ><a href="36-cotizacion-versiones.html">Versiones<b>2</b></a>
+          </div>
+          <div class="g2">
+            <section class="box">
+              <div class="box-h"><h2>Costos estimados</h2></div>
+              <div class="box-b">
+                <span class="int"
+                  >Información interna · no se muestra al cliente</span
+                >
+                <div class="box tbl-wrap">
+                  <table class="tbl">
+                    <colgroup>
+                      <col style="width: 46%" />
+                      <col style="width: 10%" />
+                      <col style="width: 22%" />
+                      <col style="width: 22%" />
+                    </colgroup>
+                    <thead>
+                      <tr>
+                        <th scope="col">Servicio</th>
+                        <th scope="col" class="r">Cant.</th>
+                        <th scope="col" class="r">Costo unitario</th>
+                        <th scope="col" class="r">Costo total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Vuelo Cúcuta – San Andrés</td>
+                        <td class="r m">3</td>
+                        <td class="r m">$ 640.000</td>
+                        <td class="r m">$ 1.920.000</td>
+                      </tr>
+                      <tr>
+                        <td>Hotel Sol Caribe · 6 noches</td>
+                        <td class="r m">1</td>
+                        <td class="r m">$ 3.150.000</td>
+                        <td class="r m">$ 3.150.000</td>
+                      </tr>
+                      <tr>
+                        <td>Traslados aeropuerto – hotel</td>
+                        <td class="r m">2</td>
+                        <td class="r m">$ 90.000</td>
+                        <td class="r m">$ 180.000</td>
+                      </tr>
+                      <tr>
+                        <td>Tour Johnny Cay</td>
+                        <td class="r m">3</td>
+                        <td class="r m">$ 120.000</td>
+                        <td class="r m">$ 360.000</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 14px;
+                  "
+                >
+                  <span>Costo estimado total</span
+                  ><b class="mono">$ 5.610.000</b>
+                </div>
+              </div>
+              <div class="box-f">
+                <a class="btn" href="#">Cancelar</a
+                ><a class="btn pri" href="#">Guardar costos</a>
+              </div>
+            </section>
+            <section class="box">
+              <div class="box-h"><h2>Margen y precio de venta</h2></div>
+              <div class="box-b">
+                <span class="int">Información interna</span>
+                <div class="g2">
+                  <div class="fld">
+                    <span class="lbl">Tipo<s>*</s></span>
+                    <div class="sel" style="width: 100%">
+                      Margen sobre costo (%)
+                    </div>
+                  </div>
+                  <div class="fld">
+                    <label class="lbl" for="f55642">Margen<s>*</s></label
+                    ><input class="in" id="f55642" value="20" placeholder="" />
+                  </div>
+                  <div class="fld">
+                    <label class="lbl" for="f53088"
+                      >Comisión del asesor (%)</label
+                    ><input class="in" id="f53088" value="3" placeholder="" />
+                  </div>
+                  <div class="fld">
+                    <label class="lbl" for="f23267">Comisión (valor)</label
+                    ><input
+                      class="in"
+                      id="f23267"
+                      value="201.960"
+                      placeholder=""
+                      readonly
+                    />
+                  </div>
+                </div>
+                <div
+                  style="
+                    border-top: 1px solid rgb(var(--panel-line) / 0.12);
+                    padding-top: 14px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+                  "
+                >
+                  <div style="display: flex; justify-content: space-between">
+                    <span class="muted">Costo estimado</span
+                    ><span class="mono">$ 5.610.000</span>
+                  </div>
+                  <div style="display: flex; justify-content: space-between">
+                    <span class="muted">Margen (20 %)</span
+                    ><span class="mono">+ $ 1.122.000</span>
+                  </div>
+                  <div
+                    style="
+                      display: flex;
+                      justify-content: space-between;
+                      align-items: baseline;
+                    "
+                  >
+                    <b>Precio de venta</b
+                    ><b class="serif" style="font-size: 28px">$ 6.732.000</b>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+          <section class="box">
+            <div class="box-h"><h2>Valores por viajero</h2></div>
+            <div class="box-b">
+              <div class="box tbl-wrap">
+                <table class="tbl">
+                  <colgroup>
+                    <col style="width: 40%" />
+                    <col style="width: 14%" />
+                    <col style="width: 24%" />
+                    <col style="width: 22%" />
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th scope="col">Tipo de viajero</th>
+                      <th scope="col" class="r">Cantidad</th>
+                      <th scope="col" class="r">Valor por persona</th>
+                      <th scope="col" class="r">Subtotal</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Adulto</td>
+                      <td class="r m">2</td>
+                      <td class="r m">$ 2.600.000</td>
+                      <td class="r m">$ 5.200.000</td>
+                    </tr>
+                    <tr>
+                      <td>Niño (7 años)</td>
+                      <td class="r m">1</td>
+                      <td class="r m">$ 1.532.000</td>
+                      <td class="r m">$ 1.532.000</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+          <div class="alert info" role="alert">
+            <div>
+              Al cambiar un costo o el margen, el precio de venta se recalcula.
+              Costos y márgenes <b>nunca</b> aparecen en el documento del
+              cliente.
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

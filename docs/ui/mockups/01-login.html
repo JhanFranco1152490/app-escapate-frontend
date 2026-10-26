@@ -385,42 +385,19 @@
             style="
               display: flex;
               align-items: center;
-              justify-content: space-between;
+              justify-content: flex-end;
               gap: 16px;
               min-height: 44px;
             "
           >
-            <label
-              for="login-remember"
-              style="
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                min-height: 44px;
-                cursor: pointer;
-                font-size: 13.5px;
-                color: rgba(245, 241, 233, 0.82);
-              "
-            >
-              <input
-                id="login-remember"
-                type="checkbox"
-                style="
-                  width: 17px;
-                  height: 17px;
-                  accent-color: #e8732a;
-                  margin: 0;
-                "
-              />
-              Mantener la sesión 8 horas
-            </label>
-            <a href="#recuperar" style="font-size: 13.5px"
+            <a href="hu/04-recuperar.html" style="font-size: 13.5px"
               >¿Olvidaste tu contraseña?</a
             >
           </div>
 
           <button
-            type="submit"
+            type="button"
+            onclick="location.href = 'hu/10-clientes.html'"
             style="
               height: 54px;
               display: flex;
@@ -472,18 +449,31 @@
             "
           >
             <span>Escápate · Panel interno v1.0</span>
-            <a
-              href="#soporte"
-              style="
-                font-family: 'JetBrains Mono', ui-monospace, monospace;
-                letter-spacing: 0.16em;
-              "
-              >Soporte TI</a
-            >
           </div>
         </div>
       </div>
     </div>
     <script src="_mockup.js"></script>
+    <span
+      data-trace
+      style="
+        position: absolute;
+        top: 16px;
+        right: 20px;
+        z-index: 5;
+        font:
+          400 9.5px 'JetBrains Mono',
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 4px 9px;
+        border: 1px solid #e8732a;
+        border-radius: 3px;
+        color: #f5f1e9;
+        background: rgba(12, 27, 47, 0.6);
+        white-space: nowrap;
+      "
+      >HU-01 · RF-01</span
+    >
   </body>
 </html>

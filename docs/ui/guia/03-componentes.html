@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Componentes</title>
+    <link rel="stylesheet" href="../mockups/hu/panel.css" />
+  </head>
+  <body>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap"
+    /><style>
+      body {
+        margin: 0;
+        background: rgb(var(--panel-canvas));
+      }
+      .sheet {
+        width: 1180px;
+        padding: 36px 40px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+      }
+      h2.t {
+        font:
+          600 22px 'Playfair Display',
+          serif;
+        margin: 0;
+        letter-spacing: -0.02em;
+      }
+      .cap {
+        font:
+          400 10px 'JetBrains Mono',
+          monospace;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgb(var(--panel-line) / 0.7);
+      }
+      .sw {
+        width: auto;
+        height: auto;
+        border-radius: 0;
+        background: none;
+        position: static;
+      }
+      .sw:after {
+        display: none;
+      }
+    </style>
+    <div class="sheet">
+      <h2 class="t">Componentes principales</h2>
+      <div class="box">
+        <div class="box-b">
+          <p class="cap">Botones</p>
+          <div class="acts" style="flex-wrap: wrap">
+            <a class="btn pri">Acción principal</a><a class="btn">Secundario</a
+            ><a class="btn sm">Pequeño</a><a class="btn dng">Retirar</a
+            ><a class="btn dash" style="width: 200px">+ Agregar elemento</a>
+          </div>
+          <p class="help">
+            Una sola acción principal (naranja con texto navy) por pantalla. El
+            borde punteado se usa para agregar elementos a una lista.
+          </p>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="box">
+          <div class="box-b">
+            <p class="cap">Campos</p>
+            <div class="fld">
+              <label class="lbl" for="a">Nombre<s>*</s></label
+              ><input class="in" id="a" value="Marcela Gómez Ortiz" />
+              <p class="help">Texto de ayuda debajo del campo.</p>
+            </div>
+            <div class="fld">
+              <label class="lbl" for="b">Fecha de regreso<s>*</s></label
+              ><input
+                class="in"
+                id="b"
+                aria-invalid="true"
+                value="09 oct 2026"
+              />
+              <p class="err">El regreso no puede ser anterior a la salida.</p>
+            </div>
+            <div class="fld">
+              <label class="lbl" for="c">Código</label
+              ><input class="in" id="c" readonly value="ESC-2615" />
+            </div>
+          </div>
+        </div>
+        <div class="box">
+          <div class="box-b">
+            <p class="cap">Estados de registro</p>
+            <div style="display: flex; flex-direction: column; gap: 12px">
+              <span class="st off">Borrador</span><span class="st">Enviada</span
+              ><span class="st ok">Aprobada</span
+              ><span class="st bad">Vencida</span>
+            </div>
+            <p class="help">
+              El color nunca es la única señal: cada estado lleva su etiqueta.
+            </p>
+            <p class="cap" style="margin-top: 6px">Mensajes</p>
+            <div class="alert ok">
+              <div><b>Guardado.</b> Los cambios se aplicaron.</div>
+            </div>
+            <div class="alert">
+              <div><b>No se pudo guardar.</b> Revisa los campos marcados.</div>
+            </div>
+            <div class="alert info">
+              <div>Información que ayuda, sin urgencia.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box tbl-wrap">
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Cliente</th>
+              <th class="r">Valor</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="m">ESC-2612</td>
+              <td><b>Andrés Felipe Díaz</b><small>San Andrés</small></td>
+              <td class="r m">$ 3.980.000</td>
+              <td><span class="st">Enviada</span></td>
+            </tr>
+            <tr>
+              <td class="m">ESC-2610</td>
+              <td><b>Familia Suárez Mora</b><small>Cartagena</small></td>
+              <td class="r m">$ 6.250.000</td>
+              <td><span class="st ok">Aprobada</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="pager">
+          <span>1–2 de 38</span><span>Página 1 de 19</span>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="box">
+          <div class="box-b">
+            <p class="cap">Pestañas, cifras y pasos</p>
+            <div class="tabs">
+              <a href="#" aria-current="page">Todas<b>38</b></a
+              ><a href="#">Borrador<b>7</b></a
+              ><a href="#">Enviadas<b>14</b></a>
+            </div>
+            <div class="rail">
+              <div><strong>38</strong><span>Abiertas</span></div>
+              <div><strong>6</strong><span>Vencen</span></div>
+            </div>
+            <div class="step">
+              <b class="on"><i>1</i>Cliente</b>
+              <hr />
+              <b><i>2</i>Viaje</b>
+              <hr />
+              <b><i>3</i>Ítems</b>
+            </div>
+          </div>
+        </div>
+        <div class="box">
+          <div class="empty">
+            <h3>Sin resultados</h3>
+            <p>
+              Ninguna solicitud coincide con la búsqueda. Limpia los filtros
+              para ver todas.
+            </p>
+            <div class="acts"><a class="btn sm">Limpiar filtros</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

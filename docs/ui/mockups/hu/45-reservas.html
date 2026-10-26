@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Reservas del viaje</title>
+    <link rel="stylesheet" href="panel.css" />
+  </head>
+  <body>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap"
+    />
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+    <div class="app" style="position: relative">
+      <aside class="side">
+        <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
+        <nav class="nav" aria-label="Navegación principal">
+          <div class="nav-g">
+            <div class="nav-h">Operación</div>
+            <a href="42-ventas.html"><i>01</i>Ventas y viajes</a
+            ><a href="45-reservas.html" aria-current="page"><i>02</i>Reservas</a
+            ><a href="46-pagos.html"><i>03</i>Pagos de clientes</a>
+          </div>
+        </nav>
+        <div class="me">
+          <span class="av">DP</span>
+          <div>
+            <p>Diana Pérez</p>
+            <small>Operativo</small>
+          </div>
+        </div>
+      </aside>
+      <div class="main">
+        <header class="top">
+          <span class="crumb">Reservas / <b>Reservas del viaje</b></span>
+          <span class="tag">HU-40 · RF-26</span>
+          <div class="who">Diana Pérez<small>Operativo</small></div>
+        </header>
+        <main class="content">
+          <div class="head">
+            <div>
+              <p class="eyebrow">Reservas / VTA-0087</p>
+              <h1 class="h1">Gestionar reservas</h1>
+              <p class="ctx">
+                Estado y datos de confirmación entregados por cada proveedor.
+                Una reserva no confirmada no se marca como confirmada.
+              </p>
+            </div>
+            <div class="acts"></div>
+          </div>
+          <section class="box">
+            <div class="box-h"><h2>Reservas del viaje VTA-0087</h2></div>
+            <div class="box-b">
+              <div class="box tbl-wrap">
+                <table class="tbl">
+                  <colgroup>
+                    <col style="width: 34%" />
+                    <col style="width: 16%" />
+                    <col style="width: 20%" />
+                    <col style="width: 14%" />
+                    <col style="width: 16%" />
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th scope="col">Servicio contratado</th>
+                      <th scope="col">Estado</th>
+                      <th scope="col">Localizador</th>
+                      <th scope="col">Confirmada</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <b>Vuelo Cúcuta – Cartagena</b
+                        ><small>Viva Mar Aéreo</small>
+                      </td>
+                      <td><span class="st ok">Confirmada</span></td>
+                      <td class="m">VM7H2K</td>
+                      <td class="m">02 oct</td>
+                      <td><a class="btn sm" href="#">Actualizar</a></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <b>Hotel Muralla Real · 5 noches</b
+                        ><small>Casa Colonial S.A.S.</small>
+                      </td>
+                      <td><span class="st">Solicitada</span></td>
+                      <td class="m">— sin localizador</td>
+                      <td class="m">—</td>
+                      <td><a class="btn sm" href="#">Actualizar</a></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <b>Traslados aeropuerto – hotel</b
+                        ><small>Traslados Caribe</small>
+                      </td>
+                      <td><span class="st off">Pendiente</span></td>
+                      <td class="m">—</td>
+                      <td class="m">—</td>
+                      <td><a class="btn sm" href="#">Registrar</a></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <b>Tour Islas del Rosario</b
+                        ><small>Lanchas del Mar</small>
+                      </td>
+                      <td><span class="st off">Pendiente</span></td>
+                      <td class="m">—</td>
+                      <td class="m">—</td>
+                      <td><a class="btn sm" href="#">Registrar</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+          <section class="box">
+            <div class="box-h">
+              <h2>Actualizar reserva · Hotel Muralla Real</h2>
+            </div>
+            <div class="box-b">
+              <div class="g2">
+                <div class="fld">
+                  <span class="lbl">Estado<s>*</s></span>
+                  <div class="sel" style="width: 100%">Confirmada</div>
+                </div>
+                <div class="fld">
+                  <label class="lbl" for="f23834"
+                    >Localizador o código de confirmación</label
+                  ><input
+                    class="in"
+                    id="f23834"
+                    value="CMR-55812"
+                    placeholder=""
+                  />
+                </div>
+                <div class="fld">
+                  <label class="lbl" for="f95440">Fecha de confirmación</label
+                  ><input
+                    class="in"
+                    id="f95440"
+                    value="25 oct 2026"
+                    placeholder=""
+                  />
+                </div>
+                <div class="fld">
+                  <label class="lbl" for="f36135">Notas</label
+                  ><input
+                    class="in"
+                    id="f36135"
+                    value="Confirmó habitación familiar con desayuno."
+                    placeholder=""
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="box-f">
+              <a class="btn" href="#">Cancelar</a
+              ><a class="btn pri" href="#">Guardar reserva</a>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

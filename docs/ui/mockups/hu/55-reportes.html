@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Reportes</title>
+    <link rel="stylesheet" href="panel.css" />
+  </head>
+  <body>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap"
+    />
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+    <div class="app" style="position: relative">
+      <aside class="side">
+        <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
+        <nav class="nav" aria-label="Navegación principal">
+          <div class="nav-g">
+            <div class="nav-h">Resumen</div>
+            <a href="52-dashboard.html"><i>01</i>Dashboard</a>
+          </div>
+          <div class="nav-g">
+            <div class="nav-h">Finanzas</div>
+            <a href="48-costos-reales.html"><i>02</i>Costos reales</a
+            ><a href="49-rentabilidad.html"><i>03</i>Rentabilidad</a
+            ><a href="50-gastos.html"><i>04</i>Gastos operativos</a
+            ><a href="51-ingresos-egresos.html"><i>05</i>Ingresos y egresos</a>
+          </div>
+          <div class="nav-g">
+            <div class="nav-h">Análisis</div>
+            <a href="53-indicadores-comerciales.html"><i>06</i>Indicadores</a
+            ><a href="55-reportes.html" aria-current="page"
+              ><i>07</i>Reportes</a
+            >
+          </div>
+          <div class="nav-g">
+            <div class="nav-h">Administración</div>
+            <a href="06-usuarios.html"><i>08</i>Usuarios</a
+            ><a href="08-roles-permisos.html"><i>09</i>Roles y permisos</a>
+          </div>
+        </nav>
+        <div class="me">
+          <span class="av">MR</span>
+          <div>
+            <p>Mateo Ríos</p>
+            <small>Administrador</small>
+          </div>
+        </div>
+      </aside>
+      <div class="main">
+        <header class="top">
+          <span class="crumb">Análisis / <b>Reportes</b></span>
+          <span class="tag">HU-50 · RF-35</span>
+          <div class="who">Mateo Ríos<small>Administrador</small></div>
+        </header>
+        <main class="content">
+          <div class="head">
+            <div>
+              <p class="eyebrow">Análisis / 03</p>
+              <h1 class="h1">Generar reportes</h1>
+              <p class="ctx">
+                Información comercial, operativa y financiera filtrada por
+                período y criterios.
+              </p>
+            </div>
+            <div class="acts"></div>
+          </div>
+          <div class="g2">
+            <section class="box">
+              <div class="box-h"><h2>Tipo de reporte</h2></div>
+              <div class="box-b">
+                <div style="display: flex; flex-direction: column; gap: 12px">
+                  <label class="chk"
+                    ><input type="radio" name="r" checked /> Comercial ·
+                    solicitudes, cotizaciones, conversión</label
+                  ><label class="chk"
+                    ><input type="radio" name="r" /> Operativo · ventas,
+                    reservas y viajes</label
+                  ><label class="chk"
+                    ><input type="radio" name="r" /> Financiero · pagos, costos,
+                    gastos, utilidad</label
+                  >
+                </div>
+              </div>
+            </section>
+            <section class="box">
+              <div class="box-h"><h2>Período y criterios</h2></div>
+              <div class="box-b">
+                <div class="g2">
+                  <div class="fld">
+                    <label class="lbl" for="f1952">Desde<s>*</s></label
+                    ><input
+                      class="in"
+                      id="f1952"
+                      value="01 sep 2026"
+                      placeholder=""
+                    />
+                  </div>
+                  <div class="fld">
+                    <label class="lbl" for="f20099">Hasta<s>*</s></label
+                    ><input
+                      class="in"
+                      id="f20099"
+                      value="31 oct 2026"
+                      placeholder=""
+                    />
+                  </div>
+                  <div class="fld">
+                    <span class="lbl">Asesor</span>
+                    <div class="sel" style="width: 100%">Todos</div>
+                  </div>
+                  <div class="fld">
+                    <span class="lbl">Estado de la cotización</span>
+                    <div class="sel" style="width: 100%">Aceptada</div>
+                  </div>
+                </div>
+              </div>
+              <div class="box-f">
+                <a class="btn pri" href="#">Generar reporte</a>
+              </div>
+            </section>
+          </div>
+          <section class="box">
+            <div class="box-h">
+              <h2>
+                Reporte comercial · 01 sep – 31 oct 2026 · cotizaciones
+                aceptadas
+              </h2>
+              <a class="btn sm pri" href="56-reporte-exportar.html">Exportar</a>
+            </div>
+            <div class="box-b">
+              <div class="box tbl-wrap">
+                <table class="tbl">
+                  <colgroup>
+                    <col style="width: 14%" />
+                    <col style="width: 28%" />
+                    <col style="width: 20%" />
+                    <col style="width: 20%" />
+                    <col style="width: 18%" />
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th scope="col">Código</th>
+                      <th scope="col">Cliente</th>
+                      <th scope="col">Destino</th>
+                      <th scope="col">Asesor</th>
+                      <th scope="col" class="r">Valor</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="m">ESC-2610</td>
+                      <td>Familia Suárez Mora</td>
+                      <td>Cartagena</td>
+                      <td>Laura Rojas</td>
+                      <td class="r m">$ 6.250.000</td>
+                    </tr>
+                    <tr>
+                      <td class="m">ESC-2614</td>
+                      <td>Laura Pabón Mejía</td>
+                      <td>Punta Cana</td>
+                      <td>Laura Rojas</td>
+                      <td class="r m">$ 8.420.000</td>
+                    </tr>
+                    <tr>
+                      <td class="m">ESC-2606</td>
+                      <td>Claudia Ortega Ruiz</td>
+                      <td>Madrid</td>
+                      <td>Daniel Quintero</td>
+                      <td class="r m">$ 14.700.000</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="pager">
+                  <span>3 registros</span><span>Filtros aplicados: 2</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

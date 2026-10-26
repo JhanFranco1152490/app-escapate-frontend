@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Configurar paquete</title>
+    <link rel="stylesheet" href="panel.css" />
+  </head>
+  <body>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap"
+    />
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+    <div class="app" style="position: relative">
+      <aside class="side">
+        <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
+        <nav class="nav" aria-label="Navegación principal">
+          <div class="nav-g">
+            <div class="nav-h">Operación</div>
+            <a href="10-clientes.html"><i>01</i>Clientes</a
+            ><a href="13-viajeros.html"><i>02</i>Viajeros</a
+            ><a href="16-solicitudes.html"><i>03</i>Solicitudes</a
+            ><a href="19-pendientes-cotizacion.html"><i>04</i>Por cotizar</a
+            ><a href="25-paquetes.html" aria-current="page"><i>05</i>Paquetes</a
+            ><a href="57-cotizaciones.html"><i>06</i>Cotizaciones</a
+            ><a href="38-seguimientos.html"><i>07</i>Seguimientos</a
+            ><a href="40-alertas.html"><i>08</i>Alertas</a
+            ><a href="42-ventas.html"><i>09</i>Ventas</a>
+          </div>
+        </nav>
+        <div class="me">
+          <span class="av">LR</span>
+          <div>
+            <p>Laura Rojas</p>
+            <small>Asesor comercial</small>
+          </div>
+        </div>
+      </aside>
+      <div class="main">
+        <header class="top">
+          <span class="crumb">Paquetes / <b>Configurar paquete</b></span>
+          <span class="tag">HU-18, HU-19 · RF-12</span>
+          <div class="who">Laura Rojas<small>Asesor comercial</small></div>
+        </header>
+        <main class="content">
+          <div class="head">
+            <div>
+              <p class="eyebrow">Paquetes / PAQ-014</p>
+              <h1 class="h1">Crear y configurar paquete</h1>
+              <p class="ctx">
+                Define las características generales e incorpora los servicios.
+                Los campos con * son obligatorios.
+              </p>
+            </div>
+            <div class="acts">
+              <a class="btn" href="27-paquete-precios.html"
+                >Precios del paquete</a
+              ><a class="btn" href="#">Cancelar</a
+              ><a class="btn pri" href="25-paquetes.html">Guardar paquete</a>
+            </div>
+          </div>
+          <div class="split">
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+                min-width: 0;
+              "
+            >
+              <section class="box">
+                <div class="box-h"><h2>Información general</h2></div>
+                <div class="box-b">
+                  <div class="g2">
+                    <div class="fld">
+                      <label class="lbl" for="f89754"
+                        >Nombre del paquete<s>*</s></label
+                      ><input
+                        class="in"
+                        id="f89754"
+                        value="San Andrés 6 noches todo incluido"
+                        placeholder=""
+                      />
+                    </div>
+                    <div class="fld">
+                      <label class="lbl" for="f42660">Destino<s>*</s></label
+                      ><input
+                        class="in"
+                        id="f42660"
+                        value="San Andrés, Colombia"
+                        placeholder=""
+                      />
+                    </div>
+                    <div class="fld">
+                      <label class="lbl" for="f41028">Duración<s>*</s></label
+                      ><input
+                        class="in"
+                        id="f41028"
+                        value="6 noches / 7 días"
+                        placeholder=""
+                      />
+                    </div>
+                    <div class="fld">
+                      <span class="lbl">Estado<s>*</s></span>
+                      <div class="sel" style="width: 100%">Publicado</div>
+                    </div>
+                    <div class="fld span2">
+                      <label class="lbl" for="f55109">Descripción</label
+                      ><textarea class="in" id="f55109">
+Plan familiar con vuelos, hotel todo incluido y traslados.</textarea>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <section class="box">
+                <div class="box-h">
+                  <h2>Servicios que lo componen</h2>
+                  <span class="chip">4 servicios</span>
+                </div>
+                <div class="box-b">
+                  <div class="box tbl-wrap">
+                    <table class="tbl">
+                      <colgroup>
+                        <col style="width: 34%" />
+                        <col style="width: 14%" />
+                        <col style="width: 22%" />
+                        <col style="width: 30%" />
+                      </colgroup>
+                      <thead>
+                        <tr>
+                          <th scope="col">Servicio</th>
+                          <th scope="col">Tipo</th>
+                          <th scope="col">Proveedor</th>
+                          <th scope="col"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <b>Vuelo Cúcuta – San Andrés</b
+                            ><small>Ida y vuelta</small>
+                          </td>
+                          <td>Vuelo</td>
+                          <td>Viva Mar Aéreo</td>
+                          <td>
+                            <a class="btn sm" href="#">Configurar</a>
+                            <a class="btn sm dng" href="#">Retirar</a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <b>Hotel Sol Caribe</b
+                            ><small>6 noches · todo incluido</small>
+                          </td>
+                          <td>Alojamiento</td>
+                          <td>Playa Sur Hoteles</td>
+                          <td>
+                            <a class="btn sm" href="#">Configurar</a>
+                            <a class="btn sm dng" href="#">Retirar</a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <b>Traslados aeropuerto – hotel</b
+                            ><small>Ida y vuelta</small>
+                          </td>
+                          <td>Transporte</td>
+                          <td>Traslados Isla Azul</td>
+                          <td>
+                            <a class="btn sm" href="#">Configurar</a>
+                            <a class="btn sm dng" href="#">Retirar</a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <b>Tour Johnny Cay</b
+                            ><small>Medio día · lancha</small>
+                          </td>
+                          <td>Tour</td>
+                          <td>Lanchas del Mar</td>
+                          <td>
+                            <a class="btn sm" href="#">Configurar</a>
+                            <a class="btn sm dng" href="#">Retirar</a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <a class="btn dash" href="#">+ Agregar servicio</a>
+                </div>
+              </section>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 24px">
+              <section class="box">
+                <div class="box-h"><h2>Resumen</h2></div>
+                <div class="box-b">
+                  <dl class="kv">
+                    <dt>Código</dt>
+                    <dd>PAQ-014</dd>
+                    <dt>Servicios</dt>
+                    <dd>4</dd>
+                    <dt>Creado</dt>
+                    <dd>12 oct 2026</dd>
+                    <dt>Última edición</dt>
+                    <dd>hoy 09:41</dd>
+                  </dl>
+                  <div class="alert info" role="alert">
+                    <div>
+                      Falta información obligatoria: <b>Destino</b> no puede
+                      quedar vacío.
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

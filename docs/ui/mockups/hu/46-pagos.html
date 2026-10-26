@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Estado e historial de pagos</title>
+    <link rel="stylesheet" href="panel.css" />
+  </head>
+  <body>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap"
+    />
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+    <div class="app" style="position: relative">
+      <aside class="side">
+        <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
+        <nav class="nav" aria-label="Navegación principal">
+          <div class="nav-g">
+            <div class="nav-h">Operación</div>
+            <a href="42-ventas.html"><i>01</i>Ventas y viajes</a
+            ><a href="45-reservas.html"><i>02</i>Reservas</a
+            ><a href="46-pagos.html" aria-current="page"
+              ><i>03</i>Pagos de clientes</a
+            >
+          </div>
+        </nav>
+        <div class="me">
+          <span class="av">DP</span>
+          <div>
+            <p>Diana Pérez</p>
+            <small>Operativo</small>
+          </div>
+        </div>
+      </aside>
+      <div class="main">
+        <header class="top">
+          <span class="crumb">Pagos / <b>Estado e historial de pagos</b></span>
+          <span class="tag">HU-42 · RF-28</span>
+          <div class="who">Diana Pérez<small>Operativo</small></div>
+        </header>
+        <main class="content">
+          <div class="head">
+            <div>
+              <p class="eyebrow">Pagos / VTA-0087</p>
+              <h1 class="h1">Pagos de la venta VTA-0087</h1>
+              <p class="ctx">Familia Suárez Mora · Cartagena, 05–10 oct 2026</p>
+            </div>
+            <div class="acts"></div>
+          </div>
+          <div class="rail">
+            <div>
+              <strong>$ 6.250.000</strong><span>Valor de la venta</span>
+            </div>
+            <div><strong>$ 3.875.000</strong><span>Pagado</span></div>
+            <div><strong>$ 2.375.000</strong><span>Saldo pendiente</span></div>
+            <div><strong>Pago parcial</strong><span>Estado de pago</span></div>
+          </div>
+          <div class="split">
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+                min-width: 0;
+              "
+            >
+              <section class="box">
+                <div class="box-h"><h2>Historial de pagos</h2></div>
+                <div class="box-b">
+                  <div class="box tbl-wrap">
+                    <table class="tbl">
+                      <colgroup>
+                        <col style="width: 20%" />
+                        <col style="width: 38%" />
+                        <col style="width: 22%" />
+                        <col style="width: 20%" />
+                      </colgroup>
+                      <thead>
+                        <tr>
+                          <th scope="col">Fecha</th>
+                          <th scope="col">Concepto</th>
+                          <th scope="col">Medio</th>
+                          <th scope="col" class="r">Valor</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="m">18 sep 2026</td>
+                          <td>Abono inicial (30 %)</td>
+                          <td>Transferencia</td>
+                          <td class="r m">$ 1.875.000</td>
+                        </tr>
+                        <tr>
+                          <td class="m">01 oct 2026</td>
+                          <td>Segundo abono</td>
+                          <td>Efectivo</td>
+                          <td class="r m">$ 2.000.000</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <a class="btn dash" href="47-pago-registrar.html"
+                    >+ Registrar pago</a
+                  >
+                </div>
+              </section>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 24px">
+              <section class="box">
+                <div class="box-h"><h2>Otras situaciones posibles</h2></div>
+                <div class="box-b">
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: column;
+                      gap: 10px;
+                      font-size: 13.5px;
+                    "
+                  >
+                    <div>
+                      <span class="st off">Sin pagos</span> &nbsp;Aún no se ha
+                      registrado ningún movimiento
+                    </div>
+                    <div>
+                      <span class="st">Pago parcial</span> &nbsp;Se ha cubierto
+                      solo una parte del valor
+                    </div>
+                    <div>
+                      <span class="st ok">Pagada</span> &nbsp;El valor total fue
+                      cubierto
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>
