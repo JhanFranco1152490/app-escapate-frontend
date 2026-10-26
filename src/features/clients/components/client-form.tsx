@@ -57,6 +57,8 @@ type ClientFormProps = {
   onSubmit: (payload: ClientPayload) => Promise<unknown>;
   // Avisos que no son de validación y van arriba de los campos.
   notices?: ReactNode;
+  // Cada vez que se termina de escribir el teléfono (o cambia su país).
+  onPhoneCommit?: (e164: string | null) => void;
 };
 
 export function ClientForm({
@@ -66,6 +68,7 @@ export function ClientForm({
   cancelHref,
   onSubmit,
   notices,
+  onPhoneCommit,
 }: ClientFormProps) {
   const creating = mode === 'create';
   const [notice, setNotice] = useState<FormNotice>();
@@ -154,7 +157,11 @@ export function ClientForm({
             clientType={clientType}
             documentType={documentType}
           />
-          <ClientContactFields form={form} source={source} />
+          <ClientContactFields
+            form={form}
+            source={source}
+            onPhoneCommit={onPhoneCommit}
+          />
           <ClientNotesFields form={form} withConsent={creating} />
         </div>
         <footer className="flex flex-col-reverse gap-3 border-t px-5 py-4 sm:flex-row sm:justify-end">

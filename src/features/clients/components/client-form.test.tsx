@@ -35,10 +35,22 @@ const renderForm = ({
 
 const field = (name: string) => screen.getByLabelText(name, { exact: false });
 
+// Pega el texto en vez de escribirlo tecla por tecla: el formulario recibe los mismos
+// eventos y la prueba no depende de lo rápida que esté la máquina.
+async function typeInto(
+  user: ReturnType<typeof userEvent.setup>,
+  element: HTMLElement,
+  text: string,
+) {
+  await user.click(element);
+  await user.paste(text);
+}
+
 async function fillPerson(user: ReturnType<typeof userEvent.setup>) {
-  await user.type(field('Nombres'), 'Marcela');
-  await user.type(field('Apellidos'), 'Gómez Ortiz');
-  await user.type(
+  await typeInto(user, field('Nombres'), 'Marcela');
+  await typeInto(user, field('Apellidos'), 'Gómez Ortiz');
+  await typeInto(
+    user,
     screen.getByRole('textbox', { name: /Teléfono/ }),
     '300 111 2233',
   );
@@ -85,7 +97,7 @@ describe('ClientForm', () => {
 
   it('al cambiar a empresa pide la razón social y fija el NIT', async () => {
     const { onSubmit, user } = renderForm();
-    await user.type(field('Nombres'), 'Quedó escrito');
+    await typeInto(user, field('Nombres'), 'Quedó escrito');
 
     await user.click(screen.getByRole('radio', { name: 'Empresa' }));
 
@@ -93,9 +105,10 @@ describe('ClientForm', () => {
     expect(field('Tipo de documento')).toHaveValue('NIT');
     expect(field('Tipo de documento')).toBeDisabled();
     expect(screen.queryByLabelText('Fecha de nacimiento')).toBeNull();
-    await user.type(field('Razón social'), 'Viajes Andinos S.A.S.');
-    await user.type(field('Número de documento'), '900.123.456-8');
-    await user.type(
+    await typeInto(user, field('Razón social'), 'Viajes Andinos S.A.S.');
+    await typeInto(user, field('Número de documento'), '900.123.456-8');
+    await typeInto(
+      user,
       screen.getByRole('textbox', { name: /Teléfono/ }),
       '607 555 1234',
     );
@@ -117,7 +130,7 @@ describe('ClientForm', () => {
   it('un NIT con el dígito equivocado se marca en su campo', async () => {
     const { onSubmit, user } = renderForm();
     await user.click(screen.getByRole('radio', { name: 'Empresa' }));
-    await user.type(field('Número de documento'), '900.123.456-1');
+    await typeInto(user, field('Número de documento'), '900.123.456-1');
 
     await submit(user);
 
@@ -200,7 +213,7 @@ describe('ClientForm', () => {
     );
     const { user } = renderForm({ onSubmit });
     await fillPerson(user);
-    await user.type(field('Número de documento'), '1020304050');
+    await typeInto(user, field('Número de documento'), '1020304050');
     await user.click(screen.getByRole('checkbox'));
 
     await submit(user);

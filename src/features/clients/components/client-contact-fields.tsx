@@ -8,12 +8,14 @@ import { ContactSourceFields } from './contact-source-fields';
 type ClientContactFieldsProps = {
   form: ClientFormApi;
   source: string;
+  onPhoneCommit?: (e164: string | null) => void;
 };
 
 // Cómo se contacta al cliente y cómo llegó a la agencia.
 export function ClientContactFields({
   form,
   source,
+  onPhoneCommit,
 }: ClientContactFieldsProps) {
   const {
     register,
@@ -35,7 +37,7 @@ export function ClientContactFields({
 
   return (
     <>
-      <ClientPhoneField form={form} />
+      <ClientPhoneField form={form} onCommit={onPhoneCommit} />
       {text('email', 'Correo electrónico', 254)}
       {text('city', 'Ciudad', 80)}
       <ContactSourceFields form={form} source={source} />
