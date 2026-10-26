@@ -1,3 +1,14 @@
+// Nombre de cada tipo de documento, para los selectores.
+export const DOCUMENT_TYPE_NAMES = {
+  CC: 'Cédula de ciudadanía',
+  CE: 'Cédula de extranjería',
+  PPT: 'Permiso por protección temporal',
+  PA: 'Pasaporte',
+  TI: 'Tarjeta de identidad',
+  RC: 'Registro civil',
+  NIT: 'NIT',
+} as const;
+
 // Puntos de miles sobre un número de solo dígitos: 1020304050 → 1.020.304.050.
 const withThousands = (digits: string) =>
   digits.replace(/\B(?=([0-9]{3})+$)/g, '.');

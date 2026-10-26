@@ -2,9 +2,13 @@
 // comienzo del número, y aceptaría números que la API rechaza (un celular colombiano que
 // empieza por 380, por ejemplo). Pesa más, pero solo la cargan las pantallas que la usan.
 import {
+  getCountries,
+  getCountryCallingCode,
   parsePhoneNumberFromString,
   type CountryCode as PhoneCountry,
 } from 'libphonenumber-js/max';
+
+import { countryName } from '@/lib/countries';
 
 export type { PhoneCountry };
 
@@ -15,6 +19,31 @@ export const DEFAULT_PHONE_COUNTRY: PhoneCountry = 'CO';
 export function toE164(number: string, country: PhoneCountry) {
   const phone = parsePhoneNumberFromString(number, country);
   return phone?.isValid() ? phone.number : null;
+}
+
+// El país del indicativo cuando la persona escribe o pega el número con `+` (por ejemplo,
+// copiado de WhatsApp), para que el selector de país lo siga. Sin `+`, o mientras el número
+// no alcanza para saberlo, undefined.
+export function phoneCountryOf(number: string) {
+  if (!number.trim().startsWith('+')) return undefined;
+  return parsePhoneNumberFromString(number)?.country;
+}
+
+// Opciones del selector de país del teléfono: Colombia primero y los demás por nombre. Son
+// los países con indicativo propio, no la lista de nacionalidades (que trae territorios sin
+// teléfono, como la Antártida).
+export function phoneCountryOptions() {
+  const collator = new Intl.Collator('es', { sensitivity: 'base' });
+  const option = (code: PhoneCountry) => ({
+    code,
+    name: countryName(code),
+    callingCode: getCountryCallingCode(code),
+  });
+  const others = getCountries()
+    .filter((code) => code !== DEFAULT_PHONE_COUNTRY)
+    .map(option)
+    .sort((a, b) => collator.compare(a.name, b.name));
+  return [option(DEFAULT_PHONE_COUNTRY), ...others];
 }
 
 // País y número nacional de un E.164 guardado, para llenar el formulario de edición. En un

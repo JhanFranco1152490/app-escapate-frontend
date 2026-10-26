@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
-import { formatPhone, splitPhone, toE164 } from './phone';
+import {
+  formatPhone,
+  phoneCountryOf,
+  phoneCountryOptions,
+  splitPhone,
+  toE164,
+} from './phone';
 
 describe('toE164', () => {
   it.each([
@@ -25,6 +31,40 @@ describe('toE164', () => {
     ['no es un número', 'CO'],
   ] as const)('%s con %s no es válido', (number, country) => {
     expect(toE164(number, country)).toBeNull();
+  });
+});
+
+describe('phoneCountryOf', () => {
+  it('reconoce el país de un número escrito con su indicativo', () => {
+    expect(phoneCountryOf('+51 987 654 321')).toBe('PE');
+    expect(phoneCountryOf('+58 412 555 0101')).toBe('VE');
+    expect(phoneCountryOf('+1 809 555 1234')).toBe('DO');
+  });
+
+  it('sin + o con muy pocos dígitos no decide nada', () => {
+    expect(phoneCountryOf('300 111 2233')).toBeUndefined();
+    expect(phoneCountryOf('+5')).toBeUndefined();
+  });
+});
+
+describe('phoneCountryOptions', () => {
+  it('pone Colombia primero, con su indicativo', () => {
+    const options = phoneCountryOptions();
+
+    expect(options[0]).toEqual({
+      code: 'CO',
+      name: 'Colombia',
+      callingCode: '57',
+    });
+    expect(options.find((option) => option.code === 'VE')?.callingCode).toBe(
+      '58',
+    );
+  });
+
+  it('no incluye territorios sin indicativo propio', () => {
+    expect(
+      phoneCountryOptions().some((option) => (option.code as string) === 'AQ'),
+    ).toBe(false);
   });
 });
 
