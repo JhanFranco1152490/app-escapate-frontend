@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import {
+  ageOn,
   formatDateTime,
   formatLongDate,
   formatShortDateTime,
@@ -18,6 +19,20 @@ describe('todayInBogota', () => {
     vi.setSystemTime(new Date('2026-10-06T03:30:00Z'));
 
     expect(todayInBogota()).toBe('2026-10-05');
+  });
+});
+
+describe('ageOn', () => {
+  it.each([
+    ['2008-10-25', '2026-10-24', 17],
+    ['2008-10-25', '2026-10-25', 18],
+    ['2008-10-25', '2026-12-31', 18],
+    ['2026-10-25', '2026-10-25', 0],
+    // Quien nació un 29 de febrero cumple años el 1 de marzo en los años no bisiestos.
+    ['2008-02-29', '2026-02-28', 17],
+    ['2008-02-29', '2026-03-01', 18],
+  ])('nacido el %s, el %s tiene %i años', (birthDate, day, age) => {
+    expect(ageOn(birthDate, day)).toBe(age);
   });
 });
 

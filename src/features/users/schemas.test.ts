@@ -1,11 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import {
-  createUserSchema,
-  normalizeDocument,
-  normalizePhone,
-  userSchema,
-} from './schemas';
+import { createUserSchema, normalizePhone, userSchema } from './schemas';
 
 const valid = {
   first_name: 'Laura',
@@ -23,13 +18,6 @@ const errorsOf = (values: Record<string, unknown>) => {
     result.error.issues.map((issue) => [issue.path.join('.'), issue.message]),
   );
 };
-
-describe('normalizeDocument', () => {
-  it('quita espacios, puntos y guiones y pasa a mayúsculas', () => {
-    expect(normalizeDocument(' 1.090-123 456 ')).toBe('1090123456');
-    expect(normalizeDocument('ab-12.345')).toBe('AB12345');
-  });
-});
 
 describe('normalizePhone', () => {
   it.each([

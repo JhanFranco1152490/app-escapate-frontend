@@ -8,6 +8,19 @@ const BOGOTA = tz('America/Bogota');
 export const todayInBogota = () =>
   format(new Date(), 'yyyy-MM-dd', { in: BOGOTA });
 
+// Años cumplidos el día `day` por alguien nacido en `birthDate` (los dos yyyy-MM-dd, sin
+// zona horaria). Quien nació un 29 de febrero los cumple el 1 de marzo en los años no
+// bisiestos, igual que en la API.
+export function ageOn(birthDate: string, day: string) {
+  const [birthYear, birthMonthDay] = [
+    birthDate.slice(0, 4),
+    birthDate.slice(5),
+  ];
+  const [year, monthDay] = [day.slice(0, 4), day.slice(5)];
+  const birthdayPassed = monthDay >= birthMonthDay;
+  return Number(year) - Number(birthYear) - (birthdayPassed ? 0 : 1);
+}
+
 // Momento exacto (ISO con zona) mostrado con la hora de Bogotá.
 export const formatDateTime = (isoDateTime: string) =>
   format(parseISO(isoDateTime), "d 'de' MMMM 'de' yyyy, h:mm aaaa", {
