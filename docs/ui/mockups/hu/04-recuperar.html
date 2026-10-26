@@ -1,38 +1,69 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="theme-dark">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Recuperar contraseña</title>
-<link rel="stylesheet" href="panel.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&amp;display=swap">
+<link rel="stylesheet" href="../../design-system/tokens.css">
+<link rel="stylesheet" href="../_mockup.css">
 </head>
 <body>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap">
-<style>body{margin:0}</style>
-<div class="auth">
-  <section class="auth-l">
-    <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
-    <div>
-      <h2>Recupera el acceso a tu cuenta.</h2>
-      <p>Te enviaremos un enlace seguro al correo registrado para que definas una contraseña nueva.</p>
+<div class="mockup-frame" style="width: 1440px; height: 900px; box-sizing: border-box; display: flex; background: #0C1B2F;">
+
+  <div style="width: 800px; height: 900px; position: relative; overflow: hidden; flex-shrink: 0;">
+    <img src="../../assets/local-lounge.jpg" alt="Sala de espera de la oficina de Escápate en Cúcuta" style="position: absolute; inset: 0; width: 800px; height: 900px; object-fit: cover; object-position: 38% 50%;">
+    <div style="position: absolute; inset: 0; background: linear-gradient(176deg, rgba(12,27,47,0.42) 0%, rgba(12,27,47,0.70) 46%, rgba(12,27,47,0.97) 100%);"></div>
+    <div style="position: relative; height: 900px; box-sizing: border-box; padding: 56px 64px 60px; display: flex; flex-direction: column; justify-content: space-between;">
+      <img src="../../assets/escapate-logo-mono-white.png" alt="Escápate — Agencia de viajes" style="width: 214px; height: 130px; object-fit: contain; object-position: left top; align-self: flex-start;">
+      <div style="display: flex; flex-direction: column; gap: 22px; max-width: 560px;">
+        <div style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(245,241,233,0.72);">Panel interno · Operación</div>
+        <h1 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 62px; line-height: 1.0; letter-spacing: -0.03em; color: #F5F1E9;">Tu viaje <em style="font-style: italic; font-weight: 600; color: #F0A04B;">empieza</em> aquí.</h1>
+        <p style="margin: 0; font-size: 15px; line-height: 1.65; color: rgba(245,241,233,0.78); max-width: 430px;">Del otro lado del mostrador, la misma marca que ve el viajero. Aquí se registran los clientes, se arman las cotizaciones y se cierran las reservas.</p>
+        <div style="height: 1px; background: rgba(245,241,233,0.20); width: 100%; margin-top: 10px;"></div>
+        <div style="display: flex; align-items: center; gap: 14px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245,241,233,0.62);">
+          <span>Cúcuta</span>
+          <span style="color: #E8732A;">·</span>
+          <span>Norte de Santander</span>
+          <span style="color: #E8732A;">·</span>
+          <span>Colombia</span>
+        </div>
+      </div>
     </div>
-    <span class="mono" style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;opacity:.6">Acceso solo para personal autorizado</span>
-  </section>
-  <section class="auth-r">
-    <form class="auth-card" novalidate>
-      <div>
-        <p class="eyebrow" style="color:rgb(240 160 75)">Paso 1 de 2</p>
-        <h1 style="margin-top:8px">Recuperar contraseña</h1>
+  </div>
+
+  <div style="width: 640px; height: 900px; box-sizing: border-box; background: #11233E; padding: 0 76px; display: flex; flex-direction: column; justify-content: center; gap: 30px; flex-shrink: 0;">
+
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <div style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(245,241,233,0.70);">Acceso · Recuperar contraseña · Paso 1 de 2</div>
+      <h2 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 40px; line-height: 1.08; letter-spacing: -0.025em; color: #F5F1E9;">Recupera tu acceso</h2>
+      <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: rgba(245,241,233,0.74);">Escribe el correo con el que te registraron en el panel. Te enviaremos un enlace seguro para definir una contraseña nueva.</p>
+    </div>
+    <div role="status" style="display: flex; align-items: flex-start; gap: 11px; padding: 13px 15px; border: 1px solid rgba(94,188,123,0.48); background: rgba(94,188,123,0.10); border-radius: 4px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5EBC7B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 1px;"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><span style="font-size: 13.5px; line-height: 1.5; color: #F5F1E9;"><b>Solicitud enviada.</b> Si el correo está registrado, recibirás un enlace para restablecer tu contraseña. El enlace vence en 30 minutos.</span></div>
+    <form style="display: flex; flex-direction: column; gap: 20px;">
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <label for="rec-email" style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(245,241,233,0.72);">Correo electrónico</label>
+        <div style="position: relative; display: flex; align-items: center;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(245,241,233,0.55)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: absolute; left: 15px;"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          <input id="rec-email" type="email" value="laura.rojas@escapate.example" style="width: 100%; height: 50px; box-sizing: border-box; padding: 0 16px 0 44px; background: #0C1B2F; border: 1px solid rgba(245,241,233,0.18); border-radius: 4px; color: #F5F1E9; font-family: 'Inter', sans-serif; font-size: 14.5px;">
+        </div>
+        
       </div>
-      <p class="help" style="font-size:14px;line-height:1.5">Escribe el correo con el que te registraron en el panel.</p>
-      <div class="fld">
-        <label class="lbl" for="email">Correo electrónico<s>*</s></label>
-        <input class="in" id="email" type="email" value="laura.rojas@escapate.example" autocomplete="username">
-      </div>
-      <div class="alert ok" role="status"><div><b>Solicitud enviada.</b><br>Si el correo está registrado, recibirás un enlace para restablecer tu contraseña. El enlace vence en 30 minutos.</div></div>
-      <button class="btn pri" type="submit">Enviar enlace</button>
-      <a class="lnk" href="01-login.html">Volver a iniciar sesión</a>
+      <button type="button" onclick="location.href='05-restablecer.html'" style="height: 54px; display: flex; align-items: center; justify-content: center; gap: 10px; background: #E8732A; color: #0C1B2F; border: 0; border-radius: 4px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 15px;">Enviar enlace</button>
+      <a href="../01-login.html" style="text-align: center; font-size: 13.5px;">Volver a iniciar sesión</a>
     </form>
-  </section>
+
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+      <div style="height: 1px; background: rgba(245,241,233,0.14);"></div>
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(245,241,233,0.58);">
+        <span>Escápate · Panel interno v1.0</span>
+      </div>
+    </div>
+
+  </div>
 </div>
+<script src="../_mockup.js"></script>
+<span data-trace style="position:absolute;top:16px;right:20px;z-index:5;font:400 9.5px 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border:1px solid #E8732A;border-radius:3px;color:#f5f1e9;background:rgba(12,27,47,.6);white-space:nowrap">HU-01 · RF-01</span>
+<span data-trace style="position:absolute;top:16px;right:20px;z-index:5;font:400 9.5px 'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border:1px solid #E8732A;border-radius:3px;color:#f5f1e9;background:rgba(12,27,47,.6);white-space:nowrap">HU-02 · RF-01</span>
 </body>
 </html>
