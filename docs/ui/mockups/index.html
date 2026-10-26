@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Prototipo navegable · Escápate</title>
+    <link rel="stylesheet" href="hu/panel.css" />
+  </head>
+  <body>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap"
+    />
+    <style>
+      body {
+        margin: 0;
+      }
+      .wrap {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 44px 32px 64px;
+        display: flex;
+        flex-direction: column;
+        gap: 26px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+      }
+      ol.rec {
+        margin: 0;
+        padding: 8px 24px 18px 44px;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      ol.rec li {
+        padding: 7px 0;
+        border-bottom: 1px solid rgb(var(--panel-line) / 0.08);
+        font-size: 14px;
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      ol.rec li span {
+        font:
+          400 10.5px 'JetBrains Mono',
+          monospace;
+        color: rgb(var(--panel-line) / 0.7);
+        white-space: nowrap;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Escápate · Panel interno</p>
+        <h1 class="h1">Prototipo navegable</h1>
+        <p class="ctx">
+          Pantallas de alta fidelidad de las 51 historias de usuario. Se abre
+          con doble clic, sin instalar nada. El menú lateral, las pestañas de la
+          cotización y los botones principales llevan a la pantalla siguiente;
+          los recorridos de abajo siguen el orden natural del trabajo. Los datos
+          son de ejemplo.
+        </p>
+      </div>
+      <div class="alert info">
+        <div>
+          <b>Cómo recorrerlo.</b> Elige un recorrido, abre la primera pantalla y
+          avanza con el menú o con los botones. Cada pantalla muestra arriba a
+          la derecha la historia de usuario (HU) y el requerimiento (RF) que
+          atiende.
+        </div>
+      </div>
+      <div class="grid">
+        <section class="box">
+          <div class="box-h">
+            <h2>1 · Del cliente a la cotización</h2>
+            <span class="chip">Asesor comercial</span>
+          </div>
+          <ol class="rec">
+            <li>
+              <a href="hu/10-clientes.html">Lista de clientes</a
+              ><span>HU-06 · RF-04</span>
+            </li>
+            <li>
+              <a href="hu/14-solicitud-nueva.html"
+                >Registrar solicitud de viaje</a
+              ><span>HU-10 · RF-07</span>
+            </li>
+            <li>
+              <a href="hu/16-solicitudes.html">Lista de solicitudes</a
+              ><span>HU-11 · RF-07</span>
+            </li>
+            <li>
+              <a href="hu/17-solicitud-detalle.html"
+                >Detalle y edición de una solicitud</a
+              ><span>HU-11 · RF-07</span>
+            </li>
+            <li>
+              <a href="hu/18-borrador-alternativas.html"
+                >Borrador de alternativas</a
+              ><span>HU-12 · RF-08</span>
+            </li>
+            <li>
+              <a href="hu/57-cotizaciones.html">Lista de cotizaciones</a
+              ><span>HU-22 · RF-15</span>
+            </li>
+            <li>
+              <a href="hu/29-cotizacion-general.html"
+                >Cotización: información general</a
+              ><span>HU-22, HU-23 · RF-15</span>
+            </li>
+            <li>
+              <a href="hu/30-cotizacion-servicios.html"
+                >Cotización: configurar servicios</a
+              ><span>HU-24 · RF-16</span>
+            </li>
+            <li>
+              <a href="hu/31-cotizacion-alternativas.html"
+                >Cotización: alternativas y opcionales</a
+              ><span>HU-25, HU-26 · RF-17</span>
+            </li>
+            <li>
+              <a href="hu/32-cotizacion-condiciones.html"
+                >Cotización: condiciones comerciales</a
+              ><span>HU-27 · RF-18</span>
+            </li>
+            <li>
+              <a href="hu/33-cotizacion-costos-precio.html"
+                >Cotización: costos, margen y precio de venta</a
+              ><span>HU-28, HU-29 · RF-19, RF-20</span>
+            </li>
+            <li>
+              <a href="hu/34-cotizacion-documento.html"
+                >Documento PDF de la cotización</a
+              ><span>HU-30 · RF-21</span>
+            </li>
+            <li>
+              <a href="hu/36-cotizacion-versiones.html"
+                >Versiones de la cotización</a
+              ><span>HU-31 · RF-22</span>
+            </li>
+          </ol>
+        </section>
+        <section class="box">
+          <div class="box-h">
+            <h2>2 · Seguimiento comercial</h2>
+            <span class="chip">Asesor comercial</span>
+          </div>
+          <ol class="rec">
+            <li>
+              <a href="hu/38-seguimientos.html"
+                >Lista de seguimientos comerciales</a
+              ><span>HU-35, HU-33 · RF-23</span>
+            </li>
+            <li>
+              <a href="hu/39-seguimiento-form.html"
+                >Programar y registrar resultado de seguimiento</a
+              ><span>HU-33, HU-34 · RF-23</span>
+            </li>
+            <li>
+              <a href="hu/40-alertas.html">Alertas de seguimiento</a
+              ><span>HU-36 · RF-24</span>
+            </li>
+          </ol>
+        </section>
+        <section class="box">
+          <div class="box-h">
+            <h2>3 · Vender y reservar</h2>
+            <span class="chip">Asesor comercial y operativo</span>
+          </div>
+          <ol class="rec">
+            <li>
+              <a href="hu/41-venta-registrar.html"
+                >Registrar venta desde una cotización aceptada</a
+              ><span>HU-37 · RF-25</span>
+            </li>
+            <li>
+              <a href="hu/42-ventas.html">Lista de ventas y viajes</a
+              ><span>HU-38 · RF-25</span>
+            </li>
+            <li>
+              <a href="hu/43-venta-detalle.html">Detalle de venta y viaje</a
+              ><span>HU-38 · RF-25</span>
+            </li>
+            <li>
+              <a href="hu/44-solicitud-reserva.html"
+                >Preparar solicitud de reserva</a
+              ><span>HU-39 · RF-27</span>
+            </li>
+            <li>
+              <a href="hu/45-reservas.html">Gestionar reservas</a
+              ><span>HU-40 · RF-26</span>
+            </li>
+          </ol>
+        </section>
+        <section class="box">
+          <div class="box-h">
+            <h2>4 · Cobrar y medir la rentabilidad</h2>
+            <span class="chip">Operativo y administrador</span>
+          </div>
+          <ol class="rec">
+            <li>
+              <a href="hu/46-pagos.html">Estado e historial de pagos</a
+              ><span>HU-42 · RF-28</span>
+            </li>
+            <li>
+              <a href="hu/47-pago-registrar.html">Registrar pago de cliente</a
+              ><span>HU-41 · RF-28</span>
+            </li>
+            <li>
+              <a href="hu/48-costos-reales.html"
+                >Costos reales de los servicios</a
+              ><span>HU-43 · RF-29</span>
+            </li>
+            <li>
+              <a href="hu/49-rentabilidad.html">Rentabilidad por venta</a
+              ><span>HU-44 · RF-30</span>
+            </li>
+            <li>
+              <a href="hu/50-gastos.html">Gastos operativos</a
+              ><span>HU-45 · RF-31</span>
+            </li>
+            <li>
+              <a href="hu/51-ingresos-egresos.html"
+                >Consulta de ingresos y egresos</a
+              ><span>HU-46 · RF-32</span>
+            </li>
+          </ol>
+        </section>
+        <section class="box">
+          <div class="box-h">
+            <h2>5 · Oferta de proveedores y paquetes</h2>
+            <span class="chip">Encargado de proveedores y asesor</span>
+          </div>
+          <ol class="rec">
+            <li>
+              <a href="hu/20-proveedores.html">Lista de proveedores</a
+              ><span>HU-14 · RF-09</span>
+            </li>
+            <li>
+              <a href="hu/21-proveedor-form.html"
+                >Registrar y editar proveedor</a
+              ><span>HU-14 · RF-09</span>
+            </li>
+            <li>
+              <a href="hu/22-servicio-form.html">Registrar servicio turístico</a
+              ><span>HU-15 · RF-10</span>
+            </li>
+            <li>
+              <a href="hu/23-tarifas.html">Tarifas de un servicio</a
+              ><span>HU-16 · RF-11</span>
+            </li>
+            <li>
+              <a href="hu/24-oferta-turistica.html"
+                >Consultar oferta turística</a
+              ><span>HU-17 · RF-09, RF-10, RF-11</span>
+            </li>
+            <li>
+              <a href="hu/25-paquetes.html">Catálogo de paquetes</a
+              ><span>HU-19 · RF-12</span>
+            </li>
+            <li>
+              <a href="hu/26-paquete-form.html">Crear y configurar paquete</a
+              ><span>HU-18, HU-19 · RF-12</span>
+            </li>
+            <li>
+              <a href="hu/27-paquete-precios.html">Precios del paquete</a
+              ><span>HU-20 · RF-13</span>
+            </li>
+            <li>
+              <a href="hu/28-cotizacion-desde-paquete.html"
+                >Generar cotización desde un paquete</a
+              ><span>HU-21 · RF-14</span>
+            </li>
+          </ol>
+        </section>
+        <section class="box">
+          <div class="box-h">
+            <h2>6 · Análisis de la agencia</h2>
+            <span class="chip">Administrador</span>
+          </div>
+          <ol class="rec">
+            <li>
+              <a href="hu/52-dashboard.html">Dashboard general</a
+              ><span>HU-47 · RF-33</span>
+            </li>
+            <li>
+              <a href="hu/53-indicadores-comerciales.html"
+                >Indicadores comerciales y turísticos</a
+              ><span>HU-48 · RF-34</span>
+            </li>
+            <li>
+              <a href="hu/54-indicadores-financieros.html"
+                >Indicadores financieros</a
+              ><span>HU-49 · RF-34</span>
+            </li>
+            <li>
+              <a href="hu/55-reportes.html">Generar reportes</a
+              ><span>HU-50 · RF-35</span>
+            </li>
+            <li>
+              <a href="hu/56-reporte-exportar.html"
+                >Reporte generado y exportación</a
+              ><span>HU-50, HU-51 · RF-35, RF-36</span>
+            </li>
+          </ol>
+        </section>
+        <section class="box">
+          <div class="box-h">
+            <h2>7 · Acceso y administración</h2>
+            <span class="chip">Todos y administrador</span>
+          </div>
+          <ol class="rec">
+            <li>
+              <a href="01-login.html">Inicio de sesión (alta fidelidad)</a
+              ><span>HU-01 · RF-01</span>
+            </li>
+            <li>
+              <a href="hu/04-recuperar.html">Recuperar contraseña</a
+              ><span>HU-02 · RF-01</span>
+            </li>
+            <li>
+              <a href="hu/05-restablecer.html">Restablecer contraseña</a
+              ><span>HU-02 · RF-01</span>
+            </li>
+            <li>
+              <a href="hu/06-usuarios.html">Lista de usuarios</a
+              ><span>HU-03 · RF-02</span>
+            </li>
+            <li>
+              <a href="hu/07-usuario-form.html">Registrar y editar usuario</a
+              ><span>HU-03 · RF-02</span>
+            </li>
+            <li>
+              <a href="hu/08-roles-permisos.html">Roles y permisos (matriz)</a
+              ><span>HU-04 · RF-03</span>
+            </li>
+            <li>
+              <a href="hu/09-asignar-rol.html">Asignar rol a un usuario</a
+              ><span>HU-05 · RF-03</span>
+            </li>
+          </ol>
+        </section>
+      </div>
+      <section class="box">
+        <div class="box-h"><h2>Todas las pantallas</h2></div>
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <colgroup>
+              <col style="width: 56%" />
+              <col style="width: 22%" />
+              <col style="width: 22%" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>Pantalla</th>
+                <th>HU</th>
+                <th>RF</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <a href="01-login.html">Inicio de sesión (alta fidelidad)</a>
+                </td>
+                <td class="m">HU-01</td>
+                <td class="m">RF-01</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/01-login.html">Iniciar sesión: campos vacíos</a>
+                </td>
+                <td class="m">HU-01</td>
+                <td class="m">RF-01</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/02-login-credenciales.html"
+                    >Iniciar sesión: credenciales no válidas</a
+                  >
+                </td>
+                <td class="m">HU-01</td>
+                <td class="m">RF-01</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/03-login-inactivo.html"
+                    >Iniciar sesión: cuenta inactiva</a
+                  >
+                </td>
+                <td class="m">HU-01</td>
+                <td class="m">RF-01</td>
+              </tr>
+              <tr>
+                <td><a href="hu/04-recuperar.html">Recuperar contraseña</a></td>
+                <td class="m">HU-02</td>
+                <td class="m">RF-01</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/05-restablecer.html">Restablecer contraseña</a>
+                </td>
+                <td class="m">HU-02</td>
+                <td class="m">RF-01</td>
+              </tr>
+              <tr>
+                <td><a href="hu/06-usuarios.html">Lista de usuarios</a></td>
+                <td class="m">HU-03</td>
+                <td class="m">RF-02</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/07-usuario-form.html"
+                    >Registrar y editar usuario</a
+                  >
+                </td>
+                <td class="m">HU-03</td>
+                <td class="m">RF-02</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/08-roles-permisos.html"
+                    >Roles y permisos (matriz)</a
+                  >
+                </td>
+                <td class="m">HU-04</td>
+                <td class="m">RF-03</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/09-asignar-rol.html">Asignar rol a un usuario</a>
+                </td>
+                <td class="m">HU-05</td>
+                <td class="m">RF-03</td>
+              </tr>
+              <tr>
+                <td><a href="hu/10-clientes.html">Lista de clientes</a></td>
+                <td class="m">HU-06</td>
+                <td class="m">RF-04</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/11-cliente-form.html"
+                    >Registrar y editar cliente</a
+                  >
+                </td>
+                <td class="m">HU-06</td>
+                <td class="m">RF-04</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/12-cliente-historial.html"
+                    >Historial del cliente</a
+                  >
+                </td>
+                <td class="m">HU-07</td>
+                <td class="m">RF-05</td>
+              </tr>
+              <tr>
+                <td><a href="hu/13-viajeros.html">Gestionar viajeros</a></td>
+                <td class="m">HU-08</td>
+                <td class="m">RF-06</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/15-solicitud-viajeros.html"
+                    >Asociar viajeros a la solicitud</a
+                  >
+                </td>
+                <td class="m">HU-09</td>
+                <td class="m">RF-06</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/14-solicitud-nueva.html"
+                    >Registrar solicitud de viaje</a
+                  >
+                </td>
+                <td class="m">HU-10</td>
+                <td class="m">RF-07</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/16-solicitudes.html">Lista de solicitudes</a>
+                </td>
+                <td class="m">HU-11</td>
+                <td class="m">RF-07</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/17-solicitud-detalle.html"
+                    >Detalle y edición de una solicitud</a
+                  >
+                </td>
+                <td class="m">HU-11</td>
+                <td class="m">RF-07</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/18-borrador-alternativas.html"
+                    >Borrador de alternativas</a
+                  >
+                </td>
+                <td class="m">HU-12</td>
+                <td class="m">RF-08</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/19-pendientes-cotizacion.html"
+                    >Solicitudes pendientes de cotización</a
+                  >
+                </td>
+                <td class="m">HU-13</td>
+                <td class="m">RF-07</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/20-proveedores.html">Lista de proveedores</a>
+                </td>
+                <td class="m">HU-14</td>
+                <td class="m">RF-09</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/21-proveedor-form.html"
+                    >Registrar y editar proveedor</a
+                  >
+                </td>
+                <td class="m">HU-14</td>
+                <td class="m">RF-09</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/22-servicio-form.html"
+                    >Registrar servicio turístico</a
+                  >
+                </td>
+                <td class="m">HU-15</td>
+                <td class="m">RF-10</td>
+              </tr>
+              <tr>
+                <td><a href="hu/23-tarifas.html">Tarifas de un servicio</a></td>
+                <td class="m">HU-16</td>
+                <td class="m">RF-11</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/24-oferta-turistica.html"
+                    >Consultar oferta turística</a
+                  >
+                </td>
+                <td class="m">HU-17</td>
+                <td class="m">RF-09, RF-10, RF-11</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/26-paquete-form.html"
+                    >Crear y configurar paquete</a
+                  >
+                </td>
+                <td class="m">HU-18, HU-19</td>
+                <td class="m">RF-12</td>
+              </tr>
+              <tr>
+                <td><a href="hu/25-paquetes.html">Catálogo de paquetes</a></td>
+                <td class="m">HU-19</td>
+                <td class="m">RF-12</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/27-paquete-precios.html">Precios del paquete</a>
+                </td>
+                <td class="m">HU-20</td>
+                <td class="m">RF-13</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/28-cotizacion-desde-paquete.html"
+                    >Generar cotización desde un paquete</a
+                  >
+                </td>
+                <td class="m">HU-21</td>
+                <td class="m">RF-14</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="03-nueva-cotizacion.html"
+                    >Nueva cotización: cliente, viaje, ítems y condiciones</a
+                  >
+                </td>
+                <td class="m">HU-22, HU-23</td>
+                <td class="m">RF-15</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/29-cotizacion-general.html"
+                    >Cotización: información general</a
+                  >
+                </td>
+                <td class="m">HU-22, HU-23</td>
+                <td class="m">RF-15</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/37-cotizacion-duplicar.html"
+                    >Lista de cotizaciones y duplicado de una cotización</a
+                  >
+                </td>
+                <td class="m">HU-22, HU-32</td>
+                <td class="m">RF-15</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/57-cotizaciones.html">Lista de cotizaciones</a>
+                </td>
+                <td class="m">HU-22</td>
+                <td class="m">RF-15</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/30-cotizacion-servicios.html"
+                    >Cotización: configurar servicios</a
+                  >
+                </td>
+                <td class="m">HU-24</td>
+                <td class="m">RF-16</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/31-cotizacion-alternativas.html"
+                    >Cotización: alternativas y opcionales</a
+                  >
+                </td>
+                <td class="m">HU-25, HU-26</td>
+                <td class="m">RF-17</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/32-cotizacion-condiciones.html"
+                    >Cotización: condiciones comerciales</a
+                  >
+                </td>
+                <td class="m">HU-27</td>
+                <td class="m">RF-18</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/33-cotizacion-costos-precio.html"
+                    >Cotización: costos, margen y precio de venta</a
+                  >
+                </td>
+                <td class="m">HU-28, HU-29</td>
+                <td class="m">RF-19, RF-20</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/34-cotizacion-documento.html"
+                    >Documento PDF de la cotización</a
+                  >
+                </td>
+                <td class="m">HU-30</td>
+                <td class="m">RF-21</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/35-cotizacion-documento-incompleto.html"
+                    >Documento PDF: información faltante</a
+                  >
+                </td>
+                <td class="m">HU-30</td>
+                <td class="m">RF-21</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/36-cotizacion-versiones.html"
+                    >Versiones de la cotización</a
+                  >
+                </td>
+                <td class="m">HU-31</td>
+                <td class="m">RF-22</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/38-seguimientos.html"
+                    >Lista de seguimientos comerciales</a
+                  >
+                </td>
+                <td class="m">HU-35, HU-33</td>
+                <td class="m">RF-23</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/39-seguimiento-form.html"
+                    >Programar y registrar resultado de seguimiento</a
+                  >
+                </td>
+                <td class="m">HU-33, HU-34</td>
+                <td class="m">RF-23</td>
+              </tr>
+              <tr>
+                <td><a href="hu/40-alertas.html">Alertas de seguimiento</a></td>
+                <td class="m">HU-36</td>
+                <td class="m">RF-24</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/41-venta-registrar.html"
+                    >Registrar venta desde una cotización aceptada</a
+                  >
+                </td>
+                <td class="m">HU-37</td>
+                <td class="m">RF-25</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/42-ventas.html">Lista de ventas y viajes</a>
+                </td>
+                <td class="m">HU-38</td>
+                <td class="m">RF-25</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/43-venta-detalle.html"
+                    >Detalle de venta y viaje</a
+                  >
+                </td>
+                <td class="m">HU-38</td>
+                <td class="m">RF-25</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/44-solicitud-reserva.html"
+                    >Preparar solicitud de reserva</a
+                  >
+                </td>
+                <td class="m">HU-39</td>
+                <td class="m">RF-27</td>
+              </tr>
+              <tr>
+                <td><a href="hu/45-reservas.html">Gestionar reservas</a></td>
+                <td class="m">HU-40</td>
+                <td class="m">RF-26</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/47-pago-registrar.html"
+                    >Registrar pago de cliente</a
+                  >
+                </td>
+                <td class="m">HU-41</td>
+                <td class="m">RF-28</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/46-pagos.html">Estado e historial de pagos</a>
+                </td>
+                <td class="m">HU-42</td>
+                <td class="m">RF-28</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/48-costos-reales.html"
+                    >Costos reales de los servicios</a
+                  >
+                </td>
+                <td class="m">HU-43</td>
+                <td class="m">RF-29</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/49-rentabilidad.html">Rentabilidad por venta</a>
+                </td>
+                <td class="m">HU-44</td>
+                <td class="m">RF-30</td>
+              </tr>
+              <tr>
+                <td><a href="hu/50-gastos.html">Gastos operativos</a></td>
+                <td class="m">HU-45</td>
+                <td class="m">RF-31</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/51-ingresos-egresos.html"
+                    >Consulta de ingresos y egresos</a
+                  >
+                </td>
+                <td class="m">HU-46</td>
+                <td class="m">RF-32</td>
+              </tr>
+              <tr>
+                <td><a href="hu/52-dashboard.html">Dashboard general</a></td>
+                <td class="m">HU-47</td>
+                <td class="m">RF-33</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/53-indicadores-comerciales.html"
+                    >Indicadores comerciales y turísticos</a
+                  >
+                </td>
+                <td class="m">HU-48</td>
+                <td class="m">RF-34</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/54-indicadores-financieros.html"
+                    >Indicadores financieros</a
+                  >
+                </td>
+                <td class="m">HU-49</td>
+                <td class="m">RF-34</td>
+              </tr>
+              <tr>
+                <td><a href="hu/55-reportes.html">Generar reportes</a></td>
+                <td class="m">HU-50</td>
+                <td class="m">RF-35</td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="hu/56-reporte-exportar.html"
+                    >Reporte generado y exportación</a
+                  >
+                </td>
+                <td class="m">HU-50, HU-51</td>
+                <td class="m">RF-35, RF-36</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

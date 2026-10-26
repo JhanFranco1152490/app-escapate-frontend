@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Solicitud de reserva</title>
+    <link rel="stylesheet" href="panel.css" />
+  </head>
+  <body>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap"
+    />
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+    <div class="app" style="position: relative">
+      <aside class="side">
+        <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
+        <nav class="nav" aria-label="Navegación principal">
+          <div class="nav-g">
+            <div class="nav-h">Operación</div>
+            <a href="42-ventas.html"><i>01</i>Ventas y viajes</a
+            ><a href="45-reservas.html" aria-current="page"><i>02</i>Reservas</a
+            ><a href="46-pagos.html"><i>03</i>Pagos de clientes</a>
+          </div>
+        </nav>
+        <div class="me">
+          <span class="av">DP</span>
+          <div>
+            <p>Diana Pérez</p>
+            <small>Operativo</small>
+          </div>
+        </div>
+      </aside>
+      <div class="main">
+        <header class="top">
+          <span class="crumb">Reservas / <b>Solicitud de reserva</b></span>
+          <span class="tag">HU-39 · RF-27</span>
+          <div class="who">Diana Pérez<small>Operativo</small></div>
+        </header>
+        <main class="content">
+          <div class="head">
+            <div>
+              <p class="eyebrow">Reservas / VTA-0087</p>
+              <h1 class="h1">Preparar solicitud de reserva</h1>
+              <p class="ctx">
+                Genera el texto con los datos de la venta; revísalo antes de
+                usarlo en el canal externo.
+              </p>
+            </div>
+            <div class="acts"></div>
+          </div>
+          <div class="split">
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+                min-width: 0;
+              "
+            >
+              <section class="box">
+                <div class="box-h"><h2>Contenido de la solicitud</h2></div>
+                <div class="box-b">
+                  <div class="g2">
+                    <div class="fld">
+                      <label class="lbl" for="f83153">Servicio</label
+                      ><input
+                        class="in"
+                        id="f83153"
+                        value="Hotel Muralla Real · 5 noches"
+                        placeholder=""
+                        readonly
+                      />
+                    </div>
+                    <div class="fld">
+                      <label class="lbl" for="f3667">Proveedor</label
+                      ><input
+                        class="in"
+                        id="f3667"
+                        value="Casa Colonial S.A.S."
+                        placeholder=""
+                        readonly
+                      />
+                    </div>
+                    <div class="fld">
+                      <span class="lbl"
+                        >Canal que usará el operativo<s>*</s></span
+                      >
+                      <div class="sel" style="width: 100%">
+                        Correo electrónico
+                      </div>
+                      <p class="help">
+                        El mensaje se usa fuera del sistema (correo o WhatsApp).
+                      </p>
+                    </div>
+                    <div class="fld">
+                      <label class="lbl" for="f87476"
+                        >Contacto del proveedor</label
+                      ><input
+                        class="in"
+                        id="f87476"
+                        value="reservas@casacolonial.example.com"
+                        placeholder=""
+                        readonly
+                      />
+                    </div>
+                    <div class="fld span2">
+                      <label class="lbl" for="f11994">Mensaje</label
+                      ><textarea class="in" id="f11994">
+Buenos días. Solicitamos reserva para 2 adultos y 2 niños (9 y 5 años), del 05 al 10 de octubre de 2026, habitación familiar, régimen desayuno. Cliente: Familia Suárez Mora. Venta VTA-0087. Agradecemos confirmar disponibilidad y localizador.</textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="box-f">
+                  <a class="btn" href="#">Cancelar</a
+                  ><a class="btn pri" href="#">Copiar contenido</a>
+                </div>
+              </section>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 24px">
+              <section class="box">
+                <div class="box-h"><h2>Datos tomados de la venta</h2></div>
+                <div class="box-b">
+                  <div class="chk-l">
+                    <div><i>✓</i><span>Proveedor identificado</span></div>
+                    <div><i>✓</i><span>Viajeros (4) y edades</span></div>
+                    <div><i>✓</i><span>Fechas del servicio</span></div>
+                    <div>
+                      <i class="x">!</i
+                      ><span
+                        >Falta el <b>tipo de habitación</b> solicitado por el
+                        cliente</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <section class="box">
+                <div class="box-h"><h2>Otros servicios por reservar</h2></div>
+                <div class="box-b">
+                  <div class="chk-l">
+                    <div><i>1</i><span>Traslados aeropuerto – hotel</span></div>
+                    <div><i>2</i><span>Tour Islas del Rosario</span></div>
+                  </div>
+                  <a class="btn sm" href="#">Preparar otra solicitud</a>
+                </div>
+              </section>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tipografía</title>
+    <link rel="stylesheet" href="../mockups/hu/panel.css" />
+  </head>
+  <body>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap"
+    /><style>
+      body {
+        margin: 0;
+        background: rgb(var(--panel-canvas));
+      }
+      .sheet {
+        width: 1180px;
+        padding: 36px 40px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+      }
+      h2.t {
+        font:
+          600 22px 'Playfair Display',
+          serif;
+        margin: 0;
+        letter-spacing: -0.02em;
+      }
+      .cap {
+        font:
+          400 10px 'JetBrains Mono',
+          monospace;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgb(var(--panel-line) / 0.7);
+      }
+      .sw {
+        width: auto;
+        height: auto;
+        border-radius: 0;
+        background: none;
+        position: static;
+      }
+      .sw:after {
+        display: none;
+      }
+    </style>
+    <div class="sheet">
+      <h2 class="t">Tipografía</h2>
+      <div
+        class="box"
+        style="
+          padding: 20px 24px;
+          display: grid;
+          grid-template-columns: 230px 1fr;
+          gap: 24px;
+          align-items: center;
+        "
+      >
+        <div>
+          <b style="font-size: 15px">Playfair Display</b>
+          <div
+            style="
+              font-size: 12px;
+              color: rgb(var(--panel-line) / 0.7);
+              margin-top: 6px;
+              line-height: 1.5;
+            "
+          >
+            Titulares de página y de sección, y cifras destacadas. Pesos 600 y
+            700.
+          </div>
+        </div>
+        <div
+          style="
+            font:
+              600 40px 'Playfair Display',
+              serif;
+            letter-spacing: -0.03em;
+          "
+        >
+          Cotización ESC-2615
+          <div
+            style="
+              font-size: 15px;
+              font-weight: 400;
+              margin-top: 6px;
+              font-family: Inter;
+            "
+          >
+            Página 38–40 px · sección 19–23 px · cifras 29–30 px
+          </div>
+        </div>
+      </div>
+      <div
+        class="box"
+        style="
+          padding: 20px 24px;
+          display: grid;
+          grid-template-columns: 230px 1fr;
+          gap: 24px;
+          align-items: center;
+        "
+      >
+        <div>
+          <b style="font-size: 15px">Inter</b>
+          <div
+            style="
+              font-size: 12px;
+              color: rgb(var(--panel-line) / 0.7);
+              margin-top: 6px;
+              line-height: 1.5;
+            "
+          >
+            Texto de lectura, formularios, botones y tablas. Pesos 400, 500 y
+            600.
+          </div>
+        </div>
+        <div
+          style="
+            font:
+              400 14px Inter,
+              sans-serif;
+            line-height: 1.55;
+          "
+        >
+          Registra lo que el cliente pide y sus condiciones. Cada solicitud es
+          un proceso independiente.
+          <div
+            style="
+              margin-top: 6px;
+              color: rgb(var(--panel-line) / 0.7);
+              font-size: 12px;
+            "
+          >
+            Ayuda y apoyo 12 px
+          </div>
+        </div>
+      </div>
+      <div
+        class="box"
+        style="
+          padding: 20px 24px;
+          display: grid;
+          grid-template-columns: 230px 1fr;
+          gap: 24px;
+          align-items: center;
+        "
+      >
+        <div>
+          <b style="font-size: 15px">JetBrains Mono</b>
+          <div
+            style="
+              font-size: 12px;
+              color: rgb(var(--panel-line) / 0.7);
+              margin-top: 6px;
+              line-height: 1.5;
+            "
+          >
+            Etiquetas de campo, estados, códigos e importes. Mayúsculas con
+            espaciado de 0,16 em.
+          </div>
+        </div>
+        <div
+          style="
+            font:
+              400 11px 'JetBrains Mono',
+              monospace;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+          "
+        >
+          CÓDIGO · ESTADO · FECHA
+          <div
+            style="
+              font:
+                400 12.5px 'JetBrains Mono',
+                monospace;
+              margin-top: 8px;
+              letter-spacing: 0;
+            "
+          >
+            ESC-2615 &nbsp; $ 6.732.000 &nbsp; 18 dic 2026
+          </div>
+        </div>
+      </div>
+      <div class="box" style="padding: 18px 24px">
+        <p class="cap" style="margin-bottom: 10px">Jerarquía en una pantalla</p>
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>Nivel</th>
+              <th>Fuente</th>
+              <th>Tamaño</th>
+              <th>Uso</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Eyebrow</td>
+              <td>JetBrains Mono</td>
+              <td class="m">10 px</td>
+              <td>Ruta del módulo, por ejemplo OPERACIÓN / 06</td>
+            </tr>
+            <tr>
+              <td>Título</td>
+              <td>Playfair Display 600</td>
+              <td class="m">38–40 px</td>
+              <td>Una vez por pantalla</td>
+            </tr>
+            <tr>
+              <td>Subtítulo de sección</td>
+              <td>Playfair Display 600</td>
+              <td class="m">19–23 px</td>
+              <td>Encabezado de cada tarjeta</td>
+            </tr>
+            <tr>
+              <td>Texto</td>
+              <td>Inter 400–500</td>
+              <td class="m">13,5–14 px</td>
+              <td>Contenido, tablas y formularios</td>
+            </tr>
+            <tr>
+              <td>Etiqueta de campo</td>
+              <td>JetBrains Mono</td>
+              <td class="m">10 px</td>
+              <td>Mayúsculas, color secundario</td>
+            </tr>
+            <tr>
+              <td>Importe</td>
+              <td>JetBrains Mono</td>
+              <td class="m">12,5 px</td>
+              <td>Alineado a la derecha</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
