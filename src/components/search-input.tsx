@@ -8,6 +8,8 @@ import { Input } from '@/components/ui/input';
 const DEBOUNCE_MS = 300;
 
 type SearchInputProps = {
+  // Para asociarlo a una etiqueta visible; sin ella basta `label`.
+  id?: string;
   value: string;
   onValueChange: (value: string) => void;
   label: string;
@@ -18,6 +20,7 @@ type SearchInputProps = {
 // Muestra lo escrito al instante y avisa del cambio solo cuando la persona deja de escribir,
 // para no pedir una lista nueva por cada tecla.
 export function SearchInput({
+  id,
   value,
   onValueChange,
   label,
@@ -56,6 +59,7 @@ export function SearchInput({
         className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-muted-foreground"
       />
       <Input
+        id={id}
         type="search"
         aria-label={label}
         placeholder={placeholder}
