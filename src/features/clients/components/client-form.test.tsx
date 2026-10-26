@@ -225,6 +225,24 @@ describe('ClientForm', () => {
     expect(field('Número de documento')).toHaveFocus();
   });
 
+  it('la ciudad sugiere ciudades frecuentes pero acepta cualquier otra', async () => {
+    const { onSubmit, user } = renderForm();
+    const city = field('Ciudad');
+    const suggestions = document.getElementById(city.getAttribute('list')!)!;
+
+    expect(
+      [...suggestions.querySelectorAll('option')].map((option) => option.value),
+    ).toEqual(expect.arrayContaining(['Cúcuta', 'Villa del Rosario']));
+    await fillPerson(user);
+    await typeInto(user, city, 'Valencia');
+    await user.click(screen.getByRole('checkbox'));
+    await submit(user);
+
+    expect(onSubmit).toHaveBeenCalledWith(
+      expect.objectContaining({ city: 'Valencia' }),
+    );
+  });
+
   it('en la edición no deja cambiar el tipo ni pide la autorización', async () => {
     const onSubmit = vi.fn().mockResolvedValue(undefined);
     const { user } = renderForm({

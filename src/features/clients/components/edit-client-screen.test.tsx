@@ -54,7 +54,7 @@ const renderScreen = async () => {
 };
 
 async function replace(user: UserEvent, label: RegExp, text: string) {
-  const field = screen.getByRole('textbox', { name: label });
+  const field = screen.getByLabelText(label);
   await user.clear(field);
   await user.click(field);
   await user.paste(text);
@@ -108,7 +108,7 @@ describe('EditClientScreen', () => {
     await save(user);
 
     expect(await screen.findByText(STALE_MESSAGE)).toBeInTheDocument();
-    expect(screen.getByRole('textbox', { name: /Ciudad/ })).toHaveValue(
+    expect(screen.getByRole('combobox', { name: /Ciudad/ })).toHaveValue(
       'Bogotá',
     );
     expect(router.push).not.toHaveBeenCalled();
@@ -118,7 +118,7 @@ describe('EditClientScreen', () => {
     await user.click(screen.getByRole('button', { name: 'Recargar' }));
 
     await waitFor(() =>
-      expect(screen.getByRole('textbox', { name: /Ciudad/ })).toHaveValue(
+      expect(screen.getByRole('combobox', { name: /Ciudad/ })).toHaveValue(
         'Pamplona',
       ),
     );
