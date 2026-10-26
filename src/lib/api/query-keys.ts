@@ -18,4 +18,18 @@ export const queryKeys = {
     detail: (id: number) => ['roles', 'detail', id] as const,
   },
   permissions: () => ['permissions'] as const,
+  clients: {
+    all: () => ['clients'] as const,
+    lists: () => ['clients', 'list'] as const,
+    list: (filters: Record<string, unknown>) =>
+      ['clients', 'list', filters] as const,
+    detail: (id: number) => ['clients', 'detail', id] as const,
+  },
+  travelers: {
+    all: () => ['travelers'] as const,
+    lists: () => ['travelers', 'list'] as const,
+    list: (filters: Record<string, unknown>) =>
+      ['travelers', 'list', filters] as const,
+    detail: (id: number) => ['travelers', 'detail', id] as const,
+  },
 };

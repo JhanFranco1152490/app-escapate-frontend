@@ -1,21 +1,24 @@
+import {
+  clearPageNotice,
+  readPageNotice,
+  setPageNotice,
+} from '@/lib/page-notice';
+
 // A dónde va el aviso: la página de un rol ("Rol creado.") o la lista ("Rol borrado.").
-type NoticeTarget = number | 'list';
-type RoleNotice = { target: NoticeTarget; text: string };
+export type RoleNoticeTarget = number | 'list';
 
-// Lleva el resultado de una acción a la pantalla siguiente en una navegación del lado del
-// cliente. Vive en memoria del módulo a propósito: se pierde al recargar, así el aviso no se
-// repite cada vez que se vuelve a abrir la pantalla.
-let notice: RoleNotice | undefined;
+export const roleNoticeKey = (target: RoleNoticeTarget) =>
+  target === 'list' ? 'roles' : `role:${target}`;
 
-export const setRoleNotice = (value: RoleNotice) => {
-  notice = value;
-};
+export const setRoleNotice = ({
+  target,
+  text,
+}: {
+  target: RoleNoticeTarget;
+  text: string;
+}) => setPageNotice({ target: roleNoticeKey(target), text });
 
-// Leer y borrar van por separado: en desarrollo React ejecuta dos veces el estado inicial, y
-// si la lectura borrara, la segunda ya no encontraría el aviso.
-export const readRoleNotice = (target: NoticeTarget) =>
-  notice?.target === target ? notice.text : undefined;
+export const readRoleNotice = (target: RoleNoticeTarget) =>
+  readPageNotice(roleNoticeKey(target));
 
-export const clearRoleNotice = () => {
-  notice = undefined;
-};
+export const clearRoleNotice = clearPageNotice;
