@@ -6,8 +6,8 @@ import { queryKeys } from '@/lib/api/query-keys';
 
 import { createQueryClient } from './query-client';
 
-const apiError = (status: number) =>
-  new ApiError(status, { detail: 'x', code: 'x', fields: {} });
+const apiError = (status: number, code = 'x') =>
+  new ApiError(status, { detail: 'x', code, fields: {} });
 
 function retryOf(client = createQueryClient()) {
   const retry = client.getDefaultOptions().queries?.retry;
@@ -29,6 +29,14 @@ describe('createQueryClient: reintentos', () => {
     expect(retry(1, apiError(503))).toBe(false);
     expect(retry(0, new TypeError('Failed to fetch'))).toBe(true);
     expect(retry(1, new TypeError('Failed to fetch'))).toBe(false);
+  });
+});
+
+describe('createQueryClient: al regresar a la pestaña', () => {
+  it('las consultas no se vuelven a pedir (solo la sesión lo pide aparte)', () => {
+    const queries = createQueryClient().getDefaultOptions().queries;
+
+    expect(queries?.refetchOnWindowFocus).toBe(false);
   });
 });
 
@@ -67,6 +75,46 @@ describe('createQueryClient: sesión vencida', () => {
       .fetchQuery({
         queryKey: queryKeys.session(),
         queryFn: () => Promise.reject(apiError(401)),
+      })
+      .catch(() => undefined);
+
+    expect(invalidate).not.toHaveBeenCalled();
+  });
+
+  it('un permiso negado en una consulta invalida la sesión', async () => {
+    const client = createQueryClient();
+    const invalidate = vi.spyOn(client, 'invalidateQueries');
+
+    await client
+      .fetchQuery({
+        queryKey: ['things'],
+        queryFn: () => Promise.reject(apiError(403, 'permission_denied')),
+      })
+      .catch(() => undefined);
+
+    expect(invalidate).toHaveBeenCalledWith({ queryKey: queryKeys.session() });
+  });
+
+  it('un permiso negado en una mutación invalida la sesión', async () => {
+    const client = createQueryClient();
+    const invalidate = vi.spyOn(client, 'invalidateQueries');
+    const observer = new MutationObserver(client, {
+      mutationFn: () => Promise.reject(apiError(403, 'permission_denied')),
+    });
+
+    await observer.mutate().catch(() => undefined);
+
+    expect(invalidate).toHaveBeenCalledWith({ queryKey: queryKeys.session() });
+  });
+
+  it('la consulta de la sesión no se invalida por un permiso negado', async () => {
+    const client = createQueryClient();
+    const invalidate = vi.spyOn(client, 'invalidateQueries');
+
+    await client
+      .fetchQuery({
+        queryKey: queryKeys.session(),
+        queryFn: () => Promise.reject(apiError(403, 'permission_denied')),
       })
       .catch(() => undefined);
 

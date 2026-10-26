@@ -1,68 +1,184 @@
 <!doctype html>
 <html lang="es">
-<head>
-<meta charset="utf-8">
-<title>Nuevo proveedor</title>
-<link rel="stylesheet" href="panel.css">
-</head>
-<body>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap">
-<style>body{margin:0}</style>
-<div class="app" style="min-height:1100px">
-  <aside class="side">
-    <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
-    <nav class="nav" aria-label="Navegación principal"><div class="nav-g"><div class="nav-h">Proveedores</div><a href="24-oferta-turistica.html"><i>01</i>Oferta turística</a><a href="20-proveedores.html" aria-current="page"><i>02</i>Proveedores</a><a href="22-servicio-form.html"><i>03</i>Servicios</a><a href="23-tarifas.html"><i>04</i>Tarifas</a></div></nav>
-    <div class="me"><span class="av">SB</span><div><p>Sofía Barrios</p><small>Encargado de proveedores</small></div></div>
-  </aside>
-  <div class="main">
-    <header class="top"><span class="crumb">Oferta turística / Proveedores / <b>Nuevo</b></span><span class="tag">HU-14 · RF-09</span>
-          <div class="who">Sofía Barrios<small>Encargado de proveedores</small></div></header>
-    <main class="content">
-      <div class="head">
-        <div><p class="eyebrow">Oferta turística / 02</p><h1 class="h1">Nuevo proveedor</h1><p class="ctx">Datos de contacto, clasificación e información comercial para trabajar con él.</p></div>
+  <head>
+    <meta charset="utf-8" />
+    <title>Nuevo proveedor</title>
+    <link rel="stylesheet" href="panel.css" />
+  </head>
+  <body>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap"
+    />
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+    <div class="app" style="min-height: 1100px">
+      <aside class="side">
+        <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
+        <nav class="nav" aria-label="Navegación principal">
+          <div class="nav-g">
+            <div class="nav-h">Proveedores</div>
+            <a href="24-oferta-turistica.html"><i>01</i>Oferta turística</a
+            ><a href="20-proveedores.html" aria-current="page"
+              ><i>02</i>Proveedores</a
+            ><a href="22-servicio-form.html"><i>03</i>Servicios</a
+            ><a href="23-tarifas.html"><i>04</i>Tarifas</a>
+          </div>
+        </nav>
+        <div class="me">
+          <span class="av">SB</span>
+          <div>
+            <p>Sofía Barrios</p>
+            <small>Encargado de proveedores</small>
+          </div>
+        </div>
+      </aside>
+      <div class="main">
+        <header class="top">
+          <span class="crumb"
+            >Oferta turística / Proveedores / <b>Nuevo</b></span
+          ><span class="tag">HU-14 · RF-09</span>
+          <div class="who">
+            Sofía Barrios<small>Encargado de proveedores</small>
+          </div>
+        </header>
+        <main class="content">
+          <div class="head">
+            <div>
+              <p class="eyebrow">Oferta turística / 02</p>
+              <h1 class="h1">Nuevo proveedor</h1>
+              <p class="ctx">
+                Datos de contacto, clasificación e información comercial para
+                trabajar con él.
+              </p>
+            </div>
+          </div>
+          <div class="alert" role="alert">
+            <div>
+              <b>Faltan 2 campos obligatorios.</b><br />Nombre comercial y
+              correo del contacto.
+            </div>
+          </div>
+          <form
+            style="display: flex; flex-direction: column; gap: 20px"
+            novalidate
+          >
+            <div class="box">
+              <div class="box-h">
+                <h2>Identificación y clasificación</h2>
+                <span class="eyebrow">* Obligatorio</span>
+              </div>
+              <div class="box-b">
+                <div class="g3">
+                  <div class="fld">
+                    <label class="lbl" for="rs">Razón social<s>*</s></label
+                    ><input
+                      class="in"
+                      id="rs"
+                      value="Hoteles Mar Abierto S.A.S."
+                    />
+                  </div>
+                  <div class="fld">
+                    <label class="lbl" for="nit">NIT<s>*</s></label
+                    ><input class="in" id="nit" value="901.234.567-8" />
+                  </div>
+                  <div class="fld">
+                    <label class="lbl" for="nc">Nombre comercial<s>*</s></label
+                    ><input
+                      class="in"
+                      id="nc"
+                      aria-invalid="true"
+                      aria-describedby="nc-e"
+                    />
+                    <p class="err" id="nc-e">Ingresa el nombre comercial.</p>
+                  </div>
+                </div>
+                <div class="g3">
+                  <div class="fld">
+                    <label class="lbl" for="cl">Clasificación<s>*</s></label
+                    ><input class="in" id="cl" value="Alojamiento · Hotel" />
+                  </div>
+                  <div class="fld">
+                    <label class="lbl" for="ci">Ciudad</label
+                    ><input class="in" id="ci" value="Santa Marta" />
+                  </div>
+                  <div class="fld">
+                    <label class="lbl" for="zc">Zona de cobertura</label
+                    ><input class="in" id="zc" value="Caribe colombiano" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="box">
+              <div class="box-h"><h2>Contacto</h2></div>
+              <div class="box-b">
+                <div class="g3">
+                  <div class="fld">
+                    <label class="lbl" for="cn"
+                      >Persona de contacto<s>*</s></label
+                    ><input class="in" id="cn" value="Andrea Molina" />
+                  </div>
+                  <div class="fld">
+                    <label class="lbl" for="ce">Correo<s>*</s></label
+                    ><input
+                      class="in"
+                      id="ce"
+                      type="email"
+                      aria-invalid="true"
+                      aria-describedby="ce-e"
+                    />
+                    <p class="err" id="ce-e">Ingresa un correo de contacto.</p>
+                  </div>
+                  <div class="fld">
+                    <label class="lbl" for="ct">Teléfono</label
+                    ><input class="in" id="ct" value="605 555 0101" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="box">
+              <div class="box-h"><h2>Información comercial</h2></div>
+              <div class="box-b">
+                <div class="g3">
+                  <div class="fld">
+                    <label class="lbl" for="cp">Condiciones de pago</label
+                    ><input
+                      class="in"
+                      id="cp"
+                      value="50 % al reservar, saldo 15 días antes"
+                    />
+                  </div>
+                  <div class="fld">
+                    <label class="lbl" for="co">Comisión acordada</label
+                    ><input class="in" id="co" value="10 %" />
+                  </div>
+                  <div class="fld">
+                    <label class="lbl" for="vg">Vigencia del convenio</label
+                    ><input class="in" id="vg" value="31/12/2027" />
+                  </div>
+                </div>
+                <div class="fld">
+                  <label class="lbl" for="nt">Notas</label
+                  ><textarea
+                    class="in"
+                    id="nt"
+                    placeholder="Acuerdos especiales, restricciones, temporadas…"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="box-f">
+                <a class="btn" href="20-proveedores.html">Cancelar</a
+                ><button class="btn pri" type="submit">
+                  Guardar proveedor
+                </button>
+              </div>
+            </div>
+          </form>
+        </main>
       </div>
-      <div class="alert" role="alert"><div><b>Faltan 2 campos obligatorios.</b><br>Nombre comercial y correo del contacto.</div></div>
-      <form style="display:flex;flex-direction:column;gap:20px" novalidate>
-        <div class="box">
-          <div class="box-h"><h2>Identificación y clasificación</h2><span class="eyebrow">* Obligatorio</span></div>
-          <div class="box-b">
-            <div class="g3">
-              <div class="fld"><label class="lbl" for="rs">Razón social<s>*</s></label><input class="in" id="rs" value="Hoteles Mar Abierto S.A.S."></div>
-              <div class="fld"><label class="lbl" for="nit">NIT<s>*</s></label><input class="in" id="nit" value="901.234.567-8"></div>
-              <div class="fld"><label class="lbl" for="nc">Nombre comercial<s>*</s></label><input class="in" id="nc" aria-invalid="true" aria-describedby="nc-e"><p class="err" id="nc-e">Ingresa el nombre comercial.</p></div>
-            </div>
-            <div class="g3">
-              <div class="fld"><label class="lbl" for="cl">Clasificación<s>*</s></label><input class="in" id="cl" value="Alojamiento · Hotel"></div>
-              <div class="fld"><label class="lbl" for="ci">Ciudad</label><input class="in" id="ci" value="Santa Marta"></div>
-              <div class="fld"><label class="lbl" for="zc">Zona de cobertura</label><input class="in" id="zc" value="Caribe colombiano"></div>
-            </div>
-          </div>
-        </div>
-        <div class="box">
-          <div class="box-h"><h2>Contacto</h2></div>
-          <div class="box-b">
-            <div class="g3">
-              <div class="fld"><label class="lbl" for="cn">Persona de contacto<s>*</s></label><input class="in" id="cn" value="Andrea Molina"></div>
-              <div class="fld"><label class="lbl" for="ce">Correo<s>*</s></label><input class="in" id="ce" type="email" aria-invalid="true" aria-describedby="ce-e"><p class="err" id="ce-e">Ingresa un correo de contacto.</p></div>
-              <div class="fld"><label class="lbl" for="ct">Teléfono</label><input class="in" id="ct" value="605 555 0101"></div>
-            </div>
-          </div>
-        </div>
-        <div class="box">
-          <div class="box-h"><h2>Información comercial</h2></div>
-          <div class="box-b">
-            <div class="g3">
-              <div class="fld"><label class="lbl" for="cp">Condiciones de pago</label><input class="in" id="cp" value="50 % al reservar, saldo 15 días antes"></div>
-              <div class="fld"><label class="lbl" for="co">Comisión acordada</label><input class="in" id="co" value="10 %"></div>
-              <div class="fld"><label class="lbl" for="vg">Vigencia del convenio</label><input class="in" id="vg" value="31/12/2027"></div>
-            </div>
-            <div class="fld"><label class="lbl" for="nt">Notas</label><textarea class="in" id="nt" placeholder="Acuerdos especiales, restricciones, temporadas…"></textarea></div>
-          </div>
-          <div class="box-f"><a class="btn" href="20-proveedores.html">Cancelar</a><button class="btn pri" type="submit">Guardar proveedor</button></div>
-        </div>
-      </form>
-    </main>
-  </div>
-</div>
-</body>
+    </div>
+  </body>
 </html>

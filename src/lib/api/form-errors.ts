@@ -29,3 +29,29 @@ export function applyApiFieldErrors<T extends FieldValues>(
   }
   return result;
 }
+
+export type ApiFormErrorResult<Field extends string> = {
+  isValidation: boolean;
+  // El error no quedó entero en los campos: no es de validación, no marcó ninguno o trajo
+  // campos que el formulario no tiene. Quien llama muestra un aviso general.
+  needsNotice: boolean;
+  firstInvalid: Field | undefined;
+};
+
+// Lo que hace cada formulario al recibir un error de la API: marcar los campos y decidir si
+// hace falta un aviso general y a qué campo llevar el foco.
+export function applyApiFormError<T extends FieldValues>(
+  error: unknown,
+  setError: UseFormSetError<T>,
+  fields: readonly FieldPath<T>[],
+): ApiFormErrorResult<FieldPath<T>> {
+  const { applied, unmatched } = applyApiFieldErrors(error, setError, fields);
+  const isValidation = isApiError(error) && error.code === 'validation_error';
+  return {
+    isValidation,
+    needsNotice: !isValidation || !applied || unmatched.length > 0,
+    firstInvalid: isApiError(error)
+      ? fields.find((field) => error.fields[field]?.length)
+      : undefined,
+  };
+}

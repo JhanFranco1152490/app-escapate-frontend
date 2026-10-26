@@ -1,47 +1,166 @@
 <!doctype html>
 <html lang="es">
-<head>
-<meta charset="utf-8">
-<title>Solicitudes pendientes de cotización</title>
-<link rel="stylesheet" href="panel.css">
-</head>
-<body>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap">
-<style>body{margin:0}</style>
-<div class="app">
-  <aside class="side">
-    <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
-    <nav class="nav" aria-label="Navegación principal"><div class="nav-g"><div class="nav-h">Operación</div><a href="10-clientes.html"><i>01</i>Clientes</a><a href="13-viajeros.html"><i>02</i>Viajeros</a><a href="16-solicitudes.html"><i>03</i>Solicitudes</a><a href="19-pendientes-cotizacion.html" aria-current="page"><i>04</i>Por cotizar</a><a href="25-paquetes.html"><i>05</i>Paquetes</a><a href="57-cotizaciones.html"><i>06</i>Cotizaciones</a><a href="38-seguimientos.html"><i>07</i>Seguimientos</a><a href="40-alertas.html"><i>08</i>Alertas</a><a href="42-ventas.html"><i>09</i>Ventas</a></div></nav>
-    <div class="me"><span class="av">LR</span><div><p>Laura Rojas</p><small>Asesor comercial</small></div></div>
-  </aside>
-  <div class="main">
-    <header class="top"><span class="crumb">Operación / <b>Por cotizar</b></span><span class="tag">HU-13 · RF-07</span>
-          <div class="who">Laura Rojas<small>Asesor comercial</small></div></header>
-    <main class="content">
-      <div class="head">
-        <div><p class="eyebrow">Operación / 05</p><h1 class="h1">Por cotizar</h1><p class="ctx">Solicitudes que todavía no tienen cotización. Las más antiguas aparecen primero.</p></div>
+  <head>
+    <meta charset="utf-8" />
+    <title>Solicitudes pendientes de cotización</title>
+    <link rel="stylesheet" href="panel.css" />
+  </head>
+  <body>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap"
+    />
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+    <div class="app">
+      <aside class="side">
+        <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
+        <nav class="nav" aria-label="Navegación principal">
+          <div class="nav-g">
+            <div class="nav-h">Operación</div>
+            <a href="10-clientes.html"><i>01</i>Clientes</a
+            ><a href="13-viajeros.html"><i>02</i>Viajeros</a
+            ><a href="16-solicitudes.html"><i>03</i>Solicitudes</a
+            ><a href="19-pendientes-cotizacion.html" aria-current="page"
+              ><i>04</i>Por cotizar</a
+            ><a href="25-paquetes.html"><i>05</i>Paquetes</a
+            ><a href="57-cotizaciones.html"><i>06</i>Cotizaciones</a
+            ><a href="38-seguimientos.html"><i>07</i>Seguimientos</a
+            ><a href="40-alertas.html"><i>08</i>Alertas</a
+            ><a href="42-ventas.html"><i>09</i>Ventas</a>
+          </div>
+        </nav>
+        <div class="me">
+          <span class="av">LR</span>
+          <div>
+            <p>Laura Rojas</p>
+            <small>Asesor comercial</small>
+          </div>
+        </div>
+      </aside>
+      <div class="main">
+        <header class="top">
+          <span class="crumb">Operación / <b>Por cotizar</b></span
+          ><span class="tag">HU-13 · RF-07</span>
+          <div class="who">Laura Rojas<small>Asesor comercial</small></div>
+        </header>
+        <main class="content">
+          <div class="head">
+            <div>
+              <p class="eyebrow">Operación / 05</p>
+              <h1 class="h1">Por cotizar</h1>
+              <p class="ctx">
+                Solicitudes que todavía no tienen cotización. Las más antiguas
+                aparecen primero.
+              </p>
+            </div>
+          </div>
+          <div class="rail">
+            <div><strong>7</strong><span>Pendientes</span></div>
+            <div><strong>3</strong><span>Con borrador iniciado</span></div>
+            <div><strong>2</strong><span>Esperan más de 3 días</span></div>
+          </div>
+          <div class="box tbl-wrap">
+            <table class="tbl">
+              <colgroup>
+                <col style="width: 11%" />
+                <col style="width: 25%" />
+                <col style="width: 16%" />
+                <col style="width: 15%" />
+                <col style="width: 15%" />
+                <col style="width: 10%" />
+                <col style="width: 8%" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th scope="col">Código</th>
+                  <th scope="col">Cliente</th>
+                  <th scope="col">Destino</th>
+                  <th scope="col">Salida</th>
+                  <th scope="col">Borrador</th>
+                  <th scope="col" class="r">Espera</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="m">SOL-0224</td>
+                  <td>
+                    <b>Valentina Ríos Mora</b
+                    ><small>Asesora: Andrés Quintero</small>
+                  </td>
+                  <td>Cartagena</td>
+                  <td class="m">15 nov</td>
+                  <td><span class="st off">Sin iniciar</span></td>
+                  <td class="r m" style="color: rgb(var(--danger))">6 días</td>
+                  <td class="r">
+                    <a class="btn sm" href="17-solicitud-detalle.html">Abrir</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="m">SOL-0226</td>
+                  <td>
+                    <b>Camilo Arenas</b><small>Asesora: Laura Rojas</small>
+                  </td>
+                  <td>Punta Cana</td>
+                  <td class="m">20 dic</td>
+                  <td><span class="st">En curso</span></td>
+                  <td class="r m" style="color: rgb(var(--danger))">4 días</td>
+                  <td class="r">
+                    <a class="btn sm" href="17-solicitud-detalle.html">Abrir</a>
+                  </td>
+                </tr>
+                <tr class="sel-row">
+                  <td class="m">SOL-0231</td>
+                  <td>
+                    <b>Marcela Gómez Ortiz</b
+                    ><small>Asesora: Laura Rojas</small>
+                  </td>
+                  <td>San Andrés</td>
+                  <td class="m">18 dic</td>
+                  <td><span class="st">En curso</span></td>
+                  <td class="r m">2 días</td>
+                  <td class="r">
+                    <a class="btn sm" href="17-solicitud-detalle.html">Abrir</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="m">SOL-0230</td>
+                  <td>
+                    <b>Tomás Pineda Vega</b><small>Asesora: Laura Rojas</small>
+                  </td>
+                  <td>Cartagena</td>
+                  <td class="m">02 nov</td>
+                  <td><span class="st off">Sin iniciar</span></td>
+                  <td class="r m">1 día</td>
+                  <td class="r">
+                    <a class="btn sm" href="17-solicitud-detalle.html">Abrir</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="m">SOL-0232</td>
+                  <td>
+                    <b>Hernán Duarte</b><small>Asesora: Laura Rojas</small>
+                  </td>
+                  <td>Madrid</td>
+                  <td class="m">05 feb</td>
+                  <td><span class="st off">Sin iniciar</span></td>
+                  <td class="r m">Hoy</td>
+                  <td class="r">
+                    <a class="btn sm" href="17-solicitud-detalle.html">Abrir</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="pager">
+              <span>1–5 de 7</span><span>Página 1 de 2</span>
+            </div>
+          </div>
+        </main>
       </div>
-      <div class="rail">
-        <div><strong>7</strong><span>Pendientes</span></div>
-        <div><strong>3</strong><span>Con borrador iniciado</span></div>
-        <div><strong>2</strong><span>Esperan más de 3 días</span></div>
-      </div>
-      <div class="box tbl-wrap">
-        <table class="tbl">
-          <colgroup><col style="width:11%"><col style="width:25%"><col style="width:16%"><col style="width:15%"><col style="width:15%"><col style="width:10%"><col style="width:8%"></colgroup>
-          <thead><tr><th scope="col">Código</th><th scope="col">Cliente</th><th scope="col">Destino</th><th scope="col">Salida</th><th scope="col">Borrador</th><th scope="col" class="r">Espera</th><th scope="col"></th></tr></thead>
-          <tbody>
-            <tr><td class="m">SOL-0224</td><td><b>Valentina Ríos Mora</b><small>Asesora: Andrés Quintero</small></td><td>Cartagena</td><td class="m">15 nov</td><td><span class="st off">Sin iniciar</span></td><td class="r m" style="color:rgb(var(--danger))">6 días</td><td class="r"><a class="btn sm" href="17-solicitud-detalle.html">Abrir</a></td></tr>
-            <tr><td class="m">SOL-0226</td><td><b>Camilo Arenas</b><small>Asesora: Laura Rojas</small></td><td>Punta Cana</td><td class="m">20 dic</td><td><span class="st">En curso</span></td><td class="r m" style="color:rgb(var(--danger))">4 días</td><td class="r"><a class="btn sm" href="17-solicitud-detalle.html">Abrir</a></td></tr>
-            <tr class="sel-row"><td class="m">SOL-0231</td><td><b>Marcela Gómez Ortiz</b><small>Asesora: Laura Rojas</small></td><td>San Andrés</td><td class="m">18 dic</td><td><span class="st">En curso</span></td><td class="r m">2 días</td><td class="r"><a class="btn sm" href="17-solicitud-detalle.html">Abrir</a></td></tr>
-            <tr><td class="m">SOL-0230</td><td><b>Tomás Pineda Vega</b><small>Asesora: Laura Rojas</small></td><td>Cartagena</td><td class="m">02 nov</td><td><span class="st off">Sin iniciar</span></td><td class="r m">1 día</td><td class="r"><a class="btn sm" href="17-solicitud-detalle.html">Abrir</a></td></tr>
-            <tr><td class="m">SOL-0232</td><td><b>Hernán Duarte</b><small>Asesora: Laura Rojas</small></td><td>Madrid</td><td class="m">05 feb</td><td><span class="st off">Sin iniciar</span></td><td class="r m">Hoy</td><td class="r"><a class="btn sm" href="17-solicitud-detalle.html">Abrir</a></td></tr>
-          </tbody>
-        </table>
-        <div class="pager"><span>1–5 de 7</span><span>Página 1 de 2</span></div>
-      </div>
-    </main>
-  </div>
-</div>
-</body>
+    </div>
+  </body>
 </html>

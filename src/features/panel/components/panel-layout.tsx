@@ -7,6 +7,7 @@ import type { ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 
 import { AccountMenu } from './account-menu';
+import { PanelNav } from './panel-nav';
 import { RoleBadge } from './role-badge';
 import {
   useCurrentUser,
@@ -57,7 +58,12 @@ export function PanelLayout({ children }: { children: ReactNode }) {
           />
         </div>
       </header>
-      <main className="flex flex-1 flex-col px-4 py-8 md:px-9">{children}</main>
+      <div className="flex flex-1">
+        <PanelNav />
+        <main className="flex min-w-0 flex-1 flex-col px-4 py-8 md:px-9">
+          {children}
+        </main>
+      </div>
     </div>
   );
 }

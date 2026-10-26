@@ -65,21 +65,28 @@ Husky + lint-staged.
 ```
 src/
 ├── app/                  rutas; layout.tsx monta providers.tsx (QueryClient + NuqsAdapter)
-│   ├── (auth)/           pantallas sin sesión (/iniciar-sesion)
+│   ├── (auth)/           pantallas sin sesión (/iniciar-sesion, /recuperar-contrasena,
+│   │                     /restablecer-contrasena, /crear-contrasena), todas sobre AuthShell
+│   ├── (public)/         páginas sin sesión ni guardia: /acerca, /privacidad, /terminos
 │   └── (app)/            panel: layout.tsx = SessionGuard + PanelLayout; toda página con
 │                         sesión va aquí
 ├── features/<dominio>/   api.ts, schemas.ts, components/, hooks use-*.ts
-│   ├── auth/             sesión, login, guardia y permisos
-│   └── panel/            marco del panel: barra superior, menú de cuenta, bienvenida
+│   ├── auth/             sesión, login, recuperar contraseña, guardia y permisos
+│   ├── panel/            marco del panel: barra superior, menú lateral (nav-items.ts),
+│   │                     menú de cuenta, bienvenida
+│   ├── users/            gestión de usuarios: lista, alta, ficha, edición y acciones
+│   └── legal/            páginas públicas: marco, "acerca de" y visor del texto legal
 ├── components/
 │   ├── ui/               solo shadcn/ui
-│   └── …                 compartidos por más de un dominio
+│   └── …                 compartidos por más de un dominio (page-header, button-link,
+│                         confirm-dialog, search-input, pagination, empty-state, …)
 ├── lib/
 │   ├── api/              client.ts, errors.ts, form-errors.ts, query-keys.ts, schema.d.ts
 │   ├── format/           dates.ts, money.ts
 │   ├── query-client.ts   reintentos e invalidación de la sesión ante un 401
 │   └── env.ts            NEXT_PUBLIC_API_URL (el build falla si falta en producción)
-└── test/                 render.tsx, server.ts, handlers.ts, session.ts
+├── content/legal/       privacidad.md y terminos.md: el texto publicado (fuente única)
+└── test/                 render.tsx, server.ts, handlers.ts, session.ts, users.ts
 ```
 
 Rutas visibles en español (`/clientes`, `/cotizaciones/[id]`); código en inglés.
@@ -120,8 +127,20 @@ tres temas). Las maquetas de `docs/ui/` son la guía visual.
   el cierre de sesión vacía la caché y cualquier otra consulta de la sesión volvería a
   pedir `/api/auth/me`, recibiría un 401 y provocaría una segunda redirección.
 - `useHasPermission` solo decide qué se muestra; la API responde 403 de todas formas.
+- **Menú del panel:** cada módulo agrega su entrada en `features/panel/nav-items.ts` (ruta,
+  etiqueta, número, ícono, grupo y permiso). Se muestra solo con el permiso; desde `md` va
+  en la barra lateral y por debajo dentro del menú de la cuenta.
+- **Pantallas con permiso:** el `page.tsx` envuelve la pantalla en
+  `<RequirePermission codes={[...]}>` (de `features/auth`), que muestra "Sin permiso" a quien
+  entra por la URL sin tenerlo. Un `403` de la consulta también muestra `ForbiddenState`.
 - La pantalla de login confía en `session.isSuccess`, no en `session.data`: tras un 401 la
   caché conserva el último usuario.
+- **Recuperar contraseña e invitación:** el token del enlace llega después de `#` (el
+  navegador no lo envía a ningún servidor); `useResetTokenFromHash` lo lee una sola vez y lo
+  quita de la barra de direcciones, y viaja solo en el cuerpo de `check` y `confirm`. El
+  documento que el login pasa a `/recuperar-contrasena` va en memoria del módulo
+  (`reset-prefill.ts`), nunca en la URL ni en el almacenamiento del navegador. Al crear la
+  contraseña la API deja la sesión abierta y el frontend entra al panel.
 - Pantallas usables desde 360 px. El quiebre principal es `md` (768 px): por debajo, el
   login oculta el panel de marca y la barra del panel pasa nombre y cierre a un menú.
   Campos con letra de 16 px y áreas táctiles de 44 px como mínimo.
@@ -129,8 +148,17 @@ tres temas). Las maquetas de `docs/ui/` son la guía visual.
 ### Datos y formularios
 
 - Formularios con react-hook-form + zod (schemas en `features/<dominio>/schemas.ts`); los
-  errores por campo del servidor se aplican con `applyApiFieldErrors`.
-- Filtros y paginación en la URL con `nuqs`.
+  errores de la API se aplican con `applyApiFormError` (marca los campos y dice si hace
+  falta un aviso general y a qué campo llevar el foco). Para un aviso que no muestra el
+  texto del servidor, `rateLimitOr(error, genérico)`.
+- Filtros y paginación en la URL con `nuqs`. Una pantalla que los lee va dentro de
+  `<Suspense>` en su `page.tsx` (sin eso el build no puede prerenderizarla). Al cambiar un
+  filtro se borra la página, y un `404` por página fuera de rango vuelve a la primera.
+- Búsqueda con `components/search-input.tsx`, que avisa 300 ms después de la última tecla.
+  No usar `limitUrlUpdates` de `nuqs` para eso: solo retrasa la URL, el estado cambia al
+  instante y la lista se pediría con cada tecla.
+- Confirmaciones con `components/confirm-dialog.tsx` (sobre el `alert-dialog` de shadcn): no
+  se cierra mientras la acción está en curso y, si falla, muestra el motivo adentro.
 - Fechas solo desde `lib/format/dates.ts` y montos solo desde `lib/format/money.ts`: los
   componentes no llaman a `Intl` ni a `new Date()`. Los montos llegan en pesos enteros y el
   frontend no calcula precios (lo hace el backend).
@@ -145,6 +173,8 @@ tres temas). Las maquetas de `docs/ui/` son la guía visual.
   Los handlers propios se declaran con `server.use(...)`; `apiUrl(path)` arma la URL.
 - `renderWithProviders` (`src/test/render.tsx`) monta QueryClient de pruebas + adaptador de
   `nuqs`; `renderHookWithProviders` hace lo mismo para probar hooks.
+- Usuarios de prueba: `buildUserDetail`, `buildUserListItem`, `buildUserPage` y `ROLES`
+  (`src/test/users.ts`).
 - Sesión de prueba: `buildSession()` (`src/test/session.ts`), y en `handlers.ts`
   `sessionHandler(session)` (con sesión) y `noSessionHandlers` (`/me` y `refresh` en 401).
   Un componente que usa `useCurrentUser` se prueba dentro de `<SessionGuard>`, con
@@ -170,6 +200,8 @@ tres temas). Las maquetas de `docs/ui/` son la guía visual.
   | ------- | ------------------------------------------------------ |
   | `auth`  | —                                                      |
   | `panel` | `auth` (usuario actual, permisos y cierre de sesión)   |
+  | `users` | `auth` (usuario actual, permisos, `RequirePermission`, `DocumentFields` y etiquetas de documento); `roles` (`useRoles`, `useRole`, `usePermissionCatalog` y `RoleGrants`) |
+  | `roles` | `auth` (usuario actual, permisos y `RequirePermission`)                  |
 
 - **Elegir la mejor opción, no la librería por defecto.** Ante una necesidad técnica se
   comparan las alternativas reales (lo que trae Next.js, una librería, código propio) y se
@@ -195,6 +227,12 @@ El agente corre y deja en verde, y si algo falla lo corrige o lo dice en el PR:
 - **`cn` viene del paquete `cn`** (`import { cn } from 'cn'`); no existe `src/lib/utils.ts`.
   La versión actual de shadcn ya escribe ese import, pero si algún componente generado trae
   `@/lib/utils`, se corrige el import en vez de recrear el archivo.
+- **Un enlace con forma de botón va con `ButtonLink`** (`components/button-link.tsx`), no con
+  `className={buttonVariants(...)}` suelto: sin pasar por `cn`, el borde transparente de la
+  base le gana al de `outline` y el enlace se ve sin marco.
+- **`shadcn add` puede querer sobrescribir `components/ui/button.tsx`** (por ejemplo, al
+  agregar `alert-dialog`) con la versión genérica, que pierde las alturas de 44 px y el texto
+  navy sobre naranja. Revisar antes con `--view` y responder que no.
 - **`pnpm-workspace.yaml` → `allowBuilds`:** pnpm 11 falla el `install` (también en el build
   de despliegue) si una dependencia con script de instalación queda sin decidir. Al agregar
   una así, marcarla `true` o `false` ahí.

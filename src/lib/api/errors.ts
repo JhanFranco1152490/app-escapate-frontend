@@ -32,7 +32,20 @@ export const isNetworkFailure = (error: unknown) => error instanceof TypeError;
 export const isUnauthorized = (error: unknown) =>
   isApiError(error) && error.status === 401;
 
+export const isPermissionDenied = (error: unknown) =>
+  isApiError(error) &&
+  error.status === 403 &&
+  error.code === 'permission_denied';
+
 export function getErrorMessage(error: unknown, fallback: string) {
   if (!isApiError(error)) return fallback;
   return error.code === 'throttled' ? RATE_LIMIT_MESSAGE : error.message;
+}
+
+// Para avisos que no muestran el texto del servidor: solo el límite de solicitudes tiene un
+// mensaje propio; cualquier otro error usa el genérico de la pantalla.
+export function rateLimitOr(error: unknown, fallback: string) {
+  return isApiError(error) && error.code === 'throttled'
+    ? RATE_LIMIT_MESSAGE
+    : fallback;
 }

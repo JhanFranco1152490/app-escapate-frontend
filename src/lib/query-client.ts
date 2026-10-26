@@ -1,15 +1,19 @@
 import { MutationCache, QueryCache, QueryClient } from '@tanstack/react-query';
 
-import { isApiError, isUnauthorized } from '@/lib/api/errors';
+import {
+  isApiError,
+  isPermissionDenied,
+  isUnauthorized,
+} from '@/lib/api/errors';
 import { queryKeys } from '@/lib/api/query-keys';
 
 export function createQueryClient() {
   const queryClient: QueryClient = new QueryClient({
     queryCache: new QueryCache({
-      onError: (error, query) => onUnauthorized(error, query.queryKey),
+      onError: (error, query) => refreshSessionOn(error, query.queryKey),
     }),
     mutationCache: new MutationCache({
-      onError: (error) => onUnauthorized(error),
+      onError: (error) => refreshSessionOn(error),
     }),
     defaultOptions: {
       queries: {
@@ -23,8 +27,10 @@ export function createQueryClient() {
 
   // Un 401 en cualquier consulta o mutación significa que la sesión ya no vale: se invalida
   // desde aquí para que la guardia de las rutas protegidas la vuelva a comprobar y redirija.
-  function onUnauthorized(error: unknown, queryKey?: readonly unknown[]) {
-    if (!isUnauthorized(error)) return;
+  // Un permiso negado significa que cambiaron los permisos del rol: se vuelve a pedir la
+  // sesión para que el menú y los botones dejen de ofrecer lo que ya no se puede usar.
+  function refreshSessionOn(error: unknown, queryKey?: readonly unknown[]) {
+    if (!isUnauthorized(error) && !isPermissionDenied(error)) return;
     const sessionKey = queryKeys.session();
     // La consulta de la sesión no se invalida a sí misma: la guardia la volvería a pedir en
     // un ciclo sin fin mientras redirige.

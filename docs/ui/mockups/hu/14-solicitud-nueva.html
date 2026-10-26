@@ -1,65 +1,188 @@
 <!doctype html>
 <html lang="es">
-<head>
-<meta charset="utf-8">
-<title>Nueva solicitud de viaje</title>
-<link rel="stylesheet" href="panel.css">
-</head>
-<body>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap">
-<style>body{margin:0}</style>
-<div class="app" style="min-height:1100px">
-  <aside class="side">
-    <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
-    <nav class="nav" aria-label="Navegación principal"><div class="nav-g"><div class="nav-h">Operación</div><a href="10-clientes.html"><i>01</i>Clientes</a><a href="13-viajeros.html"><i>02</i>Viajeros</a><a href="16-solicitudes.html" aria-current="page"><i>03</i>Solicitudes</a><a href="19-pendientes-cotizacion.html"><i>04</i>Por cotizar</a><a href="25-paquetes.html"><i>05</i>Paquetes</a><a href="57-cotizaciones.html"><i>06</i>Cotizaciones</a><a href="38-seguimientos.html"><i>07</i>Seguimientos</a><a href="40-alertas.html"><i>08</i>Alertas</a><a href="42-ventas.html"><i>09</i>Ventas</a></div></nav>
-    <div class="me"><span class="av">LR</span><div><p>Laura Rojas</p><small>Asesor comercial</small></div></div>
-  </aside>
-  <div class="main">
-    <header class="top"><span class="crumb">Operación / Solicitudes / <b>Nueva</b></span><span class="tag">HU-10 · RF-07</span>
-          <div class="who">Laura Rojas<small>Asesor comercial</small></div></header>
-    <main class="content">
-      <div class="head">
-        <div><p class="eyebrow">Operación / 04</p><h1 class="h1">Nueva solicitud de viaje</h1><p class="ctx">Registra lo que el cliente pide y sus condiciones. Cada solicitud es un proceso independiente.</p></div>
+  <head>
+    <meta charset="utf-8" />
+    <title>Nueva solicitud de viaje</title>
+    <link rel="stylesheet" href="panel.css" />
+  </head>
+  <body>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap"
+    />
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+    <div class="app" style="min-height: 1100px">
+      <aside class="side">
+        <div class="brand"><b>Escápate</b><span>Agencia de viajes</span></div>
+        <nav class="nav" aria-label="Navegación principal">
+          <div class="nav-g">
+            <div class="nav-h">Operación</div>
+            <a href="10-clientes.html"><i>01</i>Clientes</a
+            ><a href="13-viajeros.html"><i>02</i>Viajeros</a
+            ><a href="16-solicitudes.html" aria-current="page"
+              ><i>03</i>Solicitudes</a
+            ><a href="19-pendientes-cotizacion.html"><i>04</i>Por cotizar</a
+            ><a href="25-paquetes.html"><i>05</i>Paquetes</a
+            ><a href="57-cotizaciones.html"><i>06</i>Cotizaciones</a
+            ><a href="38-seguimientos.html"><i>07</i>Seguimientos</a
+            ><a href="40-alertas.html"><i>08</i>Alertas</a
+            ><a href="42-ventas.html"><i>09</i>Ventas</a>
+          </div>
+        </nav>
+        <div class="me">
+          <span class="av">LR</span>
+          <div>
+            <p>Laura Rojas</p>
+            <small>Asesor comercial</small>
+          </div>
+        </div>
+      </aside>
+      <div class="main">
+        <header class="top">
+          <span class="crumb">Operación / Solicitudes / <b>Nueva</b></span
+          ><span class="tag">HU-10 · RF-07</span>
+          <div class="who">Laura Rojas<small>Asesor comercial</small></div>
+        </header>
+        <main class="content">
+          <div class="head">
+            <div>
+              <p class="eyebrow">Operación / 04</p>
+              <h1 class="h1">Nueva solicitud de viaje</h1>
+              <p class="ctx">
+                Registra lo que el cliente pide y sus condiciones. Cada
+                solicitud es un proceso independiente.
+              </p>
+            </div>
+          </div>
+          <div class="alert" role="alert">
+            <div>
+              <b>Falta información para guardar.</b><br />Completa el destino y
+              la fecha de salida.
+            </div>
+          </div>
+          <form
+            style="display: flex; flex-direction: column; gap: 20px"
+            novalidate
+          >
+            <div class="box">
+              <div class="box-h"><h2>Cliente</h2></div>
+              <div class="box-b">
+                <div class="fld">
+                  <label class="lbl" for="cl">Cliente<s>*</s></label
+                  ><input
+                    class="in"
+                    id="cl"
+                    value="Marcela Gómez Ortiz · CC 1.020.304.050"
+                  />
+                  <p class="help">
+                    ¿No está registrado?
+                    <a
+                      href="11-cliente-form.html"
+                      style="
+                        color: rgb(var(--orange-600, 199 92 24));
+                        text-decoration: underline;
+                      "
+                      >Crear cliente</a
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="box">
+              <div class="box-h">
+                <h2>Viaje</h2>
+                <span class="eyebrow">* Obligatorio</span>
+              </div>
+              <div class="box-b">
+                <div class="g4">
+                  <div class="fld span2">
+                    <label class="lbl" for="de">Destino<s>*</s></label
+                    ><input
+                      class="in"
+                      id="de"
+                      aria-invalid="true"
+                      aria-describedby="de-e"
+                      placeholder="Ciudad o región"
+                    />
+                    <p class="err" id="de-e">Indica el destino del viaje.</p>
+                  </div>
+                  <div class="fld">
+                    <label class="lbl" for="fs">Fecha de salida<s>*</s></label
+                    ><input
+                      class="in"
+                      id="fs"
+                      aria-invalid="true"
+                      aria-describedby="fs-e"
+                      placeholder="dd/mm/aaaa"
+                    />
+                    <p class="err" id="fs-e">Indica la fecha.</p>
+                  </div>
+                  <div class="fld">
+                    <label class="lbl" for="fr">Fecha de regreso</label
+                    ><input class="in" id="fr" placeholder="dd/mm/aaaa" />
+                  </div>
+                </div>
+                <div class="g4">
+                  <div class="fld">
+                    <label class="lbl" for="or">Origen</label
+                    ><input class="in" id="or" value="Cúcuta" />
+                  </div>
+                  <div class="fld">
+                    <label class="lbl" for="ad">Adultos<s>*</s></label
+                    ><input class="in" id="ad" value="2" />
+                  </div>
+                  <div class="fld">
+                    <label class="lbl" for="me">Menores</label
+                    ><input class="in" id="me" value="1" />
+                  </div>
+                  <div class="fld">
+                    <label class="lbl" for="fl">Flexibilidad de fechas</label
+                    ><input class="in" id="fl" value="± 3 días" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="box">
+              <div class="box-h"><h2>Preferencias y condiciones</h2></div>
+              <div class="box-b">
+                <div class="g3">
+                  <div class="fld">
+                    <label class="lbl" for="pr">Presupuesto aproximado</label
+                    ><input
+                      class="in"
+                      id="pr"
+                      value="$ 6.000.000 – $ 8.000.000"
+                    />
+                  </div>
+                  <div class="fld">
+                    <label class="lbl" for="al">Categoría de alojamiento</label
+                    ><input class="in" id="al" value="Hotel 4 estrellas" />
+                  </div>
+                  <div class="fld">
+                    <label class="lbl" for="tp">Tipo de viaje</label
+                    ><input class="in" id="tp" value="Familiar, playa" />
+                  </div>
+                </div>
+                <div class="fld">
+                  <label class="lbl" for="co">Condiciones y observaciones</label
+                  ><textarea class="in" id="co">
+Prefieren habitación conectada. La menor es alérgica a los mariscos. Evitar vuelos con escala nocturna.</textarea>
+                </div>
+              </div>
+              <div class="box-f">
+                <a class="btn" href="16-solicitudes.html">Cancelar</a
+                ><button class="btn pri" type="submit">
+                  Guardar solicitud
+                </button>
+              </div>
+            </div>
+          </form>
+        </main>
       </div>
-      <div class="alert" role="alert"><div><b>Falta información para guardar.</b><br>Completa el destino y la fecha de salida.</div></div>
-      <form style="display:flex;flex-direction:column;gap:20px" novalidate>
-        <div class="box">
-          <div class="box-h"><h2>Cliente</h2></div>
-          <div class="box-b">
-            <div class="fld"><label class="lbl" for="cl">Cliente<s>*</s></label><input class="in" id="cl" value="Marcela Gómez Ortiz · CC 1.020.304.050"><p class="help">¿No está registrado? <a href="11-cliente-form.html" style="color:rgb(var(--orange-600,199 92 24));text-decoration:underline">Crear cliente</a></p></div>
-          </div>
-        </div>
-        <div class="box">
-          <div class="box-h"><h2>Viaje</h2><span class="eyebrow">* Obligatorio</span></div>
-          <div class="box-b">
-            <div class="g4">
-              <div class="fld span2"><label class="lbl" for="de">Destino<s>*</s></label><input class="in" id="de" aria-invalid="true" aria-describedby="de-e" placeholder="Ciudad o región"><p class="err" id="de-e">Indica el destino del viaje.</p></div>
-              <div class="fld"><label class="lbl" for="fs">Fecha de salida<s>*</s></label><input class="in" id="fs" aria-invalid="true" aria-describedby="fs-e" placeholder="dd/mm/aaaa"><p class="err" id="fs-e">Indica la fecha.</p></div>
-              <div class="fld"><label class="lbl" for="fr">Fecha de regreso</label><input class="in" id="fr" placeholder="dd/mm/aaaa"></div>
-            </div>
-            <div class="g4">
-              <div class="fld"><label class="lbl" for="or">Origen</label><input class="in" id="or" value="Cúcuta"></div>
-              <div class="fld"><label class="lbl" for="ad">Adultos<s>*</s></label><input class="in" id="ad" value="2"></div>
-              <div class="fld"><label class="lbl" for="me">Menores</label><input class="in" id="me" value="1"></div>
-              <div class="fld"><label class="lbl" for="fl">Flexibilidad de fechas</label><input class="in" id="fl" value="± 3 días"></div>
-            </div>
-          </div>
-        </div>
-        <div class="box">
-          <div class="box-h"><h2>Preferencias y condiciones</h2></div>
-          <div class="box-b">
-            <div class="g3">
-              <div class="fld"><label class="lbl" for="pr">Presupuesto aproximado</label><input class="in" id="pr" value="$ 6.000.000 – $ 8.000.000"></div>
-              <div class="fld"><label class="lbl" for="al">Categoría de alojamiento</label><input class="in" id="al" value="Hotel 4 estrellas"></div>
-              <div class="fld"><label class="lbl" for="tp">Tipo de viaje</label><input class="in" id="tp" value="Familiar, playa"></div>
-            </div>
-            <div class="fld"><label class="lbl" for="co">Condiciones y observaciones</label><textarea class="in" id="co">Prefieren habitación conectada. La menor es alérgica a los mariscos. Evitar vuelos con escala nocturna.</textarea></div>
-          </div>
-          <div class="box-f"><a class="btn" href="16-solicitudes.html">Cancelar</a><button class="btn pri" type="submit">Guardar solicitud</button></div>
-        </div>
-      </form>
-    </main>
-  </div>
-</div>
-</body>
+    </div>
+  </body>
 </html>

@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { http, HttpResponse } from 'msw';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -13,13 +13,20 @@ import { PanelLayout } from './panel-layout';
 import { SessionGuard } from '@/features/auth/components/session-guard';
 
 const router = vi.hoisted(() => ({ replace: vi.fn() }));
-vi.mock('next/navigation', () => ({ useRouter: () => router }));
+const navigation = vi.hoisted(() => ({ pathname: '/' }));
+vi.mock('next/navigation', () => ({
+  useRouter: () => router,
+  usePathname: () => navigation.pathname,
+}));
 
 let sessionRequests = 0;
+let permissions: string[] = [];
 
 beforeEach(() => {
   router.replace.mockReset();
+  navigation.pathname = '/';
   sessionRequests = 0;
+  permissions = [];
   let loggedIn = true;
   server.use(
     http.get(apiUrl('/api/auth/me'), () => {
@@ -29,6 +36,7 @@ beforeEach(() => {
             buildSession({
               full_name: 'Persona de Prueba',
               role: { id: 2, name: 'Asesor comercial' },
+              permissions,
             }),
           )
         : HttpResponse.json(
@@ -107,5 +115,63 @@ describe('PanelLayout', () => {
     await vi.waitFor(() =>
       expect(router.replace).toHaveBeenCalledWith('/iniciar-sesion'),
     );
+  });
+
+  it('sin users.view el menú no muestra Usuarios', async () => {
+    renderPanel();
+    const nav = await screen.findByRole('navigation', {
+      name: 'Navegación principal',
+    });
+
+    expect(within(nav).getByRole('link', { name: /Inicio/ })).toHaveAttribute(
+      'aria-current',
+      'page',
+    );
+    expect(
+      within(nav).queryByRole('link', { name: /Usuarios/ }),
+    ).not.toBeInTheDocument();
+  });
+
+  it('con users.view el menú lleva a Usuarios y la marca en sus subrutas', async () => {
+    permissions = ['users.view'];
+    navigation.pathname = '/usuarios/5';
+    renderPanel();
+    const nav = await screen.findByRole('navigation', {
+      name: 'Navegación principal',
+    });
+
+    const usersLink = within(nav).getByRole('link', { name: /Usuarios/ });
+    expect(usersLink).toHaveAttribute('href', '/usuarios');
+    expect(usersLink).toHaveAttribute('aria-current', 'page');
+    expect(
+      within(nav).getByRole('link', { name: /Inicio/ }),
+    ).not.toHaveAttribute('aria-current');
+  });
+
+  it('las entradas del menú muestran solo el ícono y el nombre, sin número', async () => {
+    permissions = ['users.view', 'roles.view'];
+    renderPanel();
+    const nav = await screen.findByRole('navigation', {
+      name: 'Navegación principal',
+    });
+
+    expect(
+      within(nav)
+        .getAllByRole('link')
+        .map((link) => link.textContent),
+    ).toEqual(['Inicio', 'Usuarios', 'Roles y permisos']);
+  });
+
+  it('en celular, el menú de la cuenta trae las mismas entradas', async () => {
+    permissions = ['users.view'];
+    renderPanel();
+    await screen.findByText('Contenido del panel');
+    const user = userEvent.setup();
+
+    await user.click(screen.getByRole('button', { name: 'Menú de la cuenta' }));
+
+    expect(
+      await screen.findByRole('menuitem', { name: /Usuarios/ }),
+    ).toHaveAttribute('href', '/usuarios');
   });
 });
