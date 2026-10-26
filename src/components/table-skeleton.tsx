@@ -1,8 +1,9 @@
 import { Skeleton } from '@/components/ui/skeleton';
 
-export function UsersTableSkeleton() {
+// Filas de espera de una tabla del panel mientras llega la primera página.
+export function TableSkeleton({ label }: { label: string }) {
   return (
-    <div role="status" aria-label="Cargando usuarios" className="flex flex-col">
+    <div role="status" aria-label={label} className="flex flex-col">
       {Array.from({ length: 5 }, (_, index) => (
         <div
           key={index}

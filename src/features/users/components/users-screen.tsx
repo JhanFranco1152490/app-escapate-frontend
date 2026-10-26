@@ -10,6 +10,7 @@ import { ErrorState } from '@/components/error-state';
 import { ForbiddenState } from '@/components/forbidden-state';
 import { PageHeader } from '@/components/page-header';
 import { Pagination } from '@/components/pagination';
+import { TableSkeleton } from '@/components/table-skeleton';
 import { Button } from '@/components/ui/button';
 import { useHasPermission } from '@/features/auth/permissions';
 import { isApiError } from '@/lib/api/errors';
@@ -19,7 +20,6 @@ import { USERS_PAGE_SIZE, useUsers } from '../api';
 import { useUserFilters } from '../use-user-filters';
 import { UsersFilters } from './users-filters';
 import { UsersTable } from './users-table';
-import { UsersTableSkeleton } from './users-table-skeleton';
 
 export function UsersScreen() {
   const canManage = useHasPermission('users.manage');
@@ -109,7 +109,7 @@ export function UsersScreen() {
               />
             </>
           ) : (
-            <UsersTableSkeleton />
+            <TableSkeleton label="Cargando usuarios" />
           )}
         </div>
       )}

@@ -1,7 +1,6 @@
 'use client';
 
-import { cn } from 'cn';
-
+import { FilterTabs } from '@/components/filter-tabs';
 import { SearchInput } from '@/components/search-input';
 import {
   NativeSelect,
@@ -38,28 +37,12 @@ export function UsersFilters({
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Botones que filtran la misma tabla, no pestañas que cambian de panel. */}
-      <div className="flex gap-6 border-b" role="group" aria-label="Estado">
-        {TABS.map((tab) => {
-          const selected = tab.value === status;
-          return (
-            <button
-              key={tab.label}
-              type="button"
-              aria-pressed={selected}
-              onClick={() => onChange({ status: tab.value })}
-              className={cn(
-                '-mb-px min-h-11 border-b-2 font-mono text-[0.6875rem] tracking-[0.16em] uppercase transition-colors',
-                selected
-                  ? 'border-orange-500 text-foreground'
-                  : 'border-transparent text-muted-foreground hover:text-foreground',
-              )}
-            >
-              {tab.label}
-            </button>
-          );
-        })}
-      </div>
+      <FilterTabs
+        label="Estado"
+        tabs={TABS}
+        value={status}
+        onChange={(value) => onChange({ status: value })}
+      />
       <div className="flex flex-col gap-3 sm:flex-row">
         <SearchInput
           label="Buscar usuario"
