@@ -19,6 +19,11 @@ export type ClientDocumentType = components['schemas']['ClientDocumentType'];
 export type ContactSource = components['schemas']['ContactSource'];
 export type ClientPage = components['schemas']['Page_ClientListItem_'];
 
+// Los viajeros de referencia de un cliente. Se piden aquí, con su propio fetcher, y no con la
+// API de viajeros: ese dominio ya depende de este y la dependencia inversa sería un ciclo.
+export type ClientTravelerItem = components['schemas']['TravelerListItem'];
+type ClientTravelerPage = components['schemas']['Page_TravelerListItem_'];
+
 export type ClientListFilters = {
   q: string;
   clientType: ClientType | null;
@@ -26,6 +31,9 @@ export type ClientListFilters = {
 };
 
 export const CLIENTS_PAGE_SIZE = 20;
+// El máximo que da la API por página: un cliente no tiene tantos acompañantes habituales, así
+// que con una sola página se sabe si alguno ya es su propia ficha de viajero.
+export const CLIENT_TRAVELERS_PAGE_SIZE = 100;
 
 const fetchClients = (filters: ClientListFilters) =>
   apiFetch<ClientPage>(
@@ -39,6 +47,14 @@ const fetchClients = (filters: ClientListFilters) =>
 
 const fetchClient = (id: number) =>
   apiFetch<ClientDetail>(`/api/clients/${id}`);
+
+const fetchClientTravelers = (clientId: number) =>
+  apiFetch<ClientTravelerPage>(
+    withQuery('/api/travelers', {
+      client_id: clientId,
+      page_size: CLIENT_TRAVELERS_PAGE_SIZE,
+    }),
+  );
 
 const createClient = (body: ClientCreate) =>
   apiFetch<ClientDetail>('/api/clients', { method: 'POST', body });
@@ -65,6 +81,15 @@ export function useClient(id: number | null) {
     queryKey: queryKeys.clients.detail(id ?? 0),
     queryFn: () => fetchClient(id!),
     enabled: id !== null,
+  });
+}
+
+// Bajo las listas de viajeros: cualquier alta o edición de un viajero la invalida.
+export function useClientTravelers(clientId: number, { enabled = true } = {}) {
+  return useQuery({
+    queryKey: queryKeys.travelers.list({ client_id: clientId }),
+    queryFn: () => fetchClientTravelers(clientId),
+    enabled,
   });
 }
 

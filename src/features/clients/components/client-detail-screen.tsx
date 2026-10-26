@@ -12,6 +12,7 @@ import { usePageNotice } from '@/lib/use-page-notice';
 import { clientNoticeTarget } from '../client-notice';
 import { ClientDetail } from './client-detail';
 import { ClientLoader } from './client-loader';
+import { ClientTravelers } from './client-travelers';
 
 export function ClientDetailScreen({ id }: { id: string }) {
   const clientId = parseRouteId(id);
@@ -43,6 +44,7 @@ export function ClientDetailScreen({ id }: { id: string }) {
           />
           {notice && <Alert variant="info" title={notice} />}
           <ClientDetail client={client} />
+          <ClientTravelers client={client} />
         </>
       )}
     </ClientLoader>
