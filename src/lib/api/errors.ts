@@ -37,6 +37,10 @@ export const isPermissionDenied = (error: unknown) =>
   error.status === 403 &&
   error.code === 'permission_denied';
 
+// Otra persona guardó cambios después de que se abrió el formulario.
+export const isStaleVersion = (error: unknown) =>
+  isApiError(error) && error.status === 409 && error.code === 'stale_version';
+
 export function getErrorMessage(error: unknown, fallback: string) {
   if (!isApiError(error)) return fallback;
   return error.code === 'throttled' ? RATE_LIMIT_MESSAGE : error.message;

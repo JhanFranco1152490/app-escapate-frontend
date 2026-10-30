@@ -1,14 +1,16 @@
 import { z } from 'zod';
 
+import { DOCUMENT_TYPE_NAMES } from '@/lib/format/document';
+
 import type { DocumentType } from './api';
 
 // El tipo exige una etiqueta por cada tipo de documento de la API y ninguna de más: si la
 // API agrega o quita uno, esto deja de compilar. La lista del selector sale de aquí.
 export const DOCUMENT_TYPE_LABELS: Record<DocumentType, string> = {
-  CC: 'Cédula de ciudadanía',
-  CE: 'Cédula de extranjería',
-  PPT: 'Permiso por protección temporal',
-  PA: 'Pasaporte',
+  CC: DOCUMENT_TYPE_NAMES.CC,
+  CE: DOCUMENT_TYPE_NAMES.CE,
+  PPT: DOCUMENT_TYPE_NAMES.PPT,
+  PA: DOCUMENT_TYPE_NAMES.PA,
 };
 
 export const DOCUMENT_TYPES = Object.keys(DOCUMENT_TYPE_LABELS) as [

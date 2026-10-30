@@ -12,13 +12,14 @@ import { Input } from '@/components/ui/input';
 import { DocumentFields } from '@/features/auth/components/document-fields';
 import { rateLimitOr } from '@/lib/api/errors';
 import { applyApiFormError } from '@/lib/api/form-errors';
-
 import {
   SERVER_FIELDS_NOTICE,
   invalidFormNotice,
   type FormNotice,
-} from '../form-notice';
+} from '@/lib/form-notice';
+
 import {
+  ROLE_REQUIRED_MESSAGE,
   createUserSchema,
   type CreateUserValues,
   type UserFormValues,
@@ -95,7 +96,13 @@ export function UserForm({
         if (firstInvalid) setFocus(firstInvalid);
       }
     },
-    (invalid) => setNotice(invalidFormNotice(invalid)),
+    (invalid) =>
+      setNotice(
+        invalidFormNotice(invalid, {
+          subject: 'el usuario',
+          requiredMessages: [ROLE_REQUIRED_MESSAGE],
+        }),
+      ),
   );
 
   return (

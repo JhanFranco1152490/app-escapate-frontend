@@ -366,10 +366,231 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/clients": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Clients */
+        get: operations["list_clients_api_clients_get"];
+        put?: never;
+        /** Create Client */
+        post: operations["create_client_api_clients_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/clients/{client_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Client */
+        get: operations["get_client_api_clients__client_id__get"];
+        /** Update Client */
+        put: operations["update_client_api_clients__client_id__put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/travelers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Travelers */
+        get: operations["list_travelers_api_travelers_get"];
+        put?: never;
+        /** Create Traveler */
+        post: operations["create_traveler_api_travelers_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/travelers/{traveler_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Traveler */
+        get: operations["get_traveler_api_travelers__traveler_id__get"];
+        /** Update Traveler */
+        put: operations["update_traveler_api_travelers__traveler_id__put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** ClientCreate */
+        ClientCreate: {
+            client_type: components["schemas"]["ClientType"];
+            /** First Name */
+            first_name?: string | null;
+            /** Last Name */
+            last_name?: string | null;
+            /** Business Name */
+            business_name?: string | null;
+            document_type?: components["schemas"]["ClientDocumentType"] | null;
+            /** Document Number */
+            document_number?: string | null;
+            /** Birth Date */
+            birth_date?: string | null;
+            /** Phone */
+            phone: string;
+            /** Email */
+            email?: string | null;
+            /** City */
+            city?: string | null;
+            contact_source: components["schemas"]["ContactSource"];
+            /** Contact Source Detail */
+            contact_source_detail?: string | null;
+            /** Notes */
+            notes?: string | null;
+            /** Data Consent */
+            data_consent?: boolean | null;
+        };
+        /** ClientDetail */
+        ClientDetail: {
+            /** Id */
+            id: number;
+            client_type: components["schemas"]["ClientType"];
+            /** Display Name */
+            display_name: string;
+            /** Email */
+            email: string | null;
+            /** Phone */
+            phone: string;
+            document_type: components["schemas"]["ClientDocumentType"] | null;
+            /** Document Number */
+            document_number: string | null;
+            /** City */
+            city: string | null;
+            /** First Name */
+            first_name: string | null;
+            /** Last Name */
+            last_name: string | null;
+            /** Business Name */
+            business_name: string | null;
+            /** Birth Date */
+            birth_date: string | null;
+            contact_source: components["schemas"]["ContactSource"];
+            /** Contact Source Detail */
+            contact_source_detail: string | null;
+            /** Notes */
+            notes: string | null;
+            /**
+             * Data Consent At
+             * Format: date-time
+             */
+            data_consent_at: string;
+            data_consent_by: components["schemas"]["UserRef"];
+            created_by: components["schemas"]["UserRef"];
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+            /** Version */
+            version: number;
+        };
+        /**
+         * ClientDocumentType
+         * @enum {string}
+         */
+        ClientDocumentType: "CC" | "CE" | "PPT" | "PA" | "NIT";
+        /**
+         * ClientFilters
+         * @description Sin `extra="forbid"`: conviven con los parámetros de la paginación.
+         */
+        ClientFilters: {
+            /**
+             * Q
+             * @default
+             */
+            q: string;
+            client_type?: components["schemas"]["ClientType"] | null;
+        };
+        /** ClientListItem */
+        ClientListItem: {
+            /** Id */
+            id: number;
+            client_type: components["schemas"]["ClientType"];
+            /** Display Name */
+            display_name: string;
+            /** Email */
+            email: string | null;
+            /** Phone */
+            phone: string;
+            document_type: components["schemas"]["ClientDocumentType"] | null;
+            /** Document Number */
+            document_number: string | null;
+            /** City */
+            city: string | null;
+        };
+        /**
+         * ClientType
+         * @enum {string}
+         */
+        ClientType: "person" | "company";
+        /** ClientUpdate */
+        ClientUpdate: {
+            client_type: components["schemas"]["ClientType"];
+            /** First Name */
+            first_name?: string | null;
+            /** Last Name */
+            last_name?: string | null;
+            /** Business Name */
+            business_name?: string | null;
+            document_type?: components["schemas"]["ClientDocumentType"] | null;
+            /** Document Number */
+            document_number?: string | null;
+            /** Birth Date */
+            birth_date?: string | null;
+            /** Phone */
+            phone: string;
+            /** Email */
+            email?: string | null;
+            /** City */
+            city?: string | null;
+            contact_source: components["schemas"]["ContactSource"];
+            /** Contact Source Detail */
+            contact_source_detail?: string | null;
+            /** Notes */
+            notes?: string | null;
+            /** Expected Version */
+            expected_version: number;
+        };
+        /**
+         * ContactSource
+         * @enum {string}
+         */
+        ContactSource: "instagram" | "facebook" | "whatsapp" | "google" | "referral" | "walk_in" | "other";
         /** CsrfToken */
         CsrfToken: {
             /** Csrf Token */
@@ -416,6 +637,17 @@ export interface components {
             /** Password */
             password: string;
         };
+        /** Page[ClientListItem] */
+        Page_ClientListItem_: {
+            /** Count */
+            count: number;
+            /** Next */
+            next: string | null;
+            /** Previous */
+            previous: string | null;
+            /** Results */
+            results: components["schemas"]["ClientListItem"][];
+        };
         /** Page[LoginEventItem] */
         Page_LoginEventItem_: {
             /** Count */
@@ -426,6 +658,17 @@ export interface components {
             previous: string | null;
             /** Results */
             results: components["schemas"]["LoginEventItem"][];
+        };
+        /** Page[TravelerListItem] */
+        Page_TravelerListItem_: {
+            /** Count */
+            count: number;
+            /** Next */
+            next: string | null;
+            /** Previous */
+            previous: string | null;
+            /** Results */
+            results: components["schemas"]["TravelerListItem"][];
         };
         /** Page[UserListItem] */
         Page_UserListItem_: {
@@ -474,6 +717,13 @@ export interface components {
             requires: string[];
             /** Help */
             help: string | null;
+        };
+        /** ReferenceClient */
+        ReferenceClient: {
+            /** Id */
+            id: number;
+            /** Display Name */
+            display_name: string;
         };
         /** ResetTokenCheck */
         ResetTokenCheck: {
@@ -561,6 +811,154 @@ export interface components {
          * @enum {string}
          */
         TokenPurpose: "reset" | "invitation";
+        /** TravelerCreate */
+        TravelerCreate: {
+            /** First Name */
+            first_name: string;
+            /** Last Name */
+            last_name: string;
+            document_type: components["schemas"]["TravelerDocumentType"];
+            /** Document Number */
+            document_number: string;
+            /**
+             * Birth Date
+             * Format: date
+             */
+            birth_date: string;
+            /** Nationality */
+            nationality: string;
+            /** Reference Client Id */
+            reference_client_id?: number | null;
+            /**
+             * Is The Client
+             * @default false
+             */
+            is_the_client: boolean;
+            /** Notes */
+            notes?: string | null;
+            /** Data Consent */
+            data_consent?: boolean | null;
+        };
+        /** TravelerDetail */
+        TravelerDetail: {
+            /** Id */
+            id: number;
+            /** First Name */
+            first_name: string;
+            /** Last Name */
+            last_name: string;
+            /** Full Name */
+            full_name: string;
+            document_type: components["schemas"]["TravelerDocumentType"];
+            /** Document Number */
+            document_number: string;
+            /**
+             * Birth Date
+             * Format: date
+             */
+            birth_date: string;
+            /** Age */
+            age: number;
+            /** Is Minor */
+            is_minor: boolean;
+            /** Nationality */
+            nationality: string;
+            reference_client: components["schemas"]["ReferenceClient"] | null;
+            /** Is The Client */
+            is_the_client: boolean;
+            /** Notes */
+            notes: string | null;
+            /**
+             * Data Consent At
+             * Format: date-time
+             */
+            data_consent_at: string;
+            data_consent_by: components["schemas"]["UserRef"];
+            created_by: components["schemas"]["UserRef"];
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+            /** Version */
+            version: number;
+        };
+        /**
+         * TravelerDocumentType
+         * @enum {string}
+         */
+        TravelerDocumentType: "CC" | "CE" | "PPT" | "PA" | "TI" | "RC";
+        /** TravelerFilters */
+        TravelerFilters: {
+            /**
+             * Q
+             * @default
+             */
+            q: string;
+            /** Client Id */
+            client_id?: number | null;
+        };
+        /** TravelerListItem */
+        TravelerListItem: {
+            /** Id */
+            id: number;
+            /** First Name */
+            first_name: string;
+            /** Last Name */
+            last_name: string;
+            /** Full Name */
+            full_name: string;
+            document_type: components["schemas"]["TravelerDocumentType"];
+            /** Document Number */
+            document_number: string;
+            /**
+             * Birth Date
+             * Format: date
+             */
+            birth_date: string;
+            /** Age */
+            age: number;
+            /** Is Minor */
+            is_minor: boolean;
+            /** Nationality */
+            nationality: string;
+            reference_client: components["schemas"]["ReferenceClient"] | null;
+            /** Is The Client */
+            is_the_client: boolean;
+        };
+        /** TravelerUpdate */
+        TravelerUpdate: {
+            /** First Name */
+            first_name: string;
+            /** Last Name */
+            last_name: string;
+            document_type: components["schemas"]["TravelerDocumentType"];
+            /** Document Number */
+            document_number: string;
+            /**
+             * Birth Date
+             * Format: date
+             */
+            birth_date: string;
+            /** Nationality */
+            nationality: string;
+            /** Reference Client Id */
+            reference_client_id?: number | null;
+            /**
+             * Is The Client
+             * @default false
+             */
+            is_the_client: boolean;
+            /** Notes */
+            notes?: string | null;
+            /** Expected Version */
+            expected_version: number;
+        };
         /** UserCreate */
         UserCreate: {
             /** First Name */
@@ -661,6 +1059,13 @@ export interface components {
             invitation_pending: boolean;
             /** Last Activity At */
             last_activity_at: string | null;
+        };
+        /** UserRef */
+        UserRef: {
+            /** Id */
+            id: number;
+            /** Full Name */
+            full_name: string;
         };
         /** UserRoleInput */
         UserRoleInput: {
@@ -1942,6 +2347,468 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    list_clients_api_clients_get: {
+        parameters: {
+            query: {
+                filters: components["schemas"]["ClientFilters"];
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Page_ClientListItem_"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    create_client_api_clients_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ClientCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ClientDetail"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    get_client_api_clients__client_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                client_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ClientDetail"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    update_client_api_clients__client_id__put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                client_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ClientUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ClientDetail"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    list_travelers_api_travelers_get: {
+        parameters: {
+            query: {
+                filters: components["schemas"]["TravelerFilters"];
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Page_TravelerListItem_"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    create_traveler_api_travelers_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TravelerCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TravelerDetail"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    get_traveler_api_travelers__traveler_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                traveler_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TravelerDetail"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    update_traveler_api_travelers__traveler_id__put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                traveler_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TravelerUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TravelerDetail"];
+                };
             };
             /** @description Unauthorized */
             401: {

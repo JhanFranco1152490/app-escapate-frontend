@@ -5,6 +5,7 @@ import {
   RATE_LIMIT_MESSAGE,
   getErrorMessage,
   isNetworkFailure,
+  isStaleVersion,
   isUnauthorized,
   rateLimitOr,
 } from './errors';
@@ -34,6 +35,12 @@ describe('clasificación de errores', () => {
   it('reconoce un 401 del API', () => {
     expect(isUnauthorized(apiError(401, 'authentication_failed'))).toBe(true);
     expect(isUnauthorized(apiError(403, 'permission_denied'))).toBe(false);
+  });
+
+  it('reconoce un 409 stale_version y no otro conflicto', () => {
+    expect(isStaleVersion(apiError(409, 'stale_version'))).toBe(true);
+    expect(isStaleVersion(apiError(409, 'role_in_use'))).toBe(false);
+    expect(isStaleVersion(new Error('boom'))).toBe(false);
   });
 
   it('reconoce un fallo de red', () => {

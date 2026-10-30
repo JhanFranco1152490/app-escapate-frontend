@@ -1,4 +1,11 @@
-import { House, ShieldCheck, Users, type LucideIcon } from 'lucide-react';
+import {
+  Contact,
+  House,
+  Luggage,
+  ShieldCheck,
+  Users,
+  type LucideIcon,
+} from 'lucide-react';
 
 import type { SessionUser } from '@/features/auth/api';
 import { hasPermission } from '@/features/auth/permissions';
@@ -17,6 +24,20 @@ export type NavGroup = { label: string; items: NavItem[] };
 // Cada módulo nuevo agrega aquí su entrada. El orden de la lista es el del menú.
 export const NAV_ITEMS: NavItem[] = [
   { href: '/', label: 'Inicio', icon: House, group: 'Operación' },
+  {
+    href: '/clientes',
+    label: 'Clientes',
+    icon: Contact,
+    group: 'Operación',
+    permission: 'clients.view',
+  },
+  {
+    href: '/viajeros',
+    label: 'Viajeros',
+    icon: Luggage,
+    group: 'Operación',
+    permission: 'travelers.view',
+  },
   {
     href: '/usuarios',
     label: 'Usuarios',

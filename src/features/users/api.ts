@@ -8,6 +8,7 @@ import {
 import type { SessionUser } from '@/features/auth/api';
 import { apiFetch } from '@/lib/api/client';
 import { queryKeys } from '@/lib/api/query-keys';
+import { withQuery } from '@/lib/api/query-string';
 import type { components } from '@/lib/api/schema';
 
 export type UserListItem = components['schemas']['UserListItem'];
@@ -30,18 +31,6 @@ export type UserListFilters = {
 
 export const USERS_PAGE_SIZE = 20;
 export const LOGINS_PAGE_SIZE = 10;
-
-// Arma la consulta sin los parámetros vacíos: la API los trata como "sin filtro".
-function withQuery(
-  path: string,
-  params: Record<string, string | number | null>,
-) {
-  const query = new URLSearchParams();
-  for (const [key, value] of Object.entries(params)) {
-    if (value !== null && value !== '') query.set(key, String(value));
-  }
-  return `${path}?${query}`;
-}
 
 const fetchUsers = (filters: UserListFilters) =>
   apiFetch<UserPage>(

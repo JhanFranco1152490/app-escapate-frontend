@@ -55,6 +55,29 @@ describe('visibleNavGroups', () => {
     expect(groups[1].items[1].href).toBe('/roles');
   });
 
+  it('"Clientes" y "Viajeros" aparecen en Operación con su permiso, después de "Inicio"', () => {
+    const groups = visibleNavGroups(
+      buildSession({ permissions: ['clients.view', 'travelers.view'] }),
+    );
+
+    expect(groups.map((group) => group.label)).toEqual(['Operación']);
+    expect(groups[0].items.map((item) => [item.label, item.href])).toEqual([
+      ['Inicio', '/'],
+      ['Clientes', '/clientes'],
+      ['Viajeros', '/viajeros'],
+    ]);
+  });
+
+  it('cada una pide solo su propio permiso', () => {
+    const labels = (permissions: string[]) =>
+      visibleNavGroups(buildSession({ permissions }))[0].items.map(
+        (item) => item.label,
+      );
+
+    expect(labels(['clients.view'])).toEqual(['Inicio', 'Clientes']);
+    expect(labels(['travelers.view'])).toEqual(['Inicio', 'Viajeros']);
+  });
+
   it('sin roles.view no aparece "Roles y permisos"', () => {
     const groups = visibleNavGroups(
       buildSession({ permissions: ['users.view'] }),
