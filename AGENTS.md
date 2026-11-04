@@ -149,6 +149,17 @@ tres temas). Las maquetas de `docs/ui/` son la guía visual.
   entra por la URL sin tenerlo. Un `403` de la consulta también muestra `ForbiddenState`.
 - La pantalla de login confía en `session.isSuccess`, no en `session.data`: tras un 401 la
   caché conserva el último usuario.
+- **Cuentas de demostración en el login (solo staging):** con `NEXT_PUBLIC_DEMO_ACCOUNTS=true`
+  al compilar, el login muestra el menú "Entrar con una cuenta de demostración"
+  (`demo-accounts-menu.tsx`, datos en `demo-accounts.ts`): un clic llena el formulario con
+  esa cuenta y lo envía, y los errores salen igual que al escribirlos. Son las cuentas
+  ficticias que carga el comando `seed-demo` del backend, por eso las contraseñas están en el
+  código. Sin la variable, el menú y las contraseñas **no llegan al navegador**: `next.config.ts`
+  fija la variable siempre (sin un valor definido Next no descarta el `import()` y publica el
+  chunk igual) y `login-screen.tsx` la compara completa para que se descarte la rama. Si se
+  toca cualquiera de las dos cosas, comprobarlo con un build sin la variable y
+  `grep -r <una contraseña> .next/static .next/server`, que debe dar vacío. La variable se
+  define solo en el servicio de staging, nunca en producción.
 - **Recuperar contraseña e invitación:** el token del enlace llega después de `#` (el
   navegador no lo envía a ningún servidor); `useResetTokenFromHash` lo lee una sola vez y lo
   quita de la barra de direcciones, y viaja solo en el cuerpo de `check` y `confirm`. El

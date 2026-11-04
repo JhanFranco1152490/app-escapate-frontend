@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useQueryState } from 'nuqs';
-import { useEffect, useState } from 'react';
+import { lazy, useEffect, useState } from 'react';
 
 import { Alert } from '@/components/alert';
 
@@ -14,6 +14,18 @@ import { AuthShell } from './auth-shell';
 import { DocumentLoginForm } from './document-login-form';
 import { GoogleButton } from './google-button';
 import { LockedNotice } from './locked-notice';
+
+// La comparación va escrita aquí, con la variable completa, para que al compilar sin la
+// bandera el compilador descarte la rama y el import dinámico: así las cuentas de
+// demostración y sus contraseñas no llegan al navegador en producción.
+const DemoAccountsMenu =
+  process.env.NEXT_PUBLIC_DEMO_ACCOUNTS === 'true'
+    ? lazy(() =>
+        import('./demo-accounts-menu').then((module) => ({
+          default: module.DemoAccountsMenu,
+        })),
+      )
+    : undefined;
 
 export function LoginScreen() {
   const [next] = useQueryState('next');
@@ -65,7 +77,11 @@ export function LoginScreen() {
       ) : (
         notice && <Alert variant={notice.variant}>{notice.message}</Alert>
       )}
-      <DocumentLoginForm onSubmit={submitLogin} onNotice={setNotice} />
+      <DocumentLoginForm
+        onSubmit={submitLogin}
+        onNotice={setNotice}
+        QuickAccess={DemoAccountsMenu}
+      />
       <div
         role="separator"
         className="flex items-center gap-3 font-mono text-[0.625rem] tracking-[0.2em] text-muted-foreground uppercase"

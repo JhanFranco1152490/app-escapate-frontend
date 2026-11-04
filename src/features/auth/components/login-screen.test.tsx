@@ -47,6 +47,14 @@ describe('LoginScreen', () => {
     ).toHaveAttribute('href', '/terminos');
   });
 
+  it('no ofrece las cuentas de demostración si no se habilitaron al compilar', () => {
+    renderWithProviders(<LoginScreen />);
+
+    expect(
+      screen.queryByRole('button', { name: /cuenta de demostración/i }),
+    ).not.toBeInTheDocument();
+  });
+
   it('muestra el título y el botón de Google con el next de la URL', () => {
     renderWithProviders(<LoginScreen />, {
       searchParams: '?next=/clientes',
