@@ -438,6 +438,76 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/suppliers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Suppliers */
+        get: operations["list_suppliers_api_suppliers_get"];
+        put?: never;
+        /** Create Supplier */
+        post: operations["create_supplier_api_suppliers_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/suppliers/{supplier_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Supplier */
+        get: operations["get_supplier_api_suppliers__supplier_id__get"];
+        /** Update Supplier */
+        put: operations["update_supplier_api_suppliers__supplier_id__put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/suppliers/{supplier_id}/deactivate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Deactivate Supplier */
+        post: operations["deactivate_supplier_api_suppliers__supplier_id__deactivate_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/suppliers/{supplier_id}/activate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Activate Supplier */
+        post: operations["activate_supplier_api_suppliers__supplier_id__activate_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -659,6 +729,17 @@ export interface components {
             /** Results */
             results: components["schemas"]["LoginEventItem"][];
         };
+        /** Page[SupplierListItem] */
+        Page_SupplierListItem_: {
+            /** Count */
+            count: number;
+            /** Next */
+            next: string | null;
+            /** Previous */
+            previous: string | null;
+            /** Results */
+            results: components["schemas"]["SupplierListItem"][];
+        };
         /** Page[TravelerListItem] */
         Page_TravelerListItem_: {
             /** Count */
@@ -805,6 +886,186 @@ export interface components {
             role: components["schemas"]["RoleSummary"];
             /** Permissions */
             permissions: string[];
+        };
+        /**
+         * SupplierCategory
+         * @description Lo que vende el proveedor. Es la misma lista de tipos de servicio, para que la oferta
+         *     se pueda filtrar por categoría sin texto libre. El orden es el de las pantallas.
+         * @enum {string}
+         */
+        SupplierCategory: "lodging" | "air" | "ground" | "tours" | "cruise" | "food" | "wholesaler" | "other";
+        /** SupplierCreate */
+        SupplierCreate: {
+            /** Trade Name */
+            trade_name: string;
+            /** Legal Name */
+            legal_name?: string | null;
+            document_type?: components["schemas"]["SupplierDocumentType"] | null;
+            /** Document Number */
+            document_number?: string | null;
+            /** Categories */
+            categories: components["schemas"]["SupplierCategory"][];
+            /** City */
+            city?: string | null;
+            /** Coverage Zone */
+            coverage_zone?: string | null;
+            /** Contact Name */
+            contact_name: string;
+            /** Contact Role */
+            contact_role?: string | null;
+            /** Contact Phone */
+            contact_phone?: string | null;
+            /** Contact Email */
+            contact_email?: string | null;
+            /** Payment Terms */
+            payment_terms?: string | null;
+            /** Commission Rate */
+            commission_rate?: number | string | null;
+            /** Agreement Valid Until */
+            agreement_valid_until?: string | null;
+            /** Notes */
+            notes?: string | null;
+        };
+        /** SupplierDetail */
+        SupplierDetail: {
+            /** Id */
+            id: number;
+            /** Trade Name */
+            trade_name: string;
+            /** Legal Name */
+            legal_name: string | null;
+            document_type: components["schemas"]["SupplierDocumentType"] | null;
+            /** Document Number */
+            document_number: string | null;
+            /** Categories */
+            categories: components["schemas"]["SupplierCategory"][];
+            /** City */
+            city: string | null;
+            /** Contact Name */
+            contact_name: string;
+            /** Contact Email */
+            contact_email: string | null;
+            /** Contact Phone */
+            contact_phone: string | null;
+            /** Is Active */
+            is_active: boolean;
+            /** Coverage Zone */
+            coverage_zone: string | null;
+            /** Contact Role */
+            contact_role: string | null;
+            /** Payment Terms */
+            payment_terms: string | null;
+            /** Commission Rate */
+            commission_rate: string | null;
+            /** Agreement Valid Until */
+            agreement_valid_until: string | null;
+            /** Agreement Expired */
+            agreement_expired: boolean;
+            /** Notes */
+            notes: string | null;
+            /** Deactivated At */
+            deactivated_at: string | null;
+            deactivated_by: components["schemas"]["UserRef"] | null;
+            created_by: components["schemas"]["UserRef"];
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+            /** Version */
+            version: number;
+        };
+        /**
+         * SupplierDocumentType
+         * @enum {string}
+         */
+        SupplierDocumentType: "NIT" | "CC" | "CE" | "FOREIGN";
+        /**
+         * SupplierFilters
+         * @description Sin `extra="forbid"`: conviven con los parámetros de la paginación.
+         */
+        SupplierFilters: {
+            /**
+             * Q
+             * @default
+             */
+            q: string;
+            category?: components["schemas"]["SupplierCategory"] | null;
+            /** @default active */
+            status: components["schemas"]["SupplierStatusFilter"];
+        };
+        /** SupplierListItem */
+        SupplierListItem: {
+            /** Id */
+            id: number;
+            /** Trade Name */
+            trade_name: string;
+            /** Legal Name */
+            legal_name: string | null;
+            document_type: components["schemas"]["SupplierDocumentType"] | null;
+            /** Document Number */
+            document_number: string | null;
+            /** Categories */
+            categories: components["schemas"]["SupplierCategory"][];
+            /** City */
+            city: string | null;
+            /** Contact Name */
+            contact_name: string;
+            /** Contact Email */
+            contact_email: string | null;
+            /** Contact Phone */
+            contact_phone: string | null;
+            /** Is Active */
+            is_active: boolean;
+        };
+        /** SupplierStatusChange */
+        SupplierStatusChange: {
+            /** Expected Version */
+            expected_version: number;
+        };
+        /**
+         * SupplierStatusFilter
+         * @enum {string}
+         */
+        SupplierStatusFilter: "active" | "inactive" | "all";
+        /** SupplierUpdate */
+        SupplierUpdate: {
+            /** Trade Name */
+            trade_name: string;
+            /** Legal Name */
+            legal_name?: string | null;
+            document_type?: components["schemas"]["SupplierDocumentType"] | null;
+            /** Document Number */
+            document_number?: string | null;
+            /** Categories */
+            categories: components["schemas"]["SupplierCategory"][];
+            /** City */
+            city?: string | null;
+            /** Coverage Zone */
+            coverage_zone?: string | null;
+            /** Contact Name */
+            contact_name: string;
+            /** Contact Role */
+            contact_role?: string | null;
+            /** Contact Phone */
+            contact_phone?: string | null;
+            /** Contact Email */
+            contact_email?: string | null;
+            /** Payment Terms */
+            payment_terms?: string | null;
+            /** Commission Rate */
+            commission_rate?: number | string | null;
+            /** Agreement Valid Until */
+            agreement_valid_until?: string | null;
+            /** Notes */
+            notes?: string | null;
+            /** Expected Version */
+            expected_version: number;
         };
         /**
          * TokenPurpose
@@ -1060,7 +1321,10 @@ export interface components {
             /** Last Activity At */
             last_activity_at: string | null;
         };
-        /** UserRef */
+        /**
+         * UserRef
+         * @description Quién hizo algo (registró, autorizó, desactivó), tal como lo muestra una ficha.
+         */
         UserRef: {
             /** Id */
             id: number;
@@ -2808,6 +3072,379 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["TravelerDetail"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    list_suppliers_api_suppliers_get: {
+        parameters: {
+            query: {
+                filters: components["schemas"]["SupplierFilters"];
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Page_SupplierListItem_"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    create_supplier_api_suppliers_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SupplierCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SupplierDetail"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    get_supplier_api_suppliers__supplier_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                supplier_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SupplierDetail"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    update_supplier_api_suppliers__supplier_id__put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                supplier_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SupplierUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SupplierDetail"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    deactivate_supplier_api_suppliers__supplier_id__deactivate_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                supplier_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SupplierStatusChange"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SupplierDetail"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    activate_supplier_api_suppliers__supplier_id__activate_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                supplier_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SupplierStatusChange"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SupplierDetail"];
                 };
             };
             /** @description Unauthorized */
