@@ -1,5 +1,5 @@
-// Ciudades que se proponen mientras se escribe la del cliente. Solo son sugerencias: el campo
-// acepta cualquier otra (la agencia atiende también a clientes de otros países), pero
+// Ciudades que se proponen mientras se escribe una ciudad. Solo son sugerencias: el campo
+// acepta cualquier otra (la agencia atiende también a personas y empresas de otros países), pero
 // escribir desde la lista evita guardar la misma ciudad de varias formas ("Cucuta",
 // "Cúcuta"). Primero el área metropolitana de Cúcuta y la frontera, después las capitales.
 export const CITY_SUGGESTIONS = [

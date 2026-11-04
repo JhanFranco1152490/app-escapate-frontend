@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 import { ConfirmDialog } from '@/components/confirm-dialog';
 
-import { actionErrorMessage, type ActionFeedback } from '../action-feedback';
+import { actionErrorMessage, type ActionFeedback } from '@/lib/action-feedback';
 import { useDeactivateUser } from '../api';
 
 type DeactivateUserDialogProps = {

@@ -38,3 +38,11 @@ export const formatShortDateTime = (isoDateTime: string) =>
 // Recibe una fecha sin hora (yyyy-MM-dd) y no la desplaza por zona horaria.
 export const formatLongDate = (isoDate: string) =>
   format(parseISO(isoDate), "d 'de' MMMM 'de' yyyy", { locale: es });
+
+// El día de un momento exacto (ISO con zona), según Bogotá: pasada la medianoche UTC el día de
+// la agencia aún es el anterior.
+export const formatDay = (isoDateTime: string) =>
+  format(parseISO(isoDateTime), "d 'de' MMMM 'de' yyyy", {
+    locale: es,
+    in: BOGOTA,
+  });

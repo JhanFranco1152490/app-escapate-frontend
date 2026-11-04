@@ -19,6 +19,10 @@ const RC = /^[0-9A-Z]{8,15}$/;
 // NIT completo: la base y, al final, el dígito de verificación.
 const NIT = /^[0-9]{9,10}$/;
 
+// Identificación tributaria de otro país: cada país tiene su formato, así que solo se exige un
+// largo razonable.
+const FOREIGN = /^[0-9A-Z]{3,30}$/;
+
 // Pesos oficiales de la DIAN, del dígito de la derecha hacia la izquierda.
 const NIT_WEIGHTS = [3, 7, 13, 17, 19, 23, 29, 37, 41, 43, 47, 53, 59, 67, 71];
 
@@ -45,6 +49,7 @@ const RULES: Record<string, (number: string) => boolean> = {
   TI: (number) => TI.test(number),
   RC: (number) => RC.test(number),
   NIT: (number) => NIT.test(number) && !hasWrongNitCheckDigit(number),
+  FOREIGN: (number) => FOREIGN.test(number),
 };
 
 // Recibe el número ya normalizado; un tipo sin regla es inválido.

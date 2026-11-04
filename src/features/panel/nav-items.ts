@@ -1,4 +1,5 @@
 import {
+  Building2,
   Contact,
   House,
   Luggage,
@@ -37,6 +38,13 @@ export const NAV_ITEMS: NavItem[] = [
     icon: Luggage,
     group: 'Operación',
     permission: 'travelers.view',
+  },
+  {
+    href: '/proveedores',
+    label: 'Proveedores',
+    icon: Building2,
+    group: 'Oferta turística',
+    permission: 'suppliers.view',
   },
   {
     href: '/usuarios',

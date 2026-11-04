@@ -78,25 +78,29 @@ src/
 │   ├── roles/            roles y permisos: lista, matriz de permisos, alta, edición y borrado
 │   ├── clients/          clientes: lista, alta, ficha (con sus viajeros) y edición
 │   ├── travelers/        viajeros: lista, alta, ficha y edición
+│   ├── suppliers/        proveedores turísticos: lista, alta, ficha, edición, desactivar y activar
 │   └── legal/            páginas públicas: marco, "acerca de" y visor del texto legal
 ├── components/
 │   ├── ui/               solo shadcn/ui
 │   └── …                 compartidos por más de un dominio (page-header, button-link,
 │                         confirm-dialog, search-input, pagination, empty-state,
-│                         stale-version-notice, …)
+│                         stale-version-notice, status-badge, international-phone-field,
+│                         city-datalist, …)
 ├── lib/
 │   ├── api/              client.ts, errors.ts, form-errors.ts, query-keys.ts,
 │   │                     query-string.ts, schema.d.ts
 │   ├── format/           dates.ts, money.ts, document.ts, phone.ts
 │   ├── validation/       text.ts (reglas de texto), document.ts (reglas por tipo de documento)
 │   ├── countries.ts      códigos de país de la API y sus nombres en español
+│   ├── city-suggestions.ts  ciudades que se proponen en los campos de ciudad
+│   ├── action-feedback.ts   aviso (info o error) tras una acción sobre un registro
 │   ├── form-notice.ts    aviso de "faltan N campos" arriba de un formulario
 │   ├── page-notice.ts    aviso que una pantalla deja para la siguiente ("Cliente registrado.")
 │   ├── query-client.ts   reintentos e invalidación de la sesión ante un 401
 │   └── env.ts            NEXT_PUBLIC_API_URL (el build falla si falta en producción)
 ├── content/legal/       privacidad.md y terminos.md: el texto publicado (fuente única)
 └── test/                 render.tsx, server.ts, handlers.ts, session.ts, users.ts, roles.ts,
-                          clients.ts
+                          clients.ts, suppliers.ts
 ```
 
 Rutas visibles en español (`/clientes`, `/cotizaciones/[id]`); código en inglés.
@@ -188,6 +192,8 @@ tres temas). Las maquetas de `docs/ui/` son la guía visual.
 - Clientes y viajeros de prueba: `buildClientDetail`, `buildCompanyDetail`,
   `buildClientListItem`, `buildTravelerDetail`, `buildClientAsTraveler`,
   `buildTravelerListItem` y `buildPage` (`src/test/clients.ts`).
+- Proveedores de prueba: `buildSupplierDetail` y `buildSupplierListItem`
+  (`src/test/suppliers.ts`).
 - Sesión de prueba: `buildSession()` (`src/test/session.ts`), y en `handlers.ts`
   `sessionHandler(session)` (con sesión) y `noSessionHandlers` (`/me` y `refresh` en 401).
   Un componente que usa `useCurrentUser` se prueba dentro de `<SessionGuard>`, con
@@ -217,6 +223,7 @@ tres temas). Las maquetas de `docs/ui/` son la guía visual.
   | `roles` | `auth` (usuario actual, permisos y `RequirePermission`)                  |
   | `clients` | `auth` (usuario actual, permisos y `RequirePermission`)                |
   | `travelers` | `auth` (usuario actual, permisos y `RequirePermission`); `clients` (`useClients`, `useClient` y `ClientPicker`) |
+  | `suppliers` | `auth` (usuario actual, permisos y `RequirePermission`)                |
 
 - **Elegir la mejor opción, no la librería por defecto.** Ante una necesidad técnica se
   comparan las alternativas reales (lo que trae Next.js, una librería, código propio) y se

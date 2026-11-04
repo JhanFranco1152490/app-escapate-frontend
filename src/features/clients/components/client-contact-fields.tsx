@@ -1,12 +1,10 @@
+import { CITY_LIST_ID, CityDatalist } from '@/components/city-datalist';
 import { FormField, fieldAriaProps } from '@/components/form-field';
+import { InternationalPhoneField } from '@/components/international-phone-field';
 import { Input } from '@/components/ui/input';
 
-import { CITY_SUGGESTIONS } from '../city-suggestions';
 import type { ClientFormApi } from '../schemas';
-import { ClientPhoneField } from './client-phone-field';
 import { ContactSourceFields } from './contact-source-fields';
-
-const CITY_LIST_ID = 'city-suggestions';
 
 type ClientContactFieldsProps = {
   form: ClientFormApi;
@@ -41,15 +39,15 @@ export function ClientContactFields({
 
   return (
     <>
-      <ClientPhoneField form={form} onCommit={onPhoneCommit} />
+      <InternationalPhoneField
+        form={form}
+        names={{ number: 'phone', country: 'phone_country' }}
+        required
+        onCommit={onPhoneCommit}
+      />
       {text('email', 'Correo electrónico', 254)}
       {text('city', 'Ciudad', 80)}
-      {/* Sugerencias nativas del navegador: proponen sin obligar a elegir de la lista. */}
-      <datalist id={CITY_LIST_ID}>
-        {CITY_SUGGESTIONS.map((city) => (
-          <option key={city} value={city} />
-        ))}
-      </datalist>
+      <CityDatalist />
       <ContactSourceFields form={form} source={source} />
     </>
   );

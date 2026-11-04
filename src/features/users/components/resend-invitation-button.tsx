@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 
-import type { ActionFeedback } from '../action-feedback';
+import type { ActionFeedback } from '@/lib/action-feedback';
 import { useResendAction } from '../use-user-actions';
 
 type ResendInvitationButtonProps = {

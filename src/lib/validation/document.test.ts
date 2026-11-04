@@ -27,6 +27,8 @@ describe('isValidDocument', () => {
     ['RC', 'A1234567B'],
     ['NIT', '9001234568'],
     ['NIT', '800197263'],
+    ['FOREIGN', 'ABC'],
+    ['FOREIGN', '123456789012345678901234567890'],
   ])('%s %s es válido', (type, number) => {
     expect(isValidDocument(type, number)).toBe(true);
   });
@@ -43,6 +45,9 @@ describe('isValidDocument', () => {
     ['RC', '1234567890123456'],
     ['NIT', '9001234561'],
     ['NIT', '90012345'],
+    ['FOREIGN', 'AB'],
+    ['FOREIGN', '1234567890123456789012345678901'],
+    ['FOREIGN', 'AB-12'],
     ['XX', '12345'],
   ])('%s %s no es válido', (type, number) => {
     expect(isValidDocument(type, number)).toBe(false);

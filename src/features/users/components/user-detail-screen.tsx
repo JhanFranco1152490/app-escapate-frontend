@@ -6,7 +6,7 @@ import { Alert } from '@/components/alert';
 import { PageHeader } from '@/components/page-header';
 import { parseRouteId } from '@/lib/route-id';
 
-import type { ActionFeedback } from '../action-feedback';
+import type { ActionFeedback } from '@/lib/action-feedback';
 import { clearSavedNotice, readSavedNotice } from '../saved-notice';
 import { ChangeRoleLink } from './change-role-link';
 import { LoginHistory } from './login-history';
