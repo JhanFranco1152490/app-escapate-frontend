@@ -55,6 +55,21 @@ describe('visibleNavGroups', () => {
     expect(groups[1].items[1].href).toBe('/roles');
   });
 
+  it('"Proveedores" aparece en "Oferta turística" con suppliers.view, entre Operación y Administración', () => {
+    const groups = visibleNavGroups(
+      buildSession({ permissions: ['suppliers.view', 'users.view'] }),
+    );
+
+    expect(groups.map((group) => group.label)).toEqual([
+      'Operación',
+      'Oferta turística',
+      'Administración',
+    ]);
+    expect(groups[1].items.map((item) => [item.label, item.href])).toEqual([
+      ['Proveedores', '/proveedores'],
+    ]);
+  });
+
   it('"Clientes" y "Viajeros" aparecen en Operación con su permiso, después de "Inicio"', () => {
     const groups = visibleNavGroups(
       buildSession({ permissions: ['clients.view', 'travelers.view'] }),
