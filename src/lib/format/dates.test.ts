@@ -3,6 +3,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
   ageOn,
   formatDateTime,
+  formatDay,
   formatLongDate,
   formatShortDateTime,
   todayInBogota,
@@ -39,6 +40,14 @@ describe('ageOn', () => {
 describe('formatLongDate', () => {
   it('no corre una fecha sin hora a otro día', () => {
     expect(formatLongDate('2026-10-05')).toBe('5 de octubre de 2026');
+  });
+});
+
+describe('formatDay', () => {
+  it('muestra el día de Bogotá de un momento exacto', () => {
+    expect(formatDay('2026-11-02T15:00:00Z')).toBe('2 de noviembre de 2026');
+    // 03:00 UTC del 3 de noviembre son las 22:00 del 2 en Bogotá.
+    expect(formatDay('2026-11-03T03:00:00Z')).toBe('2 de noviembre de 2026');
   });
 });
 

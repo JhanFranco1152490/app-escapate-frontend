@@ -7,6 +7,7 @@ export const DOCUMENT_TYPE_NAMES = {
   TI: 'Tarjeta de identidad',
   RC: 'Registro civil',
   NIT: 'NIT',
+  FOREIGN: 'Identificación extranjera',
 } as const;
 
 // Puntos de miles sobre un número de solo dígitos: 1020304050 → 1.020.304.050.
@@ -22,5 +23,6 @@ export function formatDocument(type: string | null, number: string | null) {
   if (type === 'NIT') {
     return `NIT ${withThousands(number.slice(0, -1))}-${number.slice(-1)}`;
   }
+  if (type === 'FOREIGN') return `Id. extranjera ${number}`;
   return `${type} ${number}`;
 }

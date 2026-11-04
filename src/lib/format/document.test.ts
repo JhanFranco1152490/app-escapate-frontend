@@ -13,6 +13,7 @@ describe('formatDocument', () => {
     ['CE', 'AB12345', 'CE AB12345'],
     ['PPT', '123456789', 'PPT 123456789'],
     ['PA', 'AB123456', 'PA AB123456'],
+    ['FOREIGN', 'A1234567', 'Id. extranjera A1234567'],
   ])('%s %s → %s', (type, number, expected) => {
     expect(formatDocument(type, number)).toBe(expected);
   });
