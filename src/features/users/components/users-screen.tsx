@@ -15,7 +15,7 @@ import { Button } from '@/components/ui/button';
 import { useHasPermission } from '@/features/auth/permissions';
 import { isApiError } from '@/lib/api/errors';
 
-import type { ActionFeedback } from '../action-feedback';
+import type { ActionFeedback } from '@/lib/action-feedback';
 import { USERS_PAGE_SIZE, useUsers } from '../api';
 import { useUserFilters } from '../use-user-filters';
 import { UsersFilters } from './users-filters';

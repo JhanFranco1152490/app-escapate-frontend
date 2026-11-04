@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { useCurrentUser } from '@/features/auth/components/session-guard';
 
 import { useUnlinkGoogle, type UserDetail } from '../api';
-import { actionErrorMessage, type ActionFeedback } from '../action-feedback';
+import { actionErrorMessage, type ActionFeedback } from '@/lib/action-feedback';
 
 type UnlinkGoogleButtonProps = {
   user: UserDetail;

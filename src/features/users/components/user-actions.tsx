@@ -7,7 +7,7 @@ import { useCurrentUser } from '@/features/auth/components/session-guard';
 import { useHasPermission } from '@/features/auth/permissions';
 
 import type { UserDetail } from '../api';
-import type { ActionFeedback } from '../action-feedback';
+import type { ActionFeedback } from '@/lib/action-feedback';
 import { ActivateUserButton } from './activate-user-button';
 import { DeactivateUserButton } from './deactivate-user-button';
 import { ResendInvitationButton } from './resend-invitation-button';

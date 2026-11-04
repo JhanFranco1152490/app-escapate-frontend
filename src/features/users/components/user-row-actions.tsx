@@ -15,7 +15,7 @@ import {
 import { useCurrentUser } from '@/features/auth/components/session-guard';
 import { useHasPermission } from '@/features/auth/permissions';
 
-import type { ActionFeedback } from '../action-feedback';
+import type { ActionFeedback } from '@/lib/action-feedback';
 import type { UserListItem } from '../api';
 import { useActivateAction, useResendAction } from '../use-user-actions';
 import { DeactivateUserDialog } from './deactivate-user-dialog';

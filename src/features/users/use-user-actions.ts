@@ -1,4 +1,4 @@
-import { actionError, type ActionFeedback } from './action-feedback';
+import { actionError, type ActionFeedback } from '@/lib/action-feedback';
 import { useActivateUser, useResendInvitation } from './api';
 
 type Notify = (feedback: ActionFeedback) => void;

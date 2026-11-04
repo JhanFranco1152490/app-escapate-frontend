@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { formatShortDateTime } from '@/lib/format/dates';
 
-import type { ActionFeedback } from '../action-feedback';
+import type { ActionFeedback } from '@/lib/action-feedback';
 import type { UserListItem } from '../api';
 import { UserRowActions } from './user-row-actions';
 import { UserStatusBadge } from './user-status-badge';
