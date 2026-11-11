@@ -243,7 +243,7 @@ tres temas). Las maquetas de `docs/ui/` son la guía visual.
   | `clients` | `auth` (usuario actual, permisos y `RequirePermission`)                |
   | `travelers` | `auth` (usuario actual, permisos y `RequirePermission`); `clients` (`useClients`, `useClient` y `ClientPicker`) |
   | `suppliers` | `auth` (usuario actual, permisos y `RequirePermission`)                |
-  | `tourist-services` | `auth` (usuario actual, permisos y `RequirePermission`); `suppliers` (`useSupplier`, `SupplierDetail`, `SUPPLIER_CATEGORIES`, `SUPPLIER_CATEGORY_LABELS`, `SupplierStatusBadge` y `SupplierDetailScreen`, que recibe la sección de servicios con `services`) |
+  | `tourist-services` | `auth` (usuario actual, permisos y `RequirePermission`); `suppliers` (`useSupplier`, `SupplierDetail`, `SUPPLIER_CATEGORIES`, `SUPPLIER_CATEGORY_LABELS`, `SupplierStatusBadge`, `SupplierLoader` y `SupplierDetailScreen`, que recibe la sección de servicios con `services`) |
 
 - **Elegir la mejor opción, no la librería por defecto.** Ante una necesidad técnica se
   comparan las alternativas reales (lo que trae Next.js, una librería, código propio) y se
