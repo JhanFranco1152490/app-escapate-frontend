@@ -7,6 +7,7 @@ import { useForm, type FieldErrors } from 'react-hook-form';
 import { Alert } from '@/components/alert';
 import { ButtonLink } from '@/components/button-link';
 import { CityDatalist } from '@/components/city-datalist';
+import { FormSection } from '@/components/form-section';
 import { Button } from '@/components/ui/button';
 import { rateLimitOr } from '@/lib/api/errors';
 import { applyApiFormError } from '@/lib/api/form-errors';
@@ -26,7 +27,6 @@ import {
 } from '../schemas';
 import { SupplierCommercialFields } from './supplier-commercial-fields';
 import { SupplierContactFields } from './supplier-contact-fields';
-import { SupplierFormSection } from './supplier-form-section';
 import { SupplierIdentityFields } from './supplier-identity-fields';
 
 // Los campos del formulario que también nombra la API en sus errores.
@@ -127,15 +127,15 @@ export function SupplierForm({
         </Alert>
       )}
       {notices}
-      <SupplierFormSection title="Identificación y clasificación" required>
+      <FormSection title="Identificación y clasificación" required>
         <SupplierIdentityFields form={form} />
-      </SupplierFormSection>
-      <SupplierFormSection title="Contacto">
+      </FormSection>
+      <FormSection title="Contacto">
         <SupplierContactFields form={form} />
-      </SupplierFormSection>
-      <SupplierFormSection title="Información comercial">
+      </FormSection>
+      <FormSection title="Información comercial">
         <SupplierCommercialFields form={form} />
-      </SupplierFormSection>
+      </FormSection>
       <CityDatalist />
       <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
         <ButtonLink href={cancelHref} variant="outline">

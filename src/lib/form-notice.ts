@@ -14,6 +14,16 @@ type InvalidFormNoticeOptions = {
   requiredMessages?: string[];
 };
 
+// Los mensajes de todos los campos con error, también los de un grupo anidado
+// (`attributes.max_capacity`). Un error de campo trae `type`; un grupo, solo sus campos.
+function fieldMessages(errors: FieldErrors): unknown[] {
+  return Object.values(errors).flatMap((error) =>
+    error && !('type' in error)
+      ? fieldMessages(error as FieldErrors)
+      : [error?.message],
+  );
+}
+
 // Aviso arriba del formulario cuando el navegador rechaza el envío: cuántos campos
 // obligatorios faltan o, si están todos, que hay formatos por corregir.
 export function invalidFormNotice(
@@ -21,10 +31,9 @@ export function invalidFormNotice(
   { subject, requiredMessages = [] }: InvalidFormNoticeOptions,
 ): FormNotice {
   const missingMessages = [REQUIRED_MESSAGE, ...requiredMessages];
-  const missing = Object.values(errors).filter(
-    (error) =>
-      typeof error?.message === 'string' &&
-      missingMessages.includes(error.message),
+  const missing = fieldMessages(errors).filter(
+    (message) =>
+      typeof message === 'string' && missingMessages.includes(message),
   ).length;
   if (missing === 0) return { title: REVIEW_FIELDS };
   return {

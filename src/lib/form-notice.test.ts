@@ -33,6 +33,21 @@ describe('invalidFormNotice', () => {
     expect(notice.title).toBe('Falta 1 campo obligatorio.');
   });
 
+  it('cuenta los campos de un grupo anidado', () => {
+    const notice = invalidFormNotice(
+      {
+        name: required,
+        attributes: {
+          max_capacity: required,
+          stars: { type: 'custom', message: 'Indica un número de 1 a 5.' },
+        },
+      },
+      { subject: 'el servicio' },
+    );
+
+    expect(notice.title).toBe('Faltan 2 campos obligatorios.');
+  });
+
   it('sin campos faltantes pide revisar los formatos', () => {
     expect(
       invalidFormNotice(
