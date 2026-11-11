@@ -97,6 +97,7 @@ export function useDeleteRate(serviceId: number) {
   return useMutation({
     mutationFn: (input: { rateId: number; expectedVersion: number }) =>
       deleteRate(serviceId, input.rateId, input.expectedVersion),
-    onSuccess: useRefreshRates(serviceId),
+    // También si falla: con un 409 otra persona la cambió, y la tabla tiene que mostrarlo.
+    onSettled: useRefreshRates(serviceId),
   });
 }
