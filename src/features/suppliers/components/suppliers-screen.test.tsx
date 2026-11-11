@@ -144,7 +144,7 @@ describe('SuppliersScreen', () => {
     expect(onUrlUpdate.mock.lastCall![0].queryString).toBe('');
   });
 
-  it('muestra cada fila con documento, categorías, contacto y estado', async () => {
+  it('muestra cada fila con documento, categorías, contacto, servicios y estado', async () => {
     respondWith(() =>
       HttpResponse.json(
         buildPage([
@@ -160,6 +160,7 @@ describe('SuppliersScreen', () => {
             contact_phone: '+573001112233',
             city: null,
             is_active: false,
+            active_service_count: 0,
           }),
           buildSupplierListItem({
             id: 42,
@@ -182,11 +183,13 @@ describe('SuppliersScreen', () => {
     expect(hotel.getByText('ventas@example.com')).toBeVisible();
     expect(hotel.getByText('Cartagena')).toBeVisible();
     expect(hotel.getByText('Activo')).toBeVisible();
+    expect(hotel.getByText('2')).toBeVisible();
     const naviera = within(await rowOf('Naviera del Mar'));
     expect(naviera.getByText('Id. extranjera A1234567')).toBeVisible();
     expect(naviera.getByText('300 111 2233')).toBeVisible();
     expect(naviera.getByText('—')).toBeVisible();
     expect(naviera.getByText('Inactivo')).toBeVisible();
+    expect(naviera.getByText('0')).toBeVisible();
     expect(
       within(await rowOf('Guía Independiente')).getByText('Sin documento'),
     ).toBeVisible();

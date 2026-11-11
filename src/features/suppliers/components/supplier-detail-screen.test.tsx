@@ -1,6 +1,7 @@
 import { screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { http, HttpResponse } from 'msw';
+import type { ReactNode } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { SessionGuard } from '@/features/auth/components/session-guard';
@@ -11,6 +12,7 @@ import { server } from '@/test/server';
 import { buildSession } from '@/test/session';
 import { buildSupplierDetail } from '@/test/suppliers';
 
+import type { SupplierDetail } from '../api';
 import { SupplierDetailScreen } from './supplier-detail-screen';
 
 vi.mock('next/navigation', () => ({ useRouter: () => ({ replace: vi.fn() }) }));
@@ -48,11 +50,14 @@ afterEach(() => {
   clearPageNotice();
 });
 
-const renderScreen = (permissions = ['suppliers.view', 'suppliers.manage']) => {
+const renderScreen = (
+  permissions = ['suppliers.view', 'suppliers.manage'],
+  services?: (supplier: SupplierDetail) => ReactNode,
+) => {
   server.use(sessionHandler(buildSession({ permissions })));
   renderWithProviders(
     <SessionGuard>
-      <SupplierDetailScreen id="40" />
+      <SupplierDetailScreen id="40" services={services} />
     </SessionGuard>,
   );
   return screen.findByRole('heading', { name: 'Hotel Costa Azul' });
@@ -108,6 +113,18 @@ describe('SupplierDetailScreen', () => {
     await renderScreen();
 
     expect(screen.getByText('Convenio vencido')).toBeVisible();
+  });
+
+  it('deja debajo de la información comercial el espacio para lo que otro dominio le pase', async () => {
+    await renderScreen(undefined, (supplier) => (
+      <section aria-label="Servicios del proveedor">
+        {supplier.trade_name}
+      </section>
+    ));
+
+    expect(
+      screen.getByRole('region', { name: 'Servicios del proveedor' }),
+    ).toHaveTextContent('Hotel Costa Azul');
   });
 
   it('muestra el aviso que dejó el formulario', async () => {

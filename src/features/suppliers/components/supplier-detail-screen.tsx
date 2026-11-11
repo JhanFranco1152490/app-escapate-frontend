@@ -1,7 +1,7 @@
 'use client';
 
 import { Pencil } from 'lucide-react';
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 
 import { Alert } from '@/components/alert';
 import { ButtonLink } from '@/components/button-link';
@@ -12,13 +12,24 @@ import { formatDay } from '@/lib/format/dates';
 import { parseRouteId } from '@/lib/route-id';
 import { usePageNotice } from '@/lib/use-page-notice';
 
+import type { SupplierDetail as SupplierDetailData } from '../api';
 import { supplierNoticeTarget } from '../supplier-notice';
 import { SupplierDetail } from './supplier-detail';
 import { SupplierLoader } from './supplier-loader';
 import { SupplierStatusActions } from './supplier-status-actions';
 import { SupplierStatusBadge } from './supplier-status-badge';
 
-export function SupplierDetailScreen({ id }: { id: string }) {
+type SupplierDetailScreenProps = {
+  id: string;
+  // Lo que otro dominio muestra debajo de la ficha (sus servicios), con el proveedor ya
+  // cargado: este dominio no sabe qué es ni lo importa.
+  services?: (supplier: SupplierDetailData) => ReactNode;
+};
+
+export function SupplierDetailScreen({
+  id,
+  services,
+}: SupplierDetailScreenProps) {
   const supplierId = parseRouteId(id);
   const canManage = useHasPermission('suppliers.manage');
   // "Proveedor registrado." o "Cambios guardados.", si se llega desde el formulario.
@@ -68,6 +79,7 @@ export function SupplierDetailScreen({ id }: { id: string }) {
             pageNotice && <Alert variant="info" title={pageNotice} />
           )}
           <SupplierDetail supplier={supplier} />
+          {services?.(supplier)}
         </>
       )}
     </SupplierLoader>
