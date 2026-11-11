@@ -66,6 +66,7 @@ export function buildSupplierListItem(
     contact_email,
     contact_phone,
     is_active,
+    active_service_count: 2,
     ...overrides,
   };
 }
