@@ -508,10 +508,149 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/suppliers/{supplier_id}/tourist-services": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Supplier Services */
+        get: operations["list_supplier_services_api_suppliers__supplier_id__tourist_services_get"];
+        put?: never;
+        /** Create Tourist Service */
+        post: operations["create_tourist_service_api_suppliers__supplier_id__tourist_services_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/tourist-services/{service_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Tourist Service */
+        get: operations["get_tourist_service_api_tourist_services__service_id__get"];
+        /** Update Tourist Service */
+        put: operations["update_tourist_service_api_tourist_services__service_id__put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/tourist-services/{service_id}/deactivate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Deactivate Tourist Service */
+        post: operations["deactivate_tourist_service_api_tourist_services__service_id__deactivate_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/tourist-services/{service_id}/activate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Activate Tourist Service */
+        post: operations["activate_tourist_service_api_tourist_services__service_id__activate_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/tourist-services/{service_id}/rates": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Service Rates */
+        get: operations["list_service_rates_api_tourist_services__service_id__rates_get"];
+        put?: never;
+        /** Create Service Rate */
+        post: operations["create_service_rate_api_tourist_services__service_id__rates_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/tourist-services/{service_id}/rates/{rate_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Update Service Rate */
+        put: operations["update_service_rate_api_tourist_services__service_id__rates__rate_id__put"];
+        post?: never;
+        /** Delete Service Rate */
+        delete: operations["delete_service_rate_api_tourist_services__service_id__rates__rate_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** AirAttributes */
+        AirAttributes: {
+            /** Origin */
+            origin: string;
+            trip_type: components["schemas"]["TripType"];
+            cabin_class?: components["schemas"]["CabinClass"] | null;
+            /** Stops */
+            stops?: number | null;
+            /**
+             * Carry On Included
+             * @default false
+             */
+            carry_on_included: boolean;
+            /** Checked Bags */
+            checked_bags?: number | null;
+        };
+        /**
+         * CabinClass
+         * @enum {string}
+         */
+        CabinClass: "economy" | "premium_economy" | "business" | "first";
+        /**
+         * CabinKind
+         * @enum {string}
+         */
+        CabinKind: "inside" | "ocean_view" | "balcony" | "suite";
+        /**
+         * ChargeUnit
+         * @description Sobre qué se cobra el valor de una tarifa: dice si al usarla hay que multiplicar por
+         *     noches, por personas o por nada.
+         * @enum {string}
+         */
+        ChargeUnit: "per_night" | "per_person_per_night" | "per_person" | "per_trip" | "per_day" | "per_group" | "per_cabin" | "per_package" | "per_service";
         /** ClientCreate */
         ClientCreate: {
             client_type: components["schemas"]["ClientType"];
@@ -661,16 +800,50 @@ export interface components {
          * @enum {string}
          */
         ContactSource: "instagram" | "facebook" | "whatsapp" | "google" | "referral" | "walk_in" | "other";
+        /** CruiseAttributes */
+        CruiseAttributes: {
+            /** Ship Name */
+            ship_name: string;
+            /** Departure Port */
+            departure_port: string;
+            /** Nights */
+            nights: number;
+            cabin_kind?: components["schemas"]["CabinKind"] | null;
+            /** Itinerary */
+            itinerary?: string | null;
+            /**
+             * Includes
+             * @default []
+             */
+            includes: components["schemas"]["CruiseInclude"][];
+        };
+        /**
+         * CruiseInclude
+         * @enum {string}
+         */
+        CruiseInclude: "meals" | "drinks_package" | "port_fees" | "gratuities" | "excursions";
         /** CsrfToken */
         CsrfToken: {
             /** Csrf Token */
             csrf_token: string;
         };
         /**
+         * Currency
+         * @description La moneda en que el proveedor da la tarifa. No se convierte al registrar: la tasa de
+         *     cambio varía cada día.
+         * @enum {string}
+         */
+        Currency: "COP" | "USD";
+        /**
          * DocumentType
          * @enum {string}
          */
         DocumentType: "CC" | "CE" | "PPT" | "PA";
+        /**
+         * DurationUnit
+         * @enum {string}
+         */
+        DurationUnit: "hours" | "days";
         /** ErrorResponse */
         ErrorResponse: {
             /** Detail */
@@ -685,6 +858,69 @@ export interface components {
                 [key: string]: string[];
             };
         };
+        /** FoodAttributes */
+        FoodAttributes: {
+            /** Meals */
+            meals: components["schemas"]["Meal"][];
+            service_style?: components["schemas"]["ServiceStyle"] | null;
+            /** Cuisine */
+            cuisine?: string | null;
+        };
+        /** GroundAttributes */
+        GroundAttributes: {
+            modality: components["schemas"]["Modality"];
+            vehicle_kind?: components["schemas"]["VehicleKind"] | null;
+            /** Origin */
+            origin?: string | null;
+            /** Max Capacity */
+            max_capacity?: number | null;
+        };
+        /** LodgingAttributes */
+        "LodgingAttributes-Input": {
+            lodging_kind: components["schemas"]["LodgingKind"];
+            /** Stars */
+            stars?: number | null;
+            meal_plan?: components["schemas"]["MealPlan"] | null;
+            /** Max Capacity */
+            max_capacity: number;
+            /** Check In Time */
+            check_in_time?: string | null;
+            /** Check Out Time */
+            check_out_time?: string | null;
+            /**
+             * Includes
+             * @default []
+             */
+            includes: components["schemas"]["LodgingInclude"][];
+        };
+        /** LodgingAttributes */
+        "LodgingAttributes-Output": {
+            lodging_kind: components["schemas"]["LodgingKind"];
+            /** Stars */
+            stars?: number | null;
+            meal_plan?: components["schemas"]["MealPlan"] | null;
+            /** Max Capacity */
+            max_capacity: number;
+            /** Check In Time */
+            check_in_time?: string | null;
+            /** Check Out Time */
+            check_out_time?: string | null;
+            /**
+             * Includes
+             * @default []
+             */
+            includes: components["schemas"]["LodgingInclude"][];
+        };
+        /**
+         * LodgingInclude
+         * @enum {string}
+         */
+        LodgingInclude: "airport_transfers" | "recreational_activities" | "wifi" | "parking";
+        /**
+         * LodgingKind
+         * @enum {string}
+         */
+        LodgingKind: "hotel" | "resort" | "hostel" | "apartment" | "cabin" | "other";
         /** LoginEventItem */
         LoginEventItem: {
             /**
@@ -707,6 +943,27 @@ export interface components {
             /** Password */
             password: string;
         };
+        /**
+         * Meal
+         * @enum {string}
+         */
+        Meal: "breakfast" | "lunch" | "dinner";
+        /**
+         * MealPlan
+         * @enum {string}
+         */
+        MealPlan: "room_only" | "breakfast" | "half_board" | "full_board" | "all_inclusive";
+        /**
+         * Modality
+         * @description Privado o compartido; la usan traslados y tours.
+         * @enum {string}
+         */
+        Modality: "private" | "shared";
+        /**
+         * OtherAttributes
+         * @description Sin campos propios: el servicio se describe en su descripción.
+         */
+        OtherAttributes: Record<string, never>;
         /** Page[ClientListItem] */
         Page_ClientListItem_: {
             /** Count */
@@ -729,6 +986,17 @@ export interface components {
             /** Results */
             results: components["schemas"]["LoginEventItem"][];
         };
+        /** Page[ServiceRate] */
+        Page_ServiceRate_: {
+            /** Count */
+            count: number;
+            /** Next */
+            next: string | null;
+            /** Previous */
+            previous: string | null;
+            /** Results */
+            results: components["schemas"]["ServiceRate"][];
+        };
         /** Page[SupplierListItem] */
         Page_SupplierListItem_: {
             /** Count */
@@ -739,6 +1007,17 @@ export interface components {
             previous: string | null;
             /** Results */
             results: components["schemas"]["SupplierListItem"][];
+        };
+        /** Page[TouristServiceListItem] */
+        Page_TouristServiceListItem_: {
+            /** Count */
+            count: number;
+            /** Next */
+            next: string | null;
+            /** Previous */
+            previous: string | null;
+            /** Results */
+            results: components["schemas"]["TouristServiceListItem"][];
         };
         /** Page[TravelerListItem] */
         Page_TravelerListItem_: {
@@ -799,6 +1078,11 @@ export interface components {
             /** Help */
             help: string | null;
         };
+        /**
+         * RateValidity
+         * @enum {string}
+         */
+        RateValidity: "upcoming" | "current" | "expired";
         /** ReferenceClient */
         ReferenceClient: {
             /** Id */
@@ -875,6 +1159,83 @@ export interface components {
             /** Name */
             name: string;
         };
+        /** ServiceRate */
+        ServiceRate: {
+            /** Id */
+            id: number;
+            /** Name */
+            name: string;
+            /**
+             * Valid From
+             * Format: date
+             */
+            valid_from: string;
+            /** Valid Until */
+            valid_until: string | null;
+            currency: components["schemas"]["Currency"];
+            charge_unit: components["schemas"]["ChargeUnit"];
+            /** Amount */
+            amount: string;
+            /** Conditions */
+            conditions: string | null;
+            validity_status: components["schemas"]["RateValidity"];
+            created_by: components["schemas"]["UserRef"];
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+            /** Version */
+            version: number;
+        };
+        /** ServiceRateCreate */
+        ServiceRateCreate: {
+            /** Name */
+            name: string;
+            /**
+             * Valid From
+             * Format: date
+             */
+            valid_from: string;
+            /** Valid Until */
+            valid_until?: string | null;
+            currency: components["schemas"]["Currency"];
+            charge_unit: components["schemas"]["ChargeUnit"];
+            /** Amount */
+            amount: number | string;
+            /** Conditions */
+            conditions?: string | null;
+        };
+        /** ServiceRateUpdate */
+        ServiceRateUpdate: {
+            /** Name */
+            name: string;
+            /**
+             * Valid From
+             * Format: date
+             */
+            valid_from: string;
+            /** Valid Until */
+            valid_until?: string | null;
+            currency: components["schemas"]["Currency"];
+            charge_unit: components["schemas"]["ChargeUnit"];
+            /** Amount */
+            amount: number | string;
+            /** Conditions */
+            conditions?: string | null;
+            /** Expected Version */
+            expected_version: number;
+        };
+        /**
+         * ServiceStyle
+         * @enum {string}
+         */
+        ServiceStyle: "buffet" | "set_menu" | "a_la_carte";
         /** SessionUser */
         SessionUser: {
             /** Id */
@@ -1022,6 +1383,20 @@ export interface components {
             contact_phone: string | null;
             /** Is Active */
             is_active: boolean;
+            /**
+             * Active Service Count
+             * @default 0
+             */
+            active_service_count: number;
+        };
+        /** SupplierRef */
+        SupplierRef: {
+            /** Id */
+            id: number;
+            /** Trade Name */
+            trade_name: string;
+            /** Is Active */
+            is_active: boolean;
         };
         /** SupplierStatusChange */
         SupplierStatusChange: {
@@ -1072,6 +1447,111 @@ export interface components {
          * @enum {string}
          */
         TokenPurpose: "reset" | "invitation";
+        /** TouristServiceCreate */
+        TouristServiceCreate: {
+            service_type: components["schemas"]["SupplierCategory"];
+            /** Name */
+            name: string;
+            /** Destination */
+            destination: string;
+            /** Description */
+            description?: string | null;
+            /** Conditions */
+            conditions?: string | null;
+            /** Attributes */
+            attributes?: components["schemas"]["LodgingAttributes-Input"] | components["schemas"]["AirAttributes"] | components["schemas"]["GroundAttributes"] | components["schemas"]["ToursAttributes"] | components["schemas"]["CruiseAttributes"] | components["schemas"]["FoodAttributes"] | components["schemas"]["WholesalerAttributes"] | components["schemas"]["OtherAttributes"];
+        };
+        /** TouristServiceDetail */
+        TouristServiceDetail: {
+            /** Id */
+            id: number;
+            service_type: components["schemas"]["SupplierCategory"];
+            /** Name */
+            name: string;
+            /** Destination */
+            destination: string;
+            /** Is Active */
+            is_active: boolean;
+            /** Current Rate Count */
+            current_rate_count: number;
+            supplier: components["schemas"]["SupplierRef"];
+            /** Description */
+            description: string | null;
+            /** Conditions */
+            conditions: string | null;
+            /** Attributes */
+            attributes: components["schemas"]["LodgingAttributes-Output"] | components["schemas"]["AirAttributes"] | components["schemas"]["GroundAttributes"] | components["schemas"]["ToursAttributes"] | components["schemas"]["CruiseAttributes"] | components["schemas"]["FoodAttributes"] | components["schemas"]["WholesalerAttributes"] | components["schemas"]["OtherAttributes"];
+            /** Deactivated At */
+            deactivated_at: string | null;
+            deactivated_by: components["schemas"]["UserRef"] | null;
+            created_by: components["schemas"]["UserRef"];
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+            /** Version */
+            version: number;
+        };
+        /** TouristServiceListItem */
+        TouristServiceListItem: {
+            /** Id */
+            id: number;
+            service_type: components["schemas"]["SupplierCategory"];
+            /** Name */
+            name: string;
+            /** Destination */
+            destination: string;
+            /** Is Active */
+            is_active: boolean;
+            /** Current Rate Count */
+            current_rate_count: number;
+        };
+        /** TouristServiceStatusChange */
+        TouristServiceStatusChange: {
+            /** Expected Version */
+            expected_version: number;
+        };
+        /** TouristServiceUpdate */
+        TouristServiceUpdate: {
+            service_type: components["schemas"]["SupplierCategory"];
+            /** Name */
+            name: string;
+            /** Destination */
+            destination: string;
+            /** Description */
+            description?: string | null;
+            /** Conditions */
+            conditions?: string | null;
+            /** Attributes */
+            attributes?: components["schemas"]["LodgingAttributes-Input"] | components["schemas"]["AirAttributes"] | components["schemas"]["GroundAttributes"] | components["schemas"]["ToursAttributes"] | components["schemas"]["CruiseAttributes"] | components["schemas"]["FoodAttributes"] | components["schemas"]["WholesalerAttributes"] | components["schemas"]["OtherAttributes"];
+            /** Expected Version */
+            expected_version: number;
+        };
+        /** ToursAttributes */
+        ToursAttributes: {
+            /** Duration Value */
+            duration_value: number;
+            duration_unit: components["schemas"]["DurationUnit"];
+            modality?: components["schemas"]["Modality"] | null;
+            /** Meeting Point */
+            meeting_point?: string | null;
+            /**
+             * Includes
+             * @default []
+             */
+            includes: components["schemas"]["ToursInclude"][];
+        };
+        /**
+         * ToursInclude
+         * @enum {string}
+         */
+        ToursInclude: "transport" | "guide" | "entrance_fees" | "meals" | "insurance";
         /** TravelerCreate */
         TravelerCreate: {
             /** First Name */
@@ -1220,6 +1700,11 @@ export interface components {
             /** Expected Version */
             expected_version: number;
         };
+        /**
+         * TripType
+         * @enum {string}
+         */
+        TripType: "one_way" | "round_trip";
         /** UserCreate */
         UserCreate: {
             /** First Name */
@@ -1342,6 +1827,28 @@ export interface components {
             /** Invitation Sent */
             invitation_sent: boolean | null;
         };
+        /**
+         * VehicleKind
+         * @enum {string}
+         */
+        VehicleKind: "car" | "van" | "minibus" | "bus" | "other";
+        /** WholesalerAttributes */
+        WholesalerAttributes: {
+            /** Nights */
+            nights: number;
+            /** Departure City */
+            departure_city?: string | null;
+            /**
+             * Includes
+             * @default []
+             */
+            includes: components["schemas"]["WholesalerInclude"][];
+        };
+        /**
+         * WholesalerInclude
+         * @enum {string}
+         */
+        WholesalerInclude: "flights" | "lodging" | "transfers" | "tours" | "meals" | "travel_insurance";
     };
     responses: never;
     parameters: never;
@@ -3446,6 +3953,681 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["SupplierDetail"];
                 };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    list_supplier_services_api_suppliers__supplier_id__tourist_services_get: {
+        parameters: {
+            query?: {
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path: {
+                supplier_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Page_TouristServiceListItem_"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    create_tourist_service_api_suppliers__supplier_id__tourist_services_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                supplier_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TouristServiceCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TouristServiceDetail"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    get_tourist_service_api_tourist_services__service_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                service_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TouristServiceDetail"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    update_tourist_service_api_tourist_services__service_id__put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                service_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TouristServiceUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TouristServiceDetail"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    deactivate_tourist_service_api_tourist_services__service_id__deactivate_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                service_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TouristServiceStatusChange"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TouristServiceDetail"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    activate_tourist_service_api_tourist_services__service_id__activate_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                service_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TouristServiceStatusChange"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TouristServiceDetail"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    list_service_rates_api_tourist_services__service_id__rates_get: {
+        parameters: {
+            query?: {
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path: {
+                service_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Page_ServiceRate_"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    create_service_rate_api_tourist_services__service_id__rates_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                service_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ServiceRateCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ServiceRate"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    update_service_rate_api_tourist_services__service_id__rates__rate_id__put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                service_id: number;
+                rate_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ServiceRateUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ServiceRate"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    delete_service_rate_api_tourist_services__service_id__rates__rate_id__delete: {
+        parameters: {
+            query: {
+                expected_version: number;
+            };
+            header?: never;
+            path: {
+                service_id: number;
+                rate_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
             /** @description Unauthorized */
             401: {
