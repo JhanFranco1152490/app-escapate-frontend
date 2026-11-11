@@ -87,7 +87,8 @@ src/
 │   └── …                 compartidos por más de un dominio (page-header, button-link,
 │                         confirm-dialog, search-input, pagination, empty-state,
 │                         stale-version-notice, status-badge, international-phone-field,
-│                         city-datalist, decimal-amount-field, form-section, …)
+│                         city-datalist, decimal-amount-field, form-section,
+│                         status-actions, …)
 ├── lib/
 │   ├── api/              client.ts, errors.ts, form-errors.ts, query-keys.ts,
 │   │                     query-string.ts, schema.d.ts

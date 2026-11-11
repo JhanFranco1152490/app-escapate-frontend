@@ -5,6 +5,7 @@ import {
   formatDateTime,
   formatDay,
   formatLongDate,
+  formatShortDate,
   formatShortDateTime,
   todayInBogota,
 } from './dates';
@@ -40,6 +41,13 @@ describe('ageOn', () => {
 describe('formatLongDate', () => {
   it('no corre una fecha sin hora a otro día', () => {
     expect(formatLongDate('2026-10-05')).toBe('5 de octubre de 2026');
+  });
+});
+
+describe('formatShortDate', () => {
+  it('da el día, el mes corto y el año sin correr la fecha', () => {
+    expect(formatShortDate('2026-12-15')).toBe('15 dic 2026');
+    expect(formatShortDate('2027-01-01')).toBe('1 ene 2027');
   });
 });
 

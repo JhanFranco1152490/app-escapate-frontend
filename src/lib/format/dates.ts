@@ -46,3 +46,7 @@ export const formatDay = (isoDateTime: string) =>
     locale: es,
     in: BOGOTA,
   });
+
+// Fecha sin hora (yyyy-MM-dd) en corto, para tablas: "15 dic 2026".
+export const formatShortDate = (isoDate: string) =>
+  format(parseISO(isoDate), 'd MMM yyyy', { locale: es });
