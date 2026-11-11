@@ -80,7 +80,13 @@ src/
 │   ├── travelers/        viajeros: lista, alta, ficha y edición
 │   ├── suppliers/        proveedores turísticos: lista, alta, ficha, edición, desactivar y activar
 │   ├── tourist-services/ servicios de cada proveedor y sus tarifas: sección en la ficha del
-│   │                     proveedor, alta, ficha con tarifas, edición, desactivar y activar
+│   │                     proveedor, alta (/proveedores/[id]/servicios/nuevo), ficha con
+│   │                     tarifas (/servicios/[id]: agregar, editar y borrar en un panel),
+│   │                     edición, desactivar y activar. La ficha del proveedor recibe la
+│   │                     sección por `services` desde `supplier-detail-with-services.tsx`,
+│   │                     así `suppliers` no importa de este dominio. Los campos propios de
+│   │                     cada tipo: `attribute-rules.ts` (validar y armar) y
+│   │                     `attribute-details.tsx` (mostrar)
 │   └── legal/            páginas públicas: marco, "acerca de" y visor del texto legal
 ├── components/
 │   ├── ui/               solo shadcn/ui
