@@ -11,6 +11,8 @@ import { useTouristService, type TouristServiceDetail } from '../api';
 type ServiceLoaderProps = {
   // null si el id de la URL es imposible: no se pide a la API.
   serviceId: number | null;
+  // La ficha arma su propia ruta con el proveedor; la edición vuelve a la ficha.
+  back?: { href: string; label: string };
   children: (service: TouristServiceDetail) => ReactNode;
 };
 
@@ -29,13 +31,16 @@ function ServiceNotFound() {
   );
 }
 
-// Sin enlace de vuelta fijo: la ruta lleva al proveedor del servicio, que se conoce al
-// cargarlo.
-export function ServiceLoader({ serviceId, children }: ServiceLoaderProps) {
+export function ServiceLoader({
+  serviceId,
+  back,
+  children,
+}: ServiceLoaderProps) {
   return (
     <RecordLoader
       validId={serviceId !== null}
       query={useTouristService(serviceId)}
+      back={back}
       notFound={<ServiceNotFound />}
       errorTitle="No pudimos cargar el servicio"
       loadingLabel="Cargando el servicio"
