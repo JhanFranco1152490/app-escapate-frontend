@@ -15,7 +15,9 @@ type RecordLoaderProps<T> = {
   // false si el id de la URL es imposible: la consulta no se hizo.
   validId: boolean;
   query: UseQueryResult<T>;
-  back: { href: string; label: string };
+  // Sin `back`, la pantalla arma su propia ruta de vuelta con el registro ya cargado (por
+  // ejemplo, "Proveedores / Hotel / Servicio").
+  back?: { href: string; label: string };
   notFound: ReactNode;
   // "No pudimos cargar el cliente", "Cargando el cliente".
   errorTitle: string;
@@ -41,13 +43,15 @@ export function RecordLoader<T>({
 
   return (
     <div className="flex max-w-5xl flex-col gap-7">
-      <Link
-        href={back.href}
-        className="flex min-h-11 w-fit items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
-      >
-        <ArrowLeft aria-hidden="true" className="size-4" />
-        {back.label}
-      </Link>
+      {back && (
+        <Link
+          href={back.href}
+          className="flex min-h-11 w-fit items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+        >
+          <ArrowLeft aria-hidden="true" className="size-4" />
+          {back.label}
+        </Link>
+      )}
       {query.data ? (
         children(query.data)
       ) : query.isError ? (

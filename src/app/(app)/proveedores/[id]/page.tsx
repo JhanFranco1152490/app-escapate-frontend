@@ -1,5 +1,5 @@
 import { RequirePermission } from '@/features/auth/components/require-permission';
-import { SupplierDetailScreen } from '@/features/suppliers/components/supplier-detail-screen';
+import { SupplierDetailWithServices } from '@/features/tourist-services/components/supplier-detail-with-services';
 
 export default async function SupplierPage({
   params,
@@ -7,7 +7,7 @@ export default async function SupplierPage({
   const { id } = await params;
   return (
     <RequirePermission codes={['suppliers.view']}>
-      <SupplierDetailScreen id={id} />
+      <SupplierDetailWithServices id={id} />
     </RequirePermission>
   );
 }

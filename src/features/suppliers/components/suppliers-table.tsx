@@ -28,6 +28,7 @@ export function SuppliersTable({
         <col className="w-[22%]" />
         <col className="w-[22%]" />
         <col className="w-[12%]" />
+        <col className="w-[9%]" />
         <col className="w-[11%]" />
         <col className="w-24" />
       </colgroup>
@@ -44,6 +45,9 @@ export function SuppliersTable({
           </th>
           <th scope="col" className={headerCell}>
             Ciudad
+          </th>
+          <th scope="col" className={headerCell}>
+            Servicios
           </th>
           <th scope="col" className={headerCell}>
             Estado
@@ -95,6 +99,12 @@ export function SuppliersTable({
             </td>
             <td className={`${cell} truncate text-muted-foreground`}>
               {supplier.city ?? '—'}
+            </td>
+            <td className={`${cell} ${mono}`}>
+              {/* En celular la fila es una tarjeta sin encabezados: el número solo no se
+                  entendería. */}
+              <span className="md:sr-only">Servicios activos: </span>
+              <span>{supplier.active_service_count}</span>
             </td>
             <td className={cell}>
               <SupplierStatusBadge active={supplier.is_active} />

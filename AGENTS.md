@@ -79,18 +79,28 @@ src/
 │   ├── clients/          clientes: lista, alta, ficha (con sus viajeros) y edición
 │   ├── travelers/        viajeros: lista, alta, ficha y edición
 │   ├── suppliers/        proveedores turísticos: lista, alta, ficha, edición, desactivar y activar
+│   ├── tourist-services/ servicios de cada proveedor y sus tarifas: sección en la ficha del
+│   │                     proveedor, alta (/proveedores/[id]/servicios/nuevo), ficha con
+│   │                     tarifas (/servicios/[id]: agregar, editar y borrar en un panel),
+│   │                     edición, desactivar y activar. La ficha del proveedor recibe la
+│   │                     sección por `services` desde `supplier-detail-with-services.tsx`,
+│   │                     así `suppliers` no importa de este dominio. Los campos propios de
+│   │                     cada tipo: `attribute-rules.ts` (validar y armar) y
+│   │                     `attribute-details.tsx` (mostrar)
 │   └── legal/            páginas públicas: marco, "acerca de" y visor del texto legal
 ├── components/
 │   ├── ui/               solo shadcn/ui
 │   └── …                 compartidos por más de un dominio (page-header, button-link,
 │                         confirm-dialog, search-input, pagination, empty-state,
 │                         stale-version-notice, status-badge, international-phone-field,
-│                         city-datalist, …)
+│                         city-datalist, decimal-amount-field, form-section,
+│                         status-actions, …)
 ├── lib/
 │   ├── api/              client.ts, errors.ts, form-errors.ts, query-keys.ts,
 │   │                     query-string.ts, schema.d.ts
 │   ├── format/           dates.ts, money.ts, document.ts, phone.ts
-│   ├── validation/       text.ts (reglas de texto), document.ts (reglas por tipo de documento)
+│   ├── validation/       text.ts (reglas de texto), document.ts (reglas por tipo de documento),
+│   │                     amount.ts (valor en pesos o dólares escrito como en Colombia)
 │   ├── countries.ts      códigos de país de la API y sus nombres en español
 │   ├── city-suggestions.ts  ciudades que se proponen en los campos de ciudad
 │   ├── action-feedback.ts   aviso (info o error) tras una acción sobre un registro
@@ -100,7 +110,7 @@ src/
 │   └── env.ts            NEXT_PUBLIC_API_URL (el build falla si falta en producción)
 ├── content/legal/       privacidad.md y terminos.md: el texto publicado (fuente única)
 └── test/                 render.tsx, server.ts, handlers.ts, session.ts, users.ts, roles.ts,
-                          clients.ts, suppliers.ts
+                          clients.ts, suppliers.ts, tourist-services.ts
 ```
 
 Rutas visibles en español (`/clientes`, `/cotizaciones/[id]`); código en inglés.
@@ -186,7 +196,10 @@ tres temas). Las maquetas de `docs/ui/` son la guía visual.
   se cierra mientras la acción está en curso y, si falla, muestra el motivo adentro.
 - Fechas solo desde `lib/format/dates.ts` y montos solo desde `lib/format/money.ts`: los
   componentes no llaman a `Intl` ni a `new Date()`. Los montos llegan en pesos enteros y el
-  frontend no calcula precios (lo hace el backend).
+  frontend no calcula precios (lo hace el backend). **Única excepción:** las tarifas de los
+  servicios turísticos, en COP (enteros) o USD (con centavos), llegan como texto decimal y se
+  muestran con `formatRateAmount`; se escriben con `DecimalAmountField` y se leen con
+  `parseAmount` (`lib/validation/amount.ts`), que nunca las pasa por un número.
 
 ### Pruebas
 
@@ -205,6 +218,8 @@ tres temas). Las maquetas de `docs/ui/` son la guía visual.
   `buildTravelerListItem` y `buildPage` (`src/test/clients.ts`).
 - Proveedores de prueba: `buildSupplierDetail` y `buildSupplierListItem`
   (`src/test/suppliers.ts`).
+- Servicios y tarifas de prueba: `buildServiceDetail` (un alojamiento de ese proveedor),
+  `buildServiceListItem` y `buildServiceRate` (`src/test/tourist-services.ts`).
 - Sesión de prueba: `buildSession()` (`src/test/session.ts`), y en `handlers.ts`
   `sessionHandler(session)` (con sesión) y `noSessionHandlers` (`/me` y `refresh` en 401).
   Un componente que usa `useCurrentUser` se prueba dentro de `<SessionGuard>`, con
@@ -235,6 +250,7 @@ tres temas). Las maquetas de `docs/ui/` son la guía visual.
   | `clients` | `auth` (usuario actual, permisos y `RequirePermission`)                |
   | `travelers` | `auth` (usuario actual, permisos y `RequirePermission`); `clients` (`useClients`, `useClient` y `ClientPicker`) |
   | `suppliers` | `auth` (usuario actual, permisos y `RequirePermission`)                |
+  | `tourist-services` | `auth` (usuario actual, permisos y `RequirePermission`); `suppliers` (`useSupplier`, `SupplierDetail`, `SUPPLIER_CATEGORIES`, `SUPPLIER_CATEGORY_LABELS`, `SupplierStatusBadge`, `SupplierLoader` y `SupplierDetailScreen`, que recibe la sección de servicios con `services`) |
 
 - **Elegir la mejor opción, no la librería por defecto.** Ante una necesidad técnica se
   comparan las alternativas reales (lo que trae Next.js, una librería, código propio) y se

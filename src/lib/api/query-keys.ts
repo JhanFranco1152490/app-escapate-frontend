@@ -32,6 +32,19 @@ export const queryKeys = {
       ['suppliers', 'list', filters] as const,
     detail: (id: number) => ['suppliers', 'detail', id] as const,
   },
+  // Los servicios se listan por proveedor, y las tarifas cuelgan de su servicio pero con su
+  // propia raíz: guardar la ficha de un servicio no debe invalidar sus tarifas.
+  touristServices: {
+    all: () => ['tourist-services'] as const,
+    lists: () => ['tourist-services', 'list'] as const,
+    list: (supplierId: number, page: number) =>
+      ['tourist-services', 'list', { supplierId, page }] as const,
+    detail: (id: number) => ['tourist-services', 'detail', id] as const,
+    rates: (serviceId: number) =>
+      ['tourist-services', 'rates', serviceId] as const,
+    ratesPage: (serviceId: number, page: number) =>
+      ['tourist-services', 'rates', serviceId, page] as const,
+  },
   travelers: {
     all: () => ['travelers'] as const,
     lists: () => ['travelers', 'list'] as const,
