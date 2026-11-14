@@ -102,4 +102,19 @@ describe('visibleNavGroups', () => {
       'Roles y permisos',
     );
   });
+
+  it('"Solicitudes" y "Por cotizar" aparecen con travel_requests.view, después de "Viajeros"', () => {
+    const groups = visibleNavGroups(
+      buildSession({
+        permissions: ['travelers.view', 'travel_requests.view'],
+      }),
+    );
+
+    expect(groups[0].items.map((item) => [item.label, item.href])).toEqual([
+      ['Inicio', '/'],
+      ['Viajeros', '/viajeros'],
+      ['Solicitudes', '/solicitudes'],
+      ['Por cotizar', '/por-cotizar'],
+    ]);
+  });
 });
