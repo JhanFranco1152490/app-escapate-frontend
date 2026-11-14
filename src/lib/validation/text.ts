@@ -29,3 +29,21 @@ export const optionalText = (max: number) =>
     .max(max, maxLengthMessage(max))
     .refine(withoutForbiddenCharacters, INVALID_CHARACTERS_MESSAGE)
     .transform((value) => value || null);
+
+// Como `optionalText`, pero admite saltos de línea (observaciones escritas en varias líneas).
+// Los saltos de Windows y los retornos sueltos se guardan como "\n" antes de contar el largo,
+// igual que la API; cualquier otro carácter de control se sigue rechazando.
+export const optionalMultilineText = (max: number) =>
+  z
+    .string()
+    .transform((value) => value.replace(/\r\n?/g, '\n').trim())
+    .pipe(
+      z
+        .string()
+        .max(max, maxLengthMessage(max))
+        .refine(
+          (value) => withoutForbiddenCharacters(value.replaceAll('\n', '')),
+          INVALID_CHARACTERS_MESSAGE,
+        ),
+    )
+    .transform((value) => value || null);

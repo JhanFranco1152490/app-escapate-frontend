@@ -1,5 +1,5 @@
 import { tz } from '@date-fns/tz';
-import { format, parseISO } from 'date-fns';
+import { format, formatDistanceToNowStrict, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
 
 const BOGOTA = tz('America/Bogota');
@@ -50,3 +50,26 @@ export const formatDay = (isoDateTime: string) =>
 // Fecha sin hora (yyyy-MM-dd) en corto, para tablas: "15 dic 2026".
 export const formatShortDate = (isoDate: string) =>
   format(parseISO(isoDate), 'd MMM yyyy', { locale: es });
+
+// Dos fechas sin hora (yyyy-MM-dd) en corto, sin repetir el mes o el año que comparten:
+// "18–24 dic 2026", "28 nov – 3 dic 2026", "28 dic 2026 – 3 ene 2027".
+export function formatDateRange(start: string, end: string) {
+  if (start === end) return formatShortDate(start);
+  const short = (isoDate: string, pattern: string) =>
+    format(parseISO(isoDate), pattern, { locale: es });
+  if (start.slice(0, 7) === end.slice(0, 7)) {
+    return `${short(start, 'd')}–${formatShortDate(end)}`;
+  }
+  if (start.slice(0, 4) === end.slice(0, 4)) {
+    return `${short(start, 'd MMM')} – ${formatShortDate(end)}`;
+  }
+  return `${formatShortDate(start)} – ${formatShortDate(end)}`;
+}
+
+// Cuánto pasó desde un momento exacto (ISO con zona): "hace 5 minutos", "hace 2 días". Por
+// debajo de un minuto, "hace un momento", para no mostrar segundos que cambian al instante.
+export function formatTimeAgo(isoDateTime: string) {
+  const moment = parseISO(isoDateTime);
+  if (Date.now() - moment.getTime() < 60_000) return 'hace un momento';
+  return formatDistanceToNowStrict(moment, { locale: es, addSuffix: true });
+}

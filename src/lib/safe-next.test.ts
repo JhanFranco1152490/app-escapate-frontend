@@ -28,4 +28,10 @@ describe('safeNext', () => {
     expect(safeNext(null)).toBe('/');
     expect(safeNext(undefined)).toBe('/');
   });
+
+  it('usa el valor de reemplazo que se le pida', () => {
+    expect(safeNext('//evil.example', '')).toBe('');
+    expect(safeNext(null, '/clientes/7')).toBe('/clientes/7');
+    expect(safeNext('/solicitudes/nueva', '')).toBe('/solicitudes/nueva');
+  });
 });

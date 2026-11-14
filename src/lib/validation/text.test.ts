@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest';
 
-import { REQUIRED_MESSAGE, optionalText, requiredText } from './text';
+import {
+  REQUIRED_MESSAGE,
+  optionalMultilineText,
+  optionalText,
+  requiredText,
+} from './text';
 
 const firstError = (result: { error?: { issues: { message: string }[] } }) =>
   result.error?.issues[0]?.message;
@@ -55,4 +60,37 @@ describe('optionalText', () => {
       'Contiene caracteres que no se permiten.',
     );
   });
+});
+
+describe('optionalMultilineText', () => {
+  const schema = optionalMultilineText(10);
+
+  it.each(['', '   ', '\n\n'])('vacío (%j) queda en null', (value) => {
+    expect(schema.parse(value)).toBeNull();
+  });
+
+  it('acepta varias líneas y recorta solo el principio y el final', () => {
+    expect(schema.parse('  Mar\nHotel  ')).toBe('Mar\nHotel');
+  });
+
+  it('convierte los saltos de Windows y los retornos sueltos en saltos de línea', () => {
+    expect(schema.parse('a\r\nb\rc')).toBe('a\nb\nc');
+  });
+
+  it('cuenta el largo después de convertir los saltos', () => {
+    // Con \r\n serían 11 caracteres; convertido son 10.
+    expect(schema.parse('abcd\r\nefgh!')).toBe('abcd\nefgh!');
+    expect(firstError(schema.safeParse('abcde\nefghi'))).toBe(
+      'Máximo 10 caracteres.',
+    );
+  });
+
+  it.each(['a\tb', 'a\u0000b', 'a​b'])(
+    'rechaza los demás caracteres de control o invisibles (%j)',
+    (value) => {
+      expect(firstError(schema.safeParse(value))).toBe(
+        'Contiene caracteres que no se permiten.',
+      );
+    },
+  );
 });

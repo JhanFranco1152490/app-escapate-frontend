@@ -1,6 +1,6 @@
 import { API_URL } from '@/lib/env';
 
-import { safeNext } from './safe-next';
+import { safeNext } from '@/lib/safe-next';
 
 // Es una navegación de página completa, no un fetch: la API redirige a Google y, al volver,
 // deja las cookies de sesión y redirige a next.

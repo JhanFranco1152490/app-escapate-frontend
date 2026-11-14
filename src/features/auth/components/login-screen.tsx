@@ -8,7 +8,7 @@ import { Alert } from '@/components/alert';
 
 import { useLogin, useSession } from '../api';
 import { loginNoticeFromUrl } from '../login-errors';
-import { safeNext } from '../safe-next';
+import { safeNext } from '@/lib/safe-next';
 import type { DocumentValues, LoginValues } from '../schemas';
 import { AuthShell } from './auth-shell';
 import { DocumentLoginForm } from './document-login-form';
