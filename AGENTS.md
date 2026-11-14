@@ -98,6 +98,7 @@ src/
 │                         confirm-dialog, search-input, pagination, empty-state,
 │                         stale-version-notice, status-badge, international-phone-field,
 │                         city-datalist, decimal-amount-field, form-section,
+│                         segmented-choice, checkbox-group,
 │                         status-actions, …)
 ├── lib/
 │   ├── api/              client.ts, errors.ts, form-errors.ts, query-keys.ts,
