@@ -3,6 +3,7 @@ import {
   formatDayMonth,
   formatShortDate,
 } from '@/lib/format/dates';
+import { formatMoney } from '@/lib/format/money';
 
 import type { TravelRequestListItem } from './api';
 
@@ -60,4 +61,14 @@ export function formatTravelers(adults: number, minors: number) {
   return minors === 0
     ? adultsText
     : `${adultsText} · ${plural(minors, 'menor', 'menores')}`;
+}
+
+// El presupuesto aproximado: un rango, solo uno de sus extremos o ninguno.
+export function formatBudget(min: number | null, max: number | null) {
+  if (min !== null && max !== null) {
+    return `${formatMoney(min)} – ${formatMoney(max)}`;
+  }
+  if (min !== null) return `Desde ${formatMoney(min)}`;
+  if (max !== null) return `Hasta ${formatMoney(max)}`;
+  return 'Sin presupuesto';
 }

@@ -17,15 +17,17 @@ import {
 
 import {
   useAdvisors,
-  useCloseTravelRequest,
-  useCreateTravelRequest,
-  useReopenTravelRequest,
   useTravelRequest,
   useTravelRequests,
   useTravelRequestSummary,
-  useUpdateTravelRequest,
   type TravelRequestCreate,
 } from './api';
+import {
+  useCloseTravelRequest,
+  useCreateTravelRequest,
+  useReopenTravelRequest,
+  useUpdateTravelRequest,
+} from './mutations';
 
 const requestInput: TravelRequestCreate = {
   client_id: 7,

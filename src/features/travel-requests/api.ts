@@ -1,9 +1,4 @@
-import {
-  keepPreviousData,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { apiFetch } from '@/lib/api/client';
 import { queryKeys } from '@/lib/api/query-keys';
@@ -72,30 +67,6 @@ const fetchAdvisors = () =>
 const fetchTravelRequest = (id: number) =>
   apiFetch<TravelRequestDetail>(`/api/travel-requests/${id}`);
 
-const createTravelRequest = (body: TravelRequestCreate) =>
-  apiFetch<TravelRequestDetail>('/api/travel-requests', {
-    method: 'POST',
-    body,
-  });
-
-const updateTravelRequest = (id: number, body: TravelRequestUpdate) =>
-  apiFetch<TravelRequestDetail>(`/api/travel-requests/${id}`, {
-    method: 'PUT',
-    body,
-  });
-
-const closeTravelRequest = (id: number, body: TravelRequestClose) =>
-  apiFetch<TravelRequestDetail>(`/api/travel-requests/${id}/close`, {
-    method: 'POST',
-    body,
-  });
-
-const reopenTravelRequest = (id: number, body: TravelRequestReopen) =>
-  apiFetch<TravelRequestDetail>(`/api/travel-requests/${id}/reopen`, {
-    method: 'POST',
-    body,
-  });
-
 export function useTravelRequests(filters: TravelRequestFilters) {
   return useQuery({
     queryKey: queryKeys.travelRequests.list(filters),
@@ -126,52 +97,5 @@ export function useTravelRequest(id: number | null) {
     queryKey: queryKeys.travelRequests.detail(id ?? 0),
     queryFn: () => fetchTravelRequest(id!),
     enabled: id !== null,
-  });
-}
-
-// Deja la ficha guardada en la caché y marca como viejas las listas y los conteos: cualquier
-// cambio puede mover la solicitud de pestaña o sacarla de "Por cotizar".
-function useStoreTravelRequest() {
-  const queryClient = useQueryClient();
-  return (request: TravelRequestDetail) => {
-    queryClient.setQueryData(
-      queryKeys.travelRequests.detail(request.id),
-      request,
-    );
-    void queryClient.invalidateQueries({
-      queryKey: queryKeys.travelRequests.lists(),
-    });
-    void queryClient.invalidateQueries({
-      queryKey: queryKeys.travelRequests.summaries(),
-    });
-  };
-}
-
-export function useCreateTravelRequest() {
-  const store = useStoreTravelRequest();
-  return useMutation({ mutationFn: createTravelRequest, onSuccess: store });
-}
-
-export function useUpdateTravelRequest(id: number) {
-  const store = useStoreTravelRequest();
-  return useMutation({
-    mutationFn: (body: TravelRequestUpdate) => updateTravelRequest(id, body),
-    onSuccess: store,
-  });
-}
-
-export function useCloseTravelRequest(id: number) {
-  const store = useStoreTravelRequest();
-  return useMutation({
-    mutationFn: (body: TravelRequestClose) => closeTravelRequest(id, body),
-    onSuccess: store,
-  });
-}
-
-export function useReopenTravelRequest(id: number) {
-  const store = useStoreTravelRequest();
-  return useMutation({
-    mutationFn: (body: TravelRequestReopen) => reopenTravelRequest(id, body),
-    onSuccess: store,
   });
 }

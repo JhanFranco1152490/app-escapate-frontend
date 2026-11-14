@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { buildTravelRequestListItem } from '@/test/travel-requests';
 
 import {
+  formatBudget,
   formatDeparture,
   formatTravelers,
   formatTripDates,
@@ -91,5 +92,19 @@ describe('formatTravelers', () => {
     [1, 3, '1 adulto · 3 menores'],
   ])('%i adultos y %i menores → %s', (adults, minors, expected) => {
     expect(formatTravelers(adults, minors)).toBe(expected);
+  });
+});
+
+describe('formatBudget', () => {
+  // El formato de pesos lleva un espacio que no se parte entre el símbolo y el número.
+  const pesos = (text: string) => text.replace(/ /g, ' ');
+
+  it.each([
+    [6_000_000, 8_000_000, '$ 6.000.000 – $ 8.000.000'],
+    [5_000_000, null, 'Desde $ 5.000.000'],
+    [null, 9_000_000, 'Hasta $ 9.000.000'],
+    [null, null, 'Sin presupuesto'],
+  ])('%s y %s → %s', (min, max, expected) => {
+    expect(pesos(formatBudget(min, max))).toBe(expected);
   });
 });
