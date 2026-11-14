@@ -36,27 +36,33 @@ export function AdvisorField({ form, advisors, current }: AdvisorFieldProps) {
       hint={HINT}
       error={error}
     >
-      <NativeSelect
-        id="assigned_to_id"
-        className="w-full"
-        disabled={!advisors}
-        {...register('assigned_to_id')}
-        {...fieldAriaProps('assigned_to_id', { error, hint: HINT })}
-      >
-        <NativeSelectOption value="">
-          {advisors ? 'Elige un asesor' : 'Cargando asesores…'}
-        </NativeSelectOption>
-        {missing && (
-          <NativeSelectOption value={String(current.id)} disabled>
-            {current.full_name} (inactivo)
-          </NativeSelectOption>
-        )}
-        {advisors?.map((advisor) => (
-          <NativeSelectOption key={advisor.id} value={String(advisor.id)}>
-            {advisor.full_name}
-          </NativeSelectOption>
-        ))}
-      </NativeSelect>
+      {/* Mientras cargan las opciones se muestra un selector aparte, sin registrar: el
+          registrado se monta con las opciones ya puestas y así muestra el valor elegido (con
+          el asesor aún sin opción, el navegador lo dejaría en blanco). */}
+      {advisors ? (
+        <NativeSelect
+          id="assigned_to_id"
+          className="w-full"
+          {...register('assigned_to_id')}
+          {...fieldAriaProps('assigned_to_id', { error, hint: HINT })}
+        >
+          <NativeSelectOption value="">Elige un asesor</NativeSelectOption>
+          {missing && (
+            <NativeSelectOption value={String(current.id)} disabled>
+              {current.full_name} (inactivo)
+            </NativeSelectOption>
+          )}
+          {advisors.map((advisor) => (
+            <NativeSelectOption key={advisor.id} value={String(advisor.id)}>
+              {advisor.full_name}
+            </NativeSelectOption>
+          ))}
+        </NativeSelect>
+      ) : (
+        <NativeSelect id="assigned_to_id" className="w-full" disabled>
+          <NativeSelectOption value="">Cargando asesores…</NativeSelectOption>
+        </NativeSelect>
+      )}
     </FormField>
   );
 }
