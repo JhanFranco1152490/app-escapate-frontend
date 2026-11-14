@@ -87,6 +87,10 @@ src/
 │   │                     así `suppliers` no importa de este dominio. Los campos propios de
 │   │                     cada tipo: `attribute-rules.ts` (validar y armar) y
 │   │                     `attribute-details.tsx` (mostrar)
+│   ├── travel-requests/  solicitudes de viaje: lista con pestañas por estado (/solicitudes),
+│   │                     alta, ficha (cerrar y reabrir), edición y pendientes de cotización
+│   │                     (/por-cotizar). Las fechas del viaje se muestran solo con
+│   │                     `formatTripDates` (`format.ts`)
 │   └── legal/            páginas públicas: marco, "acerca de" y visor del texto legal
 ├── components/
 │   ├── ui/               solo shadcn/ui
@@ -98,19 +102,22 @@ src/
 ├── lib/
 │   ├── api/              client.ts, errors.ts, form-errors.ts, query-keys.ts,
 │   │                     query-string.ts, schema.d.ts
-│   ├── format/           dates.ts, money.ts, document.ts, phone.ts
-│   ├── validation/       text.ts (reglas de texto), document.ts (reglas por tipo de documento),
+│   ├── format/           dates.ts (incluye `formatDateRange` y `formatTimeAgo`), money.ts,
+│   │                     document.ts, phone.ts
+│   ├── validation/       text.ts (reglas de texto; `optionalMultilineText` admite saltos de
+│   │                     línea), document.ts (reglas por tipo de documento),
 │   │                     amount.ts (valor en pesos o dólares escrito como en Colombia)
 │   ├── countries.ts      códigos de país de la API y sus nombres en español
 │   ├── city-suggestions.ts  ciudades que se proponen en los campos de ciudad
 │   ├── action-feedback.ts   aviso (info o error) tras una acción sobre un registro
 │   ├── form-notice.ts    aviso de "faltan N campos" arriba de un formulario
 │   ├── page-notice.ts    aviso que una pantalla deja para la siguiente ("Cliente registrado.")
+│   ├── safe-next.ts      ruta interna a la que volver (`?next=`), sin abrir otros sitios
 │   ├── query-client.ts   reintentos e invalidación de la sesión ante un 401
 │   └── env.ts            NEXT_PUBLIC_API_URL (el build falla si falta en producción)
 ├── content/legal/       privacidad.md y terminos.md: el texto publicado (fuente única)
 └── test/                 render.tsx, server.ts, handlers.ts, session.ts, users.ts, roles.ts,
-                          clients.ts, suppliers.ts, tourist-services.ts
+                          clients.ts, suppliers.ts, tourist-services.ts, travel-requests.ts
 ```
 
 Rutas visibles en español (`/clientes`, `/cotizaciones/[id]`); código en inglés.
@@ -220,6 +227,9 @@ tres temas). Las maquetas de `docs/ui/` son la guía visual.
   (`src/test/suppliers.ts`).
 - Servicios y tarifas de prueba: `buildServiceDetail` (un alojamiento de ese proveedor),
   `buildServiceListItem` y `buildServiceRate` (`src/test/tourist-services.ts`).
+- Solicitudes de viaje de prueba: `buildTravelRequestDetail` (fechas exactas, en `new`),
+  `buildFlexibleRequestDetail`, `buildClosedRequestDetail`, `buildTravelRequestListItem`,
+  `buildTravelRequestSummary` y `buildAdvisor` (`src/test/travel-requests.ts`).
 - Sesión de prueba: `buildSession()` (`src/test/session.ts`), y en `handlers.ts`
   `sessionHandler(session)` (con sesión) y `noSessionHandlers` (`/me` y `refresh` en 401).
   Un componente que usa `useCurrentUser` se prueba dentro de `<SessionGuard>`, con
@@ -251,6 +261,7 @@ tres temas). Las maquetas de `docs/ui/` son la guía visual.
   | `travelers` | `auth` (usuario actual, permisos y `RequirePermission`); `clients` (`useClients`, `useClient` y `ClientPicker`) |
   | `suppliers` | `auth` (usuario actual, permisos y `RequirePermission`)                |
   | `tourist-services` | `auth` (usuario actual, permisos y `RequirePermission`); `suppliers` (`useSupplier`, `SupplierDetail`, `SUPPLIER_CATEGORIES`, `SUPPLIER_CATEGORY_LABELS`, `SupplierStatusBadge`, `SupplierLoader` y `SupplierDetailScreen`, que recibe la sección de servicios con `services`) |
+  | `travel-requests` | `auth` (usuario actual, permisos y `RequirePermission`); `clients` (`useClient`, `ClientPicker` y `ClientFilterTag`) |
 
 - **Elegir la mejor opción, no la librería por defecto.** Ante una necesidad técnica se
   comparan las alternativas reales (lo que trae Next.js, una librería, código propio) y se

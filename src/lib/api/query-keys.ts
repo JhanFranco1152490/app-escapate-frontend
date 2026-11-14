@@ -45,6 +45,19 @@ export const queryKeys = {
     ratesPage: (serviceId: number, page: number) =>
       ['tourist-services', 'rates', serviceId, page] as const,
   },
+  // Los conteos por estado tienen su propia rama, para invalidarlos todos de una vez junto
+  // con las listas.
+  travelRequests: {
+    all: () => ['travel-requests'] as const,
+    lists: () => ['travel-requests', 'list'] as const,
+    list: (filters: Record<string, unknown>) =>
+      ['travel-requests', 'list', filters] as const,
+    summaries: () => ['travel-requests', 'summary'] as const,
+    summary: (filters: Record<string, unknown>) =>
+      ['travel-requests', 'summary', filters] as const,
+    detail: (id: number) => ['travel-requests', 'detail', id] as const,
+    advisors: () => ['travel-requests', 'advisors'] as const,
+  },
   travelers: {
     all: () => ['travelers'] as const,
     lists: () => ['travelers', 'list'] as const,

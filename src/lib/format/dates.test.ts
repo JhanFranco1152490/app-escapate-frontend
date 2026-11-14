@@ -5,6 +5,7 @@ import {
   formatDateRange,
   formatDateTime,
   formatDay,
+  formatDayMonth,
   formatLongDate,
   formatShortDate,
   formatShortDateTime,
@@ -75,6 +76,12 @@ describe('formatDateTime', () => {
     expect(formatDateTime('2026-10-05T20:30:00Z')).toBe(
       '5 de octubre de 2026, 3:30 p.m.',
     );
+  });
+});
+
+describe('formatDayMonth', () => {
+  it('da el día y el mes corto, sin el año', () => {
+    expect(formatDayMonth('2026-12-01')).toBe('1 dic');
   });
 });
 

@@ -51,17 +51,19 @@ export const formatDay = (isoDateTime: string) =>
 export const formatShortDate = (isoDate: string) =>
   format(parseISO(isoDate), 'd MMM yyyy', { locale: es });
 
+// Fecha sin hora (yyyy-MM-dd) sin el año, para cuando el año ya se dice al lado: "1 dic".
+export const formatDayMonth = (isoDate: string) =>
+  format(parseISO(isoDate), 'd MMM', { locale: es });
+
 // Dos fechas sin hora (yyyy-MM-dd) en corto, sin repetir el mes o el año que comparten:
 // "18–24 dic 2026", "28 nov – 3 dic 2026", "28 dic 2026 – 3 ene 2027".
 export function formatDateRange(start: string, end: string) {
   if (start === end) return formatShortDate(start);
-  const short = (isoDate: string, pattern: string) =>
-    format(parseISO(isoDate), pattern, { locale: es });
   if (start.slice(0, 7) === end.slice(0, 7)) {
-    return `${short(start, 'd')}–${formatShortDate(end)}`;
+    return `${Number(start.slice(8))}–${formatShortDate(end)}`;
   }
   if (start.slice(0, 4) === end.slice(0, 4)) {
-    return `${short(start, 'd MMM')} – ${formatShortDate(end)}`;
+    return `${formatDayMonth(start)} – ${formatShortDate(end)}`;
   }
   return `${formatShortDate(start)} – ${formatShortDate(end)}`;
 }
