@@ -140,3 +140,42 @@ describe('ClientDetailScreen', () => {
     expect(requests).toBe(0);
   });
 });
+
+describe('ClientDetailScreen: solicitudes del cliente', () => {
+  it('con los permisos de solicitudes ofrece registrar una y ver las suyas', async () => {
+    renderScreen({
+      permissions: [
+        'clients.view',
+        'travel_requests.view',
+        'travel_requests.manage',
+      ],
+    });
+
+    expect(
+      await screen.findByRole('link', { name: /Nueva solicitud/ }),
+    ).toHaveAttribute('href', '/solicitudes/nueva?client_id=12');
+    expect(
+      screen.getByRole('link', { name: /Ver solicitudes/ }),
+    ).toHaveAttribute('href', '/solicitudes?client_id=12');
+  });
+
+  it('con solo ver solicitudes no ofrece registrar una', async () => {
+    renderScreen({ permissions: ['clients.view', 'travel_requests.view'] });
+
+    expect(
+      await screen.findByRole('link', { name: /Ver solicitudes/ }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole('link', { name: /Nueva solicitud/ }),
+    ).not.toBeInTheDocument();
+  });
+
+  it('sin permisos de solicitudes no muestra ningún enlace a ellas', async () => {
+    renderScreen({ permissions: ['clients.view'] });
+
+    await screen.findByRole('heading', { name: 'Marcela Gómez Ortiz' });
+    expect(
+      screen.queryByRole('link', { name: /solicitud/i }),
+    ).not.toBeInTheDocument();
+  });
+});

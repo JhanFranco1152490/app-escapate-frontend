@@ -51,11 +51,12 @@ afterEach(() => {
   clearPageNotice();
 });
 
-const renderScreen = async () => {
+const renderScreen = async (searchParams = '') => {
   renderWithProviders(
     <SessionGuard>
       <CreateClientScreen />
     </SessionGuard>,
+    { searchParams },
   );
   await screen.findByRole('heading', { name: 'Nuevo cliente' });
   return userEvent.setup();
@@ -170,4 +171,61 @@ describe('CreateClientScreen', () => {
     ).toBeInTheDocument();
     expect(router.push).not.toHaveBeenCalled();
   });
+});
+
+describe('CreateClientScreen: volver a otra pantalla', () => {
+  it('con next vuelve a esa pantalla con el cliente nuevo elegido', async () => {
+    const user = await renderScreen('?next=/solicitudes/nueva');
+    await fillForm(user);
+
+    await submit(user);
+
+    await waitFor(() =>
+      expect(router.push).toHaveBeenCalledWith(
+        '/solicitudes/nueva?client_id=21',
+      ),
+    );
+  });
+
+  it('conserva la consulta que ya traía next', async () => {
+    const user = await renderScreen(
+      `?next=${encodeURIComponent('/solicitudes/nueva?client_id=3')}`,
+    );
+    await fillForm(user);
+
+    await submit(user);
+
+    await waitFor(() =>
+      expect(router.push).toHaveBeenCalledWith(
+        '/solicitudes/nueva?client_id=21',
+      ),
+    );
+  });
+
+  it('Cancelar vuelve a next', async () => {
+    await renderScreen('?next=/solicitudes/nueva');
+
+    expect(screen.getByRole('link', { name: 'Cancelar' })).toHaveAttribute(
+      'href',
+      '/solicitudes/nueva',
+    );
+  });
+
+  it.each(['//otro.example.com', 'https://otro.example.com'])(
+    'ignora un next que lleva a otro sitio (%s)',
+    async (next) => {
+      const user = await renderScreen(`?next=${encodeURIComponent(next)}`);
+      await fillForm(user);
+
+      await submit(user);
+
+      await waitFor(() =>
+        expect(router.push).toHaveBeenCalledWith('/clientes/21'),
+      );
+      expect(screen.getByRole('link', { name: 'Cancelar' })).toHaveAttribute(
+        'href',
+        '/clientes',
+      );
+    },
+  );
 });

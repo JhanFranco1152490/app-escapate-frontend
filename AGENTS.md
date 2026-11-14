@@ -258,7 +258,7 @@ tres temas). Las maquetas de `docs/ui/` son la guía visual.
   | `users` | `auth` (usuario actual, permisos, `RequirePermission`, `DocumentFields` y etiquetas de documento); `roles` (`useRoles`, `useRole`, `usePermissionCatalog` y `RoleGrants`) |
   | `roles` | `auth` (usuario actual, permisos y `RequirePermission`)                  |
   | `clients` | `auth` (usuario actual, permisos y `RequirePermission`)                |
-  | `travelers` | `auth` (usuario actual, permisos y `RequirePermission`); `clients` (`useClients`, `useClient` y `ClientPicker`) |
+  | `travelers` | `auth` (usuario actual, permisos y `RequirePermission`); `clients` (`useClients`, `useClient`, `ClientPicker` y `ClientFilterTag`) |
   | `suppliers` | `auth` (usuario actual, permisos y `RequirePermission`)                |
   | `tourist-services` | `auth` (usuario actual, permisos y `RequirePermission`); `suppliers` (`useSupplier`, `SupplierDetail`, `SUPPLIER_CATEGORIES`, `SUPPLIER_CATEGORY_LABELS`, `SupplierStatusBadge`, `SupplierLoader` y `SupplierDetailScreen`, que recibe la sección de servicios con `services`) |
   | `travel-requests` | `auth` (usuario actual, permisos y `RequirePermission`); `clients` (`useClient`, `ClientPicker` y `ClientFilterTag`) |

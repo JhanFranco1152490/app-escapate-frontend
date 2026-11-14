@@ -1,10 +1,12 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useQueryState } from 'nuqs';
 import { useState } from 'react';
 
 import { PageHeader } from '@/components/page-header';
 import { setPageNotice } from '@/lib/page-notice';
+import { safeNext, withSearchParam } from '@/lib/safe-next';
 
 import { useCreateClient } from '../api';
 import { clientNoticeTarget } from '../client-notice';
@@ -19,6 +21,10 @@ export function CreateClientScreen() {
   const createClient = useCreateClient();
   const [phone, setPhone] = useState<string | null>(null);
   const duplicates = useDuplicatePhone(phone);
+  // Otra pantalla puede mandar aquí a registrar el cliente que le falta (una solicitud de
+  // viaje); al guardar se vuelve a ella con el cliente nuevo elegido.
+  const [nextParam] = useQueryState('next');
+  const next = safeNext(nextParam, '');
 
   const submit = async (payload: ClientPayload) => {
     // El formulario no deja enviar sin la casilla marcada.
@@ -26,6 +32,10 @@ export function CreateClientScreen() {
       ...payload,
       data_consent: true,
     });
+    if (next) {
+      router.push(withSearchParam(next, 'client_id', String(client.id)));
+      return;
+    }
     setPageNotice({
       target: clientNoticeTarget(client.id),
       text: 'Cliente registrado.',
@@ -44,7 +54,7 @@ export function CreateClientScreen() {
         mode="create"
         defaultValues={EMPTY_CLIENT_FORM}
         submitLabel="Guardar cliente"
-        cancelHref="/clientes"
+        cancelHref={next || '/clientes'}
         onSubmit={submit}
         onPhoneCommit={setPhone}
         notices={<DuplicatePhoneNotice clients={duplicates} />}

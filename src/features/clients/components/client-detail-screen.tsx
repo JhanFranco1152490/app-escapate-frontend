@@ -12,11 +12,13 @@ import { usePageNotice } from '@/lib/use-page-notice';
 import { clientNoticeTarget } from '../client-notice';
 import { ClientDetail } from './client-detail';
 import { ClientLoader } from './client-loader';
+import { ClientRequestLinks } from './client-request-links';
 import { ClientTravelers } from './client-travelers';
 
 export function ClientDetailScreen({ id }: { id: string }) {
   const clientId = parseRouteId(id);
   const canManage = useHasPermission('clients.manage');
+  const canViewRequests = useHasPermission('travel_requests.view');
   // "Cliente registrado." o "Cambios guardados.", si se llega desde el formulario.
   const notice = usePageNotice(clientNoticeTarget(clientId ?? 0));
 
@@ -31,14 +33,19 @@ export function ClientDetailScreen({ id }: { id: string }) {
             eyebrow="Operación / 02"
             title={client.display_name}
             actions={
-              canManage && (
-                <ButtonLink
-                  href={`/clientes/${client.id}/editar`}
-                  variant="outline"
-                >
-                  <Pencil aria-hidden="true" />
-                  Editar datos
-                </ButtonLink>
+              (canManage || canViewRequests) && (
+                <>
+                  <ClientRequestLinks clientId={client.id} />
+                  {canManage && (
+                    <ButtonLink
+                      href={`/clientes/${client.id}/editar`}
+                      variant="outline"
+                    >
+                      <Pencil aria-hidden="true" />
+                      Editar datos
+                    </ButtonLink>
+                  )}
+                </>
               )
             }
           />

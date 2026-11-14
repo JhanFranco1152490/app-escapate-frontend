@@ -66,6 +66,7 @@ export function ReferenceClientField({ form }: { form: TravelerFormApi }) {
         value={value}
         onChange={change}
         canSearch={canSearch}
+        unavailableText="Sin cliente de referencia. Para elegir uno se necesita el permiso de ver clientes."
         describedBy={error ? fieldErrorId('reference_client_id') : undefined}
       />
       <FieldError id="reference_client_id" error={error} />

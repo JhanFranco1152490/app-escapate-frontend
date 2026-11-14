@@ -23,3 +23,12 @@ export function safeNext(
   }
   return value;
 }
+
+// Agrega (o reemplaza) un parámetro a una ruta interna conservando su consulta y su ancla:
+// "/solicitudes/nueva" → "/solicitudes/nueva?client_id=21".
+export function withSearchParam(path: string, name: string, value: string) {
+  // La base solo sirve para que URL acepte una ruta relativa; no forma parte del resultado.
+  const url = new URL(path, 'http://localhost');
+  url.searchParams.set(name, value);
+  return `${url.pathname}${url.search}${url.hash}`;
+}
