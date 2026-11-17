@@ -1,10 +1,10 @@
 import Link from 'next/link';
 
-import { ButtonLink } from '@/components/button-link';
 import { formatTimeAgo } from '@/lib/format/dates';
 
 import type { TravelRequestListItem } from '../api';
 import { formatTravelers, formatTripDates } from '../format';
+import { OpenRequestLink } from './open-request-link';
 import { RequestStatusBadge } from './request-status-badge';
 
 const headerCell =
@@ -88,14 +88,7 @@ export function RequestsTable({
               {request.assigned_to.full_name}
             </td>
             <td className={`${cell} md:text-right`}>
-              <ButtonLink
-                href={`/solicitudes/${request.id}`}
-                variant="outline"
-                size="sm"
-                aria-label={`Abrir ${request.code}`}
-              >
-                Abrir
-              </ButtonLink>
+              <OpenRequestLink request={request} />
             </td>
           </tr>
         ))}
