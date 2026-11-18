@@ -24,6 +24,9 @@ type ClientPickerProps = {
   onChange: (client: PickedClient | null) => void;
   // Buscar clientes pide `clients.view`. Sin él se muestra el elegido, pero no se cambia.
   canSearch: boolean;
+  // Lo que se dice cuando no hay cliente elegido y no se puede buscar: depende de para qué
+  // se elige ("Sin cliente de referencia…").
+  unavailableText: string;
   describedBy?: string;
 };
 
@@ -35,6 +38,7 @@ export function ClientPicker({
   value,
   onChange,
   canSearch,
+  unavailableText,
   describedBy,
 }: ClientPickerProps) {
   const [search, setSearch] = useState('');
@@ -72,8 +76,7 @@ export function ClientPicker({
   if (!canSearch) {
     return (
       <p id={id} className="text-sm text-muted-foreground">
-        Sin cliente de referencia. Para elegir uno se necesita el permiso de ver
-        clientes.
+        {unavailableText}
       </p>
     );
   }

@@ -3,15 +3,17 @@
 import { X } from 'lucide-react';
 
 import { useHasPermission } from '@/features/auth/permissions';
-import { useClient } from '@/features/clients/api';
+
+import { useClient } from '../api';
 
 type ClientFilterTagProps = {
   clientId: number;
   onRemove: () => void;
 };
 
-// El filtro por cliente de referencia llega desde la ficha del cliente. Su nombre se pide solo
-// con `clients.view`; sin ese permiso la etiqueta dice que hay un cliente filtrado.
+// Pensado para otros dominios: el filtro por cliente de una lista, que llega desde la ficha
+// del cliente. Su nombre se pide solo con `clients.view`; sin ese permiso la etiqueta dice
+// que hay un cliente filtrado.
 export function ClientFilterTag({ clientId, onRemove }: ClientFilterTagProps) {
   const canViewClients = useHasPermission('clients.view');
   const client = useClient(canViewClients ? clientId : null);

@@ -1,6 +1,8 @@
 import {
   Building2,
+  ClipboardList,
   Contact,
+  Hourglass,
   House,
   Luggage,
   ShieldCheck,
@@ -38,6 +40,20 @@ export const NAV_ITEMS: NavItem[] = [
     icon: Luggage,
     group: 'Operación',
     permission: 'travelers.view',
+  },
+  {
+    href: '/solicitudes',
+    label: 'Solicitudes',
+    icon: ClipboardList,
+    group: 'Operación',
+    permission: 'travel_requests.view',
+  },
+  {
+    href: '/por-cotizar',
+    label: 'Por cotizar',
+    icon: Hourglass,
+    group: 'Operación',
+    permission: 'travel_requests.view',
   },
   {
     href: '/proveedores',

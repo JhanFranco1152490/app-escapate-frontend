@@ -614,10 +614,135 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/travel-requests": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Travel Requests */
+        get: operations["list_travel_requests_api_travel_requests_get"];
+        put?: never;
+        /** Create Travel Request */
+        post: operations["create_travel_request_api_travel_requests_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/travel-requests/summary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Travel Request Summary */
+        get: operations["travel_request_summary_api_travel_requests_summary_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/travel-requests/advisors": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Advisors */
+        get: operations["list_advisors_api_travel_requests_advisors_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/travel-requests/{request_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Travel Request */
+        get: operations["get_travel_request_api_travel_requests__request_id__get"];
+        /** Update Travel Request */
+        put: operations["update_travel_request_api_travel_requests__request_id__put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/travel-requests/{request_id}/close": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Close Travel Request */
+        post: operations["close_travel_request_api_travel_requests__request_id__close_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/travel-requests/{request_id}/reopen": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Reopen Travel Request */
+        post: operations["reopen_travel_request_api_travel_requests__request_id__reopen_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /**
+         * AccommodationCategory
+         * @enum {string}
+         */
+        AccommodationCategory: "budget" | "three_star" | "four_star" | "five_star";
+        /** AdvisorOption */
+        AdvisorOption: {
+            /** Id */
+            id: number;
+            /** Full Name */
+            full_name: string;
+        };
+        /** AdvisorRef */
+        AdvisorRef: {
+            /** Id */
+            id: number;
+            /** Full Name */
+            full_name: string;
+            /** Is Active */
+            is_active: boolean;
+        };
         /** AirAttributes */
         AirAttributes: {
             /** Origin */
@@ -762,6 +887,13 @@ export interface components {
             /** City */
             city: string | null;
         };
+        /** ClientRef */
+        ClientRef: {
+            /** Id */
+            id: number;
+            /** Display Name */
+            display_name: string;
+        };
         /**
          * ClientType
          * @enum {string}
@@ -795,6 +927,11 @@ export interface components {
             /** Expected Version */
             expected_version: number;
         };
+        /**
+         * CloseReason
+         * @enum {string}
+         */
+        CloseReason: "client_declined" | "no_response" | "bought_elsewhere" | "duplicate" | "other";
         /**
          * ContactSource
          * @enum {string}
@@ -834,6 +971,11 @@ export interface components {
          * @enum {string}
          */
         Currency: "COP" | "USD";
+        /**
+         * DateMode
+         * @enum {string}
+         */
+        DateMode: "exact" | "flexible";
         /**
          * DocumentType
          * @enum {string}
@@ -1019,6 +1161,17 @@ export interface components {
             /** Results */
             results: components["schemas"]["TouristServiceListItem"][];
         };
+        /** Page[TravelRequestListItem] */
+        Page_TravelRequestListItem_: {
+            /** Count */
+            count: number;
+            /** Next */
+            next: string | null;
+            /** Previous */
+            previous: string | null;
+            /** Results */
+            results: components["schemas"]["TravelRequestListItem"][];
+        };
         /** Page[TravelerListItem] */
         Page_TravelerListItem_: {
             /** Count */
@@ -1090,6 +1243,11 @@ export interface components {
             /** Display Name */
             display_name: string;
         };
+        /**
+         * RequestSort
+         * @enum {string}
+         */
+        RequestSort: "recent" | "oldest";
         /** ResetTokenCheck */
         ResetTokenCheck: {
             /** Token */
@@ -1248,6 +1406,22 @@ export interface components {
             /** Permissions */
             permissions: string[];
         };
+        /** StatusCounts */
+        StatusCounts: {
+            /** New */
+            new: number;
+            /** Quoting */
+            quoting: number;
+            /** Quoted */
+            quoted: number;
+            /** Closed */
+            closed: number;
+        };
+        /**
+         * StatusFilter
+         * @enum {string}
+         */
+        StatusFilter: "new" | "quoting" | "quoted" | "closed" | "pending";
         /**
          * SupplierCategory
          * @description Lo que vende el proveedor. Es la misma lista de tipos de servicio, para que la oferta
@@ -1552,6 +1726,233 @@ export interface components {
          * @enum {string}
          */
         ToursInclude: "transport" | "guide" | "entrance_fees" | "meals" | "insurance";
+        /** TravelRequestClose */
+        TravelRequestClose: {
+            reason: components["schemas"]["CloseReason"];
+            /** Note */
+            note?: string | null;
+            /** Expected Version */
+            expected_version: number;
+        };
+        /** TravelRequestCreate */
+        TravelRequestCreate: {
+            /** Client Id */
+            client_id: number;
+            /** Destination */
+            destination: string;
+            /** Origin */
+            origin?: string | null;
+            date_mode: components["schemas"]["DateMode"];
+            /** Departure Date */
+            departure_date?: string | null;
+            /** Return Date */
+            return_date?: string | null;
+            /** Window Start */
+            window_start?: string | null;
+            /** Window End */
+            window_end?: string | null;
+            /** Approx Nights */
+            approx_nights?: number | null;
+            /** Adults */
+            adults: number;
+            /** Minors */
+            minors: number;
+            /** Budget Min */
+            budget_min?: number | null;
+            /** Budget Max */
+            budget_max?: number | null;
+            /**
+             * Trip Types
+             * @default []
+             */
+            trip_types: components["schemas"]["TravelType"][];
+            accommodation_category?: components["schemas"]["AccommodationCategory"] | null;
+            /** Assigned To Id */
+            assigned_to_id: number;
+            /** Notes */
+            notes?: string | null;
+        };
+        /** TravelRequestDetail */
+        TravelRequestDetail: {
+            /** Id */
+            id: number;
+            /** Code */
+            code: string;
+            client: components["schemas"]["ClientRef"];
+            /** Destination */
+            destination: string;
+            date_mode: components["schemas"]["DateMode"];
+            /** Departure Date */
+            departure_date: string | null;
+            /** Return Date */
+            return_date: string | null;
+            /** Window Start */
+            window_start: string | null;
+            /** Window End */
+            window_end: string | null;
+            /** Approx Nights */
+            approx_nights: number | null;
+            /** Adults */
+            adults: number;
+            /** Minors */
+            minors: number;
+            status: components["schemas"]["TravelRequestStatus"];
+            assigned_to: components["schemas"]["AdvisorRef"];
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+            /** Waiting Days */
+            waiting_days: number;
+            /** Origin */
+            origin: string | null;
+            /** Budget Min */
+            budget_min: number | null;
+            /** Budget Max */
+            budget_max: number | null;
+            /** Trip Types */
+            trip_types: components["schemas"]["TravelType"][];
+            accommodation_category: components["schemas"]["AccommodationCategory"] | null;
+            /** Notes */
+            notes: string | null;
+            close_reason: components["schemas"]["CloseReason"] | null;
+            /** Close Note */
+            close_note: string | null;
+            closed_by: components["schemas"]["UserRef"] | null;
+            /** Closed At */
+            closed_at: string | null;
+            created_by: components["schemas"]["UserRef"];
+            /** Version */
+            version: number;
+        };
+        /**
+         * TravelRequestFilters
+         * @description Sin `extra="forbid"`: conviven con los parámetros de la paginación.
+         */
+        TravelRequestFilters: {
+            /**
+             * Q
+             * @default
+             */
+            q: string;
+            status?: components["schemas"]["StatusFilter"] | null;
+            /** Assigned To */
+            assigned_to?: number | null;
+            /** Client Id */
+            client_id?: number | null;
+            /** @default recent */
+            sort: components["schemas"]["RequestSort"];
+        };
+        /** TravelRequestListItem */
+        TravelRequestListItem: {
+            /** Id */
+            id: number;
+            /** Code */
+            code: string;
+            client: components["schemas"]["ClientRef"];
+            /** Destination */
+            destination: string;
+            date_mode: components["schemas"]["DateMode"];
+            /** Departure Date */
+            departure_date: string | null;
+            /** Return Date */
+            return_date: string | null;
+            /** Window Start */
+            window_start: string | null;
+            /** Window End */
+            window_end: string | null;
+            /** Approx Nights */
+            approx_nights: number | null;
+            /** Adults */
+            adults: number;
+            /** Minors */
+            minors: number;
+            status: components["schemas"]["TravelRequestStatus"];
+            assigned_to: components["schemas"]["AdvisorRef"];
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+            /** Waiting Days */
+            waiting_days: number;
+        };
+        /** TravelRequestReopen */
+        TravelRequestReopen: {
+            /** Expected Version */
+            expected_version: number;
+        };
+        /**
+         * TravelRequestStatus
+         * @enum {string}
+         */
+        TravelRequestStatus: "new" | "quoting" | "quoted" | "closed";
+        /** TravelRequestSummary */
+        TravelRequestSummary: {
+            by_status: components["schemas"]["StatusCounts"];
+            /** Total */
+            total: number;
+            /** Pending */
+            pending: number;
+            /** Pending Over 3 Days */
+            pending_over_3_days: number;
+        };
+        /** TravelRequestUpdate */
+        TravelRequestUpdate: {
+            /** Client Id */
+            client_id: number;
+            /** Destination */
+            destination: string;
+            /** Origin */
+            origin?: string | null;
+            date_mode: components["schemas"]["DateMode"];
+            /** Departure Date */
+            departure_date?: string | null;
+            /** Return Date */
+            return_date?: string | null;
+            /** Window Start */
+            window_start?: string | null;
+            /** Window End */
+            window_end?: string | null;
+            /** Approx Nights */
+            approx_nights?: number | null;
+            /** Adults */
+            adults: number;
+            /** Minors */
+            minors: number;
+            /** Budget Min */
+            budget_min?: number | null;
+            /** Budget Max */
+            budget_max?: number | null;
+            /**
+             * Trip Types
+             * @default []
+             */
+            trip_types: components["schemas"]["TravelType"][];
+            accommodation_category?: components["schemas"]["AccommodationCategory"] | null;
+            /** Assigned To Id */
+            assigned_to_id: number;
+            /** Notes */
+            notes?: string | null;
+            /** Expected Version */
+            expected_version: number;
+        };
+        /**
+         * TravelType
+         * @enum {string}
+         */
+        TravelType: "leisure" | "family" | "honeymoon" | "corporate" | "group" | "adventure" | "other";
         /** TravelerCreate */
         TravelerCreate: {
             /** First Name */
@@ -4628,6 +5029,467 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    list_travel_requests_api_travel_requests_get: {
+        parameters: {
+            query: {
+                filters: components["schemas"]["TravelRequestFilters"];
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Page_TravelRequestListItem_"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    create_travel_request_api_travel_requests_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TravelRequestCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TravelRequestDetail"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    travel_request_summary_api_travel_requests_summary_get: {
+        parameters: {
+            query?: {
+                assigned_to?: number | null;
+                client_id?: number | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TravelRequestSummary"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    list_advisors_api_travel_requests_advisors_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdvisorOption"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    get_travel_request_api_travel_requests__request_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                request_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TravelRequestDetail"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    update_travel_request_api_travel_requests__request_id__put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                request_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TravelRequestUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TravelRequestDetail"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    close_travel_request_api_travel_requests__request_id__close_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                request_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TravelRequestClose"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TravelRequestDetail"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    reopen_travel_request_api_travel_requests__request_id__reopen_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                request_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TravelRequestReopen"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TravelRequestDetail"];
+                };
             };
             /** @description Unauthorized */
             401: {

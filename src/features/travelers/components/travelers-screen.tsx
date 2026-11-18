@@ -13,11 +13,11 @@ import { SearchInput } from '@/components/search-input';
 import { TableSkeleton } from '@/components/table-skeleton';
 import { Button } from '@/components/ui/button';
 import { useHasPermission } from '@/features/auth/permissions';
+import { ClientFilterTag } from '@/features/clients/components/client-filter-tag';
 import { isApiError } from '@/lib/api/errors';
 
 import { TRAVELERS_PAGE_SIZE, useTravelers } from '../api';
 import { useTravelerFilters } from '../use-traveler-filters';
-import { ClientFilterTag } from './client-filter-tag';
 import { TravelersTable } from './travelers-table';
 
 function NewTravelerLink() {

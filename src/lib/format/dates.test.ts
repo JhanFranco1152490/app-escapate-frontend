@@ -2,11 +2,14 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import {
   ageOn,
+  formatDateRange,
   formatDateTime,
   formatDay,
+  formatDayMonth,
   formatLongDate,
   formatShortDate,
   formatShortDateTime,
+  formatTimeAgo,
   todayInBogota,
 } from './dates';
 
@@ -73,5 +76,36 @@ describe('formatDateTime', () => {
     expect(formatDateTime('2026-10-05T20:30:00Z')).toBe(
       '5 de octubre de 2026, 3:30 p.m.',
     );
+  });
+});
+
+describe('formatDayMonth', () => {
+  it('da el día y el mes corto, sin el año', () => {
+    expect(formatDayMonth('2026-12-01')).toBe('1 dic');
+  });
+});
+
+describe('formatDateRange', () => {
+  it.each([
+    ['mismo mes', '2026-12-18', '2026-12-24', '18–24 dic 2026'],
+    ['distinto mes', '2026-11-28', '2026-12-03', '28 nov – 3 dic 2026'],
+    ['distinto año', '2026-12-28', '2027-01-03', '28 dic 2026 – 3 ene 2027'],
+    ['el mismo día', '2026-12-18', '2026-12-18', '18 dic 2026'],
+  ])('%s', (_, start, end, expected) => {
+    expect(formatDateRange(start, end)).toBe(expected);
+  });
+});
+
+describe('formatTimeAgo', () => {
+  it.each([
+    ['2026-11-13T14:59:30Z', 'hace un momento'],
+    ['2026-11-13T14:55:00Z', 'hace 5 minutos'],
+    ['2026-11-13T13:00:00Z', 'hace 2 horas'],
+    ['2026-11-11T15:00:00Z', 'hace 2 días'],
+  ])('desde %s', (isoDateTime, expected) => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date('2026-11-13T15:00:00Z'));
+
+    expect(formatTimeAgo(isoDateTime)).toBe(expected);
   });
 });
