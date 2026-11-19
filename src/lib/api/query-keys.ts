@@ -57,6 +57,7 @@ export const queryKeys = {
       ['travel-requests', 'summary', filters] as const,
     detail: (id: number) => ['travel-requests', 'detail', id] as const,
     advisors: () => ['travel-requests', 'advisors'] as const,
+    travelers: (id: number) => ['travel-requests', 'travelers', id] as const,
   },
   travelers: {
     all: () => ['travelers'] as const,

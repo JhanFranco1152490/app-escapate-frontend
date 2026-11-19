@@ -19,6 +19,7 @@ import { RequestDetail } from './request-detail';
 import { RequestLoader } from './request-loader';
 import { RequestProcess } from './request-process';
 import { RequestStatusBadge } from './request-status-badge';
+import { RequestTravelersSection } from './request-travelers-section';
 
 // Debajo del título: adónde y cuándo, de quién es y quién la registró.
 function RequestSummaryLine({ request }: { request: TravelRequestDetail }) {
@@ -81,6 +82,7 @@ export function RequestDetailScreen({ id }: { id: string }) {
             pageNotice && <Alert variant="info" title={pageNotice} />
           )}
           <RequestDetail request={request} />
+          <RequestTravelersSection request={request} />
           <RequestProcess request={request} />
         </>
       )}

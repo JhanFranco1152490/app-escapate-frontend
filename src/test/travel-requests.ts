@@ -5,6 +5,7 @@ type TravelRequestListItem = Schemas['TravelRequestListItem'];
 type TravelRequestDetail = Schemas['TravelRequestDetail'];
 type TravelRequestSummary = Schemas['TravelRequestSummary'];
 type AdvisorOption = Schemas['AdvisorOption'];
+type RequestTraveler = Schemas['RequestTraveler'];
 
 const ADVISOR = { id: 2, full_name: 'Andrés Peña', is_active: true };
 const CLIENT = { id: 7, display_name: 'Marcela Gómez Ortiz' };
@@ -103,3 +104,35 @@ export const buildAdvisor = (
   full_name: ADVISOR.full_name,
   ...overrides,
 });
+
+// Un adulto asociado a la solicitud: el propio cliente. Para un menor, `buildRequestMinor`.
+export const buildRequestTraveler = (
+  overrides: Partial<RequestTraveler> = {},
+): RequestTraveler => ({
+  id: 31,
+  first_name: 'Marcela',
+  last_name: 'Gómez Ortiz',
+  full_name: 'Marcela Gómez Ortiz',
+  document_type: 'CC',
+  document_number: '1020304050',
+  age: 38,
+  is_minor: false,
+  is_the_client: true,
+  added_at: '2026-11-12T15:00:00Z',
+  added_by: { id: ADVISOR.id, full_name: ADVISOR.full_name },
+  ...overrides,
+});
+
+export const buildRequestMinor = (overrides: Partial<RequestTraveler> = {}) =>
+  buildRequestTraveler({
+    id: 30,
+    first_name: 'Sofía',
+    last_name: 'Gómez Ruiz',
+    full_name: 'Sofía Gómez Ruiz',
+    document_type: 'TI',
+    document_number: '1090123456',
+    age: 12,
+    is_minor: true,
+    is_the_client: false,
+    ...overrides,
+  });

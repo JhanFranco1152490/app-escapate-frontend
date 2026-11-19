@@ -88,9 +88,12 @@ src/
 │   │                     cada tipo: `attribute-rules.ts` (validar y armar) y
 │   │                     `attribute-details.tsx` (mostrar)
 │   ├── travel-requests/  solicitudes de viaje: lista con pestañas por estado (/solicitudes),
-│   │                     alta, ficha (cerrar y reabrir), edición y pendientes de cotización
-│   │                     (/por-cotizar). Las fechas del viaje se muestran solo con
-│   │                     `formatTripDates` (`format.ts`)
+│   │                     alta, ficha (cerrar y reabrir; con `travelers.view`, sección de sus
+│   │                     viajeros: agregar varios desde un diálogo y quitar), edición y
+│   │                     pendientes de cotización (/por-cotizar). Las fechas del viaje se
+│   │                     muestran solo con `formatTripDates` (`format.ts`); los viajeros
+│   │                     asociados, en `request-travelers-api.ts`, y el aviso de si coinciden
+│   │                     con los adultos y menores pedidos, en `traveler-counts.ts`
 │   └── legal/            páginas públicas: marco, "acerca de" y visor del texto legal
 ├── components/
 │   ├── ui/               solo shadcn/ui
@@ -230,7 +233,8 @@ tres temas). Las maquetas de `docs/ui/` son la guía visual.
   `buildServiceListItem` y `buildServiceRate` (`src/test/tourist-services.ts`).
 - Solicitudes de viaje de prueba: `buildTravelRequestDetail` (fechas exactas, en `new`),
   `buildFlexibleRequestDetail`, `buildClosedRequestDetail`, `buildTravelRequestListItem`,
-  `buildTravelRequestSummary` y `buildAdvisor` (`src/test/travel-requests.ts`).
+  `buildTravelRequestSummary`, `buildAdvisor`, `buildRequestTraveler` (un adulto asociado, el
+  cliente) y `buildRequestMinor` (`src/test/travel-requests.ts`).
 - Sesión de prueba: `buildSession()` (`src/test/session.ts`), y en `handlers.ts`
   `sessionHandler(session)` (con sesión) y `noSessionHandlers` (`/me` y `refresh` en 401).
   Un componente que usa `useCurrentUser` se prueba dentro de `<SessionGuard>`, con
@@ -262,7 +266,7 @@ tres temas). Las maquetas de `docs/ui/` son la guía visual.
   | `travelers` | `auth` (usuario actual, permisos y `RequirePermission`); `clients` (`useClients`, `useClient`, `ClientPicker` y `ClientFilterTag`) |
   | `suppliers` | `auth` (usuario actual, permisos y `RequirePermission`)                |
   | `tourist-services` | `auth` (usuario actual, permisos y `RequirePermission`); `suppliers` (`useSupplier`, `SupplierDetail`, `SUPPLIER_CATEGORIES`, `SUPPLIER_CATEGORY_LABELS`, `SupplierStatusBadge`, `SupplierLoader` y `SupplierDetailScreen`, que recibe la sección de servicios con `services`) |
-  | `travel-requests` | `auth` (usuario actual, permisos y `RequirePermission`); `clients` (`useClient`, `ClientPicker` y `ClientFilterTag`) |
+  | `travel-requests` | `auth` (usuario actual, permisos y `RequirePermission`); `clients` (`useClient`, `ClientPicker` y `ClientFilterTag`); `travelers` (`useTravelers`, `TravelerListItem` y `TRAVELERS_PAGE_SIZE`, para elegir a quién asociar) |
 
 - **Elegir la mejor opción, no la librería por defecto.** Ante una necesidad técnica se
   comparan las alternativas reales (lo que trae Next.js, una librería, código propio) y se
