@@ -94,6 +94,12 @@ src/
 │   │                     muestran solo con `formatTripDates` (`format.ts`); los viajeros
 │   │                     asociados, en `request-travelers-api.ts`, y el aviso de si coinciden
 │   │                     con los adultos y menores pedidos, en `traveler-counts.ts`
+│   ├── quotes/           cotizaciones: lista con pestañas por estado (/cotizaciones), ficha
+│   │                     (servicios en un panel junto a la tabla, enviar, aceptar, rechazar y
+│   │                     volver a borrador), datos generales (/editar) y condiciones
+│   │                     (/condiciones). Se crean desde la ficha de la solicitud
+│   │                     (`RequestQuotesSection`). "Vencida" no es un estado de la API: es una
+│   │                     enviada con `is_expired` (`displayStatus` en `labels.ts`)
 │   └── legal/            páginas públicas: marco, "acerca de" y visor del texto legal
 ├── components/
 │   ├── ui/               solo shadcn/ui
@@ -121,7 +127,8 @@ src/
 │   └── env.ts            NEXT_PUBLIC_API_URL (el build falla si falta en producción)
 ├── content/legal/       privacidad.md y terminos.md: el texto publicado (fuente única)
 └── test/                 render.tsx, server.ts, handlers.ts, session.ts, users.ts, roles.ts,
-                          clients.ts, suppliers.ts, tourist-services.ts, travel-requests.ts
+                          clients.ts, suppliers.ts, tourist-services.ts, travel-requests.ts,
+                          quotes.ts
 ```
 
 Rutas visibles en español (`/clientes`, `/cotizaciones/[id]`); código en inglés.
@@ -266,7 +273,8 @@ tres temas). Las maquetas de `docs/ui/` son la guía visual.
   | `travelers` | `auth` (usuario actual, permisos y `RequirePermission`); `clients` (`useClients`, `useClient`, `ClientPicker` y `ClientFilterTag`) |
   | `suppliers` | `auth` (usuario actual, permisos y `RequirePermission`)                |
   | `tourist-services` | `auth` (usuario actual, permisos y `RequirePermission`); `suppliers` (`useSupplier`, `SupplierDetail`, `SUPPLIER_CATEGORIES`, `SUPPLIER_CATEGORY_LABELS`, `SupplierStatusBadge`, `SupplierLoader` y `SupplierDetailScreen`, que recibe la sección de servicios con `services`) |
-  | `travel-requests` | `auth` (usuario actual, permisos y `RequirePermission`); `clients` (`useClient`, `ClientPicker` y `ClientFilterTag`); `travelers` (`useTravelers`, `TravelerListItem` y `TRAVELERS_PAGE_SIZE`, para elegir a quién asociar) |
+  | `travel-requests` | `auth` (usuario actual, permisos y `RequirePermission`); `clients` (`useClient`, `ClientPicker` y `ClientFilterTag`); `travelers` (`useTravelers`, `TravelerListItem` y `TRAVELERS_PAGE_SIZE`, para elegir a quién asociar); `quotes` (`RequestQuotesSection`: las cotizaciones de la solicitud y el botón para crear una) |
+  | `quotes` | `auth` (usuario actual, permisos y `RequirePermission`); `suppliers` (`SUPPLIER_CATEGORY_LABELS`, los tipos de servicio); `tourist-services` (`CHARGE_UNITS`, `CHARGE_UNIT_LABELS` y `CURRENCY_LABELS` de `rate-options.ts`, la misma lista de la API) |
 
 - **Elegir la mejor opción, no la librería por defecto.** Ante una necesidad técnica se
   comparan las alternativas reales (lo que trae Next.js, una librería, código propio) y se

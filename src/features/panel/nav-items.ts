@@ -2,6 +2,7 @@ import {
   Building2,
   ClipboardList,
   Contact,
+  FileText,
   Hourglass,
   House,
   Luggage,
@@ -54,6 +55,13 @@ export const NAV_ITEMS: NavItem[] = [
     icon: Hourglass,
     group: 'Operación',
     permission: 'travel_requests.view',
+  },
+  {
+    href: '/cotizaciones',
+    label: 'Cotizaciones',
+    icon: FileText,
+    group: 'Operación',
+    permission: 'quotes.view',
   },
   {
     href: '/proveedores',

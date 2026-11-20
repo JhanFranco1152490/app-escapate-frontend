@@ -59,6 +59,13 @@ export const queryKeys = {
     advisors: () => ['travel-requests', 'advisors'] as const,
     travelers: (id: number) => ['travel-requests', 'travelers', id] as const,
   },
+  quotes: {
+    all: () => ['quotes'] as const,
+    lists: () => ['quotes', 'list'] as const,
+    list: (filters: Record<string, unknown>) =>
+      ['quotes', 'list', filters] as const,
+    detail: (id: number) => ['quotes', 'detail', id] as const,
+  },
   travelers: {
     all: () => ['travelers'] as const,
     lists: () => ['travelers', 'list'] as const,
