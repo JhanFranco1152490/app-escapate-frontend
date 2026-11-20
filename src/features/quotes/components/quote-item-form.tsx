@@ -30,6 +30,7 @@ const FIELDS = [
   'currency',
   'unit_cost',
   'markup_percent',
+  'sale_price_override',
   'supplier_commission_percent',
 ] as const;
 

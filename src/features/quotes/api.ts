@@ -13,6 +13,7 @@ export type QuoteStatus = Schemas['QuoteStatus'];
 export type QuoteStatusFilter = Schemas['QuoteStatusFilter'];
 export type QuoteGeneralUpdate = Schemas['QuoteGeneralUpdate'];
 export type QuoteConditionsUpdate = Schemas['QuoteConditionsUpdate'];
+export type QuotePricingUpdate = Schemas['QuotePricingUpdate'];
 export type QuoteItem = Schemas['QuoteItemOut'];
 export type QuoteItemCreate = Schemas['QuoteItemCreate'];
 export type QuoteItemUpdate = Schemas['QuoteItemUpdate'];

@@ -46,6 +46,8 @@ export function buildQuoteItem(overrides: Partial<QuoteItem> = {}): QuoteItem {
     markup_percent: '15.00',
     sale_price_override: null,
     supplier_commission_percent: null,
+    cost_in_pesos: 2_700_000,
+    sale_price: 3_105_000,
     version: 1,
     ...overrides,
   };
@@ -70,6 +72,16 @@ export function buildQuoteDetail(
     decided_at: null,
     version: 1,
     items: [],
+    totals: {
+      cost: 0,
+      sale: 0,
+      profit: 0,
+      margin_percent: null,
+      optional_sale: 0,
+      per_person: null,
+      deposit: null,
+      missing_exchange_rate: false,
+    },
     ...overrides,
   };
 }

@@ -8,6 +8,7 @@ import type {
   QuoteConditionsUpdate,
   QuoteDetail,
   QuoteGeneralUpdate,
+  QuotePricingUpdate,
   QuoteItem,
   QuoteItemCreate,
   QuoteItemUpdate,
@@ -71,6 +72,20 @@ export function useUpdateQuoteConditions(id: number) {
         body,
       }),
     onSuccess: store,
+  });
+}
+
+export function useUpdateQuotePricing(id: number) {
+  const store = useStoreQuote();
+  const refreshOnConflict = useRefreshOnConflict(id);
+  return useMutation({
+    mutationFn: (body: QuotePricingUpdate) =>
+      apiFetch<QuoteDetail>(`/api/quotes/${id}/pricing`, {
+        method: 'PUT',
+        body,
+      }),
+    onSuccess: store,
+    onError: refreshOnConflict,
   });
 }
 
