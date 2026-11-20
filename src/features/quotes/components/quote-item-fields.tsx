@@ -173,6 +173,12 @@ export function QuoteItemFields({ form }: { form: ItemFormApi }) {
           hint={PERCENT_HINT}
           inputMode="decimal"
         />
+        <DecimalAmountField
+          form={form}
+          name="sale_price_override"
+          label="Precio de venta total a mano (COP)"
+          currency="COP"
+        />
         <TextField
           form={form}
           name="supplier_commission_percent"

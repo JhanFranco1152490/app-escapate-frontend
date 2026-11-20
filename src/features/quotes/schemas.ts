@@ -156,6 +156,7 @@ const itemShape = z.object({
   currency: z.string(),
   unit_cost: z.string(),
   markup_percent: z.string(),
+  sale_price_override: z.string(),
   supplier_commission_percent: z.string(),
 });
 
@@ -166,6 +167,9 @@ export type ItemFormApi = UseFormReturn<ItemFormValues, unknown, ItemPayload>;
 const markup = (text: string) => parsePercent(text, { min: 0, max: 999.99 });
 const commission = (text: string) =>
   text.trim() ? parsePercent(text, { min: 0, max: 100 }) : null;
+// Precio total escrito a mano, en pesos: vacío deja el calculado con el %.
+const override = (text: string) =>
+  text.trim() ? parseAmount(text, 'COP') : null;
 const isCurrency = (value: string): value is Currency =>
   value === 'COP' || value === 'USD';
 
@@ -176,6 +180,7 @@ export const itemSchema = itemShape
       : undefined;
     const markupValue = markup(values.markup_percent);
     const commissionValue = commission(values.supplier_commission_percent);
+    const overrideValue = override(values.sale_price_override);
     addErrors(
       {
         name: firstError(itemName, values.name),
@@ -192,6 +197,10 @@ export const itemSchema = itemShape
             : undefined,
         unit_cost: cost && 'error' in cost ? cost.error : undefined,
         markup_percent: 'error' in markupValue ? markupValue.error : undefined,
+        sale_price_override:
+          overrideValue && 'error' in overrideValue
+            ? overrideValue.error
+            : undefined,
         supplier_commission_percent:
           commissionValue && 'error' in commissionValue
             ? commissionValue.error

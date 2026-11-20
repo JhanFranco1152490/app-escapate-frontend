@@ -1,5 +1,9 @@
 import { formatDateRange, formatShortDate } from '@/lib/format/dates';
-import { formatPercentage, formatRateAmount } from '@/lib/format/money';
+import {
+  formatMoney,
+  formatPercentage,
+  formatRateAmount,
+} from '@/lib/format/money';
 
 import type { QuoteItem } from '../api';
 import { CHARGE_UNIT_LABELS, SERVICE_TYPE_LABELS } from '../service-options';
@@ -38,6 +42,9 @@ export function QuoteItemsTable({ items, actions }: QuoteItemsTableProps) {
           </th>
           <th scope="col" className={headerCell}>
             %
+          </th>
+          <th scope="col" className={headerCell}>
+            Precio
           </th>
           {actions && (
             <th scope="col" className={headerCell}>
@@ -84,6 +91,14 @@ export function QuoteItemsTable({ items, actions }: QuoteItemsTableProps) {
               </td>
               <td className={`${cell} text-muted-foreground`}>
                 {formatPercentage(item.markup_percent)}
+              </td>
+              <td className={`${cell} font-medium`}>
+                {item.sale_price === null
+                  ? 'Falta la tasa'
+                  : formatMoney(item.sale_price)}
+                {item.sale_price_override !== null && (
+                  <span className={subline}>Escrito a mano</span>
+                )}
               </td>
               {actions && (
                 <td className={`${cell} md:text-right`}>{actions(item)}</td>

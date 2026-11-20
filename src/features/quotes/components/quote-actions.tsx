@@ -1,6 +1,6 @@
 'use client';
 
-import { Pencil } from 'lucide-react';
+import { FileText, Pencil } from 'lucide-react';
 import { useState } from 'react';
 
 import { ButtonLink } from '@/components/button-link';
@@ -88,6 +88,13 @@ export function QuoteActions({ quote, onDone }: QuoteActionsProps) {
 
   return (
     <>
+      <ButtonLink
+        href={`/cotizaciones/${quote.id}/documento`}
+        variant="outline"
+      >
+        <FileText aria-hidden="true" />
+        Documento
+      </ButtonLink>
       {quote.status === 'draft' && (
         <>
           <ButtonLink

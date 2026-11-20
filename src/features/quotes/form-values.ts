@@ -45,6 +45,7 @@ export const emptyItemForm = (
   currency: 'COP',
   unit_cost: '',
   markup_percent: percentInput(quote.default_markup_percent),
+  sale_price_override: '',
   supplier_commission_percent: '',
 });
 
@@ -60,5 +61,9 @@ export const itemFormValues = (item: QuoteItem): ItemFormValues => ({
   currency: item.currency,
   unit_cost: formatAmountInput(item.unit_cost, item.currency),
   markup_percent: percentInput(item.markup_percent),
+  sale_price_override:
+    item.sale_price_override === null
+      ? ''
+      : formatAmountInput(String(item.sale_price_override), 'COP'),
   supplier_commission_percent: percentInput(item.supplier_commission_percent),
 });

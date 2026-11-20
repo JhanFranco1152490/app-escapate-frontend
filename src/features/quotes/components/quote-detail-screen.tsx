@@ -18,6 +18,7 @@ import { QuoteConditionsDetail } from './quote-conditions-detail';
 import { QuoteGeneralDetail } from './quote-general-detail';
 import { QuoteItemsSection } from './quote-items-section';
 import { QuoteLoader } from './quote-loader';
+import { QuotePricingSection } from './quote-pricing-section';
 import { QuoteStatusBadge } from './quote-status-badge';
 
 const linkClass =
@@ -97,6 +98,7 @@ export function QuoteDetailScreen({ id }: { id: string }) {
           )}
           <QuoteGeneralDetail quote={quote} />
           <QuoteItemsSection quote={quote} />
+          <QuotePricingSection quote={quote} />
           <QuoteConditionsDetail quote={quote} />
         </>
       )}

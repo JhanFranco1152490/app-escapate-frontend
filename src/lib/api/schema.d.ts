@@ -1536,6 +1536,7 @@ export interface components {
             version: number;
             /** Items */
             items: components["schemas"]["QuoteItemOut"][];
+            totals: components["schemas"]["QuoteTotals"];
         };
         /**
          * QuoteFilters
@@ -1639,6 +1640,10 @@ export interface components {
             sale_price_override: number | null;
             /** Supplier Commission Percent */
             supplier_commission_percent: string | null;
+            /** Cost In Pesos */
+            cost_in_pesos: number | null;
+            /** Sale Price */
+            sale_price: number | null;
             /** Version */
             version: number;
         };
@@ -1750,6 +1755,28 @@ export interface components {
             id: number;
             /** Trade Name */
             trade_name: string;
+        };
+        /**
+         * QuoteTotals
+         * @description Solo los servicios incluidos; los opcionales se suman aparte.
+         */
+        QuoteTotals: {
+            /** Cost */
+            cost: number;
+            /** Sale */
+            sale: number;
+            /** Profit */
+            profit: number;
+            /** Margin Percent */
+            margin_percent: string | null;
+            /** Optional Sale */
+            optional_sale: number;
+            /** Per Person */
+            per_person: number | null;
+            /** Deposit */
+            deposit: number | null;
+            /** Missing Exchange Rate */
+            missing_exchange_rate: boolean;
         };
         /** QuoteTransition */
         QuoteTransition: {

@@ -21,7 +21,7 @@ export function PanelLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex flex-1 flex-col">
-      <header className="flex h-16 shrink-0 items-center justify-between gap-4 border-b px-4 md:h-18 md:px-9">
+      <header className="flex h-16 shrink-0 items-center justify-between gap-4 border-b px-4 md:h-18 md:px-9 print:hidden">
         <Image
           src="/brand/escapate-logo-color.png"
           alt="Escápate, agencia de viajes"
@@ -59,8 +59,11 @@ export function PanelLayout({ children }: { children: ReactNode }) {
         </div>
       </header>
       <div className="flex flex-1">
-        <PanelNav />
-        <main className="flex min-w-0 flex-1 flex-col px-4 py-8 md:px-9">
+        {/* Al imprimir (el documento de una cotización) solo sale el contenido. */}
+        <div className="contents print:hidden">
+          <PanelNav />
+        </div>
+        <main className="flex min-w-0 flex-1 flex-col px-4 py-8 md:px-9 print:p-0">
           {children}
         </main>
       </div>
