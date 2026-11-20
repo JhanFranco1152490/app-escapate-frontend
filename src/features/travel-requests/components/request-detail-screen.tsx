@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { Alert } from '@/components/alert';
 import { PageHeader } from '@/components/page-header';
 import { useHasPermission } from '@/features/auth/permissions';
+import { RequestQuotesSection } from '@/features/quotes/components/request-quotes-section';
 import type { ActionFeedback } from '@/lib/action-feedback';
 import { formatDay } from '@/lib/format/dates';
 import { parseRouteId } from '@/lib/route-id';
@@ -82,6 +83,10 @@ export function RequestDetailScreen({ id }: { id: string }) {
             pageNotice && <Alert variant="info" title={pageNotice} />
           )}
           <RequestDetail request={request} />
+          <RequestQuotesSection
+            requestId={request.id}
+            closed={request.status === 'closed'}
+          />
           <RequestTravelersSection request={request} />
           <RequestProcess request={request} />
         </>
