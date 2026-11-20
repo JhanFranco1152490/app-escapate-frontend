@@ -15,6 +15,7 @@ import type { QuoteDetail } from '../api';
 import { quoteNoticeTarget } from '../format';
 import { QuoteActions } from './quote-actions';
 import { QuoteConditionsDetail } from './quote-conditions-detail';
+import { QuoteFollowUpsSection } from './quote-follow-ups-section';
 import { QuoteGeneralDetail } from './quote-general-detail';
 import { QuoteItemsSection } from './quote-items-section';
 import { QuoteLoader } from './quote-loader';
@@ -100,6 +101,7 @@ export function QuoteDetailScreen({ id }: { id: string }) {
           <QuoteItemsSection quote={quote} />
           <QuotePricingSection quote={quote} />
           <QuoteConditionsDetail quote={quote} />
+          <QuoteFollowUpsSection quote={quote} />
         </>
       )}
     </QuoteLoader>

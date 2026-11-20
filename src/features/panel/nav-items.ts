@@ -1,4 +1,5 @@
 import {
+  BellRing,
   Building2,
   ClipboardList,
   Contact,
@@ -60,6 +61,13 @@ export const NAV_ITEMS: NavItem[] = [
     href: '/cotizaciones',
     label: 'Cotizaciones',
     icon: FileText,
+    group: 'Operación',
+    permission: 'quotes.view',
+  },
+  {
+    href: '/seguimientos',
+    label: 'Seguimientos',
+    icon: BellRing,
     group: 'Operación',
     permission: 'quotes.view',
   },
