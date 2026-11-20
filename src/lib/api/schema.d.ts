@@ -926,6 +926,91 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/follow-ups": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Follow Ups */
+        get: operations["list_follow_ups_api_follow_ups_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/follow-ups/alerts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Alert Summary */
+        get: operations["alert_summary_api_follow_ups_alerts_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/quotes/{quote_id}/follow-ups": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Schedule Follow Up */
+        post: operations["schedule_follow_up_api_quotes__quote_id__follow_ups_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/follow-ups/{follow_up_id}/complete": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Complete Follow Up */
+        post: operations["complete_follow_up_api_follow_ups__follow_up_id__complete_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/follow-ups/{follow_up_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Remove Follow Up */
+        delete: operations["remove_follow_up_api_follow_ups__follow_up_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -966,6 +1051,20 @@ export interface components {
             carry_on_included: boolean;
             /** Checked Bags */
             checked_bags?: number | null;
+        };
+        /**
+         * AlertColor
+         * @enum {string}
+         */
+        AlertColor: "red" | "yellow" | "green";
+        /** AlertSummary */
+        AlertSummary: {
+            /** Red */
+            red: number;
+            /** Yellow */
+            yellow: number;
+            /** Green */
+            green: number;
         };
         /**
          * CabinClass
@@ -1208,6 +1307,86 @@ export interface components {
                 [key: string]: string[];
             };
         };
+        /**
+         * FollowUpChannel
+         * @enum {string}
+         */
+        FollowUpChannel: "call" | "whatsapp" | "email" | "meeting" | "other";
+        /** FollowUpComplete */
+        FollowUpComplete: {
+            /** Outcome */
+            outcome?: string | null;
+            /** Next Due Date */
+            next_due_date?: string | null;
+            /** Next Purpose */
+            next_purpose?: string | null;
+        };
+        /** FollowUpCreate */
+        FollowUpCreate: {
+            /**
+             * Due Date
+             * Format: date
+             */
+            due_date: string;
+            channel: components["schemas"]["FollowUpChannel"];
+            /** Purpose */
+            purpose: string;
+        };
+        /** FollowUpFilters */
+        FollowUpFilters: {
+            /** @default pending */
+            status: components["schemas"]["FollowUpStatus"] | null;
+            alert?: components["schemas"]["AlertColor"] | null;
+            /** Quote Id */
+            quote_id?: number | null;
+            /**
+             * Mine
+             * @default false
+             */
+            mine: boolean;
+        };
+        /** FollowUpOut */
+        FollowUpOut: {
+            /** Id */
+            id: number;
+            quote: components["schemas"]["FollowUpQuoteRef"];
+            /**
+             * Due Date
+             * Format: date
+             */
+            due_date: string;
+            channel: components["schemas"]["FollowUpChannel"];
+            /** Purpose */
+            purpose: string;
+            status: components["schemas"]["FollowUpStatus"];
+            alert: components["schemas"]["AlertColor"] | null;
+            /** Outcome */
+            outcome: string | null;
+            /** Done At */
+            done_at: string | null;
+            done_by: components["schemas"]["UserRef"] | null;
+            created_by: components["schemas"]["UserRef"];
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** FollowUpQuoteRef */
+        FollowUpQuoteRef: {
+            /** Id */
+            id: number;
+            /** Code */
+            code: string;
+            /** Destination */
+            destination: string;
+            client: components["schemas"]["QuoteClientRef"];
+        };
+        /**
+         * FollowUpStatus
+         * @enum {string}
+         */
+        FollowUpStatus: "pending" | "done";
         /** FoodAttributes */
         FoodAttributes: {
             /** Meals */
@@ -1324,6 +1503,17 @@ export interface components {
             previous: string | null;
             /** Results */
             results: components["schemas"]["ClientListItem"][];
+        };
+        /** Page[FollowUpOut] */
+        Page_FollowUpOut_: {
+            /** Count */
+            count: number;
+            /** Next */
+            next: string | null;
+            /** Previous */
+            previous: string | null;
+            /** Results */
+            results: components["schemas"]["FollowUpOut"][];
         };
         /** Page[LoginEventItem] */
         Page_LoginEventItem_: {
@@ -7145,6 +7335,313 @@ export interface operations {
             path: {
                 quote_id: number;
                 item_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    list_follow_ups_api_follow_ups_get: {
+        parameters: {
+            query: {
+                filters: components["schemas"]["FollowUpFilters"];
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Page_FollowUpOut_"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    alert_summary_api_follow_ups_alerts_get: {
+        parameters: {
+            query?: {
+                mine?: boolean;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AlertSummary"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    schedule_follow_up_api_quotes__quote_id__follow_ups_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                quote_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["FollowUpCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FollowUpOut"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    complete_follow_up_api_follow_ups__follow_up_id__complete_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                follow_up_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["FollowUpComplete"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FollowUpOut"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    remove_follow_up_api_follow_ups__follow_up_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                follow_up_id: number;
             };
             cookie?: never;
         };

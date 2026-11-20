@@ -66,6 +66,14 @@ export const queryKeys = {
       ['quotes', 'list', filters] as const,
     detail: (id: number) => ['quotes', 'detail', id] as const,
   },
+  // Los conteos del semáforo cuelgan de la misma raíz: registrar o programar un seguimiento
+  // invalida la lista y las alertas de una vez.
+  followUps: {
+    all: () => ['follow-ups'] as const,
+    list: (filters: Record<string, unknown>) =>
+      ['follow-ups', 'list', filters] as const,
+    alerts: () => ['follow-ups', 'alerts'] as const,
+  },
   travelers: {
     all: () => ['travelers'] as const,
     lists: () => ['travelers', 'list'] as const,
