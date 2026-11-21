@@ -137,7 +137,7 @@ src/
 │   ├── api/              client.ts, errors.ts, form-errors.ts, query-keys.ts,
 │   │                     query-string.ts, schema.d.ts
 │   ├── format/           dates.ts (incluye `formatDateRange` y `formatTimeAgo`), money.ts,
-│   │                     document.ts, phone.ts
+│   │                     document.ts, phone.ts, age.ts (`formatAge`: "1 año", "17 años")
 │   ├── validation/       text.ts (reglas de texto; `optionalMultilineText` admite saltos de
 │   │                     línea), document.ts (reglas por tipo de documento),
 │   │                     amount.ts (valor en pesos o dólares escrito como en Colombia)

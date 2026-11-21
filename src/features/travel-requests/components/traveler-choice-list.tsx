@@ -1,4 +1,5 @@
 import { Tag } from '@/components/tag';
+import { formatAge } from '@/lib/format/age';
 import { formatDocument } from '@/lib/format/document';
 
 import type { TravelerListItem } from '@/features/travelers/api';
@@ -12,8 +13,6 @@ type TravelerChoiceListProps = {
   limitReached: boolean;
   onToggle: (travelerId: number) => void;
 };
-
-const ageText = (age: number) => (age === 1 ? '1 año' : `${age} años`);
 
 export function TravelerChoiceList({
   travelers,
@@ -45,7 +44,7 @@ export function TravelerChoiceList({
                 )}
               </span>
               <span className="text-muted-foreground">
-                {ageText(traveler.age)}
+                {formatAge(traveler.age)}
               </span>
               {traveler.is_minor && <Tag>Menor</Tag>}
               {added && <Tag>Ya está en la solicitud</Tag>}

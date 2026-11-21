@@ -7,6 +7,7 @@ import { ButtonLink } from '@/components/button-link';
 import { Tag } from '@/components/tag';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useHasPermission } from '@/features/auth/permissions';
+import { formatAge } from '@/lib/format/age';
 import { formatDocument } from '@/lib/format/document';
 
 import { useClientTravelers, type ClientDetail } from '../api';
@@ -102,7 +103,7 @@ export function ClientTravelers({ client }: { client: ClientDetail }) {
                 )}
               </span>
               <span className="text-muted-foreground">
-                {traveler.age === 1 ? '1 año' : `${traveler.age} años`}
+                {formatAge(traveler.age)}
               </span>
               {traveler.is_minor && <Tag>Menor</Tag>}
               {traveler.is_the_client && <Tag tone="accent">Es el cliente</Tag>}
