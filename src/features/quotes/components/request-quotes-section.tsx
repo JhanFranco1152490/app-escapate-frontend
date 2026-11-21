@@ -14,6 +14,7 @@ import { setPageNotice } from '@/lib/page-notice';
 import { useQuotes } from '../api';
 import { quoteNoticeTarget } from '../format';
 import { useCreateQuote } from '../mutations';
+import { QuoteFromPackage } from './quote-from-package';
 import { QuoteStatusBadge } from './quote-status-badge';
 
 type RequestQuotesSectionProps = {
@@ -109,6 +110,7 @@ export function RequestQuotesSection({
           ))}
         </ul>
       )}
+      {canManage && !closed && <QuoteFromPackage requestId={requestId} />}
     </section>
   );
 }
