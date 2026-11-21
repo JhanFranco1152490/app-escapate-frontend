@@ -47,4 +47,18 @@ describe('withSearchParam', () => {
   ])('agrega o reemplaza el parámetro en %s', (path, expected) => {
     expect(withSearchParam(path, 'client_id', '21')).toBe(expected);
   });
+
+  // safeNext las acepta (empiezan por una sola "/"), pero al normalizar los segmentos "." y
+  // ".." quedan como "//evil.example", que el navegador toma como otro sitio.
+  it.each(['/..//evil.example', '/.//evil.example', '/a/..//evil.example'])(
+    'no devuelve una ruta hacia otro sitio al normalizar %s',
+    (path) => {
+      expect(safeNext(path)).toBe(path);
+
+      const result = withSearchParam(path, 'client_id', '21');
+
+      expect(result).toBe('/');
+      expect(safeNext(result, '')).toBe(result);
+    },
+  );
 });
