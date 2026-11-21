@@ -1,6 +1,8 @@
 import {
   BellRing,
   Building2,
+  ChartColumn,
+  FileSpreadsheet,
   ChartLine,
   BadgeDollarSign,
   CalendarCheck,
@@ -96,10 +98,24 @@ export const NAV_ITEMS: NavItem[] = [
     permission: 'suppliers.view',
   },
   {
+    href: '/dashboard',
+    label: 'Dashboard',
+    icon: ChartColumn,
+    group: 'Reportes y finanzas',
+    permission: 'reports.view',
+  },
+  {
+    href: '/reportes',
+    label: 'Reportes',
+    icon: FileSpreadsheet,
+    group: 'Reportes y finanzas',
+    permission: 'reports.view',
+  },
+  {
     href: '/finanzas',
     label: 'Finanzas',
     icon: ChartLine,
-    group: 'Finanzas',
+    group: 'Reportes y finanzas',
     permission: 'finance.view',
   },
   {

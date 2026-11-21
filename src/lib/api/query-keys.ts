@@ -95,6 +95,16 @@ export const queryKeys = {
     expenses: (period: Record<string, unknown>) =>
       ['finance', 'expenses', period] as const,
   },
+  reports: {
+    all: () => ['reports'] as const,
+    dashboard: () => ['reports', 'dashboard'] as const,
+    commercial: (period: Record<string, unknown>) =>
+      ['reports', 'commercial', period] as const,
+    financial: (period: Record<string, unknown>) =>
+      ['reports', 'financial', period] as const,
+    report: (kind: string, period: Record<string, unknown>) =>
+      ['reports', 'report', kind, period] as const,
+  },
   travelers: {
     all: () => ['travelers'] as const,
     lists: () => ['travelers', 'list'] as const,

@@ -1235,6 +1235,74 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/reports/dashboard": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Dashboard */
+        get: operations["dashboard_api_reports_dashboard_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/reports/commercial": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Commercial */
+        get: operations["commercial_api_reports_commercial_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/reports/financial": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Financial */
+        get: operations["financial_api_reports_financial_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/reports/{kind}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Report */
+        get: operations["report_api_reports__kind__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -1548,6 +1616,33 @@ export interface components {
          * @enum {string}
          */
         CloseReason: "client_declined" | "no_response" | "bought_elsewhere" | "duplicate" | "other";
+        /** CommercialIndicators */
+        CommercialIndicators: {
+            /** Requests Received */
+            requests_received: number;
+            /** Quotes Created */
+            quotes_created: number;
+            /** Quotes Accepted */
+            quotes_accepted: number;
+            /** Quotes Rejected */
+            quotes_rejected: number;
+            /** Conversion Percent */
+            conversion_percent: string | null;
+            /** Sales Count */
+            sales_count: number;
+            /** Sales Amount */
+            sales_amount: number;
+            /** Average Ticket */
+            average_ticket: number | null;
+            /** New Clients */
+            new_clients: number;
+            /** Top Destinations */
+            top_destinations: components["schemas"]["RankRow"][];
+            /** Sales By Advisor */
+            sales_by_advisor: components["schemas"]["RankRow"][];
+            /** Sales By Service Type */
+            sales_by_service_type: components["schemas"]["RankRow"][];
+        };
         /**
          * ContactSource
          * @enum {string}
@@ -1594,6 +1689,27 @@ export interface components {
          * @enum {string}
          */
         Currency: "COP" | "USD";
+        /** Dashboard */
+        Dashboard: {
+            /** Pending Requests */
+            pending_requests: number;
+            /** Quotes Draft */
+            quotes_draft: number;
+            /** Quotes Sent */
+            quotes_sent: number;
+            /** Quotes Expired */
+            quotes_expired: number;
+            /** Follow Ups Red */
+            follow_ups_red: number;
+            /** Follow Ups Yellow */
+            follow_ups_yellow: number;
+            /** Bookings To Request */
+            bookings_to_request: number;
+            /** Trips Next 30 Days */
+            trips_next_30_days: number;
+            /** Receivable */
+            receivable: number;
+        };
         /**
          * DateMode
          * @enum {string}
@@ -1675,6 +1791,25 @@ export interface components {
             by_category: {
                 [key: string]: number;
             };
+        };
+        /** FinancialIndicators */
+        FinancialIndicators: {
+            /** Sales Amount */
+            sales_amount: number;
+            /** Estimated Profit */
+            estimated_profit: number;
+            /** Margin Percent */
+            margin_percent: string | null;
+            /** Income */
+            income: number;
+            /** Expenses */
+            expenses: number;
+            /** Net */
+            net: number;
+            /** Receivable */
+            receivable: number;
+            /** Payable */
+            payable: number;
         };
         /**
          * FollowUpChannel
@@ -2471,6 +2606,15 @@ export interface components {
             /** Expected Version */
             expected_version: number;
         };
+        /** RankRow */
+        RankRow: {
+            /** Label */
+            label: string;
+            /** Count */
+            count: number;
+            /** Amount */
+            amount: number;
+        };
         /**
          * RateValidity
          * @enum {string}
@@ -2483,6 +2627,20 @@ export interface components {
             /** Display Name */
             display_name: string;
         };
+        /** Report */
+        Report: {
+            /** Title */
+            title: string;
+            /** Columns */
+            columns: string[];
+            /** Rows */
+            rows: (string | number | null)[][];
+        };
+        /**
+         * ReportKind
+         * @enum {string}
+         */
+        ReportKind: "sales" | "payments" | "quotes" | "expenses" | "requests";
         /**
          * RequestSort
          * @enum {string}
@@ -9263,6 +9421,196 @@ export interface operations {
             };
             /** @description Not Found */
             404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    dashboard_api_reports_dashboard_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Dashboard"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    commercial_api_reports_commercial_get: {
+        parameters: {
+            query: {
+                date_from: string;
+                date_to: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CommercialIndicators"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    financial_api_reports_financial_get: {
+        parameters: {
+            query: {
+                date_from: string;
+                date_to: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FinancialIndicators"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    report_api_reports__kind__get: {
+        parameters: {
+            query: {
+                date_from: string;
+                date_to: string;
+            };
+            header?: never;
+            path: {
+                kind: components["schemas"]["ReportKind"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Report"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
                 headers: {
                     [name: string]: unknown;
                 };
