@@ -29,6 +29,7 @@ const FIELDS = [
   'quantity',
   'charge_unit',
   'alternative_of_id',
+  'quality_level',
   'tourist_service_id',
   'currency',
   'unit_cost',

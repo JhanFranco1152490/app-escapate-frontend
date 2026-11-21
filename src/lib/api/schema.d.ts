@@ -1048,6 +1048,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/quotes/{quote_id}/items/{item_id}/choose": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Choose Alternative */
+        post: operations["choose_alternative_api_quotes__quote_id__items__item_id__choose_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/follow-ups": {
         parameters: {
             query?: never;
@@ -2637,6 +2654,13 @@ export interface components {
             /** Costs */
             costs: components["schemas"]["ActualCostOut"][];
         };
+        /**
+         * QualityLevel
+         * @description Categoría o nivel de calidad de una opción, para comparar alternativas del mismo
+         *     servicio (un hotel económico frente a uno superior).
+         * @enum {string}
+         */
+        QualityLevel: "economy" | "standard" | "superior" | "luxury";
         /** QuoteClientRef */
         QuoteClientRef: {
             /** Id */
@@ -2809,6 +2833,7 @@ export interface components {
             is_optional: boolean;
             /** Alternative Of Id */
             alternative_of_id?: number | null;
+            quality_level?: components["schemas"]["QualityLevel"] | null;
             currency: components["schemas"]["Currency"];
             /** Unit Cost */
             unit_cost: number | string;
@@ -2841,6 +2866,7 @@ export interface components {
             is_optional: boolean;
             /** Alternative Of Id */
             alternative_of_id: number | null;
+            quality_level: components["schemas"]["QualityLevel"] | null;
             currency: components["schemas"]["Currency"];
             /** Unit Cost */
             unit_cost: string;
@@ -2882,6 +2908,7 @@ export interface components {
             is_optional: boolean;
             /** Alternative Of Id */
             alternative_of_id?: number | null;
+            quality_level?: components["schemas"]["QualityLevel"] | null;
             currency: components["schemas"]["Currency"];
             /** Unit Cost */
             unit_cost: number | string;
@@ -9154,6 +9181,74 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    choose_alternative_api_quotes__quote_id__items__item_id__choose_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                quote_id: number;
+                item_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuoteDetail"];
+                };
             };
             /** @description Unauthorized */
             401: {

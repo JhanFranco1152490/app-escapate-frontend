@@ -9,6 +9,7 @@ import { formatMoney, formatPercentage } from '@/lib/format/money';
 
 import type { QuoteDetail, QuoteItem } from '../api';
 import { formatQuoteDates } from '../format';
+import { QUALITY_LEVEL_LABELS } from '../quality-levels';
 import { SERVICE_TYPE_LABELS } from '../service-options';
 
 const plural = (count: number, one: string, many: string) =>
@@ -39,6 +40,8 @@ function ServiceList({
               <p className="font-medium">{item.name}</p>
               <p className="text-xs text-muted-foreground">
                 {SERVICE_TYPE_LABELS[item.service_type]}
+                {item.quality_level &&
+                  ` · ${QUALITY_LEVEL_LABELS[item.quality_level]}`}
                 {dates && ` · ${dates}`}
               </p>
               {item.details && (

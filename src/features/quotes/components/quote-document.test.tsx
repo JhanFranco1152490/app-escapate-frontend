@@ -46,4 +46,26 @@ describe('QuoteDocument', () => {
     expect(screen.queryByText(/405\.000/)).toBeNull();
     expect(screen.queryByText(/450\.000/)).toBeNull();
   });
+
+  it('muestra el nivel de una alternativa para comparar', () => {
+    render(
+      <QuoteDocument
+        quote={{
+          ...quote,
+          items: [
+            buildQuoteItem({ quality_level: 'standard' }),
+            buildQuoteItem({
+              id: 42,
+              name: 'Suite frente al mar',
+              alternative_of_id: 40,
+              quality_level: 'superior',
+            }),
+          ],
+        }}
+      />,
+    );
+
+    expect(screen.getByText('Suite frente al mar')).toBeVisible();
+    expect(screen.getByText(/Superior/)).toBeVisible();
+  });
 });
