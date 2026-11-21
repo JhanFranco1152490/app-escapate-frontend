@@ -19,6 +19,9 @@ export type QuoteItemCreate = Schemas['QuoteItemCreate'];
 export type QuoteItemUpdate = Schemas['QuoteItemUpdate'];
 export type ServiceType = Schemas['SupplierCategory'];
 export type ChargeUnit = Schemas['ChargeUnit'];
+export type OfferService = Schemas['OfferService'];
+export type OfferRate = Schemas['OfferRate'];
+export type OfferPage = Schemas['Page_OfferService_'];
 
 export type QuoteFilters = {
   q: string;
@@ -58,5 +61,25 @@ export function useQuote(id: number | null) {
     queryKey: queryKeys.quotes.detail(id ?? 0),
     queryFn: () => fetchQuote(id!),
     enabled: id !== null,
+  });
+}
+
+export function useOffer(
+  filters: { q: string; serviceType: ServiceType | null; page: number },
+  enabled = true,
+) {
+  return useQuery({
+    queryKey: queryKeys.quotes.offer(filters),
+    queryFn: () =>
+      apiFetch<OfferPage>(
+        withQuery('/api/quotes/offer', {
+          q: filters.q,
+          service_type: filters.serviceType,
+          page: filters.page,
+          page_size: 20,
+        }),
+      ),
+    placeholderData: keepPreviousData,
+    enabled,
   });
 }

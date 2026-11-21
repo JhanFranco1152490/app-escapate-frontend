@@ -153,6 +153,8 @@ const itemShape = z.object({
   quantity: z.string(),
   charge_unit: z.string(),
   is_optional: z.boolean(),
+  alternative_of_id: z.string(),
+  tourist_service_id: z.string(),
   currency: z.string(),
   unit_cost: z.string(),
   markup_percent: z.string(),
@@ -225,6 +227,12 @@ export const itemSchema = itemShape
       quantity: Number(values.quantity),
       charge_unit: (values.charge_unit || null) as ChargeUnit | null,
       is_optional: values.is_optional,
+      alternative_of_id: values.alternative_of_id
+        ? Number(values.alternative_of_id)
+        : null,
+      tourist_service_id: values.tourist_service_id
+        ? Number(values.tourist_service_id)
+        : null,
       currency,
       unit_cost: cost.value,
       markup_percent: (markup(values.markup_percent) as { value: string })

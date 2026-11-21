@@ -150,3 +150,15 @@ export function useRemoveQuoteItem(quoteId: number) {
     onSuccess: refresh,
   });
 }
+
+export function useCopyQuote(id: number) {
+  const store = useStoreQuote();
+  return useMutation({
+    mutationFn: (asNewVersion: boolean) =>
+      apiFetch<QuoteDetail>(`/api/quotes/${id}/copy`, {
+        method: 'POST',
+        body: { as_new_version: asNewVersion },
+      }),
+    onSuccess: store,
+  });
+}

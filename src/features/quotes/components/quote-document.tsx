@@ -23,10 +23,11 @@ function itemDates(item: QuoteItem) {
 
 function ServiceList({
   items,
-  withPrice,
+  pricePrefix,
 }: {
   items: QuoteItem[];
-  withPrice?: boolean;
+  // Sin prefijo no se muestra el precio (los incluidos); con él, el de cada servicio.
+  pricePrefix?: string;
 }) {
   return (
     <ul className="divide-y border-y">
@@ -46,9 +47,10 @@ function ServiceList({
                 </p>
               )}
             </div>
-            {withPrice && item.sale_price !== null && (
+            {pricePrefix !== undefined && item.sale_price !== null && (
               <p className="shrink-0 font-medium">
-                + {formatMoney(item.sale_price)}
+                {pricePrefix}
+                {formatMoney(item.sale_price)}
               </p>
             )}
           </li>
@@ -77,8 +79,14 @@ function Block({
 // no se cotizan uno por uno por fuera), el total, el valor por persona y las condiciones.
 // Nunca muestra costos, márgenes ni comisiones.
 export function QuoteDocument({ quote }: { quote: QuoteDetail }) {
-  const included = quote.items.filter((item) => !item.is_optional);
-  const optional = quote.items.filter((item) => item.is_optional);
+  const alternative = (item: QuoteItem) => item.alternative_of_id !== null;
+  const included = quote.items.filter(
+    (item) => !item.is_optional && !alternative(item),
+  );
+  const optional = quote.items.filter(
+    (item) => item.is_optional && !alternative(item),
+  );
+  const alternatives = quote.items.filter(alternative);
   const travelers =
     plural(quote.adults, 'adulto', 'adultos') +
     (quote.minors ? ` y ${plural(quote.minors, 'menor', 'menores')}` : '');
@@ -131,7 +139,13 @@ export function QuoteDocument({ quote }: { quote: QuoteDetail }) {
 
       {optional.length > 0 && (
         <Block title="Servicios opcionales (se suman si los eliges)">
-          <ServiceList items={optional} withPrice />
+          <ServiceList items={optional} pricePrefix="+ " />
+        </Block>
+      )}
+
+      {alternatives.length > 0 && (
+        <Block title="Alternativas (en lugar de un servicio incluido)">
+          <ServiceList items={alternatives} pricePrefix="" />
         </Block>
       )}
 

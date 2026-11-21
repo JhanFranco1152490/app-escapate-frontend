@@ -13,6 +13,12 @@ import { useAddQuoteItem, useUpdateQuoteItem } from '../mutations';
 import type { ItemPayload } from '../schemas';
 import { QuoteItemForm } from './quote-item-form';
 
+// Solo los servicios incluidos: una alternativa no tiene alternativas propias.
+const alternativeChoices = (quote: QuoteDetail, exceptId?: number) =>
+  quote.items
+    .filter((item) => item.alternative_of_id === null && item.id !== exceptId)
+    .map(({ id, name }) => ({ id, name }));
+
 export type ItemPanelState =
   { mode: 'create' } | { mode: 'edit'; item: QuoteItem };
 
@@ -58,6 +64,7 @@ function CreateItem({
   return (
     <QuoteItemForm
       defaultValues={emptyItemForm(quote)}
+      alternatives={alternativeChoices(quote)}
       onSubmit={submit}
       onCancel={onClose}
       notices={message && <Alert title={message} />}
@@ -100,6 +107,7 @@ function EditItem({
     <QuoteItemForm
       key={opened.version}
       defaultValues={itemFormValues(opened)}
+      alternatives={alternativeChoices(quote, item.id)}
       onSubmit={submit}
       onCancel={onClose}
       notices={
