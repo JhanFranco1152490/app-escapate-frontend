@@ -99,7 +99,28 @@ src/
 │   │                     volver a borrador), datos generales (/editar) y condiciones
 │   │                     (/condiciones). Se crean desde la ficha de la solicitud
 │   │                     (`RequestQuotesSection`). "Vencida" no es un estado de la API: es una
-│   │                     enviada con `is_expired` (`displayStatus` en `labels.ts`)
+│   │                     enviada con `is_expired` (`displayStatus` en `labels.ts`).
+│   │                     También: precios y totales (`quote-pricing-section.tsx`; el
+│   │                     frontend no calcula, muestra lo que da la API), documento para el
+│   │                     cliente (`quote-document.tsx`: página para imprimir o guardar como
+│   │                     PDF, sin costos ni márgenes ni precio por servicio), versiones y
+│   │                     duplicados (`copy-quote-buttons.tsx`), alternativas, la oferta
+│   │                     disponible (/oferta), paquetes (/paquetes, `package-api.ts`, y
+│   │                     cotizar desde uno) y seguimientos con su semáforo (/seguimientos,
+│   │                     `follow-up-api.ts`, sección en la ficha y aviso de alertas del
+│   │                     panel, `follow-up-alerts-banner.tsx`)
+│   ├── sales/            ventas (/ventas): crear la venta desde una cotización aceptada
+│   │                     (`QuoteSaleBox`, en la ficha de la cotización), ficha con abonos y
+│   │                     saldo, reservas de la venta y lista de reservas (/reservas,
+│   │                     `booking-api.ts`); el texto de la solicitud al proveedor sale de
+│   │                     `booking-request.ts`
+│   ├── finance/          costos reales y rentabilidad en la ficha de la venta
+│   │                     (`SaleFinanceSection`), gastos de operación e ingresos y egresos por
+│   │                     mes (/finanzas)
+│   ├── reports/          dashboard (/dashboard), indicadores y reportes con exportación a CSV
+│   │                     (/reportes, `csv.ts`: `;` y BOM para Excel en español) y el
+│   │                     historial del cliente (`ClientHistorySection`, que la página de la
+│   │                     ficha del cliente monta debajo: `clients` no importa de `reports`)
 │   └── legal/            páginas públicas: marco, "acerca de" y visor del texto legal
 ├── components/
 │   ├── ui/               solo shadcn/ui
@@ -274,7 +295,10 @@ tres temas). Las maquetas de `docs/ui/` son la guía visual.
   | `suppliers` | `auth` (usuario actual, permisos y `RequirePermission`)                |
   | `tourist-services` | `auth` (usuario actual, permisos y `RequirePermission`); `suppliers` (`useSupplier`, `SupplierDetail`, `SUPPLIER_CATEGORIES`, `SUPPLIER_CATEGORY_LABELS`, `SupplierStatusBadge`, `SupplierLoader` y `SupplierDetailScreen`, que recibe la sección de servicios con `services`) |
   | `travel-requests` | `auth` (usuario actual, permisos y `RequirePermission`); `clients` (`useClient`, `ClientPicker` y `ClientFilterTag`); `travelers` (`useTravelers`, `TravelerListItem` y `TRAVELERS_PAGE_SIZE`, para elegir a quién asociar); `quotes` (`RequestQuotesSection`: las cotizaciones de la solicitud y el botón para crear una) |
-  | `quotes` | `auth` (usuario actual, permisos y `RequirePermission`); `suppliers` (`SUPPLIER_CATEGORY_LABELS`, los tipos de servicio); `tourist-services` (`CHARGE_UNITS`, `CHARGE_UNIT_LABELS` y `CURRENCY_LABELS` de `rate-options.ts`, la misma lista de la API) |
+  | `quotes` | `auth` (usuario actual, permisos y `RequirePermission`); `suppliers` (`SUPPLIER_CATEGORY_LABELS`, los tipos de servicio); `tourist-services` (`CHARGE_UNITS`, `CHARGE_UNIT_LABELS` y `CURRENCY_LABELS` de `rate-options.ts`, la misma lista de la API); `sales` (`QuoteSaleBox`: vender la cotización aceptada o ir a su venta) |
+  | `sales` | `auth` (usuario actual, permisos y `RequirePermission`); `finance` (`SaleFinanceSection`: costos reales y rentabilidad en la ficha de la venta) |
+  | `finance` | `auth` (usuario actual, permisos y `RequirePermission`) |
+  | `reports` | `auth` (usuario actual, permisos y `RequirePermission`) |
 
 - **Elegir la mejor opción, no la librería por defecto.** Ante una necesidad técnica se
   comparan las alternativas reales (lo que trae Next.js, una librería, código propio) y se
