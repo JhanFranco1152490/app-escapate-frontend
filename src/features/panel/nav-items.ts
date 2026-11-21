@@ -1,6 +1,7 @@
 import {
   BellRing,
   Building2,
+  BadgeDollarSign,
   ClipboardList,
   Contact,
   FileText,
@@ -70,6 +71,13 @@ export const NAV_ITEMS: NavItem[] = [
     icon: BellRing,
     group: 'Operación',
     permission: 'quotes.view',
+  },
+  {
+    href: '/ventas',
+    label: 'Ventas y pagos',
+    icon: BadgeDollarSign,
+    group: 'Operación',
+    permission: 'sales.view',
   },
   {
     href: '/proveedores',

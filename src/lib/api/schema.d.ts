@@ -1011,6 +1011,75 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/sales": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Sales */
+        get: operations["list_sales_api_sales_get"];
+        put?: never;
+        /** Create Sale */
+        post: operations["create_sale_api_sales_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/sales/{sale_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Sale */
+        get: operations["get_sale_api_sales__sale_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/sales/{sale_id}/payments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Add Payment */
+        post: operations["add_payment_api_sales__sale_id__payments_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/sales/{sale_id}/payments/{payment_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Remove Payment */
+        delete: operations["remove_payment_api_sales__sale_id__payments__payment_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -1334,8 +1403,7 @@ export interface components {
         };
         /** FollowUpFilters */
         FollowUpFilters: {
-            /** @default pending */
-            status: components["schemas"]["FollowUpStatus"] | null;
+            status?: components["schemas"]["FollowUpStatus"] | null;
             alert?: components["schemas"]["AlertColor"] | null;
             /** Quote Id */
             quote_id?: number | null;
@@ -1537,6 +1605,17 @@ export interface components {
             /** Results */
             results: components["schemas"]["QuoteListItem"][];
         };
+        /** Page[SaleListItem] */
+        Page_SaleListItem_: {
+            /** Count */
+            count: number;
+            /** Next */
+            next: string | null;
+            /** Previous */
+            previous: string | null;
+            /** Results */
+            results: components["schemas"]["SaleListItem"][];
+        };
         /** Page[ServiceRate] */
         Page_ServiceRate_: {
             /** Count */
@@ -1623,6 +1702,54 @@ export interface components {
             /** Document Number */
             document_number: string;
         };
+        /** PaymentCreate */
+        PaymentCreate: {
+            /** Amount */
+            amount: number;
+            /**
+             * Paid On
+             * Format: date
+             */
+            paid_on: string;
+            method: components["schemas"]["PaymentMethod"];
+            /** Reference */
+            reference?: string | null;
+            /** Notes */
+            notes?: string | null;
+        };
+        /**
+         * PaymentMethod
+         * @enum {string}
+         */
+        PaymentMethod: "transfer" | "cash" | "card" | "other";
+        /** PaymentOut */
+        PaymentOut: {
+            /** Id */
+            id: number;
+            /** Amount */
+            amount: number;
+            /**
+             * Paid On
+             * Format: date
+             */
+            paid_on: string;
+            method: components["schemas"]["PaymentMethod"];
+            /** Reference */
+            reference: string | null;
+            /** Notes */
+            notes: string | null;
+            created_by: components["schemas"]["UserRef"];
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /**
+         * PaymentStatus
+         * @enum {string}
+         */
+        PaymentStatus: "pending" | "partial" | "paid";
         /** PermissionItem */
         PermissionItem: {
             /** Code */
@@ -2093,6 +2220,107 @@ export interface components {
             id: number;
             /** Name */
             name: string;
+        };
+        /** SaleClientRef */
+        SaleClientRef: {
+            /** Id */
+            id: number;
+            /** Display Name */
+            display_name: string;
+        };
+        /** SaleCreate */
+        SaleCreate: {
+            /** Quote Id */
+            quote_id: number;
+            /** Total Price */
+            total_price?: number | null;
+            /** Notes */
+            notes?: string | null;
+        };
+        /** SaleDetail */
+        SaleDetail: {
+            /** Id */
+            id: number;
+            /** Code */
+            code: string;
+            quote: components["schemas"]["SaleQuoteRef"];
+            client: components["schemas"]["SaleClientRef"];
+            /** Destination */
+            destination: string;
+            /** Departure Date */
+            departure_date: string | null;
+            /** Return Date */
+            return_date: string | null;
+            /** Total Price */
+            total_price: number;
+            /** Paid */
+            paid: number;
+            /** Balance */
+            balance: number;
+            payment_status: components["schemas"]["PaymentStatus"];
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Adults */
+            adults: number;
+            /** Minors */
+            minors: number;
+            /** Total Cost */
+            total_cost: number;
+            /** Notes */
+            notes: string | null;
+            created_by: components["schemas"]["UserRef"];
+            /** Payments */
+            payments: components["schemas"]["PaymentOut"][];
+        };
+        /** SaleFilters */
+        SaleFilters: {
+            /**
+             * Q
+             * @default
+             */
+            q: string;
+            payment_status?: components["schemas"]["PaymentStatus"] | null;
+            /** Quote Id */
+            quote_id?: number | null;
+            /** Client Id */
+            client_id?: number | null;
+        };
+        /** SaleListItem */
+        SaleListItem: {
+            /** Id */
+            id: number;
+            /** Code */
+            code: string;
+            quote: components["schemas"]["SaleQuoteRef"];
+            client: components["schemas"]["SaleClientRef"];
+            /** Destination */
+            destination: string;
+            /** Departure Date */
+            departure_date: string | null;
+            /** Return Date */
+            return_date: string | null;
+            /** Total Price */
+            total_price: number;
+            /** Paid */
+            paid: number;
+            /** Balance */
+            balance: number;
+            payment_status: components["schemas"]["PaymentStatus"];
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** SaleQuoteRef */
+        SaleQuoteRef: {
+            /** Id */
+            id: number;
+            /** Code */
+            code: string;
         };
         /** ServiceRate */
         ServiceRate: {
@@ -7653,6 +7881,323 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    list_sales_api_sales_get: {
+        parameters: {
+            query: {
+                filters: components["schemas"]["SaleFilters"];
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Page_SaleListItem_"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    create_sale_api_sales_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SaleCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SaleDetail"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    get_sale_api_sales__sale_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                sale_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SaleDetail"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    add_payment_api_sales__sale_id__payments_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                sale_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PaymentCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SaleDetail"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    remove_payment_api_sales__sale_id__payments__payment_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                sale_id: number;
+                payment_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SaleDetail"];
+                };
             };
             /** @description Unauthorized */
             401: {

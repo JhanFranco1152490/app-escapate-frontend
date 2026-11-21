@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { Alert } from '@/components/alert';
 import { PageHeader } from '@/components/page-header';
 import { useHasPermission } from '@/features/auth/permissions';
+import { QuoteSaleBox } from '@/features/sales/components/quote-sale-box';
 import type { ActionFeedback } from '@/lib/action-feedback';
 import { formatDay } from '@/lib/format/dates';
 import { parseRouteId } from '@/lib/route-id';
@@ -97,6 +98,7 @@ export function QuoteDetailScreen({ id }: { id: string }) {
               </p>
             </Alert>
           )}
+          {quote.status === 'accepted' && <QuoteSaleBox quoteId={quote.id} />}
           <QuoteGeneralDetail quote={quote} />
           <QuoteItemsSection quote={quote} />
           <QuotePricingSection quote={quote} />

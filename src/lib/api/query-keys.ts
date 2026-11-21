@@ -74,6 +74,13 @@ export const queryKeys = {
       ['follow-ups', 'list', filters] as const,
     alerts: () => ['follow-ups', 'alerts'] as const,
   },
+  sales: {
+    all: () => ['sales'] as const,
+    lists: () => ['sales', 'list'] as const,
+    list: (filters: Record<string, unknown>) =>
+      ['sales', 'list', filters] as const,
+    detail: (id: number) => ['sales', 'detail', id] as const,
+  },
   travelers: {
     all: () => ['travelers'] as const,
     lists: () => ['travelers', 'list'] as const,
