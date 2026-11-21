@@ -228,4 +228,16 @@ describe('CreateClientScreen: volver a otra pantalla', () => {
       );
     },
   );
+
+  it('no navega a otro sitio con un next que lo logra al normalizarse', async () => {
+    const user = await renderScreen(
+      `?next=${encodeURIComponent('/..//otro.example.com')}`,
+    );
+    await fillForm(user);
+
+    await submit(user);
+
+    await waitFor(() => expect(router.push).toHaveBeenCalledTimes(1));
+    expect(router.push).toHaveBeenCalledWith('/');
+  });
 });
