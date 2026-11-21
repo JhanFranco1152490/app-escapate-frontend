@@ -44,6 +44,7 @@ export function buildQuoteItem(overrides: Partial<QuoteItem> = {}): QuoteItem {
     charge_unit: 'per_night',
     is_optional: false,
     alternative_of_id: null,
+    quality_level: null,
     currency: 'COP',
     unit_cost: '450000',
     markup_percent: '15.00',

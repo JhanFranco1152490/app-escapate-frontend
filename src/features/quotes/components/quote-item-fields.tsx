@@ -18,6 +18,7 @@ import {
   CURRENCY_LABELS,
   SERVICE_TYPE_LABELS,
 } from '../service-options';
+import { QualityLevelField } from './quality-level-field';
 
 const PERCENT_HINT = 'Se suma al costo para el precio de venta: 15 o 12,5.';
 const COMMISSION_HINT = 'Solo de referencia: no cambia el precio.';
@@ -193,6 +194,7 @@ export function QuoteItemFields({
           inputMode="decimal"
         />
       </div>
+      <QualityLevelField form={form} />
       {alternatives.length > 0 && (
         <FormField
           id="item-alternative-of"

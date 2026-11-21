@@ -104,7 +104,10 @@ src/
 │   │                     frontend no calcula, muestra lo que da la API), documento para el
 │   │                     cliente (`quote-document.tsx`: página para imprimir o guardar como
 │   │                     PDF, sin costos ni márgenes ni precio por servicio), versiones y
-│   │                     duplicados (`copy-quote-buttons.tsx`), alternativas, la oferta
+│   │                     duplicados (`copy-quote-buttons.tsx`), alternativas con su nivel
+│   │                     de calidad (`quality-levels.ts`) y "Usar esta" para pasar una a la
+│   │                     cotización (`choose-alternative-button.tsx`: el borrador de
+│   │                     alternativas es la cotización en borrador), la oferta
 │   │                     disponible (/oferta), paquetes (/paquetes, `package-api.ts`, y
 │   │                     cotizar desde uno) y seguimientos con su semáforo (/seguimientos,
 │   │                     `follow-up-api.ts`, sección en la ficha y aviso de alertas del

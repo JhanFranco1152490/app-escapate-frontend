@@ -10,6 +10,7 @@ import type { ActionFeedback } from '@/lib/action-feedback';
 
 import { useQuote, type QuoteDetail } from '../api';
 import { QuoteItemPanel, type ItemPanelState } from './quote-item-panel';
+import { ChooseAlternativeButton } from './choose-alternative-button';
 import { QuoteItemsTable } from './quote-items-table';
 import { RemoveQuoteItemButton } from './remove-quote-item-button';
 
@@ -92,6 +93,13 @@ export function QuoteItemsSection({ quote }: { quote: QuoteDetail }) {
                           <Pencil aria-hidden="true" />
                           Editar
                         </Button>
+                        {item.alternative_of_id !== null && (
+                          <ChooseAlternativeButton
+                            quoteId={quote.id}
+                            item={item}
+                            onDone={setFeedback}
+                          />
+                        )}
                         <RemoveQuoteItemButton
                           quoteId={quote.id}
                           item={item}

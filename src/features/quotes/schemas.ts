@@ -10,7 +10,12 @@ import {
   requiredText,
 } from '@/lib/validation/text';
 
-import type { ChargeUnit, QuoteItemCreate, ServiceType } from './api';
+import type {
+  ChargeUnit,
+  QualityLevel,
+  QuoteItemCreate,
+  ServiceType,
+} from './api';
 
 // Mismos mensajes que la API.
 export const BEFORE_START_MESSAGE =
@@ -154,6 +159,7 @@ const itemShape = z.object({
   charge_unit: z.string(),
   is_optional: z.boolean(),
   alternative_of_id: z.string(),
+  quality_level: z.string(),
   tourist_service_id: z.string(),
   currency: z.string(),
   unit_cost: z.string(),
@@ -230,6 +236,7 @@ export const itemSchema = itemShape
       alternative_of_id: values.alternative_of_id
         ? Number(values.alternative_of_id)
         : null,
+      quality_level: (values.quality_level || null) as QualityLevel | null,
       tourist_service_id: values.tourist_service_id
         ? Number(values.tourist_service_id)
         : null,

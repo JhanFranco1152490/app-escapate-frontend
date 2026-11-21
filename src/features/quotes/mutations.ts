@@ -151,6 +151,18 @@ export function useRemoveQuoteItem(quoteId: number) {
   });
 }
 
+// Devuelve la cotización completa: el cambio mueve varios servicios y el total.
+export function useChooseAlternative(quoteId: number) {
+  const store = useStoreQuote();
+  return useMutation({
+    mutationFn: (itemId: number) =>
+      apiFetch<QuoteDetail>(`/api/quotes/${quoteId}/items/${itemId}/choose`, {
+        method: 'POST',
+      }),
+    onSuccess: store,
+  });
+}
+
 export function useCopyQuote(id: number) {
   const store = useStoreQuote();
   return useMutation({

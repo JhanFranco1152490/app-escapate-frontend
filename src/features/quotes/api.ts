@@ -19,6 +19,7 @@ export type QuoteItemCreate = Schemas['QuoteItemCreate'];
 export type QuoteItemUpdate = Schemas['QuoteItemUpdate'];
 export type ServiceType = Schemas['SupplierCategory'];
 export type ChargeUnit = Schemas['ChargeUnit'];
+export type QualityLevel = Schemas['QualityLevel'];
 export type OfferService = Schemas['OfferService'];
 export type OfferRate = Schemas['OfferRate'];
 export type OfferPage = Schemas['Page_OfferService_'];

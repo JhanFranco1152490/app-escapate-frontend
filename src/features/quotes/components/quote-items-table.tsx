@@ -6,6 +6,7 @@ import {
 } from '@/lib/format/money';
 
 import type { QuoteItem } from '../api';
+import { QUALITY_LEVEL_LABELS } from '../quality-levels';
 import { CHARGE_UNIT_LABELS, SERVICE_TYPE_LABELS } from '../service-options';
 
 const headerCell =
@@ -68,6 +69,11 @@ export function QuoteItemsTable({ items, actions }: QuoteItemsTableProps) {
                   {item.alternative_of_id !== null && (
                     <span className="ml-2 font-mono text-[0.625rem] tracking-[0.12em] text-orange-600 uppercase">
                       Alternativa de {nameOf(item.alternative_of_id)}
+                    </span>
+                  )}
+                  {item.quality_level && (
+                    <span className="ml-2 font-mono text-[0.625rem] tracking-[0.12em] text-muted-foreground uppercase">
+                      {QUALITY_LEVEL_LABELS[item.quality_level]}
                     </span>
                   )}
                   {item.is_optional && (
