@@ -109,6 +109,13 @@ export const queryKeys = {
     clientHistory: (clientId: number) =>
       ['reports', 'client-history', clientId] as const,
   },
+  packages: {
+    all: () => ['packages'] as const,
+    lists: () => ['packages', 'list'] as const,
+    list: (filters: Record<string, unknown>) =>
+      ['packages', 'list', filters] as const,
+    detail: (id: number) => ['packages', 'detail', id] as const,
+  },
   travelers: {
     all: () => ['travelers'] as const,
     lists: () => ['travelers', 'list'] as const,

@@ -1,6 +1,7 @@
 import {
   BellRing,
   Building2,
+  Package,
   Compass,
   ChartColumn,
   FileSpreadsheet,
@@ -118,6 +119,13 @@ export const NAV_ITEMS: NavItem[] = [
     icon: ChartLine,
     group: 'Reportes y finanzas',
     permission: 'finance.view',
+  },
+  {
+    href: '/paquetes',
+    label: 'Paquetes',
+    icon: Package,
+    group: 'Oferta turística',
+    permission: 'quotes.view',
   },
   {
     href: '/oferta',
