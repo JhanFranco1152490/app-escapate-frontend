@@ -24,6 +24,7 @@ import { useRemovePayment, useSale, type SaleDetail } from '../api';
 import { PAYMENT_METHOD_LABELS } from '../labels';
 import { AddPaymentForm } from './add-payment-form';
 import { PaymentStatusBadge } from './payment-status-badge';
+import { SaleBookingsSection } from './sale-bookings-section';
 
 const sectionClass = 'rounded-md border bg-card';
 const titleClass = 'border-b px-5 py-4 font-heading text-lg font-semibold';
@@ -195,6 +196,7 @@ export function SaleDetailScreen({ id }: { id: string }) {
           {pageNotice && <Alert variant="info" title={pageNotice} />}
           <TripSection sale={sale} />
           <PaymentsSection sale={sale} />
+          <SaleBookingsSection saleId={sale.id} />
         </>
       )}
     </RecordLoader>
