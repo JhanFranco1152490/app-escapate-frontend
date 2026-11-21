@@ -30,8 +30,14 @@ const operations = DEMO_ACCOUNTS.find(
 
 async function chooseOperations() {
   const user = userEvent.setup();
+  // El menú se carga con lazy(): su primera importación puede pasar del segundo por defecto
+  // cuando la suite corre en paralelo.
   await user.click(
-    await screen.findByRole('button', { name: /cuenta de demostración/i }),
+    await screen.findByRole(
+      'button',
+      { name: /cuenta de demostración/i },
+      { timeout: 5000 },
+    ),
   );
   await user.click(
     await screen.findByRole('menuitem', { name: new RegExp(operations.role) }),
