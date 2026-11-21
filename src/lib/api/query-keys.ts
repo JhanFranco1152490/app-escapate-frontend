@@ -104,6 +104,8 @@ export const queryKeys = {
       ['reports', 'financial', period] as const,
     report: (kind: string, period: Record<string, unknown>) =>
       ['reports', 'report', kind, period] as const,
+    clientHistory: (clientId: number) =>
+      ['reports', 'client-history', clientId] as const,
   },
   travelers: {
     all: () => ['travelers'] as const,
