@@ -1286,6 +1286,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/reports/clients/{client_id}/history": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Client History */
+        get: operations["get_client_history_api_reports_clients__client_id__history_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/reports/{kind}": {
         parameters: {
             query?: never;
@@ -1554,6 +1571,25 @@ export interface components {
             q: string;
             client_type?: components["schemas"]["ClientType"] | null;
         };
+        /** ClientHistory */
+        ClientHistory: {
+            /** Requests */
+            requests: number;
+            /** Quotes */
+            quotes: number;
+            /** Sales */
+            sales: number;
+            /** Total Bought */
+            total_bought: number;
+            /** Total Paid */
+            total_paid: number;
+            /** Balance */
+            balance: number;
+            /** Last Activity */
+            last_activity: string | null;
+            /** Events */
+            events: components["schemas"]["HistoryEvent"][];
+        };
         /** ClientListItem */
         ClientListItem: {
             /** Id */
@@ -1740,6 +1776,11 @@ export interface components {
             };
         };
         /**
+         * EventKind
+         * @enum {string}
+         */
+        EventKind: "request" | "quote" | "sale" | "payment";
+        /**
          * ExpenseCategory
          * @enum {string}
          */
@@ -1906,6 +1947,25 @@ export interface components {
             origin?: string | null;
             /** Max Capacity */
             max_capacity?: number | null;
+        };
+        /** HistoryEvent */
+        HistoryEvent: {
+            kind: components["schemas"]["EventKind"];
+            /**
+             * At
+             * Format: date-time
+             */
+            at: string;
+            /** Record Id */
+            record_id: number;
+            /** Code */
+            code: string;
+            /** Title */
+            title: string;
+            /** Status */
+            status: string | null;
+            /** Amount */
+            amount: number | null;
         };
         /** LodgingAttributes */
         "LodgingAttributes-Input": {
@@ -9559,6 +9619,64 @@ export interface operations {
             };
             /** @description Forbidden */
             403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    get_client_history_api_reports_clients__client_id__history_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                client_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ClientHistory"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
                 headers: {
                     [name: string]: unknown;
                 };
