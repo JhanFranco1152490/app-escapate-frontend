@@ -65,6 +65,8 @@ export const queryKeys = {
     list: (filters: Record<string, unknown>) =>
       ['quotes', 'list', filters] as const,
     detail: (id: number) => ['quotes', 'detail', id] as const,
+    offer: (filters: Record<string, unknown>) =>
+      ['quotes', 'offer', filters] as const,
   },
   // Los conteos del semáforo cuelgan de la misma raíz: registrar o programar un seguimiento
   // invalida la lista y las alertas de una vez.

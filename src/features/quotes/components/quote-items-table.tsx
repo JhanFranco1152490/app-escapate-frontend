@@ -27,6 +27,7 @@ type QuoteItemsTableProps = {
 };
 
 export function QuoteItemsTable({ items, actions }: QuoteItemsTableProps) {
+  const nameOf = (id: number) => items.find((item) => item.id === id)?.name;
   return (
     <table className="w-full text-sm">
       <thead className="bg-muted/60 max-md:sr-only">
@@ -64,6 +65,11 @@ export function QuoteItemsTable({ items, actions }: QuoteItemsTableProps) {
               <td className={`${cell} min-w-0`}>
                 <span className="block font-medium">
                   {item.name}
+                  {item.alternative_of_id !== null && (
+                    <span className="ml-2 font-mono text-[0.625rem] tracking-[0.12em] text-orange-600 uppercase">
+                      Alternativa de {nameOf(item.alternative_of_id)}
+                    </span>
+                  )}
                   {item.is_optional && (
                     <span className="ml-2 font-mono text-[0.625rem] tracking-[0.12em] text-orange-600 uppercase">
                       Opcional

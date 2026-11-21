@@ -13,6 +13,8 @@ export function buildQuoteListItem(
   return {
     id: 12,
     code: 'COT-0012',
+    revision: 1,
+    previous_quote_id: null,
     status: 'draft',
     is_expired: false,
     client: { id: 7, display_name: 'Marcela Gómez Ortiz' },
@@ -41,6 +43,7 @@ export function buildQuoteItem(overrides: Partial<QuoteItem> = {}): QuoteItem {
     quantity: 6,
     charge_unit: 'per_night',
     is_optional: false,
+    alternative_of_id: null,
     currency: 'COP',
     unit_cost: '450000',
     markup_percent: '15.00',

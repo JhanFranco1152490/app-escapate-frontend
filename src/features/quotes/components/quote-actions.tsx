@@ -10,6 +10,7 @@ import { actionErrorMessage, type ActionFeedback } from '@/lib/action-feedback';
 
 import type { QuoteDetail } from '../api';
 import { useQuoteTransition, type QuoteTransition } from '../mutations';
+import { CopyQuoteButtons } from './copy-quote-buttons';
 
 type Step = {
   action: QuoteTransition;
@@ -95,6 +96,7 @@ export function QuoteActions({ quote, onDone }: QuoteActionsProps) {
         <FileText aria-hidden="true" />
         Documento
       </ButtonLink>
+      <CopyQuoteButtons quote={quote} onError={onDone} />
       {quote.status === 'draft' && (
         <>
           <ButtonLink

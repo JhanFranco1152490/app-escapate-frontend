@@ -771,6 +771,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/quotes/offer": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Offer */
+        get: operations["list_offer_api_quotes_offer_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/quotes/{quote_id}": {
         parameters: {
             query?: never;
@@ -885,6 +902,23 @@ export interface paths {
         put?: never;
         /** Reject Quote */
         post: operations["reject_quote_api_quotes__quote_id__reject_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/quotes/{quote_id}/copy": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Copy Quote */
+        post: operations["copy_quote_api_quotes__quote_id__copy_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2064,6 +2098,48 @@ export interface components {
             /** Net */
             net: number;
         };
+        /** OfferFilters */
+        OfferFilters: {
+            /**
+             * Q
+             * @default
+             */
+            q: string;
+            service_type?: components["schemas"]["SupplierCategory"] | null;
+        };
+        /** OfferRate */
+        OfferRate: {
+            /** Id */
+            id: number;
+            /** Name */
+            name: string;
+            currency: components["schemas"]["Currency"];
+            charge_unit: components["schemas"]["ChargeUnit"];
+            /** Amount */
+            amount: string;
+            /**
+             * Valid From
+             * Format: date
+             */
+            valid_from: string;
+            /** Valid Until */
+            valid_until: string | null;
+        };
+        /** OfferService */
+        OfferService: {
+            /** Id */
+            id: number;
+            service_type: components["schemas"]["SupplierCategory"];
+            /** Name */
+            name: string;
+            /** Destination */
+            destination: string;
+            /** Description */
+            description: string | null;
+            supplier: components["schemas"]["QuoteSupplierRef"];
+            /** Rates */
+            rates: components["schemas"]["OfferRate"][];
+        };
         /**
          * OtherAttributes
          * @description Sin campos propios: el servicio se describe en su descripción.
@@ -2123,6 +2199,17 @@ export interface components {
             previous: string | null;
             /** Results */
             results: components["schemas"]["LoginEventItem"][];
+        };
+        /** Page[OfferService] */
+        Page_OfferService_: {
+            /** Count */
+            count: number;
+            /** Next */
+            next: string | null;
+            /** Previous */
+            previous: string | null;
+            /** Results */
+            results: components["schemas"]["OfferService"][];
         };
         /** Page[QuoteListItem] */
         Page_QuoteListItem_: {
@@ -2353,6 +2440,14 @@ export interface components {
             /** Expected Version */
             expected_version: number;
         };
+        /** QuoteCopy */
+        QuoteCopy: {
+            /**
+             * As New Version
+             * @default false
+             */
+            as_new_version: boolean;
+        };
         /** QuoteCreate */
         QuoteCreate: {
             /** Travel Request Id */
@@ -2364,6 +2459,10 @@ export interface components {
             id: number;
             /** Code */
             code: string;
+            /** Revision */
+            revision: number;
+            /** Previous Quote Id */
+            previous_quote_id: number | null;
             status: components["schemas"]["QuoteStatus"];
             /** Is Expired */
             is_expired: boolean;
@@ -2484,6 +2583,8 @@ export interface components {
              * @default false
              */
             is_optional: boolean;
+            /** Alternative Of Id */
+            alternative_of_id?: number | null;
             currency: components["schemas"]["Currency"];
             /** Unit Cost */
             unit_cost: number | string;
@@ -2514,6 +2615,8 @@ export interface components {
             charge_unit: components["schemas"]["ChargeUnit"] | null;
             /** Is Optional */
             is_optional: boolean;
+            /** Alternative Of Id */
+            alternative_of_id: number | null;
             currency: components["schemas"]["Currency"];
             /** Unit Cost */
             unit_cost: string;
@@ -2553,6 +2656,8 @@ export interface components {
              * @default false
              */
             is_optional: boolean;
+            /** Alternative Of Id */
+            alternative_of_id?: number | null;
             currency: components["schemas"]["Currency"];
             /** Unit Cost */
             unit_cost: number | string;
@@ -2571,6 +2676,10 @@ export interface components {
             id: number;
             /** Code */
             code: string;
+            /** Revision */
+            revision: number;
+            /** Previous Quote Id */
+            previous_quote_id: number | null;
             status: components["schemas"]["QuoteStatus"];
             /** Is Expired */
             is_expired: boolean;
@@ -7447,6 +7556,57 @@ export interface operations {
             };
         };
     };
+    list_offer_api_quotes_offer_get: {
+        parameters: {
+            query: {
+                filters: components["schemas"]["OfferFilters"];
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Page_OfferService_"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
     get_quote_api_quotes__quote_id__get: {
         parameters: {
             query?: never;
@@ -7948,6 +8108,77 @@ export interface operations {
         responses: {
             /** @description Successful Response */
             200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuoteDetail"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    copy_quote_api_quotes__quote_id__copy_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                quote_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["QuoteCopy"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };

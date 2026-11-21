@@ -74,7 +74,13 @@ function TextField({
 
 // Los campos de un servicio de la cotización. Al cambiar el tipo, la unidad de cobro pasa a
 // la primera de ese tipo: la anterior podría no valer.
-export function QuoteItemFields({ form }: { form: ItemFormApi }) {
+export function QuoteItemFields({
+  form,
+  alternatives,
+}: {
+  form: ItemFormApi;
+  alternatives: { id: number; name: string }[];
+}) {
   const { control, register, setValue, getValues, trigger } = form;
   const [type, currency, unit] = useWatch({
     control,
@@ -187,6 +193,29 @@ export function QuoteItemFields({ form }: { form: ItemFormApi }) {
           inputMode="decimal"
         />
       </div>
+      {alternatives.length > 0 && (
+        <FormField
+          id="item-alternative-of"
+          label="Es alternativa de"
+          hint="Otra opción para ese servicio: no suma al total, el cliente elige."
+          error={form.formState.errors.alternative_of_id?.message}
+        >
+          <NativeSelect
+            id="item-alternative-of"
+            className="w-full"
+            {...register('alternative_of_id')}
+          >
+            <NativeSelectOption value="">
+              Ninguno: es un servicio incluido
+            </NativeSelectOption>
+            {alternatives.map((choice) => (
+              <NativeSelectOption key={choice.id} value={String(choice.id)}>
+                {choice.name}
+              </NativeSelectOption>
+            ))}
+          </NativeSelect>
+        </FormField>
+      )}
       <label className="flex min-h-11 items-center gap-3 text-sm">
         <input
           type="checkbox"

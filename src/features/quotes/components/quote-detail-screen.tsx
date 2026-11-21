@@ -55,6 +55,7 @@ function QuoteSummaryLine({ quote }: { quote: QuoteDetail }) {
         )}
       </span>
       <span className="block">
+        {quote.revision > 1 && `Versión ${quote.revision} · `}
         Creada el {formatDay(quote.created_at)} por {quote.created_by.full_name}
       </span>
     </>

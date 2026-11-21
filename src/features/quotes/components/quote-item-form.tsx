@@ -16,6 +16,7 @@ import {
 import { AMOUNT_REQUIRED_MESSAGE } from '@/lib/validation/amount';
 
 import { itemSchema, type ItemFormValues, type ItemPayload } from '../schemas';
+import { OfferPicker } from './offer-picker';
 import { QuoteItemFields } from './quote-item-fields';
 
 // Los campos del formulario que también nombra la API en sus errores.
@@ -27,6 +28,8 @@ const FIELDS = [
   'end_date',
   'quantity',
   'charge_unit',
+  'alternative_of_id',
+  'tourist_service_id',
   'currency',
   'unit_cost',
   'markup_percent',
@@ -39,6 +42,8 @@ const GENERIC_SAVE_ERROR =
 
 type QuoteItemFormProps = {
   defaultValues: ItemFormValues;
+  // Los servicios incluidos de los que este puede ser alternativa.
+  alternatives: { id: number; name: string }[];
   onSubmit: (payload: ItemPayload) => Promise<unknown>;
   onCancel: () => void;
   notices?: ReactNode;
@@ -46,6 +51,7 @@ type QuoteItemFormProps = {
 
 export function QuoteItemForm({
   defaultValues,
+  alternatives,
   onSubmit,
   onCancel,
   notices,
@@ -98,7 +104,8 @@ export function QuoteItemForm({
         </Alert>
       )}
       {notices}
-      <QuoteItemFields form={form} />
+      <OfferPicker form={form} />
+      <QuoteItemFields form={form} alternatives={alternatives} />
       <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
         <Button type="button" variant="outline" onClick={onCancel}>
           Cancelar
