@@ -1,6 +1,7 @@
 import {
   BellRing,
   Building2,
+  ChartLine,
   BadgeDollarSign,
   CalendarCheck,
   ClipboardList,
@@ -93,6 +94,13 @@ export const NAV_ITEMS: NavItem[] = [
     icon: Building2,
     group: 'Oferta turística',
     permission: 'suppliers.view',
+  },
+  {
+    href: '/finanzas',
+    label: 'Finanzas',
+    icon: ChartLine,
+    group: 'Finanzas',
+    permission: 'finance.view',
   },
   {
     href: '/usuarios',

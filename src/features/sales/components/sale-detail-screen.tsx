@@ -11,6 +11,7 @@ import { PageHeader } from '@/components/page-header';
 import { RecordLoader } from '@/components/record-loader';
 import { Button } from '@/components/ui/button';
 import { useHasPermission } from '@/features/auth/permissions';
+import { SaleFinanceSection } from '@/features/finance/components/sale-finance-section';
 import {
   formatDateRange,
   formatDay,
@@ -197,6 +198,7 @@ export function SaleDetailScreen({ id }: { id: string }) {
           <TripSection sale={sale} />
           <PaymentsSection sale={sale} />
           <SaleBookingsSection saleId={sale.id} />
+          <SaleFinanceSection saleId={sale.id} />
         </>
       )}
     </RecordLoader>

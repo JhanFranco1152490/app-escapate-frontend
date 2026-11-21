@@ -1131,6 +1131,110 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/sales/{sale_id}/profitability": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Profitability */
+        get: operations["profitability_api_sales__sale_id__profitability_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/sales/{sale_id}/costs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Add Cost */
+        post: operations["add_cost_api_sales__sale_id__costs_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/costs/{cost_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Update Cost */
+        put: operations["update_cost_api_costs__cost_id__put"];
+        post?: never;
+        /** Remove Cost */
+        delete: operations["remove_cost_api_costs__cost_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/expenses": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Expenses */
+        get: operations["list_expenses_api_expenses_get"];
+        put?: never;
+        /** Add Expense */
+        post: operations["add_expense_api_expenses_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/expenses/{expense_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Remove Expense */
+        delete: operations["remove_expense_api_expenses__expense_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/finance/summary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Finance Summary */
+        get: operations["finance_summary_api_finance_summary_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -1140,6 +1244,29 @@ export interface components {
          * @enum {string}
          */
         AccommodationCategory: "budget" | "three_star" | "four_star" | "five_star";
+        /** ActualCostInput */
+        ActualCostInput: {
+            /** Description */
+            description: string;
+            /** Supplier Id */
+            supplier_id?: number | null;
+            /** Amount */
+            amount: number;
+            /** Paid On */
+            paid_on?: string | null;
+        };
+        /** ActualCostOut */
+        ActualCostOut: {
+            /** Id */
+            id: number;
+            /** Description */
+            description: string;
+            supplier: components["schemas"]["CostSupplierRef"] | null;
+            /** Amount */
+            amount: number;
+            /** Paid On */
+            paid_on: string | null;
+        };
         /** AdvisorOption */
         AdvisorOption: {
             /** Id */
@@ -1426,6 +1553,13 @@ export interface components {
          * @enum {string}
          */
         ContactSource: "instagram" | "facebook" | "whatsapp" | "google" | "referral" | "walk_in" | "other";
+        /** CostSupplierRef */
+        CostSupplierRef: {
+            /** Id */
+            id: number;
+            /** Trade Name */
+            trade_name: string;
+        };
         /** CruiseAttributes */
         CruiseAttributes: {
             /** Ship Name */
@@ -1487,6 +1621,59 @@ export interface components {
              */
             fields: {
                 [key: string]: string[];
+            };
+        };
+        /**
+         * ExpenseCategory
+         * @enum {string}
+         */
+        ExpenseCategory: "rent" | "payroll" | "marketing" | "utilities" | "taxes" | "software" | "other";
+        /** ExpenseInput */
+        ExpenseInput: {
+            /**
+             * Spent On
+             * Format: date
+             */
+            spent_on: string;
+            category: components["schemas"]["ExpenseCategory"];
+            /** Description */
+            description: string;
+            /** Amount */
+            amount: number;
+        };
+        /** ExpenseOut */
+        ExpenseOut: {
+            /** Id */
+            id: number;
+            /**
+             * Spent On
+             * Format: date
+             */
+            spent_on: string;
+            category: components["schemas"]["ExpenseCategory"];
+            /** Description */
+            description: string;
+            /** Amount */
+            amount: number;
+            created_by: components["schemas"]["UserRef"];
+        };
+        /** FinanceSummary */
+        FinanceSummary: {
+            /** Income */
+            income: number;
+            /** Supplier Payments */
+            supplier_payments: number;
+            /** Operating Expenses */
+            operating_expenses: number;
+            /** Expenses */
+            expenses: number;
+            /** Net */
+            net: number;
+            /** By Month */
+            by_month: components["schemas"]["MonthRow"][];
+            /** By Category */
+            by_category: {
+                [key: string]: number;
             };
         };
         /**
@@ -1669,6 +1856,19 @@ export interface components {
          * @enum {string}
          */
         Modality: "private" | "shared";
+        /** MonthRow */
+        MonthRow: {
+            /** Month */
+            month: string;
+            /** Income */
+            income: number;
+            /** Supplier Payments */
+            supplier_payments: number;
+            /** Operating Expenses */
+            operating_expenses: number;
+            /** Net */
+            net: number;
+        };
         /**
          * OtherAttributes
          * @description Sin campos propios: el servicio se describe en su descripción.
@@ -1695,6 +1895,17 @@ export interface components {
             previous: string | null;
             /** Results */
             results: components["schemas"]["ClientListItem"][];
+        };
+        /** Page[ExpenseOut] */
+        Page_ExpenseOut_: {
+            /** Count */
+            count: number;
+            /** Next */
+            next: string | null;
+            /** Previous */
+            previous: string | null;
+            /** Results */
+            results: components["schemas"]["ExpenseOut"][];
         };
         /** Page[FollowUpOut] */
         Page_FollowUpOut_: {
@@ -1874,6 +2085,19 @@ export interface components {
          * @enum {string}
          */
         PaymentStatus: "pending" | "partial" | "paid";
+        /** PeriodFilters */
+        PeriodFilters: {
+            /**
+             * Date From
+             * Format: date
+             */
+            date_from: string;
+            /**
+             * Date To
+             * Format: date
+             */
+            date_to: string;
+        };
         /** PermissionItem */
         PermissionItem: {
             /** Code */
@@ -1890,6 +2114,29 @@ export interface components {
             requires: string[];
             /** Help */
             help: string | null;
+        };
+        /** Profitability */
+        Profitability: {
+            /** Sale Price */
+            sale_price: number;
+            /** Estimated Cost */
+            estimated_cost: number;
+            /** Actual Cost */
+            actual_cost: number;
+            /** Paid To Suppliers */
+            paid_to_suppliers: number;
+            /** Owed To Suppliers */
+            owed_to_suppliers: number;
+            /** Profit */
+            profit: number;
+            /** Margin Percent */
+            margin_percent: string | null;
+            /** Uses Actual Cost */
+            uses_actual_cost: boolean;
+            /** Cost Difference */
+            cost_difference: number;
+            /** Costs */
+            costs: components["schemas"]["ActualCostOut"][];
         };
         /** QuoteClientRef */
         QuoteClientRef: {
@@ -8541,6 +8788,481 @@ export interface operations {
             };
             /** @description Conflict */
             409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    profitability_api_sales__sale_id__profitability_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                sale_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Profitability"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    add_cost_api_sales__sale_id__costs_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                sale_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ActualCostInput"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Profitability"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    update_cost_api_costs__cost_id__put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                cost_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ActualCostInput"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Profitability"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    remove_cost_api_costs__cost_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                cost_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Profitability"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    list_expenses_api_expenses_get: {
+        parameters: {
+            query: {
+                period: components["schemas"]["PeriodFilters"];
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Page_ExpenseOut_"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    add_expense_api_expenses_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ExpenseInput"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ExpenseOut"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    remove_expense_api_expenses__expense_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                expense_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    finance_summary_api_finance_summary_get: {
+        parameters: {
+            query: {
+                date_from: string;
+                date_to: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FinanceSummary"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
                 headers: {
                     [name: string]: unknown;
                 };
