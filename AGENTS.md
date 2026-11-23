@@ -343,6 +343,11 @@ El agente corre y deja en verde, y si algo falla lo corrige o lo dice en el PR:
   una así, marcarla `true` o `false` ahí.
 - **Windows con `core.autocrlf=true`:** `prettier --check .` marca todos los archivos por
   los finales de línea CRLF; se verifica con `prettier --check --end-of-line auto .`.
+- **Barras de desplazamiento:** están en `globals.css`. Chromium ignora los
+  `::-webkit-scrollbar` (la barra redonda) si ve `scrollbar-width` o `scrollbar-color`, así que
+  esas dos propiedades solo van dentro del `@supports not selector(::-webkit-scrollbar)`, que
+  es lo que usa Firefox. Agregarlas fuera deja la barra plana en Chrome y Edge sin ningún
+  error; `scrollbar-styles.test.ts` lo vigila.
 - **`typecheck` falla por una ruta que ya no existe:** son tipos viejos de `next dev` en
   `.next/dev/types`; se borra esa carpeta (es generada).
 
