@@ -21,7 +21,7 @@ export function PanelLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex flex-1 flex-col">
-      <header className="flex h-16 shrink-0 items-center justify-between gap-4 border-b px-4 md:h-18 md:px-9 print:hidden">
+      <header className="sticky top-0 z-30 flex h-16 shrink-0 items-center justify-between gap-4 border-b bg-background px-4 md:h-18 md:px-9 print:hidden">
         <Image
           src="/brand/escapate-logo-color.png"
           alt="Escápate, agencia de viajes"

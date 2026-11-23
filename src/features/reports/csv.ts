@@ -4,9 +4,18 @@ import type { Report } from './api';
 // tildes del UTF-8. Los valores con separador, comillas o saltos van entre comillas.
 const SEPARATOR = ';';
 
+// Excel ejecuta como fórmula una celda de texto que empieza por alguno de estos caracteres, y
+// los reportes traen texto que escribe cualquier persona (nombres, destinos, descripciones).
+// Se antepone una comilla simple, que la hoja no muestra. Solo al texto: un saldo negativo es
+// un número y debe seguir siéndolo.
+const FORMULA_START = /^[=+\-@\t\r]/;
+
 function cell(value: string | number | null) {
   if (value === null) return '';
-  const text = String(value);
+  const text =
+    typeof value === 'string' && FORMULA_START.test(value)
+      ? `'${value}`
+      : String(value);
   return /[";\n\r]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
 }
 

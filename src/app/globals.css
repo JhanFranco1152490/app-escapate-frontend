@@ -174,7 +174,7 @@ html.theme-dark,
     @apply border-border outline-ring;
   }
   html {
-    @apply font-sans;
+    @apply scroll-pt-18 font-sans;
   }
   body {
     @apply bg-background text-foreground;
@@ -185,6 +185,38 @@ html.theme-dark,
   button:not(:disabled),
   [role='button']:not([aria-disabled='true']) {
     cursor: pointer;
+  }
+  /* Barras de desplazamiento delgadas y discretas: el color del texto con poca opacidad y, al
+     pasar el cursor, el naranja de la marca. El color se calcula en cada elemento (no en una
+     variable de :root) para que la zona oscura del login use el suyo. Chromium y Safari las
+     dibujan con los pseudo-elementos (esquinas redondeadas); Firefox, con las propiedades
+     estándar. No conviven: Chromium ignora ::-webkit-scrollbar si ve scrollbar-color o
+     scrollbar-width, así que las estándar van solo donde no existen los pseudo-elementos. */
+  @supports not selector(::-webkit-scrollbar) {
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: color-mix(in srgb, var(--foreground) 30%, transparent)
+        transparent;
+    }
+  }
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+  /* El borde transparente con background-clip deja la barra de 5 px dentro de un carril de
+     12 px: fina, con aire alrededor y fácil de agarrar. */
+  ::-webkit-scrollbar-thumb {
+    background-color: color-mix(in srgb, var(--foreground) 24%, transparent);
+    background-clip: content-box;
+    border: 3.5px solid transparent;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: color-mix(in srgb, var(--primary) 85%, transparent);
   }
   ::selection {
     @apply bg-orange-500 text-navy-950;

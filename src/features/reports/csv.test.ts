@@ -20,4 +20,34 @@ describe('reportToCsv', () => {
       'VEN-0002;Marcela Gómez;900000;2026-12-18',
     ]);
   });
+
+  // Excel ejecuta como fórmula una celda de texto que empieza por estos caracteres: un nombre
+  // de cliente o una descripción escritos así correrían al abrir el archivo.
+  it.each([
+    ['=HYPERLINK("http://x";"y")', `"'=HYPERLINK(""http://x"";""y"")"`],
+    ['+1+1', "'+1+1"],
+    ['-2+3', "'-2+3"],
+    ['@SUM(A1)', "'@SUM(A1)"],
+    ['\t=1', "'\t=1"],
+  ])('no deja que el texto %j se ejecute como fórmula', (text, expected) => {
+    const csv = reportToCsv({
+      title: 'Gastos',
+      columns: ['Descripción'],
+      rows: [[text]],
+    });
+
+    expect(csv.slice(1).split('\r\n')[1]).toBe(expected);
+  });
+
+  it('deja intactos los números negativos y el texto que no empieza por esos caracteres', () => {
+    const csv = reportToCsv({
+      title: 'Caja',
+      columns: ['Mes', 'Neto', 'Nota'],
+      rows: [['2026-11', -150_000, 'Pago - hotel = 2 noches']],
+    });
+
+    expect(csv.slice(1).split('\r\n')[1]).toBe(
+      '2026-11;-150000;Pago - hotel = 2 noches',
+    );
+  });
 });

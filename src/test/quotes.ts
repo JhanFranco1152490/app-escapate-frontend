@@ -4,6 +4,8 @@ type Schemas = components['schemas'];
 type QuoteListItem = Schemas['QuoteListItem'];
 type QuoteDetail = Schemas['QuoteDetail'];
 type QuoteItem = Schemas['QuoteItemOut'];
+type PackageListItem = Schemas['PackageListItem'];
+type PackageDetail = Schemas['PackageDetail'];
 
 // Datos inventados: ningún dato personal real en las pruebas. Por defecto, un borrador recién
 // creado desde la solicitud SOL-0231.
@@ -83,6 +85,48 @@ export function buildQuoteDetail(
       margin_percent: null,
       optional_sale: 0,
       per_person: null,
+      deposit: null,
+      missing_exchange_rate: false,
+    },
+    ...overrides,
+  };
+}
+
+export function buildPackageListItem(
+  overrides: Partial<PackageListItem> = {},
+): PackageListItem {
+  return {
+    id: 5,
+    code: 'PAQ-0005',
+    name: 'Santa Marta en familia',
+    destination: 'Santa Marta',
+    nights: 5,
+    reference_travelers: 4,
+    is_active: true,
+    updated_at: '2026-11-20T15:00:00Z',
+    ...overrides,
+  };
+}
+
+// Un paquete activo con un hotel, con el precio calculado como lo da la API.
+export function buildPackageDetail(
+  overrides: Partial<PackageDetail> = {},
+): PackageDetail {
+  return {
+    ...buildPackageListItem(),
+    description: 'Cinco noches frente al mar.',
+    default_markup_percent: '15.00',
+    exchange_rate: null,
+    created_by: { id: 2, full_name: 'Andrés Peña' },
+    version: 1,
+    items: [buildQuoteItem()],
+    totals: {
+      cost: 2_700_000,
+      sale: 3_105_000,
+      profit: 405_000,
+      margin_percent: '13.04',
+      optional_sale: 0,
+      per_person: 776_250,
       deposit: null,
       missing_exchange_rate: false,
     },

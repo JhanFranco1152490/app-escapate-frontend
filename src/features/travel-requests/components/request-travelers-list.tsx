@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { Tag } from '@/components/tag';
+import { formatAge } from '@/lib/format/age';
 import { formatDay } from '@/lib/format/dates';
 import { formatDocument } from '@/lib/format/document';
 
@@ -14,8 +15,6 @@ type RequestTravelersListProps = {
   canRemove: boolean;
   onRemoved: (text: string) => void;
 };
-
-const ageText = (age: number) => (age === 1 ? '1 año' : `${age} años`);
 
 export function RequestTravelersList({
   requestId,
@@ -45,7 +44,7 @@ export function RequestTravelersList({
                 )}
               </span>
               <span className="text-muted-foreground">
-                {ageText(traveler.age)}
+                {formatAge(traveler.age)}
               </span>
               {traveler.is_minor && <Tag>Menor</Tag>}
               {traveler.is_the_client && <Tag tone="accent">Es el cliente</Tag>}

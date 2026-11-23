@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { Tag } from '@/components/tag';
 import { countryName } from '@/lib/countries';
+import { formatAge } from '@/lib/format/age';
 import { formatLongDate } from '@/lib/format/dates';
 import { formatDocument } from '@/lib/format/document';
 
@@ -12,8 +13,6 @@ const headerCell =
 // Por debajo de md cada fila es una tarjeta: mismo marcado, sin una segunda copia de los
 // datos para celular.
 const cell = 'px-4 md:h-13.5 md:py-2';
-
-const ageText = (age: number) => (age === 1 ? '1 año' : `${age} años`);
 
 // Debajo del nombre: con quién viaja habitualmente, o que también es cliente.
 function ReferenceLine({ traveler }: { traveler: TravelerListItem }) {
@@ -78,7 +77,7 @@ export function TravelersTable({
                   {formatLongDate(traveler.birth_date)}
                   <span className="text-muted-foreground">
                     {' · '}
-                    {ageText(traveler.age)}
+                    {formatAge(traveler.age)}
                   </span>
                 </span>
                 {traveler.is_minor && <Tag>Menor</Tag>}
