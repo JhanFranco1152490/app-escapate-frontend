@@ -1459,6 +1459,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/audit/deletions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Deletions */
+        get: operations["list_deletions_api_audit_deletions_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -1890,6 +1907,37 @@ export interface components {
          * @enum {string}
          */
         DateMode: "exact" | "flexible";
+        /** DeletionFilters */
+        DeletionFilters: {
+            kind?: components["schemas"]["DeletionKind"] | null;
+        };
+        /**
+         * DeletionKind
+         * @enum {string}
+         */
+        DeletionKind: "client_payment" | "actual_cost" | "operating_expense";
+        /** DeletionOut */
+        DeletionOut: {
+            /** Id */
+            id: number;
+            kind: components["schemas"]["DeletionKind"];
+            /** Record Id */
+            record_id: number;
+            /** Sale Id */
+            sale_id: number | null;
+            /** Description */
+            description: string;
+            /** Amount */
+            amount: number;
+            /** Occurred On */
+            occurred_on: string | null;
+            deleted_by: components["schemas"]["UserRef"];
+            /**
+             * Deleted At
+             * Format: date-time
+             */
+            deleted_at: string;
+        };
         /**
          * DocumentType
          * @enum {string}
@@ -2389,6 +2437,17 @@ export interface components {
             previous: string | null;
             /** Results */
             results: components["schemas"]["ClientListItem"][];
+        };
+        /** Page[DeletionOut] */
+        Page_DeletionOut_: {
+            /** Count */
+            count: number;
+            /** Next */
+            next: string | null;
+            /** Previous */
+            previous: string | null;
+            /** Results */
+            results: components["schemas"]["DeletionOut"][];
         };
         /** Page[ExpenseOut] */
         Page_ExpenseOut_: {
@@ -10802,6 +10861,57 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Report"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Datos inválidos */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    list_deletions_api_audit_deletions_get: {
+        parameters: {
+            query: {
+                filters: components["schemas"]["DeletionFilters"];
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Page_DeletionOut_"];
                 };
             };
             /** @description Unauthorized */
