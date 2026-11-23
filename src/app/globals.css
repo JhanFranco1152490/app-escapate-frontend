@@ -174,7 +174,7 @@ html.theme-dark,
     @apply border-border outline-ring;
   }
   html {
-    @apply font-sans;
+    @apply scroll-pt-18 font-sans;
   }
   body {
     @apply bg-background text-foreground;

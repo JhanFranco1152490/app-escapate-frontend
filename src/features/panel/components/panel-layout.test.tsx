@@ -174,4 +174,32 @@ describe('PanelLayout', () => {
       await screen.findByRole('menuitem', { name: /Usuarios/ }),
     ).toHaveAttribute('href', '/usuarios');
   });
+  // jsdom no calcula estilos ni scroll: se fija la intención con las clases que la logran.
+  it('el menú lateral se queda fijo bajo el encabezado y se desplaza solo, sin mover la página', async () => {
+    renderPanel();
+
+    const header = await screen.findByRole('banner');
+    const nav = screen.getByRole('navigation', {
+      name: 'Navegación principal',
+    });
+
+    // El encabezado no se va con la página, y el menú se pega justo debajo de él.
+    expect(header).toHaveClass('sticky', 'top-0');
+    expect(nav).toHaveClass('md:sticky', 'md:top-18');
+    // Alto limitado a lo que queda de la ventana: lo que no cabe se desplaza dentro del menú,
+    // y al llegar a su fin el scroll no pasa a la página.
+    expect(nav).toHaveClass('md:h-[calc(100dvh-4.5rem)]', 'overflow-y-auto');
+    expect(nav).toHaveClass('overscroll-contain');
+  });
+
+  it('en celular, el scroll del menú de la cuenta no pasa a la página', async () => {
+    renderPanel();
+    await screen.findByText('Contenido del panel');
+
+    await userEvent
+      .setup()
+      .click(screen.getByRole('button', { name: 'Menú de la cuenta' }));
+
+    expect(await screen.findByRole('menu')).toHaveClass('overscroll-contain');
+  });
 });

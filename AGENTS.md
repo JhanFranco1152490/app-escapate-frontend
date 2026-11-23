@@ -73,7 +73,10 @@ src/
 ├── features/<dominio>/   api.ts, schemas.ts, components/, hooks use-*.ts
 │   ├── auth/             sesión, login, recuperar contraseña, guardia y permisos
 │   ├── panel/            marco del panel: barra superior, menú lateral (nav-items.ts),
-│   │                     menú de cuenta, bienvenida
+│   │                     menú de cuenta, bienvenida. La barra superior y el menú lateral van
+│   │                     fijos (`sticky`) y el menú se desplaza solo (`overscroll-contain`); la
+│   │                     página sigue desplazándose en el documento y no dentro de `main`, para
+│   │                     que Next la lleve arriba al navegar entre pantallas
 │   ├── users/            gestión de usuarios: lista, alta, ficha, edición y acciones
 │   ├── roles/            roles y permisos: lista, matriz de permisos, alta, edición y borrado
 │   ├── clients/          clientes: lista, alta, ficha (con sus viajeros) y edición
