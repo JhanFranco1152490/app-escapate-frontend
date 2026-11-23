@@ -153,7 +153,7 @@ src/
 ├── content/legal/       privacidad.md y terminos.md: el texto publicado (fuente única)
 └── test/                 render.tsx, server.ts, handlers.ts, session.ts, users.ts, roles.ts,
                           clients.ts, suppliers.ts, tourist-services.ts, travel-requests.ts,
-                          quotes.ts
+                          quotes.ts, sales.ts
 ```
 
 Rutas visibles en español (`/clientes`, `/cotizaciones/[id]`); código en inglés.
@@ -271,6 +271,7 @@ tres temas). Las maquetas de `docs/ui/` son la guía visual.
   `sessionHandler(session)` (con sesión) y `noSessionHandlers` (`/me` y `refresh` en 401).
   Un componente que usa `useCurrentUser` se prueba dentro de `<SessionGuard>`, con
   `next/navigation` simulado (`vi.mock`).
+- Ventas y reservas de prueba: `buildSaleListItem` y `buildBooking` (`src/test/sales.ts`).
 - Datos inventados (`@example.com`): nunca datos personales reales.
 
 ### Reglas de diseño del código

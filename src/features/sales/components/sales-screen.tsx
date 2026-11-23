@@ -1,5 +1,6 @@
 'use client';
 
+import { RotateCcw } from 'lucide-react';
 import Link from 'next/link';
 import {
   parseAsInteger,
@@ -9,11 +10,13 @@ import {
 } from 'nuqs';
 
 import { EmptyState } from '@/components/empty-state';
+import { ErrorState } from '@/components/error-state';
 import { FilterTabs } from '@/components/filter-tabs';
 import { PageHeader } from '@/components/page-header';
 import { Pagination } from '@/components/pagination';
 import { SearchInput } from '@/components/search-input';
 import { TableSkeleton } from '@/components/table-skeleton';
+import { Button } from '@/components/ui/button';
 import { formatDateRange, formatShortDate } from '@/lib/format/dates';
 import { formatMoney } from '@/lib/format/money';
 
@@ -75,7 +78,20 @@ export function SalesScreen() {
           }
         />
       </div>
-      {sales.data?.results.length === 0 ? (
+      {sales.isError ? (
+        <ErrorState
+          title="No pudimos cargar las ventas"
+          action={
+            <Button onClick={() => void sales.refetch()}>
+              <RotateCcw aria-hidden="true" />
+              Reintentar
+            </Button>
+          }
+        >
+          Se interrumpió la conexión con el servidor. Inténtalo de nuevo en un
+          momento.
+        </ErrorState>
+      ) : sales.data?.results.length === 0 ? (
         <EmptyState title="No hay ventas aquí">
           Cuando un cliente acepte una cotización, regístrala como venta desde
           su ficha.
