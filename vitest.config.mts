@@ -10,6 +10,9 @@ export default defineConfig({
     // usa la zona de la máquina en vez de la del negocio.
     env: { TZ: 'UTC' },
     globals: true,
+    // Debe ser mayor que la espera de Testing Library (vitest.setup.ts), o el test se corta antes
+    // de que esa espera termine y muestre qué faltaba.
+    testTimeout: 15_000,
     setupFiles: ['./vitest.setup.ts'],
     coverage: {
       provider: 'v8',
