@@ -82,4 +82,49 @@ describe('SaleFinanceSection', () => {
       paid_on: null,
     });
   });
+  describe('aviso de costos incompletos', () => {
+    const NOTICE = 'El costo real registrado es menor que el estimado.';
+
+    const renderWith = (profitability: Profitability) => {
+      server.use(
+        sessionHandler(buildSession({ permissions: ['finance.view'] })),
+        http.get(apiUrl('/api/sales/3/profitability'), () =>
+          HttpResponse.json(profitability),
+        ),
+      );
+      renderWithProviders(
+        <SessionGuard>
+          <SaleFinanceSection saleId={3} />
+        </SessionGuard>,
+      );
+    };
+
+    const withActual = (actual: number): Profitability => ({
+      ...estimate,
+      actual_cost: actual,
+      uses_actual_cost: true,
+      cost_difference: actual - estimate.estimated_cost,
+      profit: estimate.sale_price - actual,
+    });
+
+    it('avisa cuando el costo real registrado es menor que el estimado', async () => {
+      renderWith(withActual(1_000_000));
+
+      expect(await screen.findByText(NOTICE)).toBeVisible();
+    });
+
+    it('no avisa cuando el costo real iguala o supera al estimado', async () => {
+      renderWith(withActual(2_600_000));
+
+      expect(await screen.findByText('Costo real')).toBeVisible();
+      expect(screen.queryByText(NOTICE)).not.toBeInTheDocument();
+    });
+
+    it('no avisa mientras la rentabilidad usa el costo estimado', async () => {
+      renderWith(estimate);
+
+      expect(await screen.findByText('Con el costo estimado')).toBeVisible();
+      expect(screen.queryByText(NOTICE)).not.toBeInTheDocument();
+    });
+  });
 });

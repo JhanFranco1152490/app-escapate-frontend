@@ -118,7 +118,8 @@ src/
 │   │                     `booking-api.ts`); el texto de la solicitud al proveedor sale de
 │   │                     `booking-request.ts`
 │   ├── finance/          costos reales y rentabilidad en la ficha de la venta
-│   │                     (`SaleFinanceSection`), gastos de operación e ingresos y egresos por
+│   │                     (`SaleFinanceSection`, que avisa cuando el costo real registrado es
+│   │                     menor que el estimado: pueden faltar costos), gastos de operación e ingresos y egresos por
 │   │                     mes (/finanzas)
 │   ├── reports/          dashboard (/dashboard), indicadores y reportes con exportación a CSV
 │   │                     (/reportes, `csv.ts`: `;` y BOM para Excel en español) y el
