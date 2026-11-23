@@ -131,7 +131,10 @@ export function QuotePricingSection({ quote }: { quote: QuoteDetail }) {
       {quote.totals.missing_exchange_rate && (
         <div className="px-5 pt-4">
           <Alert title="Hay servicios en dólares y falta la tasa de cambio.">
-            <p>Mientras no la definas, esos servicios no suman al precio.</p>
+            <p>
+              Mientras no la definas, esos servicios no suman al precio y la
+              cotización no se puede enviar.
+            </p>
           </Alert>
         </div>
       )}

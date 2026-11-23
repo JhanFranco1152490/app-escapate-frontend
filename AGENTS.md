@@ -73,7 +73,10 @@ src/
 ├── features/<dominio>/   api.ts, schemas.ts, components/, hooks use-*.ts
 │   ├── auth/             sesión, login, recuperar contraseña, guardia y permisos
 │   ├── panel/            marco del panel: barra superior, menú lateral (nav-items.ts),
-│   │                     menú de cuenta, bienvenida
+│   │                     menú de cuenta, bienvenida. La barra superior y el menú lateral van
+│   │                     fijos (`sticky`) y el menú se desplaza solo (`overscroll-contain`); la
+│   │                     página sigue desplazándose en el documento y no dentro de `main`, para
+│   │                     que Next la lleve arriba al navegar entre pantallas
 │   ├── users/            gestión de usuarios: lista, alta, ficha, edición y acciones
 │   ├── roles/            roles y permisos: lista, matriz de permisos, alta, edición y borrado
 │   ├── clients/          clientes: lista, alta, ficha (con sus viajeros) y edición
@@ -118,7 +121,8 @@ src/
 │   │                     `booking-api.ts`); el texto de la solicitud al proveedor sale de
 │   │                     `booking-request.ts`
 │   ├── finance/          costos reales y rentabilidad en la ficha de la venta
-│   │                     (`SaleFinanceSection`), gastos de operación e ingresos y egresos por
+│   │                     (`SaleFinanceSection`, que avisa cuando el costo real registrado es
+│   │                     menor que el estimado: pueden faltar costos), gastos de operación e ingresos y egresos por
 │   │                     mes (/finanzas)
 │   ├── reports/          dashboard (/dashboard), indicadores y reportes con exportación a CSV
 │   │                     (/reportes, `csv.ts`: `;` y BOM para Excel en español) y el
@@ -137,7 +141,7 @@ src/
 │   ├── api/              client.ts, errors.ts, form-errors.ts, query-keys.ts,
 │   │                     query-string.ts, schema.d.ts
 │   ├── format/           dates.ts (incluye `formatDateRange` y `formatTimeAgo`), money.ts,
-│   │                     document.ts, phone.ts
+│   │                     document.ts, phone.ts, age.ts (`formatAge`: "1 año", "17 años")
 │   ├── validation/       text.ts (reglas de texto; `optionalMultilineText` admite saltos de
 │   │                     línea), document.ts (reglas por tipo de documento),
 │   │                     amount.ts (valor en pesos o dólares escrito como en Colombia)
@@ -152,7 +156,7 @@ src/
 ├── content/legal/       privacidad.md y terminos.md: el texto publicado (fuente única)
 └── test/                 render.tsx, server.ts, handlers.ts, session.ts, users.ts, roles.ts,
                           clients.ts, suppliers.ts, tourist-services.ts, travel-requests.ts,
-                          quotes.ts
+                          quotes.ts, sales.ts
 ```
 
 Rutas visibles en español (`/clientes`, `/cotizaciones/[id]`); código en inglés.
@@ -270,6 +274,7 @@ tres temas). Las maquetas de `docs/ui/` son la guía visual.
   `sessionHandler(session)` (con sesión) y `noSessionHandlers` (`/me` y `refresh` en 401).
   Un componente que usa `useCurrentUser` se prueba dentro de `<SessionGuard>`, con
   `next/navigation` simulado (`vi.mock`).
+- Ventas y reservas de prueba: `buildSaleListItem` y `buildBooking` (`src/test/sales.ts`).
 - Datos inventados (`@example.com`): nunca datos personales reales.
 
 ### Reglas de diseño del código
@@ -338,6 +343,11 @@ El agente corre y deja en verde, y si algo falla lo corrige o lo dice en el PR:
   una así, marcarla `true` o `false` ahí.
 - **Windows con `core.autocrlf=true`:** `prettier --check .` marca todos los archivos por
   los finales de línea CRLF; se verifica con `prettier --check --end-of-line auto .`.
+- **Barras de desplazamiento:** están en `globals.css`. Chromium ignora los
+  `::-webkit-scrollbar` (la barra redonda) si ve `scrollbar-width` o `scrollbar-color`, así que
+  esas dos propiedades solo van dentro del `@supports not selector(::-webkit-scrollbar)`, que
+  es lo que usa Firefox. Agregarlas fuera deja la barra plana en Chrome y Edge sin ningún
+  error; `scrollbar-styles.test.ts` lo vigila.
 - **`typecheck` falla por una ruta que ya no existe:** son tipos viejos de `next dev` en
   `.next/dev/types`; se borra esa carpeta (es generada).
 

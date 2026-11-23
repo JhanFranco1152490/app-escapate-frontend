@@ -164,6 +164,49 @@ describe('QuoteDetailScreen', () => {
     ).toBeVisible();
   });
 
+  it('avisa que falta la tasa de cambio y que así no se puede enviar', async () => {
+    const quote = buildQuoteDetail({ items: [buildQuoteItem()] });
+    renderScreen({
+      ...quote,
+      totals: { ...quote.totals, missing_exchange_rate: true },
+    });
+
+    expect(
+      await screen.findByText(
+        'Hay servicios en dólares y falta la tasa de cambio.',
+      ),
+    ).toBeVisible();
+    expect(screen.getByText(/la cotización no se puede enviar/)).toBeVisible();
+  });
+
+  it('enviar sin la tasa de cambio muestra el motivo y sigue en borrador', async () => {
+    const user = userEvent.setup();
+    renderScreen(buildQuoteDetail({ items: [buildQuoteItem()] }));
+    server.use(
+      http.post(apiUrl('/api/quotes/12/send'), () =>
+        HttpResponse.json(
+          {
+            detail:
+              'Hay servicios en dólares y la cotización no tiene tasa de cambio. Agrégala en los precios antes de enviarla.',
+            code: 'exchange_rate_missing',
+            fields: {},
+          },
+          { status: 409 },
+        ),
+      ),
+    );
+
+    await heading();
+    await user.click(
+      screen.getByRole('button', { name: 'Marcar como enviada' }),
+    );
+
+    expect(await screen.findByText(/no tiene tasa de cambio/)).toBeVisible();
+    expect(
+      screen.getByRole('button', { name: 'Marcar como enviada' }),
+    ).toBeEnabled();
+  });
+
   it('sin permiso de gestión no hay acciones', async () => {
     renderScreen(buildQuoteDetail({ items: [buildQuoteItem()] }), [
       'quotes.view',

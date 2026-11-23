@@ -4,6 +4,7 @@ import { DetailItem } from '@/components/detail-item';
 import { Tag } from '@/components/tag';
 import { useHasPermission } from '@/features/auth/permissions';
 import { countryName } from '@/lib/countries';
+import { formatAge } from '@/lib/format/age';
 import { formatDateTime, formatLongDate } from '@/lib/format/dates';
 import { formatDocument } from '@/lib/format/document';
 
@@ -30,7 +31,7 @@ function ReferenceClient({ traveler }: { traveler: TravelerDetailData }) {
 }
 
 export function TravelerDetail({ traveler }: { traveler: TravelerDetailData }) {
-  const age = traveler.age === 1 ? '1 año' : `${traveler.age} años`;
+  const age = formatAge(traveler.age);
 
   return (
     <>

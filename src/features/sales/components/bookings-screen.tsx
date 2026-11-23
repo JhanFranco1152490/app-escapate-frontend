@@ -10,14 +10,22 @@ import { TableSkeleton } from '@/components/table-skeleton';
 import { useBookings, type BookingStatus } from '../booking-api';
 import { BookingRow } from './booking-row';
 
-const STATUSES = ['to_request', 'requested', 'confirmed', 'cancelled'] as const;
+// "Todas" es un valor propio y no la ausencia de estado: con "por solicitar" como valor por
+// defecto, quitar el parámetro de la URL volvería a esa pestaña y "Todas" nunca quedaría marcada.
+const STATUSES = [
+  'to_request',
+  'requested',
+  'confirmed',
+  'cancelled',
+  'all',
+] as const;
 
-const TABS: { label: string; value: BookingStatus | null }[] = [
+const TABS: { label: string; value: BookingStatus | 'all' }[] = [
   { label: 'Por solicitar', value: 'to_request' },
   { label: 'Solicitadas', value: 'requested' },
   { label: 'Confirmadas', value: 'confirmed' },
   { label: 'Canceladas', value: 'cancelled' },
-  { label: 'Todas', value: null },
+  { label: 'Todas', value: 'all' },
 ];
 
 // Las reservas de todas las ventas, por estado: lo que falta pedir primero.
@@ -26,7 +34,11 @@ export function BookingsScreen() {
     'status',
     parseAsStringLiteral(STATUSES).withDefault('to_request'),
   );
-  const bookings = useBookings({ status, saleId: null, page: 1 });
+  const bookings = useBookings({
+    status: status === 'all' ? null : status,
+    saleId: null,
+    page: 1,
+  });
 
   return (
     <div className="flex flex-col gap-7">

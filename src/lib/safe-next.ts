@@ -30,5 +30,7 @@ export function withSearchParam(path: string, name: string, value: string) {
   // La base solo sirve para que URL acepte una ruta relativa; no forma parte del resultado.
   const url = new URL(path, 'http://localhost');
   url.searchParams.set(name, value);
-  return `${url.pathname}${url.search}${url.hash}`;
+  // Al normalizar la ruta, "/..//sitio" queda "//sitio": una entrada que safeNext aceptó puede
+  // salir como la que rechaza. Por eso el resultado se vuelve a revisar.
+  return safeNext(`${url.pathname}${url.search}${url.hash}`);
 }

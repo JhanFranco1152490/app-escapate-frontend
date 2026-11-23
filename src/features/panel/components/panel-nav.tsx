@@ -13,10 +13,10 @@ export function PanelNav() {
   return (
     <nav
       aria-label="Navegación principal"
-      className="hidden w-63 shrink-0 flex-col gap-6 border-r border-sidebar-border bg-sidebar py-6.5 text-sidebar-foreground md:flex"
+      className="hidden w-63 shrink-0 flex-col gap-6 self-start overflow-y-auto overscroll-contain border-r border-sidebar-border bg-sidebar py-6.5 text-sidebar-foreground md:sticky md:top-18 md:flex md:h-[calc(100dvh-4.5rem)]"
     >
       {groups.map((group) => (
-        <div key={group.label} className="flex flex-col gap-0.75">
+        <div key={group.label} className="flex shrink-0 flex-col gap-0.75">
           <p className="px-6 pb-2.25 font-mono text-[0.59375rem] tracking-[0.2em] text-sidebar-foreground/72 uppercase">
             {group.label}
           </p>

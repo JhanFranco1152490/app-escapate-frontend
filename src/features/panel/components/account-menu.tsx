@@ -45,7 +45,7 @@ export function AccountMenu({ user, onLogout, loggingOut }: AccountMenuProps) {
       >
         <UserAvatar name={user.full_name} />
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-60">
+      <DropdownMenuContent align="end" className="w-60 overscroll-contain">
         <DropdownMenuGroup>
           <DropdownMenuLabel className="flex flex-col gap-1.5 py-2 text-foreground">
             <span className="text-sm font-medium">{user.full_name}</span>

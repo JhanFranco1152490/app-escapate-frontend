@@ -1,13 +1,17 @@
 'use client';
 
-import { Download } from 'lucide-react';
+import { Download, RotateCcw } from 'lucide-react';
 import { parseAsStringLiteral, useQueryState } from 'nuqs';
 
 import { EmptyState } from '@/components/empty-state';
+import { ErrorState } from '@/components/error-state';
 import { FilterTabs } from '@/components/filter-tabs';
+import { ForbiddenState } from '@/components/forbidden-state';
 import { PageHeader } from '@/components/page-header';
 import { TableSkeleton } from '@/components/table-skeleton';
 import { Button } from '@/components/ui/button';
+import { useHasPermission } from '@/features/auth/permissions';
+import { isApiError } from '@/lib/api/errors';
 import { formatMoney } from '@/lib/format/money';
 
 import { useReport, type ReportKind } from '../api';
@@ -36,7 +40,11 @@ export function ReportsScreen() {
     parseAsStringLiteral(KINDS).withDefault('sales'),
   );
   const [period, setPeriod] = usePeriod();
-  const report = useReport(kind, period).data;
+  const canViewFinance = useHasPermission('finance.view');
+  const query = useReport(kind, period);
+  const report = query.data;
+  // El reporte de gastos es de finanzas: sin ese permiso la pestaña no se ofrece.
+  const tabs = TABS.filter((tab) => tab.value !== 'expenses' || canViewFinance);
 
   return (
     <div className="flex flex-col gap-7">
@@ -61,7 +69,7 @@ export function ReportsScreen() {
       <div className="overflow-x-auto">
         <FilterTabs
           label="Tipo de reporte"
-          tabs={TABS}
+          tabs={tabs}
           value={kind}
           onChange={(value) => void setKind(value)}
         />
@@ -70,7 +78,24 @@ export function ReportsScreen() {
         period={period}
         onChange={(patch) => void setPeriod(patch)}
       />
-      {!report ? (
+      {query.isError ? (
+        isApiError(query.error) && query.error.status === 403 ? (
+          <ForbiddenState />
+        ) : (
+          <ErrorState
+            title="No pudimos generar el reporte"
+            action={
+              <Button onClick={() => void query.refetch()}>
+                <RotateCcw aria-hidden="true" />
+                Reintentar
+              </Button>
+            }
+          >
+            Se interrumpió la conexión con el servidor. Inténtalo de nuevo en un
+            momento.
+          </ErrorState>
+        )
+      ) : !report ? (
         <TableSkeleton label="Generando el reporte" />
       ) : report.rows.length === 0 ? (
         <EmptyState title="Sin datos">

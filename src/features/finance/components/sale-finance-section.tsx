@@ -196,6 +196,21 @@ export function SaleFinanceSection({ saleId }: { saleId: number }) {
           {formatMoney(data.owed_to_suppliers)}
         </DetailItem>
       </dl>
+      {/* Un solo costo registrado ya reemplaza al estimado completo: si es menor, puede que
+          falten por registrar y la ganancia salga mayor a la real. */}
+      {data.uses_actual_cost && data.actual_cost < data.estimated_cost && (
+        <div className="px-5 pb-5">
+          <Alert
+            variant="info"
+            title="El costo real registrado es menor que el estimado."
+          >
+            <p>
+              Si todavía faltan costos por registrar, la ganancia real será
+              menor a la que se muestra: solo cuenta lo registrado.
+            </p>
+          </Alert>
+        </div>
+      )}
       {data.costs.length > 0 && (
         <ul className="divide-y border-t">
           {data.costs.map((cost) => (
